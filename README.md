@@ -35,7 +35,7 @@ Un TD ou un sujet d'examen :
 
 ```latex
 \documentclass[11pt]{ocots-td}     % ou ocots-exam
-\usepackage[lang=fr, solutions=none, institution=insa,n7]{ocots}
+\usepackage[lang=fr, solutions=none, institution={insa,n7}]{ocots}
 ```
 
 ## Où LaTeX trouve le template
@@ -61,6 +61,12 @@ disparu.
 | `solutions` | `none`, `inline`, `end` | `end` | sort des corrigés |
 | `math` | `base`, `analysis`, `control`, `measure` | `base` | modules de macros chargés |
 | `institution` | `n7`, `inp`, `insa`, `uftmp` | `n7` | logos de la page de titre |
+
+`math` et `institution` acceptent plusieurs valeurs séparées par une virgule —
+**entourer alors la valeur d'accolades** : `institution={insa,n7}`, pas
+`institution=insa,n7`. Sans elles, la virgule est vue par `\usepackage[...]`
+avant d'atteindre l'option, qui ne reçoit que la première valeur — sans erreur
+ni avertissement.
 | `author` | texte | vide | métadonnée `pdfauthor` |
 | `draft` | drapeau | absent | affiche les notes de travail |
 | `binding` | longueur | `0mm` | décalage de reliure pour l'impression |

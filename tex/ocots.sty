@@ -43,11 +43,18 @@
 \DeclareOptionX{solutions}{\def\ocots@solutions{#1}}
 
 % math=base,analysis,control,measure  -> math/ocots-math-<valeur>.sty
-% « base » est toujours charge, meme s'il n'est pas cite.
+% « base » est toujours charge, meme s'il n'est pas cite. Plusieurs valeurs :
+% entourer d'accolades (math={analysis,control}), sinon \usepackage[...]
+% coupe sur la virgule avant que la clef ne la voie (cf. institution ci-dessous).
 \def\ocots@math{}
 \DeclareOptionX{math}{\def\ocots@math{#1}}
 
-% institution=n7,insa,uftmp  -> logos de la page de titre et des en-tetes
+% institution=n7|inp|insa|uftmp  -> logos de la page de titre et des en-tetes
+% Plusieurs etablissements : entourer d'accolades,
+% institution={n7,insa} et non institution=n7,insa — la virgule non protegee
+% separe les options de \usepackage avant que xkeyval ne la voie : seule la
+% premiere valeur atteint la clef, et rien ne previent (aucune erreur, aucun
+% avertissement — juste un logo manquant sur la page de titre).
 \def\ocots@institution{n7}
 \DeclareOptionX{institution}{\def\ocots@institution{#1}}
 

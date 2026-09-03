@@ -53,6 +53,19 @@
 \let\solutioncb\solution
 \let\mysolution\ocotssolutionbox
 
+% ---------------------------------------------------------------------------
+% Support TD/examen
+\ocotsaliasenv{myinstructions}{instructions}
+\ocotsaliasenv{myinstructions*}{instructions}
+
+% ---------------------------------------------------------------------------
+% Diapositives
+%
+% \begin{myframe}[couleur]{Titre} avait exactement la signature de \slide :
+% couleur facultative, titre obligatoire (defs_macros.tex, MPS). L'alias est
+% donc direct.
+\ocotsaliasenv{myframe}{slide}
+
 \newcommand{\exenotext}{\exercisenotext}
 \newcommand{\anoter}{\handwrite}
 
