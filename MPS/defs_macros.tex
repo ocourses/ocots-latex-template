@@ -1,0 +1,581 @@
+%
+% Auteur : Olivier Cots
+% Date   : 17 avril 2019
+%
+% macros latex
+%
+
+
+\newcommand*\myurl[1]{\href{#1}{#1}} % because of a bug using url after homotopy
+
+% for homotopy
+\def\sb{\bar{s}}
+\def\cb{\bar{c}}
+\def\lb{\bar{\lambda}}
+\def\sphere{\mathbb{S}}
+\def\laz{\lambda_0}
+% end for homotopy
+
+
+\usepackage[strict]{changepage}
+
+% \mnote[vertical shift]{l/r}{text} 
+\newcommand*\mnote[3][0pt]{%
+
+    \checkoddpage
+
+    \if l#2
+        \ifoddpage\reversemarginpar\else\normalmarginpar\fi
+        \def\pointer{\blacktriangleright}%
+        \def\stackalignment{r}
+        \def\widthbox{2.1cm}
+        \def\offsetbox{1.6cm}
+    \fi%
+    \if r#2
+        \ifoddpage\normalmarginpar\else\reversemarginpar\fi
+        \def\pointer{\blacktriangleleft}%
+        \def\stackalignment{l}
+        \def\widthbox{2.1cm}
+        \def\offsetbox{0.1cm}
+    \fi%
+    \marginpar{%
+        \hspace*{\offsetbox}%
+        \topinset{%
+        \scalebox{1.5}{\small\textcolor{blue}{$\pointer$}}}{%
+        \belowbaseline[-1.5\baselineskip-#1]{%
+            \stackengine%
+            {-5pt}%
+            {\fcolorbox{blue}{white}{\parbox{\widthbox}%
+                {\footnotesize\vspace{3pt}\raggedright\textcolor{black}{#3}\vspace{3pt}}}}%
+            {~\colorbox{white}{\sffamily \textcolor{blue}{Note}}}%
+            {O}%
+            {l}%
+            {F}%
+            {F}%
+            {S}%
+            }%
+        }{%
+        #1+3ex}{%
+        -2.2ex}%
+    }%
+}
+
+\newcommand*\mynote[1]{\mnote[0pt]{l}{#1}}
+
+%---------------------------------------------------------------------------------------------------------------
+% Repertoire contenant les videos
+\def\repVideos{Videos/}
+%\def\repVideos{./}
+
+%---------------------------------------------------------------------------------------------------------------
+% Mise en valeur
+%\newcommand{\myemph}[1]{\emph{\textbf{#1}}}                 % remplace \emph
+%\newcommand{\empha}[1]{\textbf{\textcolor{blue}{#1}}}
+%\newcommand{\emphb}[1]{\textcolor{red}{#1}}
+\newcommand{\cblue}[1]{{\color{blue} #1}}
+\newcommand{\cred}[1]{{\color{red} #1}}
+\newcommand{\cgreen}[1]{{\color{green} #1}}
+\newcommand{\crose}[1]{{\color{rose} #1}}
+\newcommand{\clink}[1]{{\color{linkcol} #1}}
+\def\emphb{\cblue}
+\def\emphr{\cred}
+\def\emphg{\cgreen}
+\def\emphp{\crose}
+\def\emphl{\clink}
+
+%
+\newcommand{\myemph}[1]{\textbf{\textcolor{blue}{#1}}}
+
+% Cross mark and check mark
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+% item
+%\newcommand{\newpoint}{{\scriptsize\emphb{\raisebox{1.3pt}{$\blacktriangleright$}~}}}
+\newcommand{\newpoint}{\emphb{\raisebox{0pt}{\textbullet}~}}
+
+\newcommand{\retourligne}{~\\ \vspace{-\baselineskip}}
+
+\ifSLIDES
+
+    %---------------------------------------------------------------------------------------------------------------
+    %---------------------------------------------------------------------------------------------------------------
+    % Beamer
+    
+    %---------------------------------------------------------------------------------------------------------------
+    % Bullets
+    \newcommand{\myitem}[1]{\vfill #1}
+    \newcommand{\myitembulletindent}{\vfill \hspace{1em} {\small \textbullet} \hspace{0.1em} }
+    \newcommand{\myitembullet}{{\small  \textbullet} }
+    \newcommand{\myitemtiret} {\hspace{1em} -- }
+    \newcommand{\myitemtiretnoi} {\vfill -- }
+
+\else
+
+    \newcommand{\myitembullet}{\noindent{\small  \textbullet} }
+
+\fi
+
+
+%---------------------------------------------------------------------------------------------------------------
+%  Commande pour creer un nouveau slide
+%  Couleur cfond doit etre definie
+
+% myframe beamer
+%\makeatletter
+
+\def\colorbeamerheading{cfondtitre}
+\newcommand{\setcolorbeamerheading}[1]{
+    \def\colorbeamerheading{#1}
+}
+
+\newenvironment{myframe}[2][]
+{
+    \ifx\relax#1\relax%
+    \else
+        \def\colorbeamerheading{#1} % ce ne change que localement
+    \fi
+    \begin{frame}%
+        \begin{minipage}{0.9\textwidth} 
+            \large \color{\colorbeamerheading}\textsc{#2}
+        \end{minipage}
+        \hfill%
+        \begin{minipage}{0.04\textwidth}
+            \begin{flushright}
+                \compteurPage[\colorbeamerheading]
+            \end{flushright}
+        \end{minipage}
+        \vspace{-2pt}
+        {\color{\colorbeamerheading}\noi\rule{\textwidth}{0.1em}}%
+}
+{%
+    \end{frame}
+}
+
+
+%\makeatother
+
+%\def\sizefontslide{\normalsize}
+%\newcommand{\myframeold}[2][cfond]{
+%    \addtocounter{pages}{1}
+%    \vfill\null\end{slide}\\
+%    \begin{slide} 
+%        \hskip -.02\paperwidth  
+%        %\MyColorBox[#1]{
+%            \begin{minipage}{1.0\paperwidth}
+%                \vspace{1em} 
+%                \begin{minipage}{0.9\paperwidth} 
+%                    \hspace{0.24in} \large \color{#1}\textsc{#2}
+%                \end{minipage}
+%                \hfill
+%                \begin{minipage}{0.09\paperwidth}
+%                    \compteurPage[#1]
+%                \end{minipage}
+%
+%                {\color{#1}\noi\rule{\linewidth}{0.2em}}
+%            \end{minipage}
+%        %}
+%        \vspace{0.1in}\sizefontslide
+%}
+%%\newcommand{\newslide}{\frame}
+
+\newcommand{\frameNoTitle}{
+    \addtocounter{pages}{1}
+    \vfill\null\end{slide}\\
+    \begin{slide} 
+        \hskip -.02\paperwidth  
+
+        \vspace{0.1in}\sizefontslide
+}
+
+%---------------------------------------------------------------------------------------------------------------
+% Softwares, etc
+\newcommand{\vrb}[1]{\texttt{#1}}
+\newcommand{\cmd}[1]{\texttt{#1}}
+\newcommand{\lib}[1]{\texttt{#1}}
+\def\hampath{\lib{HamPath}}
+\def\bocop{\lib{Bocop}}
+\newcommand{\matlab}{\lib{Matlab}}
+\newcommand{\octave}{\lib{Octave}}
+\newcommand{\fortran}{\lib{Fortran}}
+\newcommand{\python}{\lib{Python}}
+\newcommand{\interface}{\lib{Interface}}
+\newcommand\tapenade{\lib{TAPENADE}}
+
+%---------------------------------------------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------------------------------------------
+% Homepage
+%\newcommand{\homepage}{http://cots.perso.enseeiht.fr}
+%\newcommand{\resources}{\homepage/resources}
+
+%---------------------------------------------------------------------------------------------------------------
+% Misc
+\newcommand{\noi}{\noindent}
+\newcommand{\HRule}{\noi\rule{\linewidth}{0.3mm}}
+
+%---------------------------------------------------------------------------------------------------------------
+% Tag a gauche ou a droite : utile pour la numerotation des equations
+\makeatletter
+\newcommand{\reqnomode}{\tagsleft@false\let\veqno\@@eqno}
+\newcommand{\leqnomode}{\tagsleft@true\let\veqno\@@leqno}
+\makeatother
+
+%---------------------------------------------------------------------------------------------------------------
+% Litteraire
+\newcommand\ie{\textit{i.e.}}
+\newcommand\cf{{cf.}}
+
+%---------------------------------------------------------------------------------------------------------------
+% Notes personnelles : ne sont visibles que si \VIEWALLtrue est present dans le main
+\newcommand{\notePerso}[1]{\ifVIEWALL{ {\color{green} NotePerso~:~#1} }\else\fi}
+\newcommand{\noteInMarge}[1]{\ifVIEWALL{ \marginpar{{\color{red} #1}} }\else\fi}        % Pour avoir des notes dans la marge
+\newcommand{\todo}[1]{\ifVIEWALL{\noindent {\color{red} \it TODO!!! #1}~\\}\else\fi}    % Pour ecrire des todoliste
+
+%---------------------------------------------------------------------------------------------------------------
+% Remplace la commande ``bar'' par ``xoverline''
+%
+\makeatletter
+\newsavebox\myboxA
+\newsavebox\myboxB
+\newlength\mylenA
+
+\newcommand*\xoverline[2][0.75]{%
+    \sbox{\myboxA}{$\m@th#2$}%
+    \setbox\myboxB\null% Phantom box
+    \ht\myboxB=\ht\myboxA%
+    \dp\myboxB=\dp\myboxA%
+    \wd\myboxB=#1\wd\myboxA% Scale phantom
+    \sbox\myboxB{$\m@th\overline{\copy\myboxB}$}%  Overlined phantom
+    \setlength\mylenA{\the\wd\myboxA}%   calc width diff
+    \addtolength\mylenA{-\the\wd\myboxB}%
+    \ifdim\wd\myboxB<\wd\myboxA%
+       \rlap{\hskip 0.5\mylenA\usebox\myboxB}{\usebox\myboxA}%
+    \else
+        \hskip -0.5\mylenA\rlap{\usebox\myboxA}{\hskip 0.5\mylenA\usebox\myboxB}%
+    \fi}
+\makeatother
+
+
+%---------------------------------------------------------------------------------------------------------------
+% Les dessins
+\tikzstyle{every picture}+=[remember picture]
+\tikzstyle{na} = [baseline=-.5ex]
+\makeatletter
+\newcommand{\gettikzxy}[3]{%
+  \tikz@scan@one@point\pgfutil@firstofone#1\relax
+  \edef#2{\the\pgf@x}%
+  \edef#3{\the\pgf@y}%
+}
+\makeatother
+
+% Définition des nouvelles options xmin, xmax, ymin, ymax
+% Valeurs par défaut : -3, 3, -3, 3
+\tikzset{
+    xmin/.store in=\xmin, xmin/.default=-3, xmin=-3,
+    xmax/.store in=\xmax, xmax/.default=3, xmax=3,
+    ymin/.store in=\ymin, ymin/.default=-3, ymin=-3,
+    ymax/.store in=\ymax, ymax/.default=3, ymax=3,
+}
+% Commande qui trace la grille entre (xmin,ymin) et (xmax,ymax)
+\newcommand {\grille}
+    {\draw[help lines] (\xmin,\ymin) grid (\xmax,\ymax);}
+% Commande \axes
+\newcommand {\axes}[2] {
+    \draw[->,gray] (\xmin,0) -- (\xmax,0);
+    \draw[->,gray] (0,\ymin) -- (0,\ymax);
+    \draw (\xmax,0) node[below]{#1};
+    \draw (0,\ymax) node[left]{#2};
+}
+\newcommand {\axesDown}[2] {
+    \draw[->,gray] (\xmin,0) -- (\xmax,0);
+    \draw[->,gray] (0,\ymax) -- (0,\ymin);
+    \draw (\xmax,0) node[below]{#1};
+    \draw (0,\ymin) node[left]{#2};
+}
+
+% Commande qui limite l’affichage à (xmin,ymin) et (xmax,ymax)
+\newcommand {\fenetre}
+    {\clip (\xmin,\ymin) rectangle (\xmax,\ymax);}
+
+
+%---------------------------------------------------------------------------------------------------------------
+% Les tableaux
+\newcolumntype{C}[1]{>{\centering}p{#1}}
+\newcolumntype{L}[1]{>{\raggedright}p{#1}}
+\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+
+% Tableau : epaisseur des lignes
+\newcommand{\smallhrule}{\specialrule{0.02em}{0.25em}{0.25em}}
+\newcommand{\medhrule}{\specialrule{0.05em}{0.3em}{0.3em}}
+\newcommand{\bighrule}{\specialrule{0.1em}{0.3em}{0.5em}}
+
+
+%---------------------------------------------------------------------------------------------------------------
+% Math
+
+% indicatrice
+\newcommand{\ind}{\mathds{1}}
+
+% Fonction
+\newcommand{\fonction}[5]{
+    \begin{array}{rcll}
+        #1 \colon & #2 & \longrightarrow & #3 \\
+                  & #4 & \longmapsto     & #5
+    \end{array}
+}
+
+% Elements differentiels
+%\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\newcommand{\xDif}{{\rm D}}
+\newcommand{\xdif}{\,{\rm d}}
+\newcommand{\diff}{\xdif}
+\newcommand{\Diff}{\xDif}
+\newcommand{\pardiff}{{\rm \partial}}
+\DeclareMathOperator{\dd}{d}
+
+% Solutions
+\newcommand\rsol{\bar{r}}
+\newcommand\lsol{\bar{\lambda}}
+\newcommand\fsol{\bar{f}}
+\newcommand\ssol{\bar{s}}
+\newcommand\xsol{\bar{x}}
+\newcommand\ysol{\bar{y}}
+\newcommand\usol{\bar{u}}
+\newcommand\zsol{\bar{z}}
+\newcommand\psol{\bar{p}}
+\newcommand\tfsol{\bar{t}_f}
+\newcommand\tsol{\bar{t}\hspace{0.1em}}
+
+
+
+% Notion ensembliste
+\newcommand{\adherence}[1]{\xoverline{#1}}
+
+% Les ensembles
+\newcommand{\Ball}{{B}}                     % Boule ouverte
+\newcommand{\BallClosed}{\xoverline{B}}     % Boule fermee
+
+\newcommand{\M}{\mbox{$\mathbf{M}$}\xspace}
+\newcommand{\U}{U}
+\newcommand{\X}{X}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\D}{\mathcal{D}}
+\renewcommand{\O}{\mathcal{O}}
+\renewcommand{\P}{\mathcal{P}}
+
+\newcommand{\Htrue}{\mathscr{H}}
+\newcommand{\GLcal}{\mathscr{GL}}
+\newcommand{\Ecal}{\mathscr{E}}
+\newcommand{\Kcal}{\mathscr{K}}
+\newcommand{\Ccal}{\mathscr{C}}
+\newcommand{\Fcal}{\mathscr{F}}
+\newcommand{\Ncal}{\mathscr{N}}
+\newcommand{\Lcal}{\mathscr{L}}
+\newcommand{\Dcal}{\mathscr{D}}
+\newcommand{\Ucal}{\mathscr{U}}
+\newcommand{\Vcal}{\mathcal{V}}
+\newcommand{\Ical}{\mathcal{I}}
+\newcommand{\Acal}{\mathscr{A}}
+
+\newcommand{\Sgot}{\mathfrak{S}} % pour désigner le groupe des permutations ou groupe symétrique
+
+\newcommand{\xLn}[1]{{\Lcal}^{#1}}          % Ensemble des applications lineaires continue
+\newcommand{\xCn}[1]{{\Ccal}^{#1}}          % Ensemble des applications de classe C^k
+
+% Pour le cours de mesure et integration
+\newcommand{\Bor}{\mathcal{B}}
+\newcommand{\AT}{\mathcal{A}}
+\newcommand{\BT}{\mathcal{B}}
+\newcommand{\NT}{\mathcal{N}}
+\newcommand{\CT}{\mathcal{C}}
+\newcommand{\OT}{\mathcal{O}}
+\newcommand{\FT}{\mathcal{F}}
+\newcommand{\Parties}{\mathcal{P}}
+\newcommand{\tribu}{\sigma}
+\DeclareMathOperator{\card}{card}
+\newcommand{\FM}{\mathcal{M}} % fonction mesurable
+\newcommand{\FE}{\mathcal{E}} % fonction mesurable étagée
+%\newcommand{\FM}{\mathcal{F}} % fonction mesurable
+%\newcommand{\FE}{\mathcal{F}^0} % fonction mesurable étagée
+
+\newcommand{\cl}[1]{[#1]} % ou overline
+
+\newcommand*{\EnsembleQuotient}[2]%
+{\ensuremath{%
+    #1\hspace{1pt}\!/\!\hspace{1pt}\raisebox{-.0ex}{\ensuremath{\mathcal{#2}}}}}
+
+% Intervalles
+\newcommand{\intervalle}[4]{\mathopen{#1}#2
+                                \mathclose{}\mathpunct{},#3
+                                \mathclose{#4}}
+\newcommand{\intervalleff}[2]{\intervalle{[}{#1}{#2}{]}}
+\newcommand{\intervalleof}[2]{\intervalle{]}{#1}{#2}{]}}
+%\newcommand{\intervalleof}[2]{\intervalle{(}{#1}{#2}{]}}
+\newcommand{\intervallefo}[2]{\intervalle{[}{#1}{#2}{[}}
+%\newcommand{\intervallefo}[2]{\intervalle{[}{#1}{#2}{)}}
+\newcommand{\intervalleoo}[2]{\intervalle{]}{#1}{#2}{[}}
+%\newcommand{\intervalleoo}[2]{\intervalle{(}{#1}{#2}{)}}
+\newcommand{\intervalleentier}[2]{\intervalle{\llbracket}{#1}{#2}{\rrbracket}}
+
+
+% Derivees partielles
+% Derivees partielles
+\newcommand{\frp}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\frpp}[2]{\dfrac{\partial^2 #1}{\partial #2 ^2}}
+\newcommand{\frpxx}[1]{\dfrac{\partial^2 #1}{\partial x^2}}
+\newcommand{\frptt}[1]{\dfrac{\partial^2 #1}{\partial t^2}}
+\newcommand{\frpuu}[1]{\frac{\partial^2 #1}{\partial u^2}}
+\newcommand{\frpxu}[1]{\frac{\partial^2 #1}{\partial x \partial u}}
+\newcommand{\frpux}[1]{\frac{\partial^2 #1}{\partial u \partial x}}
+\DeclareDocumentCommand\grad{ m g }{%
+    \IfNoValueTF{#2} {\nabla #1} {\nabla_{#2} #1}
+}
+
+% Ensembles de nombres
+\newcommand{\nbSet}[1]{\mathbb{#1}}
+\newcommand{\setPositive}{+}
+\newcommand{\setNegative}{-}
+\newcommand{\setStar}{\text{*}}
+\newcommand{\N}{\nbSet{N}}
+\newcommand{\Z}{\nbSet{Z}}
+\newcommand{\Q}{\nbSet{Q}}
+\newcommand{\R}{\nbSet{R}} %\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\nbSet{C}}
+\newcommand{\Sn}{\nbSet{S}}
+\newcommand{\K}{\nbSet{K}}
+%\renewcommand{\S}{\mathbb{S}}
+
+\newcommand{\setDeco}[2]{
+    \IfEqCase{#2}{
+        {b}{\xoverline{\nbSet{#1}}}
+        {s}{\nbSet{#1}^{\setStar}}
+        {sb}{\xoverline{\nbSet{#1}}^{\setStar}}
+        {n}{\nbSet{#1}^{\phantom{\setStar}}_{\setNegative}}
+        {p}{\nbSet{#1}^{\phantom{\setStar}}_{\setPositive}}
+        {sn}{\nbSet{#1}^{\setStar}_{\setNegative}}
+        {sp}{\nbSet{#1}^{\setStar}_{\setPositive}}
+        {bp}{\xoverline{\nbSet{#1}}_{\setPositive}}
+    }
+}
+
+\newcommand{\Nb}{ \ensuremath{\setDeco{N}{b}} }
+\newcommand{\Ns}{ \ensuremath{\setDeco{N}{s}} }
+\newcommand{\Nsb}{ \ensuremath{\setDeco{N}{sb}} }
+\newcommand{\Rn}{ \ensuremath{\setDeco{R}{n}} }
+\newcommand{\Rp}{ \ensuremath{\setDeco{R}{p}} }
+\newcommand{\Rb}{ \ensuremath{\setDeco{R}{b}} }
+\newcommand{\Rbp}{ \ensuremath{\setDeco{R}{bp}} }
+\newcommand{\Rs}{ \ensuremath{\setDeco{R}{s}} }
+\newcommand{\Rsp}{ \ensuremath{\setDeco{R}{sp}} }
+\newcommand{\Rsn}{ \ensuremath{\setDeco{R}{sn}} }
+
+% Matrice semi definie positive
+\newcommand{\semidefpos}{\succeq 0}
+\newcommand{\defpos}{\succ 0}
+\newcommand{\defneg}{\prec 0}
+
+% Valeur absolue et norme
+\newcommand{\abs}[1]{\lvert#1\rvert} 
+\newcommand{\absStyle}[1]{\left\lvert#1\right\rvert}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\newcommand{\normStyle}[1]{\left\lVert#1\right\rVert}
+
+% Petit o et grand O
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+% Ensemble des .. tels que ..
+\newcommand{\enstq}[2]{\left\{#1\mathrel{}\middle|\mathrel{}#2\right\}}
+
+% Produit scalaire
+\newcommand{\prodscal}[2]{\left(#1 \,|\, #2\right)}
+%\newcommand{\crochetDualite}[2]{\left\langle#1,#2\right\rangle}
+\newcommand{\crochetDualite}[2]{#1 \cdot #2}
+\newcommand{\Lie}[2]{\left[#1, #2\right]}
+
+% Fleches : utiliser la commande \vv
+%\renewcommand\tilde{\widetilde}
+
+% Lettres avec tilde
+\def\xt{\widetilde{x}}
+\def\ut{\widetilde{u}}
+\def\pt{\widetilde{p}}
+\def\ft{\widetilde{f}}
+\def\ct{\widetilde{c}}
+\def\Et{\widetilde{E}}
+\def\Ucalt{\widetilde{\Ucal}}
+\def\Acalt{\widetilde{\Acal}}
+\def\Phit{\widetilde{\Phi}}
+
+% Operateur math
+\makeatletter
+\newcommand\RedeclareMathOperator{%
+  \@ifstar{\def\rmo@s{m}\rmo@redeclare}{\def\rmo@s{o}\rmo@redeclare}%
+}
+% this is taken from \renew@command
+\newcommand\rmo@redeclare[2]{%
+  \begingroup \escapechar\m@ne\xdef\@gtempa{{\string#1}}\endgroup
+  \expandafter\@ifundefined\@gtempa
+     {\@latex@error{\noexpand#1undefined}\@ehc}%
+     \relax
+  \expandafter\rmo@declmathop\rmo@s{#1}{#2}}
+% This is just \@declmathop without \@ifdefinable
+\newcommand\rmo@declmathop[3]{%
+  \DeclareRobustCommand{#2}{\qopname\newmcodes@#1{#3}}%
+}
+\@onlypreamble\RedeclareMathOperator
+\makeatother
+
+\DeclareMathOperator{\argmax}{arg\,max}
+%\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\rand}{rand}
+\DeclareMathOperator{\rang}{rang}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\vect}{Vect}
+\DeclareMathOperator{\Isom}{Isom}
+\DeclareMathOperator{\im}{Im}
+\RedeclareMathOperator{\Im}{Im}
+\RedeclareMathOperator{\det}{det}
+\DeclareMathOperator{\trace}{tr}
+\DeclareMathOperator{\comatrice}{com}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\minimize}{minimiser}
+\DeclareMathOperator{\comp}{num}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\graphe}{graphe}
+\RedeclareMathOperator{\ker}{Ker}
+\DeclareMathOperator{\diag}{diag}
+%\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\sh}{sh}
+\DeclareMathOperator{\argsh}{argsh}
+\DeclareMathOperator{\inv}{inv}
+\DeclareMathOperator{\sym}{Sym}
+
+% exponential mapping
+\newcommand{\expmap}[3]{\exp({#2 #3}) (#1)}
+
+% Fonction homotopique
+\renewcommand{\hom}{\Phi}
+
+% Epsilon, phi, theta, etc.
+\newcommand{\veps}{\varepsilon}
+\newcommand\vphi{\varphi}
+\newcommand\pth{p_\theta}
+\renewcommand\th{\theta}
+\newcommand{\arc}{\gamma}
+
+%---------------------------------------------------------------------------------------------------------------
+% MACROS Ehouarn Simon
+%\newcommand{\convn}{\underset{n\rightarrow +\infty}{\longrightarrow}}
+%\newcommand{\convps}{\underset{n\rightarrow +\infty}{\overset{\text{p.p.}}{\longrightarrow}}}
+\newcommand{\convn}{{\rightarrow}}
+\newcommand{\convps}{{\overset{\text{p.p.}}{\longrightarrow}}}

@@ -1,0 +1,187 @@
+%
+% Auteur : Olivier Cots
+% Date   : 17 avril 2019
+%
+% packages latex
+%
+
+%---------------------------------------------------------------------------------------------------------------
+%\usepackage{wrapfig}
+%\renewcommand{\refname}{}
+
+% For notes in the marge
+%\usepackage{MnSymbol}
+\usepackage{stackengine}
+
+%---------------------------------------------------------------------------------------------------------------
+% Voir http://www.cpt.univ-mrs.fr/~masson/latex/Cours-LaTeX-beamer-03.pdf
+% sur les packages incontournables pour latexs
+\usepackage{import}             % Remplace les inpu et include
+\usepackage[french]{babel}      % This package manages culturally determined typographical (and other) rules for a wide range of languages.
+%\usepackage[english]{babel}    % This package manages culturally determined typographical (and other) rules for a wide range of languages.
+\usepackage[utf8]{inputenc}     % Accept different input encodings
+\usepackage[T1]{fontenc}        % Standard package for selecting font encodings
+\usepackage{lmodern}            % based on the Computer Modern fonts released into public domain by AMS
+\usepackage{verbatim}
+
+%---------------------------------------------------------------------------------------------------------------
+% Couleurs
+\usepackage{xcolor}             % Driver-independent color extensions for LATEX and pdfLATEX
+\usepackage{colortbl}           % The package allows rows and columns to be coloured, and even individual cells.
+                                % Utile pour ``Fancy Header Style Options'' dans le main
+
+%---------------------------------------------------------------------------------------------------------------
+%
+\usepackage{fancyhdr}           % Fancy Header and Footer
+
+\ifSLIDES
+
+    \usepackage{xparse} % pour faire une commande myframe avec 1 ou 0 argument obligatoire
+
+\else
+
+    \usepackage{xparse}
+    
+    %---------------------------------------------------------------------------------------------------------------
+    %---------------------------------------------------------------------------------------------------------------
+    % Poly
+    
+    \usepackage{makeidx}            % Standard package for creating indexe
+    %\usepackage{imakeidx} % Pour les index
+    
+    %---------------------------------------------------------------------------------------------------------------
+    % Les chemins ou se trouvent les figures et les extensions de figures
+    \usepackage{ifpdf}
+    \ifpdf
+     \usepackage[pdftex]{graphicx}
+     \DeclareGraphicsExtensions{.jpg,.pdf,.png}
+     \usepackage[pagebackref,hyperindex=true,linktoc=all]{hyperref}
+    \else
+     \usepackage{graphicx}
+     \DeclareGraphicsExtensions{.ps,.eps}
+     \usepackage[dvipdfm,pagebackref,hyperindex=true,linktocpage]{hyperref}
+    \fi
+
+    \ifPOLY
+
+        %---------------------------------------------------------------------------------------------------------------
+        % Minitoc
+        \usepackage[nottoc, notlof, notlot]{tocbibind}
+        \usepackage[french]{minitoc}
+        %\let\minitocORIG\minitoc
+        %\renewcommand{\minitoc}{\minitocORIG \vspace{1.5em}}
+        \mtcsettitle{minitoc}{} % pas de titre : Sommaire
+        \nomtcrule % pas de trait horizontaux
+        %\let\minitocORIG\minitoc
+        %\renewcommand{\minitoc}{\minitocORIG \noindent\rule[0.0ex]{1.0\textwidth}{1pt} \vspace{0.0em}}
+
+        %---------------------------------------------------------------------------------------------------------------
+        % Les marges
+        \usepackage[a4paper,includeheadfoot,margin=2.54cm]{geometry}
+        \setlength{\headheight}{14pt}   % ...at least 14.0pt. Pour eviter un warning
+
+    \else
+
+        \ifBOOK
+
+            %---------------------------------------------------------------------------------------------------------------
+            % Minitoc
+            \usepackage[nottoc, notlof, notlot]{tocbibind}
+            \usepackage[french]{minitoc}
+            %\let\minitocORIG\minitoc
+            %\renewcommand{\minitoc}{\minitocORIG \vspace{1.5em}}
+            \mtcsettitle{minitoc}{} % pas de titre : Sommaire
+            \nomtcrule % pas de trait horizontaux
+            %\let\minitocORIG\minitoc
+            %\renewcommand{\minitoc}{\minitocORIG \noindent\rule[0.0ex]{1.0\textwidth}{1pt} \vspace{0.0em}}
+
+            %---------------------------------------------------------------------------------------------------------------
+            % Les marges
+            %\usepackage[a4paper,includeheadfoot,left=4cm,right=4cm,top=3cm,bottom=3cm]{geometry}
+            \usepackage[a4paper, includeheadfoot, margin=2.8cm]{geometry}
+            \setlength{\headheight}{14pt}   % ...at least 14.0pt. Pour eviter un warning
+
+        \fi
+
+    \fi
+
+    %---------------------------------------------------------------------------------------------------------------
+    % Pour les figures et sous-figures (commande subfigure)
+    \usepackage{caption}
+    \usepackage{subcaption}
+
+    %---------------------------------------------------------------------------------------------------------------
+    % Pour changer le format des titres de section, etc.
+    \usepackage[explicit]{titlesec}
+    %\usepackage[explicit, newlinetospace]{titlesec}
+
+\fi
+
+%\graphicspath{{\repRessource/figures/}}
+\graphicspath{{.}{figures/}{\relativePath/Logos/}}
+
+%---------------------------------------------------------------------------------------------------------------
+% Pour pouvoir ajuster les minipages contenant seulement une figure : \includegraphics[width=0.9\textwidth,valign=t]{./bocop_archi}
+\usepackage[export]{adjustbox}
+%---------------------------------------------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------------------------------------------
+% Affichage sous forme de slides : pour reglage de la taille de la page
+%\usepackage[screen]{pdfscreen}
+
+%---------------------------------------------------------------------------------------------------------------
+% Pour les environnements theoremes, etc.
+\usepackage[many, xparse, skins]{tcolorbox}    % http://ctan.org/pkg/tcolorbox
+
+\usepackage{totcount}           % Compteur pour les problèmes
+\usepackage{textcomp}           % Commande textasteriskcentered pour newstep : utile dans les preuves pour une separation d'etapes
+
+\@ifpackageloaded{versions}{}{\usepackage{versions}} % Permet de supprimer des environnement a la compilation : excludeversion, ou d'en ajouter : includeversion
+
+\makeatletter
+\usepackage{wasysym}            % Pour les pointes noires pleines (RHD) en debut de preuve et autres
+\makeatother
+
+%---------------------------------------------------------------------------------------------------------------
+% Les maths et ams
+\usepackage{bigints}            % big integrale
+\usepackage{amsfonts}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}           % Donne une alternative a mathcal : mathscr. Les lettres sont encore plus courbees
+\usepackage{mathtools}          % Extension package to amsmath. Utile par exemple pour \coloneqq
+\usepackage{xstring}            % Pour avoir la commande \IfEqCase, pour la definition des ensembles
+\usepackage{dsfont}             % Utile pour la commande \mathds, pour un style different pour la definition des ensembles
+
+\usepackage{stmaryrd}           % Pour les definitions d'intervalles
+\usepackage{yhmath}             % L'arc de cercle pour les champs de Jacobi : wideparen
+
+\usepackage[f]{esvect}          % Pour les fleche pour le systeme hamiltonien : \vv{H}
+
+%---------------------------------------------------------------------------------------------------------------
+% Les dessins
+\usepackage{tikz}
+\usepackage{pgfkeys}
+\usepackage[european resistor, european voltage, european current]{circuitikz}
+\usepackage{pifont}
+\usepackage{\relativePathTemplate/tikzgraphicx}
+\usetikzlibrary{arrows,shapes,backgrounds,patterns,babel}
+
+%---------------------------------------------------------------------------------------------------------------
+% Les tableaux
+\usepackage{calc}
+\usepackage{array}
+\usepackage{booktabs}           % Tableau : epaisseur des lignes
+
+
+%---------------------------------------------------------------------------------------------------------------
+% Les itemize
+\usepackage{marvosym}           % Pour la commande Football pour les itemize
+\usepackage{enumitem}           % Pour pouvoir redefinir les separation entre items, etc.
+
+%---------------------------------------------------------------------------------------------------------------
+% Listings : pour inclure du code matlab, fortran, etc.
+\usepackage{listings}
+

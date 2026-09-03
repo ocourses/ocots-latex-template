@@ -1,0 +1,1014 @@
+%
+% Auteur : Olivier Cots
+% Date   : 17 avril 2019
+%
+% styles (environnement) latex
+%
+
+% Version noir et blanc, essayer pourquoi pas : 
+% https://tex.stackexchange.com/questions/385948/how-to-set-theorem-title-in-middle-of-box
+
+%---------------------------------------------------------------------------------------------------------------
+% Environnement todolist, que l'on peut exclure dans le main. Il permet de noter des choses a faire
+%
+\newenvironment{todolist}{}{}
+
+\ifSLIDES
+
+    %---------------------------------------------------------------------------------------------------------------
+    %---------------------------------------------------------------------------------------------------------------
+    % Beamer
+    
+    % gestion du fait qu'il n'y a pas de chapitre :
+    %\newcounter{chapter}
+    %\regtotcounter{chapter}
+    \newcounter{chapter}
+    \makeatletter
+    \@addtoreset{section}{chapter}
+    %\@addtoreset{subsection}{section}
+    %\@addtoreset{subsubsection}{subsection}
+    \makeatother
+    
+    \renewcommand \thechapter {\arabic{chapter}}
+    \renewcommand \thesection {\thechapter.\arabic{section}}
+    %\renewcommand\thesubsection   {\thesection.\@arabic\c@subsection}
+    %\renewcommand\thesubsubsection{\thesubsection .\@arabic\c@subsubsection}
+
+    %---------------------------------------------------------------------------------------------------------------
+    % Beamer template
+    %\usefonttheme{serif}
+    %\usetheme{PaloAlto}
+    %\usecolortheme[named=ForestGreen]{structure}
+    \setbeamertemplate{theorems}[numbered]
+    %\setbeamertemplate{theorems}[ams style]
+    \setbeamertemplate{navigation symbols}{}
+    %\usefoottemplate{\hfill\insertframenumber\,/\,\inserttotalframenumber}
+    %\setbeamertemplate{footline}[page number]
+    
+    \setbeamertemplate{section in toc}[sections numbered]
+    \setbeamertemplate{section in toc}{\thechapter.\inserttocsectionnumber.~\inserttocsection}
+    \setbeamertemplate{subsection in toc}[subsections numbered]
+    \setbeamertemplate{subsection in toc}{\hspace{1.9em}\thechapter.\inserttocsectionnumber.\inserttocsubsectionnumber.~\inserttocsubsection\par}
+        
+    \setbeamercolor{structure}{fg=black} % titres en noir
+
+    \addtobeamertemplate{frametitle}{}{\vspace*{-5pt}}
+
+    \setbeamertemplate{caption}[numbered] % On numérote les légendes des figures
+
+    %---------------------------------------------------------------------------------------------------------------
+    % bibliographie
+    %\setbeamertemplate{bibliography item}{\insertbiblabel} % pour avoir des numéros
+    
+    %---------------------------------------------------------------------------------------------------------------
+    % size of margin
+    \setbeamersize{text margin left=3mm,text margin right=3mm} 
+
+    %---------------------------------------------------------------------------------------------------------------
+    % Couleurs
+    \ifBANDW % black and white
+
+        \definecolor{blue}{rgb}{0,0,0}
+        \definecolor{red}{rgb}{0,0,0}
+        \definecolor{green}{rgb}{0,0,0}
+        \definecolor{greenPreuve}{rgb}{0,0,0}
+        \definecolor{grey}{rgb}{0.85,0.85,0.85}
+        \definecolor{black}{rgb}{0,0,0}
+    
+        %\definecolor{linkcol}{RGB}{242,157,44} % orange
+        \definecolor{linkcol}{RGB}{0,0,0} % orange plus sombre
+        %\definecolor{linkcol}{rgb}{0.06,0.06,0.6} % blue
+        \definecolor{citecol}{rgb}{0,0,0} % red
+        
+        %---------------------------------------------------------------------------------------------------------------
+        % Couleurs des traits de separation du titre avec le contenu dans les slides
+        \definecolor{cfondzero}{rgb}{0,0,0} %{0.0,0.2,0.6}
+        \definecolor{cfondun}{rgb}{0,0,0}
+        \definecolor{cfonddeux}{rgb}{0,0,0}
+        \definecolor{cfondtrois}{rgb}{0,0,0}
+        \definecolor{cfondquatre}{rgb}{0,0,0}
+        \definecolor{cfondblanc}{rgb}{1.0,1.0,1.0}  
+        \definecolor{cfondtitre}{rgb}{0.95,0.95,0.95}
+            
+        % Couleurs des marqueurs de debut et fin des preuves
+        \newcommand{\colorPreuve}{black}
+        
+        \newtcolorbox{myboxtitle}{colback=cfondtitre,colframe=cfondtitre!80!black,coltext=black}
+        
+    \else
+    
+        \ifLIGHT
+        
+            \definecolor{blue}{rgb}{0.06,0.06,0.6}
+            \definecolor{red}{rgb}{0.6,0.04,0.04}
+            \definecolor{green}{rgb}{0.06,0.6,0.06}
+            \definecolor{greenPreuve}{rgb}{0.0,0.3,0.0}
+            \definecolor{grey}{rgb}{0.85,0.85,0.85}
+            \definecolor{black}{rgb}{0,0,0}
+        
+            %\definecolor{linkcol}{RGB}{242,157,44} % orange
+            \definecolor{linkcol}{RGB}{213,138,39} % orange plus sombre
+            %\definecolor{linkcol}{rgb}{0.06,0.06,0.6} % blue
+            \definecolor{citecol}{rgb}{0.6,0.04,0.04} % red
+            
+            %---------------------------------------------------------------------------------------------------------------
+            % Couleurs des traits de separation du titre avec le contenu dans les slides
+            \definecolor{cfondzero}{rgb}{0.2,0.6,0.6} %{0.0,0.2,0.6}
+            \definecolor{cfondun}{rgb}{0.7,0.4,0.0}
+            \definecolor{cfonddeux}{rgb}{0.5,0.5,0.0}
+            \definecolor{cfondtrois}{rgb}{0.6,0,0}
+            \definecolor{cfondquatre}{rgb}{0.0,0.2,0.6}
+            \definecolor{cfondblanc}{rgb}{1.0,1.0,1.0}
+            \definecolor{cfondtitre}{rgb}{0.2,0.4,0.6}  
+            
+            \newtcolorbox{myboxtitle}{colback=cfondtitre!10!white,colframe=cfondtitre!60!white,coltext=black}
+        
+        \else
+        
+            % version Retro N7
+            \definecolor{blue}{rgb}{0.1,0.1,0.6}
+            \definecolor{red}{rgb}{0.6,0.1,0.1}
+            \definecolor{green}{rgb}{0.0,0.4,0.0}
+            \definecolor{greenPreuve}{rgb}{0.0,0.3,0.0}
+            \definecolor{grey}{rgb}{0.85,0.85,0.85}
+            \definecolor{black}{rgb}{0,0,0}
+            
+            %\definecolor{linkcol}{RGB}{242,157,44} % orange
+            \definecolor{linkcol}{RGB}{213,138,39} % orange plus sombre
+            %\definecolor{linkcol}{rgb}{0.06,0.06,0.6} % blue
+            \definecolor{citecol}{rgb}{0.6,0.04,0.04} % red
+            
+            %---------------------------------------------------------------------------------------------------------------
+            % Couleurs des traits de separation du titre avec le contenu dans les slides
+            % Version retro N7
+            \definecolor{cfondzero}{rgb}{0.2,0.6,0.6} %{0.0,0.2,0.6}
+            \definecolor{cfondun}{rgb}{0.5,0.3,0.0}
+            \definecolor{cfonddeux}{rgb}{0.3,0.3,0.0}
+            \definecolor{cfondtrois}{rgb}{0.5,0,0}
+            \definecolor{cfondquatre}{rgb}{0.0,0.2,0.4}
+            \definecolor{cfondblanc}{rgb}{1.0,1.0,1.0}
+            \definecolor{cfondtitre}{rgb}{0.2,0.4,0.5}
+    
+            \newtcolorbox{myboxtitle}{colback=cfondtitre,colframe=black,coltext=white}
+            
+        \fi % light or dark
+        
+        % Couleurs des marqueurs de debut et fin des preuves
+        \newcommand{\colorPreuve}{greenPreuve}
+        
+    \fi % end Black and white or colored
+
+    %------------------------------------------------------------------------------------------------------------%
+    %Page counter
+    \newcommand*{\myfont}[1][ptm]{\fontfamily{#1}\selectfont}
+    %\DeclareTextFontCommand{\textmyfont}{\myfont[ptm]}
+    
+    %\usepackage{totcount}
+    %\newtotcounter{pages}
+    %\setcounter{pages}{1}
+    \newcommand*{\compteurPage}[1][red]{
+        \begin{tikzpicture}[inner sep=0pt, baseline=(base)]
+            \def\epaisseurTrait{0.15em};
+            \def\rayonExterne{0.55em};
+            \coordinate (O) at (0em,0em);
+            \coordinate[shift={(0em,\rayonExterne)}] (A) at (O);
+            \pgfmathsetmacro{\myLastPage}{\insertdocumentendpage};
+            \pgfmathsetmacro{\myCurrentPage}{\insertpagenumber};
+            \pgfmathsetmacro{\myCurrentFrame}{\insertframenumber};
+            %\pgfmathsetmacro{\myLastPage}{\inserttotalframenumber};
+            %\pgfmathsetmacro{\myCurrentPage}{\insertframenumber};
+            \draw[black] (O) node { \scriptsize \bf \myfont{\textcolor{#1}{\myCurrentFrame}}};
+            \pgfmathsetmacro{\progress}{(\myCurrentPage/\myLastPage)};
+            \draw[grey,line width=\epaisseurTrait,rotate=90] (A) arc (0:360:\rayonExterne);
+%            \draw[#1  ,line width=\epaisseurTrait,rotate=90] (A) arc (0:-360*\progress:\rayonExterne);
+            \node (base) at (0,-.25ex) {};
+        \end{tikzpicture}
+    }
+
+    %---------------------------------------------------------------------------------------------------------------
+    % Les itemize
+    \setlist{itemsep=0.25em}
+    \setitemize[1]{label={\small \textbullet}}
+    \setitemize[2]{label={\small -}}
+
+\else
+
+    %---------------------------------------------------------------------------------------------------------------
+    %---------------------------------------------------------------------------------------------------------------
+    % Poly
+
+    %---------------------------------------------------------------------------------------------------------------
+    % Couleurs
+    \definecolor{blue}{rgb}{0.06,0.06,0.6}
+    \definecolor{red}{rgb}{0.6,0.04,0.04}
+    \definecolor{green}{rgb}{0.06,0.6,0.06}
+    \definecolor{grey}{rgb}{0.85,0.85,0.85}
+    \definecolor{black}{rgb}{0,0,0}
+
+    \definecolor{linkcol}{rgb}{0.06,0.06,0.6} % blue
+    \definecolor{citecol}{rgb}{0.6,0.04,0.04} % red
+    
+    % Couleurs Daniel
+    \definecolor{ForestGreen}   {cmyk}{0.91,0,0.88,0.12}
+    \definecolor{MidnightBlue}  {cmyk}{0.98,0.13,0,0.43}
+    
+    % Couleurs des marqueurs de debut et fin des preuves
+    \newcommand{\colorPreuve}{black}
+   
+    % Couleurs des titres
+    \newcommand{\colorSection}{black}
+    \newcommand{\colorSubSection}{black}
+    \newcommand{\colorSubSubSection}{black}
+    \newcommand{\colorChapter}{black}
+    
+    %---------------------------------------------------------------------------------------------------------------
+    % surcharge de section
+    \ifFICHE  
+
+%        \tcbset{
+%            orange/.style={
+%                enhanced,
+%                colback=orange!10,
+%                colframe=orange,
+%                fonttitle=\bfseries,
+%                colbacktitle=orange!40,
+%                coltitle=black,
+%                attach boxed title to top left={%
+%                    yshift*=-\tcboxedtitleheight/2, 
+%                    xshift=5mm},
+%                boxed title style={colframe=gray}
+%            }
+%        }
+          
+%        \titleformat{\chapter}[display]
+%        {\normalfont\Large\bfseries}
+%        {}
+%        {0em}
+%        {%
+%        \begin{tcolorbox}[orange, halign=center, valign=center, title=test, overlay={\node[draw=gray, fill=orange!40, rounded corners, anchor=east, font=\small\bfseries] at ([xshift=-5mm]frame.south east){2016-2017};}]%, title=Title]
+%        \chaptername\space \thechapter #1
+%        \end{tcolorbox}%
+%        }
+  
+        % ----------------
+        % Section
+        \newcommand{\setcolorsectionheading}[2]{%
+            %\tikzstyle{sectionstyle}=[draw=#1, text=#2, rounded corners, fill=#1!10, ultra thick, anchor=west, outer sep=0pt]
+            \tikzset{sectionstyle_node/.append style={draw=#1, text=#2, fill=#1!10}}
+            \tikzset{sectionstyle_draw/.append style={color=#1}}
+        }
+        
+        \tikzstyle{sectionstyle_node}=[draw=orange, text=black, rounded corners=0.0cm, fill=orange!5, ultra thick,
+        anchor=west, outer sep=0pt, minimum width=\textwidth, text width=0.96\textwidth, minimum height=1.8cm]
+        \tikzstyle{sectionstyle_draw}=[color=orange, ultra thick]
+  
+        \newcommand{\sectionbreak}{\clearpage} % On saute une page à chaque nouvelle section
+        
+        \titleformat{\section}
+        {\normalfont\Large\bfseries}{}{0em}
+        {%
+        %\setbox0=\hbox{\large\bfseries\thesection}%
+        \begin{tikzpicture}
+            %\draw[sectionstyle_draw] (0,0) -- ++(0:\linewidth);
+            \node[sectionstyle_node] {\thesection\hspace{.5em}\hangindent\wd0\strut#1\strut};
+        \end{tikzpicture}%
+        } 
+        
+        \titleformat{name=\section,numberless}[display]
+        {\normalfont\Large\bfseries}{}{0em}
+        {%
+        \begin{tikzpicture}
+            \node[sectionstyle_node] {\strut#1\strut};
+        \end{tikzpicture}%
+        }
+
+        %\titlespacing*{\section}{0pt}{4.5ex plus 1ex minus .2ex}{2ex plus .2ex}
+        \titlespacing*{\section}{0pt}{*4}{*3}
+        
+        % ----------------
+        % Subsection
+        \titlespacing*{\subsection}{0pt}{*3}{*2}
+        \renewcommand{\colorSubSection}{MidnightBlue}
+        %\titleformat{\subsection}{\normalfont\large\bfseries}{{\color{MidnightBlue}\thesubsection\hspace{.5em}\hangindent\wd0\strut#1\strut}}{0em}{} 
+        
+        % ----------------
+        % Subsubsection
+        \titlespacing*{\subsubsection}{0pt}{*3}{*2}
+        \renewcommand{\colorSubSubSection}{ForestGreen}
+        
+    \fi
+    
+    %---------------------------------------------------------------------------------------------------------------
+    % Pour le style du manuscrit
+    % Clear Header Style on the Last Empty Odd pages
+    \makeatletter
+    \def\cleardoublepage{
+        \clearpage
+        \if@twoside 
+            \ifodd
+                \c@page
+            \else%
+                \hbox{}%
+                \thispagestyle{empty}%              % Empty header styles
+                \newpage%
+                \if@twocolumn\hbox{}\newpage
+                \fi
+            \fi
+        \fi}
+    \makeatother
+    
+    % minitoc
+    \setcounter{minitocdepth}{2}
+    \setlength{\mtcindent}{18pt} 
+    \renewcommand{\mtcfont}{\small\rm} 
+    \renewcommand{\mtcSfont}{\small\bf}
+    
+    % table des matieres et compteurs de titres
+    \setcounter{secnumdepth}{4}
+    \setcounter{tocdepth}{2} % ou 1
+    
+    % centered page environment
+    \newenvironment{vcenterpage}
+    {\newpage\vspace*{\fill}\thispagestyle{empty}\renewcommand{\headrulewidth}{0pt}}
+    {\vspace*{\fill}}
+    
+    % nicer backref links
+    \renewcommand*{\backref}[1]{}
+    \renewcommand*{\backrefalt}[4]{%
+    \ifcase #1 %
+    %
+    \or
+    $\hookleftarrow$~#2.%
+    \else
+    $\hookleftarrow$~#2.%
+    \fi}
+    \renewcommand*{\backrefsep}{, }
+    \renewcommand*{\backreftwosep}{ et~}
+    \renewcommand*{\backreflastsep}{ et~}
+    
+    %---------------------------------------------------------------------------------------------------------------
+    % Les itemize
+    \frenchbsetup{CompactItemize=false}
+    \setlist{itemsep=0.0em}
+    \newcommand{\myitem}{{\raisebox{0pt}{\textbullet}}}
+    \setitemize[1]{label={\small \protect\myitem}}
+    \setitemize[2]{label=-}
+                                   
+\fi
+
+%---------------------------------------------------------------------------------------------------------------
+% Configuration du pdf
+\hypersetup
+{
+bookmarksopen=true,
+pdfauthor="Olivier COTS",           % auteur du document
+pdfstartview={XYZ null null 1},
+pdfhighlight=/O,                    % effet d'un clic sur un lien hypertexte
+colorlinks=true,                    % couleurs sur les liens hypertextes
+linkcolor=linkcol,                  % couleur des liens hypertextes internes
+citecolor=citecol,                  % couleur des liens pour les citations
+urlcolor=linkcol                    % couleur des liens pour les url
+}
+
+%---------------------------------------------------------------------------------------------------------------
+% Compteur pour les problèmes
+\newcounter{problem}%[chapter]
+\regtotcounter{problem}
+\newcommand{\tagProblem}[1][]{%
+    \addtocounter{problem}{1}
+%    \tag{P\theproblem#1}
+    \tag{P$_\theproblem$#1}
+}
+
+%---------------------------------------------------------------------------------------------------------------
+% Les itemize : OLD ?
+%
+% \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+%     \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+% \newcommand{\pgftextcircled}[1]{
+%     \setbox0=\hbox{#1}%
+%     \dimen0\wd0%
+%     \divide\dimen0 by 2%
+%     \begin{tikzpicture}[baseline=(a.base)]%
+%         \useasboundingbox (-\the\dimen0,0pt) rectangle (\the\dimen0,1pt);
+%         \node[circle,draw,outer sep=0pt,inner sep=0.1ex] (a) {#1};
+%     \end{tikzpicture}
+% }
+
+%---------------------------------------------------------------------------------------------------------------
+% Listings
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\small,               % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{blue},       % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{red},        % keyword style
+  otherkeywords={*,...},           % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{gray},   % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  %title=\lstname,                 % show the filename of files included with \lstinputlisting; also try caption instead of title
+  frameround=tttt                  % frameround=⟨t|f⟩⟨t|f⟩⟨t|f⟩⟨t|f⟩ ffff
+                                   % The four letters designate the top right, bottom right, bottom left and top left corner. 
+                                   % In this order. t makes the according corner round.
+}
+
+%---------------------------------------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------------------------------------
+% Environnements : theorem, proposition, etc
+
+\ifSLIDES
+    \def\bskip{10pt}
+    \def\askip{10pt}
+\else
+    \def\bskip{10pt}
+    \def\askip{10pt}
+\fi
+
+\ifSLIDES
+
+    %---------------------------------------------------------------------------------------------------------------
+    %---------------------------------------------------------------------------------------------------------------
+    % Beamer
+    
+    % Beamer: to have text on the same line as the title of the environment
+    \makeatletter
+    \setbeamertemplate{theorem begin}{%
+    %  \begin{\inserttheoremblockenv}% removed
+        {%
+        \ifx\inserttheoremnumber\@empty%
+            \textcolor{black}{\bfseries\inserttheoremname}%
+        \else
+            \textcolor{black}{\bfseries\inserttheoremname\inserttheoremnumber}%
+        \fi%
+        \ifx\inserttheoremaddition\@empty%
+        \else 
+            \space(\inserttheoremaddition)%
+        \fi%
+        \inserttheorempunctuation~%
+        % new
+      }%
+    }
+    
+    \setbeamertemplate{theorem end}{}
+    \makeatother
+
+    %---------------------------------------------------------------------------------------------------------------
+    % Couleurs
+    %
+    % Version retro N7
+    \ifBANDW % black and white
+        \newcommand\colbackdef{white}\newcommand\colframedef{grey!60!white}\newcommand\coltitledef{black}% Definition
+        \newcommand\colbackthm{white}\newcommand\colframethm{grey!40!black}\newcommand\coltitlethm{white} % Theorem
+        \newcommand\colbackpro{white}\newcommand\colframepro{grey!65!black}\newcommand\coltitlepro{white}% Proposition
+        \newcommand\colbackcor{white}\newcommand\colframecor{grey!65!black}\newcommand\coltitlecor{white}% Corollaire   
+    \else
+        \ifLIGHT
+            \newcommand\colbackdef{white}\newcommand\colframedef{blue!20!white}\newcommand\coltitledef{black}% Definition
+            \newcommand\colbackthm{white}\newcommand\colframethm{red!20!white}\newcommand\coltitlethm{black} % Theorem
+            \newcommand\colbackpro{white}\newcommand\colframepro{green!20!white}\newcommand\coltitlepro{black}% Proposition
+            \newcommand\colbackcor{white}\newcommand\colframecor{green!20!white}\newcommand\coltitlecor{black}% Corollaire
+        \else
+            \newcommand\colbackdef{white}\newcommand\colframedef{blue!90!white} \newcommand\coltitledef{white} % Definition
+            \newcommand\colbackthm{white}\newcommand\colframethm{red!90!white}  \newcommand\coltitlethm{white} % Theorem
+            \newcommand\colbackpro{white}\newcommand\colframepro{green!90!white}\newcommand\coltitlepro{white} % Proposition
+            \newcommand\colbackcor{white}\newcommand\colframecor{green!90!white}\newcommand\coltitlecor{white} % Corollaire
+        \fi
+    \fi
+    
+    %---------------------------------------------------------------------------------------------------------------
+    % Style
+    
+    % encadre formules
+    \tcbset{
+        every box/.style={highlight math style={enhanced, colback=yellow!25!white,arc=4pt, drop fuzzy shadow, size=minimal, boxsep=5pt}},
+        defstyle/.style={enhanced jigsaw, breakable, fonttitle=\bfseries\upshape, fontupper=\slshape, colback=\colbackdef, colframe=\colframedef, separator sign dash,
+                       before skip=\bskip,after skip=\askip, fontupper=, coltitle=\coltitledef},
+        theostyle/.style={enhanced jigsaw, breakable, fonttitle=\bfseries\upshape, fontupper=\slshape, colback=\colbackthm, colframe=\colframethm, separator sign dash,
+                       before skip=\bskip,after skip=\askip, coltitle=\coltitlethm},
+        propstyle/.style={enhanced jigsaw, breakable, fonttitle=\bfseries\upshape, fontupper=\slshape, colback=\colbackpro, colframe=\colframepro, separator sign dash,
+                       before skip=\bskip,after skip=\askip, coltitle=\coltitlepro},
+        corstyle/.style={enhanced jigsaw, breakable, fonttitle=\bfseries\upshape, fontupper=\slshape, colback=\colbackcor, colframe=\colframecor, separator sign dash,
+                       before skip=\bskip,after skip=\askip, coltitle=\coltitlecor},
+        rmkstyle/.style={enhanced jigsaw, breakable, blanker, left=5mm, before skip=\bskip, after skip=\askip, borderline west={1mm}{0pt}{red}},
+        hypstyle/.style={enhanced jigsaw, breakable, blanker, left=5mm, before skip=\bskip, after skip=\askip, borderline west={1mm}{0pt}{black}},
+        difstyle/.style={enhanced jigsaw, breakable, blanker, left=5mm, before skip=\bskip, after skip=\askip},
+    }
+
+
+\else
+
+    %---------------------------------------------------------------------------------------------------------------
+    %---------------------------------------------------------------------------------------------------------------
+    % Poly
+
+    %---------------------------------------------------------------------------------------------------------------
+    % Couleurs
+    %
+    % Version poly plus sobre
+    \newcommand\colbackdef{white}\newcommand\colframedef{blue!20!white}\newcommand\coltitledef{black}% Definition
+    \newcommand\colbackthm{white}\newcommand\colframethm{red!20!white}\newcommand\coltitlethm{black} % Theorem
+    \newcommand\colbackpro{white}\newcommand\colframepro{green!20!white}\newcommand\coltitlepro{black}% Proposition
+    \newcommand\colbackcor{white}\newcommand\colframecor{green!20!white}\newcommand\coltitlecor{black}% Corollaire
+    
+    % Version poly avec plus de couleurs
+    %\newcommand\colbackdef{blue!5!white} \newcommand\colframedef{blue!75!black}  \newcommand\coltitledef{white} % Definition
+    %\newcommand\colbackthm{red!10!white}   \newcommand\colframethm{red!75!black}   \newcommand\coltitlethm{white} % Theorem
+    %\newcommand\colbackpro{green!10!white} \newcommand\colframepro{green!75!black} \newcommand\coltitlepro{white} % Proposition
+    %\newcommand\colbackcor{green!10!white} \newcommand\colframecor{green!75!black} \newcommand\coltitlecor{white} % Corollaire
+
+    %---------------------------------------------------------------------------------------------------------------
+    % Style
+    
+    % encadre formules
+    \tcbset{
+        every box/.style={highlight math style={enhanced, colback=yellow!25!white,arc=4pt, drop fuzzy shadow, size=minimal, boxsep=5pt}},
+        defstyle/.style={enhanced jigsaw, breakable, fonttitle=\bfseries\upshape, fontupper=\slshape, colback=\colbackdef, colframe=\colframedef, separator sign dash,
+                       before skip=\bskip,after skip=\askip, fontupper=, coltitle=\coltitledef},
+        theostyle/.style={enhanced jigsaw, breakable, fonttitle=\bfseries\upshape, fontupper=\slshape, colback=\colbackthm, colframe=\colframethm, separator sign dash,
+                       before skip=\bskip,after skip=\askip, coltitle=\coltitlethm},
+        propstyle/.style={enhanced jigsaw, breakable, fonttitle=\bfseries\upshape, fontupper=\slshape, colback=\colbackpro, colframe=\colframepro, separator sign dash,
+                       before skip=\bskip,after skip=\askip, coltitle=\coltitlepro},
+        corstyle/.style={enhanced jigsaw, breakable, fonttitle=\bfseries\upshape, fontupper=\slshape, colback=\colbackcor, colframe=\colframecor, separator sign dash,
+                       before skip=\bskip,after skip=\askip, coltitle=\coltitlecor},
+        rmkstyle/.style={enhanced jigsaw, breakable, blanker, left=5mm, before skip=\bskip, after skip=\askip, borderline west={1mm}{0pt}{red}},
+        hypstyle/.style={enhanced jigsaw, breakable, blanker, left=5mm, before skip=\bskip, after skip=\askip, borderline west={1mm}{0pt}{black}},
+        difstyle/.style={enhanced jigsaw, breakable, blanker, left=5mm, before skip=\bskip, after skip=\askip},
+    }
+
+\fi
+
+% ----------------------
+% Avec tcolorbox
+
+\newtcbtheorem[number within=section]{mytheorem}{Théorème}{theostyle}{thm}
+\newtcbtheorem[use counter from=mytheorem]{mydefinition}{Définition}{defstyle}{def}
+\newtcbtheorem[use counter from=mytheorem]{myproposition}{Proposition}{propstyle}{prop}
+\newtcbtheorem[use counter from=mytheorem]{mycorollary}{Corollaire}{corstyle}{cor}
+
+\ifSLIDES
+    \resetcounteronoverlays{tcb@cnt@mytheorem} % to avoid theorem numbers from changing within a frame
+    \resetcounteronoverlays{tcb@cnt@mydefinition}
+    \resetcounteronoverlays{tcb@cnt@myproposition}
+    \resetcounteronoverlays{tcb@cnt@mycorollary}
+\fi
+
+% ----------------------
+% Avec newtheorem
+%\ifSLIDES
+%    \newtheorem{mylemma}{Lemme}[]    % Lemme
+%\else
+    \newtheorem{mylemma}{Lemme}[section]    % Lemme
+%\fi
+\newtheorem*{mylemma*}{Lemme}    % Lemme
+
+%---------------------------------------------------------------------------------------------------------------
+% Environnement : Proof
+%
+\newcommand{\newstep}{\textasteriskcentered}           % Pour marquer une nouvelle etape dans la preuve
+
+\newcommand*{\QEDA}{\hfill\ensuremath{\blacksquare}}%
+\newcommand*{\QEDB}{\hfill\ensuremath{\square}}%
+
+\makeatletter
+\renewenvironment{proof}[1][{\color{\colorPreuve} $\RHD$}]{
+\par\pushQED{{\color{\colorPreuve}\QEDA}}\normalsize\normalfont\topsep6\p@\@plus6\p@\relax\trivlist\item[\hskip\labelsep\itshape#1\@addpunct{}]\ignorespaces
+}{
+    \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+%
+%\ifSLIDES
+%    \tcolorboxenvironment{proof}{blanker, breakable, left=1.5em, before skip=10pt, after skip=10pt, coltext=\colorPreuve}
+%\else
+    \tcolorboxenvironment{proof}{blanker, breakable, left=1.5em, before skip=\bskip, after skip=\askip, coltext=\colorPreuve}
+%\fi
+
+%\ifSLIDES
+
+    %---------------------------------------------------------------------------------------------------------------
+    %---------------------------------------------------------------------------------------------------------------
+    % Beamer
+    
+    % proof deb, mil et fin
+    %
+    % DEB
+    \makeatletter
+    \newenvironment{proofdeb}[1][{\color{\colorPreuve} $\RHD$}]{
+    \par\pushQED{{\color{\colorPreuve}\QEDA}}\normalsize\normalfont\topsep6\p@\@plus6\p@\relax\trivlist\item[\hskip\labelsep\itshape#1\@addpunct{}]\ignorespaces
+    }{
+        %\popQED
+        \endtrivlist\@endpefalse
+    }
+    \makeatother
+    %
+    \tcolorboxenvironment{proofdeb}{blanker, breakable, left=1.5em, before skip=\bskip, after skip=\askip, coltext=\colorPreuve}
+    
+    % MIL
+    \makeatletter
+    \newenvironment{proofmil}[1][{\color{\colorPreuve} $\RHD$}]{
+    \par\pushQED{{\color{\colorPreuve}\QEDA}}\normalsize\normalfont
+    }{
+        %\popQED
+        \endtrivlist\@endpefalse
+    }
+    \makeatother
+    %
+    \tcolorboxenvironment{proofmil}{blanker, breakable, left=1.5em, before skip=\bskip, after skip=\askip, coltext=\colorPreuve}
+    
+    % FIN
+    \makeatletter
+    \newenvironment{prooffin}[1][]{
+    \par\pushQED{{\color{\colorPreuve}\QEDA}}\normalsize\normalfont
+    }{
+        \popQED\endtrivlist\@endpefalse
+    }
+    \makeatother
+    %
+    \tcolorboxenvironment{prooffin}{blanker, breakable, left=1.5em, before skip=\bskip, after skip=\askip, coltext=\colorPreuve}
+
+%\fi
+
+%---------------------------------------------------------------------------------------------------------------
+% Environnement : style en cours pour ce qui est defini par un newtheorem
+%
+% example, myremark, exerciceTHM, corrTHM, 
+%
+
+\ifSLIDES
+
+    \newtheoremstyle{mystyleExercice}%          % Name
+      {}%                                       % Space above
+      {}%                                       % Space below
+      {}%                                       % Body font
+      {}%                                       % Indent amount
+      {}%                                       % Theorem head font
+      {.}%                                      % Punctuation after theorem head
+      { }%                                      % Space after theorem head, ' ', or \newline
+    %  {}%                                      % Theorem head spec (can be left empty, meaning `normal')
+      {}%
+    
+    \theoremstyle{mystyleExercice}
+    
+\else
+
+    \newtheoremstyle{mystyleExercice}%          % Name
+      {}%                                       % Space above
+      {}%                                       % Space below
+      {}%                                       % Body font
+      {}%                                       % Indent amount
+      {}%                                       % Theorem head font
+      {.}%                                      % Punctuation after theorem head
+      { }%                                      % Space after theorem head, ' ', or \newline
+    %  {}%                                      % Theorem head spec (can be left empty, meaning `normal')
+      {\noindent\textbf{\thmname{#1}\thmnumber{~#2}}\thmnote{\color{black}~(#3)}}%
+    
+    \theoremstyle{mystyleExercice}
+
+\fi
+
+%---------------------------------------------------------------------------------------------------------------
+% Environnement : Exemple
+%
+
+\ifSLIDES
+
+    %---------------------------------------------------------------------------------------------------------------
+    %---------------------------------------------------------------------------------------------------------------
+    % Beamer
+    
+    \newtheorem{myexample}{Exemple}[section]      % Prend le style en cours
+    % \newtheorem{exampleBeamer}{Exemple}[chapter]      % Prend le style en cours
+    % \makeatletter
+    % \newenvironment{myexample}[1][]
+    % {
+    %     \begin{exampleBeamer}[#1]
+    %     %\par\pushQED{\QEDB}
+    % }
+    % {
+    %     %\popQED\endtrivlist\@endpefalse
+    %     \end{exampleBeamer}
+    % }
+    % \makeatother
+    
+    \newtheorem*{myexample*}{Exemple}
+    % \newtheorem*{exampleBeamer*}{Exemple}
+    % \makeatletter
+    % \newenvironment{myexample*}[1][]
+    % {
+    %     \begin{exampleBeamer*}[#1]
+    %     %\par\pushQED{\QEDB}
+    % }
+    % {
+    %     %\popQED\endtrivlist\@endpefalse
+    %     \end{exampleBeamer*}
+    % }
+    % \makeatother
+
+\else
+
+    %---------------------------------------------------------------------------------------------------------------
+    %---------------------------------------------------------------------------------------------------------------
+    % Poly
+    
+    \newtheorem{example}{Exemple}[section]      % Prend le style en cours
+    \makeatletter
+    \newenvironment{myexample}[1][]
+    {
+        \begin{example}[#1]
+        \par\pushQED{\QEDB}
+    }
+    {
+        \popQED\endtrivlist\@endpefalse
+        \end{example}
+    }
+    \makeatother
+
+    \newtheorem*{example*}{Exemple}      % Prend le style en cours
+    \makeatletter
+    \newenvironment{myexample*}[1][]
+    {
+        \begin{example*}[#1]
+        \par\pushQED{\QEDB}
+    }
+    {
+        \popQED\endtrivlist\@endpefalse
+        \end{example*}
+    }
+    \makeatother
+
+\fi
+
+%---------------------------------------------------------------------------------------------------------------
+% Environnement : Remarque. C'est un environnement classique encapsule dans un tcolorbox
+%
+
+%\ifSLIDES
+%    \newtheorem{myremark}{Remarque}
+%\else
+    \newtheorem{myremark}{Remarque}[section]
+%\fi
+\newtheorem*{myremark*}{Remarque}
+\tcolorboxenvironment{myremark}{rmkstyle}
+\tcolorboxenvironment{myremark*}{rmkstyle}
+
+%---------------------------------------------------------------------------------------------------------------
+% Environnement : Exercice, Question, Correction, etc
+%
+\newcommand{\exenotext}{~\\ \vspace{-\baselineskip}}            % Utile avant un enumerate dans un exercice s'il n'y a pas de texte avant
+\newcommand{\anoter}{ {\Large \textcolor{orange}{\ding{45}}} }  % La main qui ecrit avant un exercice
+\newcommand{\newquestion}{\stepcounter{question}\setcounter{subquestion}{1}}   % Utile pour la correction d'un exo
+
+% Exercice
+\newcounter{question}               % Compteur pour les questions
+\newcounter{subquestion}           % Compteur pour les sous-questions
+
+\ifSLIDES
+
+    %---------------------------------------------------------------------------------------------------------------
+    %---------------------------------------------------------------------------------------------------------------
+    % Beamer
+    
+    %\newtheorem{myexercise}[myexample]{Exercice}
+     \newtheorem{exerciceTHM}[myexample]{Exercice}
+     \makeatletter
+     \newenvironment{myexercise}[1][]
+     {
+         \begin{exerciceTHM}[#1]
+         %\par\pushQED{\QEDB}
+         \setcounter{question}{0}
+     }
+     {
+         \setcounter{question}{0}
+         %\popQED\endtrivlist\@endpefalse
+         \end{exerciceTHM}
+     }
+    
+    %\newtheorem*{myexercise*}{Exercice}
+     \newtheorem*{exerciceTHM*}{Exercice}
+     \newenvironment{myexercise*}[1][]
+     {
+         \begin{exerciceTHM*}[#1]
+         %\par\pushQED{\QEDB}
+         %\setcounter{question}{0}%
+     }
+     {
+         %\setcounter{question}{0}%
+         %\popQED\endtrivlist\@endpefalse
+         \end{exerciceTHM*}
+     }
+     \makeatother
+
+\else
+
+    %---------------------------------------------------------------------------------------------------------------
+    %---------------------------------------------------------------------------------------------------------------
+    % Poly
+    
+    \newtheorem{exerciceTHM}[example]{{\makebox[0pt][r]{\anoter\hspace*{1ex}}Exercice}}
+    \makeatletter
+    \newenvironment{myexercise}[1][]
+    {
+        \begin{exerciceTHM}[#1]
+        \par\pushQED{\QEDB}
+        \setcounter{question}{0}
+    }
+    {
+        \setcounter{question}{0}
+        \popQED\endtrivlist\@endpefalse
+        \end{exerciceTHM}
+    }
+    \makeatother
+
+    \newtheorem*{exerciceTHM*}{{\makebox[0pt][r]{\anoter\hspace*{1ex}}Exercice}}
+    \makeatletter
+    \newenvironment{myexercise*}[1][]
+    {
+        \begin{exerciceTHM*}[#1]
+        \par\pushQED{\QEDB}
+        %\setcounter{question}{0}
+    }
+    {
+        %\setcounter{question}{0}
+        \popQED\endtrivlist\@endpefalse
+        \end{exerciceTHM*}
+    }
+    \makeatother
+
+\fi
+
+% Question
+\makeatletter
+\newenvironment{myquestion}
+{
+    \normalsize\normalfont\topsep6\p@\@plus6\p@\relax\trivlist
+    \item[\stepcounter{question}\bfseries\hspace{0.5em}\hskip\labelsep\thequestion\@addpunct{.}]\ignorespaces
+    \setcounter{subquestion}{1}
+}
+{
+}
+\makeatother
+
+% Sous Question
+\makeatletter
+\newenvironment{mysubquestion}
+{
+    \normalsize\normalfont\topsep6\p@\@plus6\p@\relax\trivlist
+    \item[\bfseries\hspace{1.5em}\hskip\labelsep\thequestion\@addpunct{.}\thesubquestion\@addpunct{.}]\ignorespaces
+}
+{
+    \stepcounter{subquestion}
+}
+\makeatother
+
+% Correction exercice
+\newtheorem*{corrTHM}{{\makebox[0pt][r]{$\rhd$\hspace*{1ex}}Correction}}
+\makeatletter
+\newenvironment{mycorr}[1][]
+{
+    \begin{corrTHM}[#1]
+    \setcounter{question}{0}
+    \par\pushQED{\QEDB}
+}
+{
+    \popQED\endtrivlist\@endpefalse
+    \setcounter{question}{0}
+    \end{corrTHM}
+}
+\makeatother
+
+%---------------------------------------------------------------------------------------------------------------
+% Environnement : Hypothese
+\newtheorem{assumption}{Hypothèse}
+
+\newcounter{assumptionx}
+\regtotcounter{assumptionx}
+\newcommand{\tagAssumption}{%
+    H\theassumptionx
+}
+
+\newenvironment{myassumption}
+{\addtocounter{assumptionx}{1}
+    \renewcommand\theassumption{\tagAssumption}
+    \addtocounter{assumption}{-1}
+    \assumption
+}
+{
+    \endassumption
+}
+
+\tcolorboxenvironment{myassumption}{hypstyle}
+
+\ifSLIDES
+    \resetcounteronoverlays{assumptionx}
+\fi
+
+%---------------------------------------------------------------------------------------------------------------
+% Environnement : Question/Difficulte a se poser
+%
+\newtheorem{questionnement}{}
+
+\newcounter{questionnementx}
+\regtotcounter{questionnementx}
+\newcommand{\tagquestionnement}{%
+Q\thequestionnementx
+}
+
+\newenvironment{myquestionnement}
+{\addtocounter{questionnementx}{1}
+    \renewcommand\thequestionnement{\tagquestionnement}
+    \addtocounter{questionnement}{-1}
+    \questionnement
+}
+{
+    \endquestionnement
+}
+
+\tcolorboxenvironment{myquestionnement}{difstyle}
+
+\ifSLIDES
+    \resetcounteronoverlays{questionnementx}
+\fi
+
+%---------------------------------------------------------------------------------------------------------------
+% Environnement : Question/Difficulte a se poser
+%
+\newtheorem{difficulty}{}
+
+\newcounter{difficultyx}
+\regtotcounter{difficultyx}
+\newcommand{\tagDifficulty}{%
+D\thedifficultyx
+}
+
+\newenvironment{mydifficulty}
+{\addtocounter{difficultyx}{1}
+    \renewcommand\thedifficulty{\tagDifficulty}
+    \addtocounter{difficulty}{-1}
+    \difficulty
+}
+{
+    \enddifficulty
+}
+
+\tcolorboxenvironment{mydifficulty}{difstyle}
+
+\ifSLIDES
+    \resetcounteronoverlays{difficultyx}
+\fi
+
+
+% Exercices colorbox avec record
+% \tcbuselibrary{skins,xparse}
+%
+% to be possible to reference the exercices I make an encapsulation
+%\newtheorem{myexercisecb_}{}[section]
+%
+\newcounter{myexercisecbinner}[section]
+\newcounter{myexercisecbouter}[section]
+\renewcommand{\themyexercisecbinner}{\thesection.\themyexercisecbouter}
+\def\stepexecbcounter{\stepcounter{myexercisecbouter}\refstepcounter{myexercisecbinner}}
+%
+% 
+\NewTColorBox[auto counter, number within=section]{myexercisecb}{+!O{} d<>}%
+    {enhanced, 
+    breakable, 
+    colframe=green!20!white, 
+    colback=white, 
+    coltitle=green!40!black, 
+    fonttitle=\bfseries, 
+    lower separated=false,
+    title={Exercice~\thetcbcounter~(solution p.~\pageref{mysolution@\thetcbcounter})~:}, 
+    label={exercise@\thetcbcounter},
+    attach title to upper=~,
+    before title={\stepexecbcounter\IfValueT{#2}{\label{ex:#2}}},
+    lowerbox=ignored,
+    savelowerto=solutions/exercise-\thetcbcounter.tex, 
+    record={\string\mysolution{\thetcbcounter}{solutions/exercise-\thetcbcounter.tex}}, #1
+}
+%
+\NewTotalTColorBox{\mysolution}{mm}{%
+    enhanced, breakable, colframe=red!20!white, colback=white, coltitle=red!40!black, fonttitle=\bfseries,
+    title={Solution de l'Exercice~\ref{exercise@#1} p.~\pageref{exercise@#1}~:},
+    phantomlabel={mysolution@#1},
+    attach title to upper=~,
+}{\input{#2}}
+%
+\tcbset{no solution/.style={no recording, title={Exercice~\thetcbcounter:}}}
+
