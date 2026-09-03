@@ -49,28 +49,14 @@
 % TeX repond « Leaders not followed by proper glue ».
 \newcommand{\ocotsrulefill}{\leavevmode\xrfill[0.5ex]{2pt}}
 
-% Titre de chapitre : un filet, le numero en petites capitales, un filet ; puis
-% le titre centre ; puis un filet pleine largeur.
-\titleformat{\chapter}[display]
-  {\normalfont}
-  {\centering\ocotsrulefill~~{\ocotsheading{chapter-number}%
-    \chaptertitlename\ \thechapter}~~\ocotsrulefill}
-  {0pt}
-  {\centering\ocotsheading{chapter-title}}
-  [\vskip10pt\noindent\rule{\textwidth}{1pt}]
+% La mise en forme des titres appartient au theme : c'est de l'apparence, pas
+% de la structure. Le support charge titlesec et applique ce que le theme a
+% deposé ; un theme qui ne dit rien laisse la mise en forme par defaut.
+%
+% Sans ce detour, un theme ne pourrait changer que la police et la couleur des
+% titres, pas leur dessin — et la v2 serait impossible a ecrire.
+\ocotsifheading{titles-book}{\ocotsheading{titles-book}}{}
 
-\titleformat{name=\chapter,numberless}[display]
-  {\normalfont}
-  {\centering\ocotsrulefill}
-  {0pt}
-  {\centering\ocotsheading{chapter-title}}
-  [\vskip10pt\noindent\rule{\textwidth}{1pt}]
-
-\titlespacing*{\chapter}{0pt}{0pt}{20pt}
-
-\titleformat{\section}{\ocotsheading{section}}{\thesection}{1em}{}
-\titleformat{\subsection}{\ocotsheading{subsection}}{\thesubsection}{1em}{}
-\titleformat{\subsubsection}{\ocotsheading{subsubsection}}{\thesubsubsection}{1em}{}
 
 % ---------------------------------------------------------------------------
 % En-tetes

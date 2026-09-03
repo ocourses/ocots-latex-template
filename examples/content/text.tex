@@ -1,0 +1,90 @@
+% Contenu partagé — dessins, tableaux, code source.
+
+\chapter{Dessins, tableaux et code}%
+\label{chap:graphics}
+\minitoc%
+
+%---------------------------------------------------------------------------
+\section{Dessins}%
+\label{sec:tikz}
+
+Les aides TikZ du template posent une fenêtre, une grille et des axes sans
+avoir à les redessiner à chaque figure.
+
+\begin{center}
+\begin{tikzpicture}[xmin=-2, xmax=2, ymin=-1.5, ymax=1.5, scale=1.2]
+    \grille
+    \axes{$t$}{$x$}
+    \draw[thick, color=\ocotscolor{emph-a}, domain=-2:2, samples=100]
+        plot (\x, {sin(\x r)});
+\end{tikzpicture}
+\end{center}
+
+Les pointes de flèches par défaut viennent du template~:
+\begin{center}
+\begin{tikzpicture}
+    \draw[->] (0,0) -- (3,0) node[right]{$x$};
+    \draw[->] (0,-0.3) -- (0,1) node[above]{$y$};
+\end{tikzpicture}
+\end{center}
+
+%---------------------------------------------------------------------------
+\section{Annotation d'une image}%
+\label{sec:tikzgraphics}
+
+L'environnement \texttt{tikzgraphics} permet de placer des repères sur une
+image bitmap en coordonnées pixel, sans recalcul d'échelle.
+
+\begin{center}
+\begin{tikzgraphics}{6cm}{2546}{552}{logo-insa}
+    \pxnode[anchor=west, color=\ocotscolor{emph-b}]{2600}{276}{repere}{$\leftarrow$ repère}
+\end{tikzgraphics}
+\end{center}
+
+%---------------------------------------------------------------------------
+\section{Tableaux}%
+\label{sec:tables}
+
+Colonnes centrées et alignées à gauche de largeur fixe, filets d'épaisseurs
+graduées, cales verticales.
+
+\begin{center}
+\begin{tabular}{C{3cm} C{3cm} C{3cm}}
+    \bighrule
+    Méthode & Ordre & Stabilité \Tstrut\Bstrut \\
+    \medhrule
+    Euler explicite  & 1 & conditionnelle \Tstrut \\
+    Euler implicite  & 1 & inconditionnelle \\
+    Runge--Kutta 4   & 4 & conditionnelle \Bstrut \\
+    \bighrule
+\end{tabular}
+\end{center}
+
+%---------------------------------------------------------------------------
+\section{Code source}%
+\label{sec:listings}
+
+Le style de \texttt{listings} suit les couleurs du thème.
+
+\begin{lstlisting}[language=Python, caption={Une méthode d'Euler explicite}]
+def euler(f, t0, x0, tf, n):
+    # pas de discretisation
+    h = (tf - t0) / n
+    t, x = t0, x0
+    for k in range(n):
+        x = x + h * f(t, x)
+        t = t + h
+    return t, x
+\end{lstlisting}
+
+%---------------------------------------------------------------------------
+\section{Références croisées}%
+\label{sec:refs}
+
+Les renvois traversent les chapitres~: le théorème~\ref{thm:cauchy} du
+chapitre~\ref{chap:boxes}, la définition~\ref{def:ouvert}, la
+proposition~\ref{prop:ademontrer} du chapitre~\ref{chap:blocks}, et
+l'exercice~\ref{ex:matrices} du chapitre~\ref{chap:exercises}.
+
+Index~: le mot \index{flot}flot est indexé, ainsi que le
+mot \index{orbite}orbite.

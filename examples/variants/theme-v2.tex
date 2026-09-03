@@ -1,0 +1,31 @@
+% Variante : thème v2 (refonte visuelle) — base de comparaison.
+%
+% Même corps que variants/theme-n7.tex, chargé depuis ../content/ : seule la
+% ligne \usepackage change. C'est la preuve que `theme=' redessine sans
+% toucher aux documents (étape 3 de la campagne de refonte).
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=v2, solutions=end, math=analysis,
+            institution=n7,insa, author={Prénom Nom}]{ocots}
+
+\title{Comparaison de thèmes}
+\subtitle{Thème \texttt{v2} --- refonte visuelle}
+\author{Prénom \textsc{Nom}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\ocotscollectsolutions%
+
+\input{../content/boxes}
+\input{../content/blocks}
+\input{../content/exercises}
+
+\chapter{Corrections des exercices}
+\ocotsprintsolutions%
+
+\input{../content/math}
+\input{../content/text}
+
+\end{document}

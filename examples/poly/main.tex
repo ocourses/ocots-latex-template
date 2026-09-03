@@ -1,14 +1,18 @@
 % =====================================================================
-% Exemple minimal — POLYCOPIÉ
-% Compilation : make poly (depuis examples/), ou latexmk -pdf main.tex
-%                avec TEXINPUTS pointant sur tex/ et assets/.
+% Exemple complet — POLYCOPIÉ
+%
+% Ce document exerce tout ce que le template sait faire. Il sert à la fois
+% de test de non-régression, de documentation par l'exemple, et de base de
+% comparaison entre thèmes : voir examples/variants/.
+%
+% Compilation : make poly (depuis examples/)
 % =====================================================================
 \documentclass[11pt,twoside]{ocots-book}
 \usepackage[lang=fr, theme=n7, solutions=end, math=analysis,
             institution=n7,insa, author={Prénom Nom}]{ocots}
 
-\title{Exemple de polycopié}
-\subtitle{Sous-titre facultatif}
+\title{Le template \texttt{ocots}}
+\subtitle{Tout ce qu'il sait faire, sur un support papier}
 \author{Prénom \textsc{Nom}}
 \date{\today}
 
@@ -26,43 +30,37 @@
 % ---------------------------------------------------------------- main
 \mainmatter%
 
-\part{Première partie}%
-\label{part:one}
+\part{Les environnements}%
+\label{part:env}
 
 \ocotscollectsolutions% début de la collecte des corrigés
 
-\chapter{Premier chapitre}%
-\label{chap:one}
-\minitoc%
+\input{../content/boxes}
+\input{../content/blocks}
+\input{../content/exercises}
 
-\begin{quotation}
-    Chapeau du chapitre.
-\end{quotation}
-
-\section{Première section}%
-\label{sec:one}
-
-Texte, avec une norme $\norm{x}$ et un intervalle $\intervalleoo{a}{b}$.
-
-\begin{theorem}{Titre du théorème}{exemple}
-    Énoncé.
-\end{theorem}
-
-\begin{proof}
-    Démonstration.
-\end{proof}
-
-\begin{exercise}[label=ex:demo, points=4]
-    Énoncé de l'exercice.
-\solution
-    Corrigé, reporté en fin de partie par l'option \texttt{solutions=end}.
-\end{exercise}
-
-% <<< étape 3 : tous les environnements, toutes les options >>>
-
-%-------------------------------------------
-\chapter{Corrections des exercices}
+\chapter{Corrections des exercices}%
+\label{chap:solutions}
 \ocotsprintsolutions% les corrigés collectés viennent ici
+
+% ------------------------------------------------------------------
+\part{Les macros}%
+\label{part:macros}
+
+\input{../content/math}
+\input{../content/text}
+
+% ------------------------------------------------------------------
+\part{Annexes}%
+\label{part:appendix}
+
+\begin{appendix}
+    \chapter{Une annexe}%
+    \label{chap:appendix}
+    \minitoc%
+
+    Les annexes sont numérotées en lettres.
+\end{appendix}
 
 % ---------------------------------------------------------------- back
 \backmatter%

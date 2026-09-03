@@ -1,0 +1,101 @@
+% Contenu partagé — les macros mathématiques.
+%
+% Ce chapitre exerce math=base et math=analysis. Les modules `control' et
+% `measure' ne sont pas chargés ici : c'est justement l'intérêt de l'option,
+% un polycopié de calcul différentiel n'a pas à embarquer les notations du
+% contrôle optimal.
+
+\chapter{Macros mathématiques}%
+\label{chap:math}
+\minitoc%
+
+%---------------------------------------------------------------------------
+\section{Ensembles de nombres}%
+\label{sec:numbers}
+
+Les ensembles usuels~: $\N$, $\Z$, $\Q$, $\R$, $\C$, $\K$, $\Sn$.
+
+Leurs décorations, construites par \verb|\setDeco|~:
+$\Rp$, $\Rn$, $\Rs$, $\Rsp$, $\Rsn$, $\Rb$, $\Rbp$, $\Ns$, $\Nb$.
+
+Ensembles et espaces~: $\M_n(\R)$, $\B$, $\E$, $\F$, $\D$, $\O$, $\P$,
+$\Vcal$, $\Ical$, $\Sgot$, et l'indicatrice $\ind_A$.
+
+%---------------------------------------------------------------------------
+\section{Normes, intervalles, opérateurs}%
+\label{sec:norms}
+
+Valeur absolue et norme, en version fixe ou extensible~:
+$\abs{x}$, $\absStyle{\frac{a}{b}}$, $\norm{x}$, $\normStyle{\frac{a}{b}}$.
+
+Produit scalaire $\prodscal{x}{y}$ et ensemble défini en compréhension~:
+\[
+    \enstq{x \in \R^n}{\norm{x} \le 1}.
+\]
+
+Intervalles~: $\intervalleff{a}{b}$, $\intervallefo{a}{b}$,
+$\intervalleof{a}{b}$, $\intervalleoo{a}{b}$, et l'intervalle d'entiers
+$\intervalleentier{1}{n}$.
+
+\begin{remark}
+    La convention des intervalles ouverts vient du fichier de langue~: $]a,b[$
+    en français, $(a,b)$ en anglais. C'est ce qui évite de dupliquer tout le
+    fichier de macros pour changer de langue.
+\end{remark}
+
+Opérateurs~: $\rang A$, $\rank A$, $\trace A$, $\det A$, $\Ker A$, $\im A$,
+$\vect(u,v)$, $\diag(a_1,\ldots,a_n)$, $\card E$, $\supp f$, $\sign x$,
+$\graphe f$, $\GL_n(\R)$, $\id$.
+
+Les noms de $\rang$, $\minimize$ et $\graphe$ dépendent de la langue.
+
+Comparaison de matrices~: $A \semidefpos$, $A \defpos$, $A \defneg$.
+
+%---------------------------------------------------------------------------
+\section{Applications et différentielles}%
+\label{sec:diff}
+
+Une application, avec \verb|\fonction|~:
+\[
+    \fonction{f}{\R^n}{\R^p}{x}{f(x)}
+\]
+
+Éléments différentiels~: $\xdif t$, $\xDif f(x)$, $\pardiff_x f$.
+
+Dérivées partielles~: $\frp{f}{x}$, $\frpp{f}{x}$, $\frpij{f}{x}{y}$,
+$\frpxx{f}$, $\frptt{f}$.
+
+Gradient, avec ou sans indice~: $\grad{f}$ et $\grad{f}{x}$.
+
+Notations de Landau~: $g(v) = \petito{v^2}$ et $h(v) = \grandO{v}$.
+
+Espaces fonctionnels~: $\xCn{1}(\Ical, \R^n)$, $\xLn{2}(E,F)$, $\Ccal$,
+$\Lcal$, $\Dcal$, $\Ucal$, $\Acal$, $\Ecal$, $\Fcal$, $\Kcal$, $\Ncal$,
+$\GLcal$, $\Htrue$.
+
+Topologie~: la boule ouverte $\Ball(x,r)$, la boule fermée $\BallClosed(x,r)$,
+l'adhérence $\adherence{A}$, et la barre ajustée $\xoverline{AB}$ qui remplace
+$\bar{\phantom{x}}$ sur les symboles larges.
+
+Quotient~: $\EnsembleQuotient{E}{R}$. Convergence~: $u_n \convn u$.
+
+%---------------------------------------------------------------------------
+\section{Un énoncé complet}%
+\label{sec:realstatement}
+
+\begin{theorem}{Cauchy--Lipschitz}{cauchylipschitz}
+    Soit $f \colon \Ical \times \Omega \to \R^n$ continue, localement
+    lipschitzienne en $x$, avec $\Ical$ un intervalle ouvert de $\R$ et
+    $\Omega$ un ouvert de $\R^n$. Alors pour tout
+    $(t_0, x_0) \in \Ical \times \Omega$, le problème de Cauchy
+    \[
+        \dot{x}(t) = f(t, x(t)), \qquad x(t_0) = x_0,
+    \]
+    admet une unique solution maximale, définie sur un intervalle ouvert
+    $\intervalleoo{t_-}{t_+} \subset \Ical$ contenant $t_0$.
+\end{theorem}
+
+\begin{proof}
+    Le point fixe de Picard sur $\xCn{0}(\intervalleff{t_0-\eta}{t_0+\eta},
+    \BallClosed(x_0,r))$, muni de $\norm{\cdot}_\infty$.
+\end{proof}

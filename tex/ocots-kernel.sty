@@ -79,6 +79,10 @@
 % ou il configure titlesec ou beamer.
 \newcommand{\ocotssetheading}[2]{\@namedef{ocots@head@#1}{#2}}
 \newcommand{\ocotsheading}[1]{\@nameuse{ocots@head@#1}}
+% Un crochet absent n'est pas une erreur : le support garde alors sa mise en
+% forme par defaut. C'est ce qui permet a un theme de ne redessiner que ce
+% qu'il veut.
+\newcommand{\ocotsifheading}[3]{\@ifundefined{ocots@head@#1}{#3}{#2}}
 
 % ---------------------------------------------------------------------------
 % Alias d'environnement

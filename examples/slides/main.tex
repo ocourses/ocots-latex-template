@@ -1,54 +1,23 @@
 % =====================================================================
-% Exemple minimal — DIAPOSITIVES
-% Le support est déduit de la classe : beamer suffit, aucune option à passer.
+% Exemple complet — DIAPOSITIVES
+%
+% Le support est déduit de la classe : beamer suffit, rien à déclarer.
+% Le corps est dans ../content/slides-body.tex, partagé avec les variantes
+% de thème.
 % =====================================================================
 \documentclass[9pt,t]{beamer}
 \usepackage[lang=fr, theme=n7-dark, math=analysis,
-            institution=n7,insa]{ocots}
+            institution=n7,insa, author={Prénom Nom}]{ocots}
 
-\title{Exemple de diapositives}
+\title{Le template \texttt{ocots}}
 \author{Prénom \textsc{Nom}}
 \date{\today}
 
 \begin{document}
 
-\slidechapter{1}{Titre du chapitre}
+\slidechapter{1}{Tout ce qu'il sait faire, en diapositives}
 \slidetitlepage% remplace les 28 lignes recopiées dans chaque jeu de la v0
 
-% ---------------------------------------------------------------- contenu
-\begin{slide}{Titre de la diapositive}
-
-Texte, avec une norme $\norm{x}$.
-
-\begin{definition}{Une définition}{}
-    Énoncé.
-\end{definition}
-
-\pause
-
-\begin{remark}
-    Une remarque.
-\end{remark}
-
-\end{slide}
-
-% La couleur d'en-tête peut changer par thème abordé.
-\begin{slide}[\ocotscolor{slide2}]{Une autre couleur d'en-tête}
-
-\begin{proofbegin}
-    Début d'une preuve étalée sur plusieurs diapositives.
-\end{proofbegin}
-
-\end{slide}
-
-\begin{slide}{Suite de la preuve}
-
-\begin{proofend}
-    Fin de la preuve.
-\end{proofend}
-
-% <<< étape 3 : tous les environnements, toutes les options >>>
-
-\end{slide}
+\input{../content/slides-body}
 
 \end{document}

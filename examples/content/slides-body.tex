@@ -1,0 +1,149 @@
+% Contenu partagé — corps des diapositives.
+%
+% Les mêmes environnements que sur papier, dans la structure propre au médium.
+% C'est la vérification que l'API ne dépend pas du support.
+
+%------------------------------------------------------------------
+\begin{slide}{Les cinq familles à cadre}
+
+\begin{theorem}{Cauchy--Lipschitz}{cauchyslide}
+    Sous hypothèse de régularité locale, le problème de Cauchy admet une
+    unique solution maximale.
+\end{theorem}
+
+\pause
+
+\begin{definition}{Solution maximale}{}
+    Une solution qui ne se prolonge pas.
+\end{definition}
+
+\pause
+
+\begin{proposition}{}{}
+    Une proposition.
+\end{proposition}
+
+\end{slide}
+
+%------------------------------------------------------------------
+\begin{slide}{Corollaire, conjecture, lemme}
+
+\begin{corollary}{}{}
+    Un corollaire.
+\end{corollary}
+
+\begin{conjecture}{}{}
+    Une conjecture.
+\end{conjecture}
+
+\begin{lemma}
+    Un lemme, composé au fil du texte.
+\end{lemma}
+
+\begin{example}
+    Un exemple.
+\end{example}
+
+\begin{remark}
+    Une remarque, avec son filet latéral.
+\end{remark}
+
+\end{slide}
+
+%------------------------------------------------------------------
+% La couleur d'en-tête change pour marquer un nouveau thème.
+\begin{slide}[\ocotscolor{slide1}]{Une preuve sur plusieurs diapositives}
+
+\begin{proposition}{}{}
+    Pour tout $x \in \R$, $x^2 \ge 0$.
+\end{proposition}
+
+\begin{proofbegin}
+    Premier morceau de la démonstration. Le carré final n'est pas encore posé.
+\end{proofbegin}
+
+\end{slide}
+
+\begin{slide}[\ocotscolor{slide1}]{Suite de la preuve}
+
+\begin{proofmiddle}
+    Morceau intermédiaire.
+\end{proofmiddle}
+
+\pause
+
+\begin{proofend}
+    Dernier morceau. Le carré de fin arrive ici.
+\end{proofend}
+
+\end{slide}
+
+%------------------------------------------------------------------
+\begin{slide}[\ocotscolor{slide2}]{Blocs étiquetés}
+
+\begin{assumption}
+    Une hypothèse. L'étiquette ne change pas d'un \texttt{\textbackslash pause}
+    à l'autre.
+\end{assumption}
+
+\pause
+
+\begin{assumption}
+    Une deuxième hypothèse.
+\end{assumption}
+
+\pause
+
+\begin{openquestion}
+    Un questionnement.
+\end{openquestion}
+
+\begin{difficulty}
+    Une difficulté attendue.
+\end{difficulty}
+
+\end{slide}
+
+%------------------------------------------------------------------
+\begin{slide}[\ocotscolor{slide3}]{Mathématiques et mise en valeur}
+
+Un \keyword{terme important}, puis \emphA{quatre} \emphB{couleurs}
+\emphC{de} \emphD{thème}.
+
+\medskip
+Ensembles $\N$, $\Z$, $\R$, $\Rsp$, intervalles $\intervalleoo{a}{b}$,
+normes $\norm{x}$, opérateurs $\rang A$ et $\trace A$.
+
+\medskip
+\[
+    \tcbhighmath{\dot{x}(t) = A(t)\, x(t) + b(t)}
+\]
+
+\medskip
+\begin{center}
+\begin{tikzpicture}[xmin=-2, xmax=2, ymin=-1.2, ymax=1.2, scale=0.9]
+    \grille
+    \axes{$t$}{$x$}
+    \draw[thick, color=\ocotscolor{emph-b}, domain=-2:2, samples=100]
+        plot (\x, {sin(\x r)});
+\end{tikzpicture}
+\end{center}
+
+\end{slide}
+
+%------------------------------------------------------------------
+\begin{slide}[\ocotscolor{slide4}]{Un exercice}
+
+L'énoncé ci-dessous est copié tel quel depuis le polycopié.
+
+\begin{exercise}[nosolution]
+    Soit $E$ un espace vectoriel normé.
+    \begin{question}
+        Montrer que la boule $\Ball(0,1)$ est convexe.
+    \end{question}
+    \begin{question}
+        En déduire que $\norm{\cdot}$ est convexe.
+    \end{question}
+\end{exercise}
+
+\end{slide}

@@ -1,40 +1,83 @@
 % =====================================================================
-% Exemple minimal — TD
-% L'énoncé ci-dessous se colle tel quel dans le polycopié : c'est le point
-% de la refonte. En v0, `exercise' et `question' n'avaient pas la même
-% signature d'un support à l'autre.
+% Exemple complet — TD
+%
+% Les énoncés ci-dessous se collent tels quels dans le polycopié : c'est le
+% point de la refonte. En v0, `exercise' et `question' n'avaient pas la même
+% signature d'un support à l'autre, et un énoncé de TD n'était pas
+% transposable.
 % =====================================================================
 \documentclass[11pt]{ocots-td}
-\usepackage[lang=fr, theme=n7, solutions=none,
+\usepackage[lang=fr, theme=n7, solutions=none, math=analysis,
             institution=n7,insa]{ocots}
 
-\title{Exemple de TD}
-\shorttitle{Exemple de TD}
+\title{Équations différentielles linéaires}
+\shorttitle{TD 1 --- Équations linéaires}
 \numero{TD n\textsuperscript{o}~1}
 \date{2025--2026}
-\discipline{Nom de la matière}
-\promotion{Établissement --- Promotion}
+\discipline{Calcul différentiel et EDO}
+\promotion{ENSEEIHT / INSA --- 1A}
 
 \begin{document}
 
 \maketitle
 
-\begin{exercise}[nosolution]
+\begin{instructions}\breakline%
+    \begin{itemize}
+        \item Les exercices marqués \handwrite{} sont à préparer avant la séance~;
+        \item les corrigés sont distribués à la fin de la séance.
+    \end{itemize}
+\end{instructions}
+
+\medskip
+%---------------------------------------------------------------------------
+\section{Exponentielle de matrice}
+
+\reminder{Pour $A \in \M_n(\R)$, $e^{tA} = \sum_{n \ge 0} \frac{t^n}{n!} A^n$.}
+
+\begin{exercise}[label=ex:expo]
+    Calculer $e^{tA}$ pour chacune des matrices suivantes.
     \begin{question}
-        Énoncé de la question.
+        $A = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$, en remarquant que
+        $A^2 = -I$.
     \end{question}
     \begin{question}
-        Énoncé de la question suivante.
+        $A = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}$, nilpotente.
         \begin{subquestion}
-            Sous-question.
+            Calculer $A^2$.
         \end{subquestion}
+        \begin{subquestion}
+            En déduire $e^{tA}$.
+        \end{subquestion}
+    \end{question}
+\solution
+    \begin{question}
+        Des identités $A^{2k} = (-1)^k I$ et $A^{2k+1} = (-1)^k A$ on tire
+        \[
+            e^{tA} = \begin{pmatrix} \cos t & \sin t \\ -\sin t & \cos t\end{pmatrix}.
+        \]
+    \end{question}
+    \begin{question}
+        $A^2 = 0$, donc $e^{tA} = I + tA$.
     \end{question}
 \end{exercise}
 
-\begin{correction}
-    Corrigé, masqué ici par l'option \texttt{solutions=none}.
-\end{correction}
+%---------------------------------------------------------------------------
+\section{Systèmes non homogènes}
 
-% <<< étape 3 : rappels, suppléments, problèmes, toutes les options >>>
+\begin{exercise}[nosolution]
+    Soit $A \in \xCn{0}(\Ical, \M_n(\R))$ et $b \in \xCn{0}(\Ical, \R^n)$.
+    \begin{question}
+        Écrire la formule de variation de la constante pour
+        $\dot{x}(t) = A(t)x(t) + b(t)$.
+    \end{question}
+\end{exercise}
+
+\supplement{Pour aller plus loin, traiter le cas où $A$ n'est pas continue mais
+seulement localement intégrable.}
+
+\begin{correction}
+    Cette correction n'apparaît qu'avec \texttt{solutions=inline} ou
+    \texttt{solutions=end}.
+\end{correction}
 
 \end{document}

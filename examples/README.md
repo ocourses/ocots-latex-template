@@ -4,7 +4,7 @@ Trois rôles :
 
 1. **Test de non-régression** — `make` doit toujours être vert.
 2. **Documentation** — un exemple vaut mieux qu'une page de manuel.
-3. **Base de comparaison v1 / v2** — les mêmes sources, deux thèmes, deux PDF
+3. **Base de comparaison de thèmes** — le même contenu, deux thèmes, deux PDF
    à mettre côte à côte.
 
 ## Un document par support
@@ -16,11 +16,22 @@ Trois rôles :
 | `td/`     | travaux dirigés| `ocots-td` |
 | `exam/`   | examen         | `ocots-exam` |
 
+Chacun exerce tout ce que le template sait faire pour son support : toutes les
+familles d'environnements, les trois modes de corrigés, les macros de mise en
+valeur. `poly/main.tex` est le plus complet — c'est la vitrine.
+
+## Contenu partagé
+
+`content/` porte le contenu de démonstration une seule fois
+(`boxes.tex`, `blocks.tex`, `exercises.tex`, `math.tex`, `text.tex`,
+`slides-body.tex`), `\input` par `poly/main.tex` et par les variantes de
+`variants/`. C'est la démonstration de l'étape 2 de la refonte : un énoncé ne
+dépend pas du support qui le compose.
+
 ## Variantes d'options
 
-`variants/` compile **le même corps** (`body.tex`) avec des options
-différentes. C'est la démonstration de l'étape 2 : le contenu ne bouge pas,
-seule la ligne `\usepackage` change.
+`variants/` compile le **même corps** avec des options différentes ; seule la
+ligne `\usepackage` change.
 
 | Fichier | Ce qu'il montre |
 |---------|-----------------|
@@ -29,9 +40,15 @@ seule la ligne `\usepackage` change.
 | `en-end.tex`    | même contenu en anglais, corrigés reportés |
 | `bw-end.tex`    | noir et blanc, pour l'impression |
 | `compat.tex`    | un corps écrit **avec les noms de la v0**, compilé par la v1 |
+| `theme-n7.tex`  | thème `n7` — recoloration de la v0 (socle commun, cadres pastel) |
+| `theme-v2.tex`  | thème `v2` — refonte visuelle (filet latéral, titres alignés à gauche) |
 
-`compat.tex` ne partage pas `body.tex` : il existe précisément pour prouver que
-l'ancienne syntaxe passe sans retouche.
+`fr-none`, `fr-inline`, `en-end` et `bw-end` partagent `body.tex`, un corps
+minimal. `compat.tex` ne le partage pas : il existe précisément pour prouver
+que l'ancienne syntaxe passe sans retouche. `theme-n7.tex` et `theme-v2.tex`
+partagent le contenu complet de `../content/` — c'est la base de comparaison
+de l'étape 3 : ouvrir les deux PDF côte à côte montre que `theme=` redessine
+sans qu'une ligne du document ne change.
 
 ## Compilation
 
@@ -53,7 +70,6 @@ documents n'ont aucun chemin relatif à tenir à jour.
 
 ## État
 
-**Étape 2 faite.** Les exemples exercent l'architecture mais restent minces.
-Chaque fichier porte un marqueur `<<< étape 3 : … >>>` là où le contenu de
-démonstration viendra : tous les environnements, toutes les options, toutes les
-variantes, pour comparer v1 et v2 côte à côte.
+**Étapes 2 et 3 faites.** Les quatre supports et les sept variantes compilent
+sans erreur ; `theme-v2.tex` valide que la refonte visuelle (thème `v2`) tient
+dans un seul fichier de thème, sans toucher au noyau ni aux documents.

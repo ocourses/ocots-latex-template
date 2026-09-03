@@ -57,18 +57,26 @@ disparu.
 | Option | Valeurs | Défaut | Effet |
 |--------|---------|--------|-------|
 | `lang` | `fr`, `en` | `fr` | langue des intitulés et de la typographie |
-| `theme` | `n7`, `n7-dark`, `n7-light`, `bw` | `n7` (papier), `n7-dark` (diapos) | couleurs et formes |
+| `theme` | `n7`, `n7-dark`, `n7-light`, `bw`, `v2` | `n7` (papier), `n7-dark` (diapos) | couleurs et formes |
 | `solutions` | `none`, `inline`, `end` | `end` | sort des corrigés |
 | `math` | `base`, `analysis`, `control`, `measure` | `base` | modules de macros chargés |
 | `institution` | `n7`, `inp`, `insa`, `uftmp` | `n7` | logos de la page de titre |
 | `author` | texte | vide | métadonnée `pdfauthor` |
 | `draft` | drapeau | absent | affiche les notes de travail |
-| `layout` | `standard`, `fiche` | `standard` | mise en page |
 | `binding` | longueur | `0mm` | décalage de reliure pour l'impression |
 
 Chaque valeur se résout en un nom de fichier : `theme=foo` charge
 `tex/theme/ocots-theme-foo.sty`. **Ajouter un thème, une langue ou un module de
 macros, c'est ajouter un fichier** — le noyau n'est pas touché.
+
+Les thèmes `n7*` et `bw` chargent `ocots-theme-base.sty` (le socle commun :
+cadres pastel, titres centrés entre deux filets) et ne fixent que des couleurs.
+`v2` est différent : il ne charge pas le socle, il **redessine les formes**
+(filet latéral au lieu du cadre complet, titres alignés à gauche, typographie
+Charter/Fira Sans) — la preuve que l'architecture à trois couches encaisse un
+changement visuel complet sans qu'aucun document n'ait à bouger. Comparer
+`examples/variants/theme-n7.tex` et `examples/variants/theme-v2.tex` : même
+corps, seule l'option change.
 
 ## Environnements
 
@@ -140,7 +148,7 @@ tex/
   ocots-compat.sty       alias des noms v0
   ocots-book.cls  ocots-td.cls  ocots-exam.cls
   carrier/               supports : book, slides, article, td, exam
-  theme/                 apparence : n7, n7-dark, n7-light, bw, + socle commun
+  theme/                 apparence : n7, n7-dark, n7-light, bw, v2, + socle commun
   lang/                  chaînes : fr, en
   math/                  macros : base, analysis, control, measure
   third-party/           tikzgraphicx (B. Kellermann, GPL)

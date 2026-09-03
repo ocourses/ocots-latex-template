@@ -14,7 +14,7 @@ EXAMPLES := poly slides td exam
 
 # Variantes d'options : meme corps, options differentes. Elles prouvent que
 # lang=, theme= et solutions= agissent sans toucher au contenu.
-VARIANTS := fr-none fr-inline en-end bw-end compat
+VARIANTS := fr-none fr-inline en-end bw-end compat theme-n7 theme-v2
 
 # Le template est trouvé par TEXINPUTS : les documents n'ont plus de chemin
 # relatif à tenir à jour, contrairement au \relativePath de la v0 (défaut D12).

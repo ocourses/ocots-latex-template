@@ -1,0 +1,97 @@
+% Contenu partagé — les environnements à boîte et de type théorème.
+%
+% Ce fichier ne contient aucun préambule : il est inclus par plusieurs
+% documents, qui l'affichent avec des thèmes différents. C'est la base de
+% comparaison v1 / v2.
+
+\chapter{Boîtes et théorèmes}%
+\label{chap:boxes}
+\minitoc%
+
+\begin{quotation}
+    Les cinq familles à cadre partagent un compteur : un théorème et une
+    définition ne portent jamais le même numéro. Toutes prennent deux arguments,
+    un titre et une étiquette, tous deux facultatifs — laisser l'étiquette vide
+    est licite.
+\end{quotation}
+
+%---------------------------------------------------------------------------
+\section{Les cinq familles à cadre}%
+\label{sec:framed}
+
+\begin{theorem}{Théorème avec titre et étiquette}{cauchy}
+    Un énoncé. Cette boîte porte l'étiquette \texttt{thm:cauchy} et se cite par
+    \verb|\ref{thm:cauchy}| : théorème~\ref{thm:cauchy}.
+\end{theorem}
+
+\begin{theorem}{}{}
+    Un énoncé sans titre ni étiquette : les deux arguments restent obligatoires,
+    mais peuvent être vides.
+\end{theorem}
+
+\begin{definition}{Définition}{ouvert}
+    Un énoncé. Référence~: définition~\ref{def:ouvert}.
+\end{definition}
+
+\begin{proposition}{Proposition}{}
+    Un énoncé.
+\end{proposition}
+
+\begin{corollary}{Corollaire}{}
+    Un énoncé.
+\end{corollary}
+
+\begin{conjecture}{Conjecture}{}
+    Un énoncé. Cette famille venait du fork HDR et manquait au template de ce
+    dépôt.
+\end{conjecture}
+
+%---------------------------------------------------------------------------
+\section{Les environnements de type théorème}%
+\label{sec:theoremlike}
+
+Ceux-là ne sont pas encadrés : ils se composent au fil du texte, intitulé en
+gras suivi du texte sur la même ligne.
+
+\begin{lemma}
+    Un lemme numéroté dans la section.
+\end{lemma}
+
+\begin{lemma*}
+    Un lemme non numéroté --- variante étoilée.
+\end{lemma*}
+
+\begin{example}
+    Un exemple. Il se termine par un carré blanc.
+\end{example}
+
+\begin{example*}[avec une note]
+    Un exemple non numéroté, avec une note entre parenthèses.
+\end{example*}
+
+\begin{remark}
+    Une remarque, marquée par un filet latéral.
+\end{remark}
+
+\begin{remark*}
+    Une remarque non numérotée.
+\end{remark*}
+
+%---------------------------------------------------------------------------
+\section{Un même énoncé, deux supports}%
+\label{sec:portable}
+
+C'est le point de la refonte. L'énoncé ci-dessous est copié tel quel depuis
+l'exemple de TD~: en v0 il aurait fallu le réécrire, parce que
+\texttt{theorem} et \texttt{question} n'avaient pas la même signature d'un
+support à l'autre.
+
+\begin{exercise}[nosolution]
+    Soit $E$ un espace vectoriel normé.
+    \begin{question}
+        Montrer que la boule $\Ball(0,1)$ est convexe.
+    \end{question}
+    \begin{question}
+        En déduire que $\norm{\cdot}$ est convexe.
+    \end{question}
+\end{exercise}

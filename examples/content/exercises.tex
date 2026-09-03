@@ -1,0 +1,88 @@
+% Contenu partagé — exercices et corrigés.
+%
+% Le sort des corrigés dépend uniquement de l'option solutions= du paquet.
+% Ce fichier est identique dans les trois modes.
+
+\chapter{Exercices et corrigés}%
+\label{chap:exercises}
+\minitoc%
+
+\begin{quotation}
+    L'option \texttt{solutions=none} ne compose aucun corrigé --- c'est la
+    version étudiante. \texttt{solutions=inline} les place sous l'énoncé.
+    \texttt{solutions=end} les reporte en fin de partie, avec un renvoi dans
+    chaque sens. Le fichier source, lui, ne change pas.
+\end{quotation}
+
+%---------------------------------------------------------------------------
+\section{Formes d'exercice}%
+\label{sec:exforms}
+
+\begin{exercise}
+    Un exercice simple, sans étiquette ni barème.
+\solution
+    Son corrigé.
+\end{exercise}
+
+\begin{exercise}[label=ex:matrices, points=4]
+    Un exercice étiqueté et barémé. On le cite par \verb|\ref{ex:matrices}|.
+    Calculer $e^{tA}$ pour $A = \begin{pmatrix} 0 & 1 \\ -1 & 0\end{pmatrix}$.
+\solution
+    On part de la définition $e^{tA} = \sum_{n \ge 0} \frac{t^n}{n!} A^n$ et de
+    l'identité $A^2 = -I$, d'où
+    \[
+        e^{tA} = \begin{pmatrix} \cos t & \sin t \\ -\sin t & \cos t\end{pmatrix}.
+    \]
+\end{exercise}
+
+L'exercice précédent est l'exercice~\ref{ex:matrices}.
+
+\begin{exercise}[nosolution]
+    Un exercice sans corrigé, quel que soit le mode~: la clef
+    \texttt{nosolution} l'exclut individuellement, et le titre ne porte alors
+    aucun renvoi.
+\end{exercise}
+
+%---------------------------------------------------------------------------
+\section{Questions et sous-questions}%
+\label{sec:questions}
+
+\begin{exercise}[points=6]
+    \begin{question}
+        Une première question, numérotée dans l'exercice.
+    \end{question}
+    \begin{question}
+        Une deuxième question.
+        \begin{subquestion}
+            Une sous-question.
+        \end{subquestion}
+        \begin{subquestion}
+            Une autre sous-question.
+        \end{subquestion}
+    \end{question}
+    \begin{question}
+        Une troisième question.
+    \end{question}
+\solution
+    Le compteur de questions repart à zéro dans le corrigé~; \verb|\newquestion|
+    permet de le faire avancer à la main quand le corrigé ne suit pas l'énoncé
+    question par question.
+    \begin{question}
+        Corrigé de la première question.
+    \end{question}
+    \begin{question}
+        Corrigé de la deuxième.
+    \end{question}
+\end{exercise}
+
+%---------------------------------------------------------------------------
+\section{Correction hors boîte}%
+\label{sec:correction}
+
+Dans un TD ou un sujet d'examen, l'énoncé n'est pas toujours encadré. Le bloc
+\texttt{correction} suit alors le texte et disparaît en mode
+\texttt{solutions=none}.
+
+\begin{correction}
+    Une correction brève, au fil du texte.
+\end{correction}

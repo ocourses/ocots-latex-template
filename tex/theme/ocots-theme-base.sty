@@ -101,4 +101,32 @@
 \ocotssetheading{subsubsection}{%
   \color{\ocotscolor{subsubsection}}\normalfont\normalsize\bfseries}
 
+% Le dessin complet des titres. Le support charge titlesec, puis execute ce
+% bloc : c'est ainsi qu'un theme peut changer la mise en page des titres, et
+% pas seulement leur police et leur couleur.
+%
+% Titre de chapitre de la v0 : un filet, le numero en petites capitales, un
+% second filet ; le titre centre ; un filet pleine largeur.
+\ocotssetheading{titles-book}{%
+  \titleformat{\chapter}[display]
+    {\normalfont}
+    {\centering\ocotsrulefill~~{\ocotsheading{chapter-number}%
+      \chaptertitlename\ \thechapter}~~\ocotsrulefill}
+    {0pt}
+    {\centering\ocotsheading{chapter-title}}
+    [\vskip10pt\noindent\rule{\textwidth}{1pt}]%
+  \titleformat{name=\chapter,numberless}[display]
+    {\normalfont}
+    {\centering\ocotsrulefill}
+    {0pt}
+    {\centering\ocotsheading{chapter-title}}
+    [\vskip10pt\noindent\rule{\textwidth}{1pt}]%
+  \titlespacing*{\chapter}{0pt}{0pt}{20pt}%
+  \ocotsheading{titles-article}}
+
+\ocotssetheading{titles-article}{%
+  \titleformat{\section}{\ocotsheading{section}}{\thesection}{1em}{}%
+  \titleformat{\subsection}{\ocotsheading{subsection}}{\thesubsection}{1em}{}%
+  \titleformat{\subsubsection}{\ocotsheading{subsubsection}}{\thesubsubsection}{1em}{}}
+
 \endinput

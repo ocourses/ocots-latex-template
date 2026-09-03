@@ -40,23 +40,25 @@
 %
 % Premiere page : promotion et discipline a gauche, date et reference a droite.
 % Pages suivantes : versions courtes.
+% `plain' est le style de la premiere page, pose par \maketitle : c'est lui qui
+% porte la version longue. Les pages suivantes utilisent `fancy' et sa version
+% courte. La v0 obtenait le meme effet avec \fancyplain, dont les deux arguments
+% sont faciles a intervertir.
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{{\scriptsize\emph{\ocots@promotion}\\[-2pt]\textsc{\ocots@discipline}}}
-\fancyhead[R]{{\scriptsize\@date\\[-2pt]\ocots@numero}}
+\fancyhead[L]{\textsc{\small\ocots@discipline}}
+\fancyhead[R]{{\small\textbf{\ocots@shorttitle}}}
 \fancyfoot[C]{\textrm{\thepage}}
 
 \fancypagestyle{plain}{%
   \fancyhf{}%
-  \fancyhead[L]{\textsc{\small\ocots@discipline}}%
-  \fancyhead[R]{{\small\textbf{\ocots@shorttitle}}}%
+  \fancyhead[L]{{\scriptsize\emph{\ocots@promotion}\\[-2pt]\textsc{\ocots@discipline}}}%
+  \fancyhead[R]{{\scriptsize\@date\\[-2pt]\ocots@numero}}%
   \fancyfoot[C]{\textrm{\thepage}}}
 
 % ---------------------------------------------------------------------------
-% Titres de section, aux couleurs du theme
-\titleformat{\section}{\ocotsheading{section}}{\thesection}{1em}{}
-\titleformat{\subsection}{\ocotsheading{subsection}}{\thesubsection}{1em}{}
-\titleformat{\subsubsection}{\ocotsheading{subsubsection}}{\thesubsubsection}{1em}{}
+% Titres de section : la mise en forme vient du theme (cf. carrier book).
+\ocotsifheading{titles-article}{\ocotsheading{titles-article}}{}
 
 % ---------------------------------------------------------------------------
 % Titre du document

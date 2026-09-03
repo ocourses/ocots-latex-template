@@ -1,0 +1,203 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-theme-v2}[2026/09/03 v2.0 ocots -- theme v2, refonte visuelle]
+%
+% La v2 de la campagne de refonte : le rendu visuel repris de zero.
+%
+% Elle tient dans CE SEUL FICHIER. C'est la validation de l'architecture v1 :
+% aucun contenu, aucun environnement, aucun support n'a eu a bouger. Les
+% documents ne changent pas d'une ligne — seule l'option `theme=' bascule.
+%
+% Ce theme ne charge pas ocots-theme-base : il redessine les formes, pas
+% seulement les couleurs. Il doit donc fournir lui-meme tout le contrat :
+% styles de boites, crochets de titre, et couleurs semantiques.
+%
+% Trois partis pris, par rapport a la v0 :
+%
+%   1. Typographie. XCharter pour le texte, newtxmath assorti pour les
+%      mathematiques, Fira Sans pour les titres. Le Latin Modern de la v0 est
+%      correct mais date ; Charter est plus chaleureux et tient mieux a
+%      l'impression comme a l'ecran.
+%
+%   2. Boites sans cadre. Un filet lateral epais et un fond tres clair
+%      remplacent le cadre pastel complet. Moins de traits, plus de calme, et
+%      les familles restent distinguables d'un coup d'oeil.
+%
+%   3. Titres alignes a gauche. Le numero de chapitre devient un grand chiffre
+%      dans la couleur d'accent ; le titre suit en dessous. La v0 centrait tout
+%      entre deux filets, ce qui alourdit une page de cours.
+
+% ---------------------------------------------------------------------------
+% Typographie
+% ---------------------------------------------------------------------------
+\RequirePackage{XCharter}
+% yhmath (charge par ocots-packages pour \wideparen) et newtxmath definissent
+% tous deux \widering. On libere le nom avant de charger le second.
+\let\widering\@undefined
+\RequirePackage[charter,vvarbb,scaled=1.04]{newtxmath}
+\RequirePackage[scaled=0.92]{FiraSans}
+
+% ---------------------------------------------------------------------------
+% Palette
+% ---------------------------------------------------------------------------
+% Une couleur par famille, toutes de meme densite : aucune ne domine les
+% autres. Les fonds sont des teintes a 4 %, assez pales pour rester lisibles en
+% photocopie.
+\definecolor{ocots@raw@ink}   {HTML}{1B1B1F}
+\definecolor{ocots@raw@indigo}{HTML}{2E4272}
+\definecolor{ocots@raw@terra} {HTML}{A03B2C}
+\definecolor{ocots@raw@pine}  {HTML}{2C6E58}
+\definecolor{ocots@raw@plum}  {HTML}{6B3A6B}
+\definecolor{ocots@raw@teal}  {HTML}{1F6F78}
+\definecolor{ocots@raw@ochre} {HTML}{8A5A17}
+\definecolor{ocots@raw@rule}  {HTML}{D5D5DA}
+
+\ocotssetcolor{emph-a}{ocots@raw@indigo}
+\ocotssetcolor{emph-b}{ocots@raw@terra}
+\ocotssetcolor{emph-c}{ocots@raw@pine}
+\ocotssetcolor{emph-d}{ocots@raw@ochre}
+\ocotssetcolor{grey}{ocots@raw@rule}
+
+\ocotssetcolor{link}{ocots@raw@indigo}
+\ocotssetcolor{cite}{ocots@raw@terra}
+\ocotssetcolor{proof}{ocots@raw@ink}
+
+\ocotssetcolor{chapter}{ocots@raw@indigo}
+\ocotssetcolor{section}{ocots@raw@ink}
+\ocotssetcolor{subsection}{ocots@raw@ink}
+\ocotssetcolor{subsubsection}{ocots@raw@ink}
+
+% Couleur de reference de chaque famille : le filet et le titre s'y accordent,
+% le fond en est une teinte.
+\ocotssetcolor{key-definition}{ocots@raw@indigo}
+\ocotssetcolor{key-theorem}{ocots@raw@terra}
+\ocotssetcolor{key-proposition}{ocots@raw@pine}
+\ocotssetcolor{key-corollary}{ocots@raw@pine}
+\ocotssetcolor{key-conjecture}{ocots@raw@plum}
+\ocotssetcolor{key-exercise}{ocots@raw@teal}
+\ocotssetcolor{key-solution}{ocots@raw@ochre}
+
+\ocotssetcolor{rule-remark}{ocots@raw@terra}
+\ocotssetcolor{rule-assumption}{ocots@raw@ink}
+\ocotssetcolor{mathhighlight}{ocots@raw@ochre!12!white}
+
+\ocotssetcolor{slide0}{ocots@raw@teal}
+\ocotssetcolor{slide1}{ocots@raw@ochre}
+\ocotssetcolor{slide2}{ocots@raw@pine}
+\ocotssetcolor{slide3}{ocots@raw@terra}
+\ocotssetcolor{slide4}{ocots@raw@plum}
+\ocotssetcolor{slidetitle}{ocots@raw@indigo}
+\ocotssetcolor{titlebox-back}{ocots@raw@indigo}
+\ocotssetcolor{titlebox-frame}{ocots@raw@indigo}
+\ocotssetcolor{titlebox-text}{white}
+
+% ---------------------------------------------------------------------------
+% Formes
+% ---------------------------------------------------------------------------
+\providecommand{\ocotsboxbeforeskip}{12pt}
+\providecommand{\ocotsboxafterskip}{12pt}
+
+% Pas de cadre : un filet lateral epais, un fond tres pale, des angles vifs.
+% Le titre passe en linéale, dans la couleur de la famille.
+\ocotssetboxstyle{base}{%
+  enhanced jigsaw, breakable, sharp corners,
+  boxrule=0pt, frame hidden,
+  left=4mm, right=3mm, top=2.5mm, bottom=2.5mm,
+  fonttitle=\sffamily\bfseries,
+  separator sign dash,
+  before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip}
+
+\newcommand{\ocots@vtwofamily}[1]{%
+  \ocotssetboxstyle{#1}{%
+    \ocotsboxstyle{base},
+    colback=\ocotscolor{key-#1}!4!white,
+    coltitle=\ocotscolor{key-#1},
+    borderline west={2.5pt}{0pt}{\ocotscolor{key-#1}}}}
+
+\ocots@vtwofamily{definition}
+\ocots@vtwofamily{theorem}
+\ocots@vtwofamily{proposition}
+\ocots@vtwofamily{corollary}
+\ocots@vtwofamily{conjecture}
+\ocots@vtwofamily{exercise}
+\ocots@vtwofamily{solution}
+
+% Blocs sans fond : filet seul, plus fin.
+\ocotssetboxstyle{sidebar}{%
+  enhanced jigsaw, breakable, blanker, left=4mm,
+  before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip}
+
+\ocotssetboxstyle{remark}{%
+  \ocotsboxstyle{sidebar},
+  borderline west={1.5pt}{0pt}{\ocotscolor{rule-remark}}}
+\ocotssetboxstyle{assumption}{%
+  \ocotsboxstyle{sidebar},
+  borderline west={1.5pt}{0pt}{\ocotscolor{rule-assumption}}}
+\ocotssetboxstyle{difficulty}{%
+  \ocotsboxstyle{sidebar},
+  borderline west={1.5pt}{0pt}{\ocotscolor{grey}}}
+\ocotssetboxstyle{openquestion}{%
+  \ocotsboxstyle{sidebar},
+  borderline west={1.5pt}{0pt}{\ocotscolor{grey}}}
+
+\ocotssetboxstyle{proof}{%
+  blanker, breakable, left=1.5em,
+  before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip,
+  coltext=\ocotscolor{proof}}
+
+% Bandeau de titre des diapositives : aplat plein, sans cadre.
+\ocotssetboxstyle{titlebox}{%
+  sharp corners, boxrule=0pt, frame hidden,
+  colback=\ocotscolor{titlebox-back},
+  coltext=\ocotscolor{titlebox-text},
+  top=4mm, bottom=4mm}
+
+\tcbset{highlight math style={%
+  enhanced, sharp corners, boxrule=0pt,
+  colback=\ocotscolor{mathhighlight},
+  size=minimal, boxsep=4pt}}
+
+% ---------------------------------------------------------------------------
+% Titres
+% ---------------------------------------------------------------------------
+% Le numero de chapitre en grand chiffre dans la couleur d'accent, le titre en
+% dessous, aligné à gauche, puis un filet court. La v0 centrait le tout entre
+% deux filets pleine largeur.
+\ocotssetheading{chapter-number}{\sffamily\bfseries\fontsize{56}{56}\selectfont
+  \color{\ocotscolor{chapter}}}
+\ocotssetheading{chapter-title}{\sffamily\bfseries\Huge\color{\ocotscolor{chapter}}}
+\ocotssetheading{section}{\sffamily\bfseries\Large\color{\ocotscolor{section}}}
+\ocotssetheading{subsection}{\sffamily\bfseries\large\color{\ocotscolor{subsection}}}
+\ocotssetheading{subsubsection}{\sffamily\bfseries\normalsize\color{\ocotscolor{subsubsection}}}
+
+\ocotssetheading{titles-book}{%
+  \titleformat{\chapter}[display]
+    {\normalfont}
+    {\raggedright{\ocotsheading{chapter-number}\thechapter}}
+    {-8pt}
+    {\raggedright\ocotsheading{chapter-title}}
+    [\vskip8pt{\color{\ocotscolor{chapter}}\titlerule[1.2pt]}]%
+  \titleformat{name=\chapter,numberless}[display]
+    {\normalfont}
+    {}
+    {0pt}
+    {\raggedright\ocotsheading{chapter-title}}
+    [\vskip8pt{\color{\ocotscolor{chapter}}\titlerule[1.2pt]}]%
+  \titlespacing*{\chapter}{0pt}{0pt}{24pt}%
+  \ocotsheading{titles-article}}
+
+% Le numero de section prend la couleur d'accent, le titre reste a l'encre :
+% l'oeil suit la numerotation sans que le titre crie.
+\ocotssetheading{titles-article}{%
+  \titleformat{\section}
+    {\ocotsheading{section}}
+    {\color{\ocotscolor{chapter}}\thesection}{0.7em}{}%
+  \titleformat{\subsection}
+    {\ocotsheading{subsection}}
+    {\color{\ocotscolor{chapter}}\thesubsection}{0.7em}{}%
+  \titleformat{\subsubsection}
+    {\ocotsheading{subsubsection}}
+    {\color{\ocotscolor{chapter}}\thesubsubsection}{0.7em}{}%
+  \titlespacing*{\section}{0pt}{*3}{*1.5}%
+  \titlespacing*{\subsection}{0pt}{*2.5}{*1}}
+
+\endinput

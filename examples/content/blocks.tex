@@ -1,0 +1,109 @@
+% Contenu partagé — preuves, blocs étiquetés, mises en valeur.
+
+\chapter{Preuves et blocs annexes}%
+\label{chap:blocks}
+\minitoc%
+
+%---------------------------------------------------------------------------
+\section{Preuves}%
+\label{sec:proofs}
+
+\begin{proposition}{Une proposition à démontrer}{ademontrer}
+    Pour tout $x \in \R$, $x^2 \ge 0$.
+\end{proposition}
+
+\begin{proof}
+    Le marqueur d'ouverture et le carré de fin viennent du thème, comme la
+    couleur du texte. \newstep{} Un astérisque sépare deux étapes.
+\end{proof}
+
+\begin{proof}[Démonstration de la proposition~\ref{prop:ademontrer}]
+    L'argument facultatif remplace le marqueur d'ouverture.
+\end{proof}
+
+Une preuve peut être étalée sur plusieurs diapositives. Sur papier, les trois
+morceaux se suivent~; en diapositives, seul le dernier pose le carré final.
+
+\begin{proofbegin}
+    Premier morceau.
+\end{proofbegin}
+\begin{proofmiddle}
+    Morceau intermédiaire.
+\end{proofmiddle}
+\begin{proofend}
+    Dernier morceau.
+\end{proofend}
+
+%---------------------------------------------------------------------------
+\section{Blocs étiquetés}%
+\label{sec:tagged}
+
+Trois familles numérotées indépendamment, marquées par un filet latéral ou un
+simple retrait. Elles partagent la même fabrique interne~: en ajouter une
+quatrième tient en une ligne.
+
+\begin{assumption}
+    Une hypothèse. Elles sont étiquetées H1, H2, \ldots
+\end{assumption}
+
+\begin{assumption}
+    Une deuxième hypothèse.
+\end{assumption}
+
+\begin{assumption*}
+    Une hypothèse non étiquetée.
+\end{assumption*}
+
+\begin{openquestion}
+    Un questionnement à se poser. Étiquetage Q1, Q2, \ldots
+\end{openquestion}
+
+\begin{difficulty}
+    Une difficulté attendue. Étiquetage D1, D2, \ldots
+\end{difficulty}
+
+\begin{web}[Documentation en ligne du cours]
+    Renvoi vers une ressource extérieure, précédé de son pictogramme.
+\end{web}
+
+%---------------------------------------------------------------------------
+\section{Mise en valeur}%
+\label{sec:emphasis}
+
+Le \keyword{terme important} se compose avec \verb|\keyword|. Les quatre
+couleurs du thème sont accessibles~: \emphA{première}, \emphB{deuxième},
+\emphC{troisième}, \emphD{quatrième}, plus \emphLink{la couleur des liens}.
+
+Pictogrammes~: \cmark{} et \xmark{}, plus la main \handwrite{} qui précédait les
+exercices en v0.
+
+\supplement{Un complément, en vert.}
+
+\reminder{Un rappel, en rouge.}
+
+Une équation mise en valeur par un surlignage, dont la couleur vient du thème~:
+\[
+    \tcbhighmath{\dot{x}(t) = A\, x(t) + b(t)}
+\]
+
+Numérotation indépendante des problèmes~:
+\begin{equation}
+    \min_{u} \int_0^{t_f} \! \ell(x(t), u(t)) \xdif t
+    \tagProblem
+\end{equation}
+
+%---------------------------------------------------------------------------
+\section{Notes de travail}%
+\label{sec:draft}
+
+Visibles seulement avec l'option \texttt{draft}, invisibles sinon. Elles
+remplacent le \verb|\ifVIEWALL| de la v0, qui n'était jamais défini et
+provoquait une erreur à l'usage.
+
+\notework{Une note personnelle.}
+
+\worktodo{Quelque chose à finir.}
+
+\begin{worknotes}
+    Un bloc entier de notes de travail, exclu de la compilation finale.
+\end{worknotes}
