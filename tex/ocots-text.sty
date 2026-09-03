@@ -1,0 +1,126 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-text}[2026/09/03 v1.0 ocots -- macros de texte]
+%
+% Mise en valeur, notes de travail, abreviations, noms de logiciels, reglage des
+% listings. Rien de mathematique (voir math/) et rien de graphique (voir
+% ocots-graphics.sty).
+%
+% Toutes les couleurs passent par le registre du noyau : ces macros suivent donc
+% le theme sans le connaitre.
+
+\RequirePackage[strict]{changepage}   % \checkoddpage, \ifoddpage : notes en marge
+
+% ---------------------------------------------------------------------------
+% Mise en valeur
+\newcommand{\emphA}[1]{{\color{\ocotscolor{emph-a}}#1}}
+\newcommand{\emphB}[1]{{\color{\ocotscolor{emph-b}}#1}}
+\newcommand{\emphC}[1]{{\color{\ocotscolor{emph-c}}#1}}
+\newcommand{\emphD}[1]{{\color{\ocotscolor{emph-d}}#1}}
+\newcommand{\emphLink}[1]{{\color{\ocotscolor{link}}#1}}
+
+% Mise en valeur principale. Un document peut la redefinir :
+%   \renewcommand{\keyword}[1]{\emph{\textbf{#1}}}
+\newcommand{\keyword}[1]{\textbf{\color{\ocotscolor{emph-a}}#1}}
+
+% ---------------------------------------------------------------------------
+% Pictogrammes
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+\newcommand{\handwrite}{{\Large\color{\ocotscolor{emph-d}}\ding{45}}}
+
+% ---------------------------------------------------------------------------
+% Divers
+\newcommand{\noi}{\noindent}
+\newcommand{\HRule}{\noindent\rule{\linewidth}{0.3mm}}
+\newcommand{\newpoint}{\emphA{\raisebox{0pt}{\textbullet}~}}
+\newcommand{\breakline}{~\\ \vspace{-\baselineskip}}
+\newcommand*\myurl[1]{\href{#1}{#1}}
+\newcommand\ie{\textit{i.e.}}
+\newcommand\cf{cf.}
+
+% Numerotation des equations a gauche ou a droite
+\newcommand{\reqnomode}{\makeatletter\tagsleft@false\let\veqno\@@eqno\makeatother}
+\newcommand{\leqnomode}{\makeatletter\tagsleft@true\let\veqno\@@leqno\makeatother}
+
+% ---------------------------------------------------------------------------
+% Noms de logiciels
+\newcommand{\lib}[1]{\texttt{#1}}
+\newcommand{\vrb}[1]{\texttt{#1}}
+\newcommand{\cmd}[1]{\texttt{#1}}
+\newcommand{\matlab}{\lib{Matlab}}
+\newcommand{\octave}{\lib{Octave}}
+\newcommand{\fortran}{\lib{Fortran}}
+\newcommand{\python}{\lib{Python}}
+\newcommand{\julia}{\lib{Julia}}
+
+% ---------------------------------------------------------------------------
+% Notes de travail
+%
+% Visibles seulement avec l'option `draft'. Remplace le \ifVIEWALL de la v0,
+% qui n'etait jamais defini : \notePerso, \noteInMarge et \todo y provoquaient
+% une erreur « Undefined control sequence » (defaut D10).
+\newcommand{\notework}[1]{%
+  \ifocots@draft{\color{\ocotscolor{emph-c}}\ocotsstring{note}~:~#1}\fi}
+\newcommand{\noteinmargin}[1]{%
+  \ifocots@draft\marginpar{\color{\ocotscolor{emph-b}}#1}\fi}
+\newcommand{\worktodo}[1]{%
+  \ifocots@draft\noindent{\color{\ocotscolor{emph-b}}\itshape\ocotsstring{todo}~: #1}\par\fi}
+
+% Bloc de notes de travail, exclu hors mode draft.
+\newenvironment{worknotes}{}{}
+\ifocots@draft\else\excludeversion{worknotes}\fi
+
+% ---------------------------------------------------------------------------
+% Note encadree dans la marge : \marginnote[decalage]{l|r}{texte}
+\newcommand*\marginnote[3][0pt]{%
+  \checkoddpage
+  \if l#2
+    \ifoddpage\reversemarginpar\else\normalmarginpar\fi
+    \def\ocots@pointer{\blacktriangleright}%
+    \def\stackalignment{r}\def\ocots@nwidth{2.1cm}\def\ocots@noffset{1.6cm}%
+  \fi
+  \if r#2
+    \ifoddpage\normalmarginpar\else\reversemarginpar\fi
+    \def\ocots@pointer{\blacktriangleleft}%
+    \def\stackalignment{l}\def\ocots@nwidth{2.1cm}\def\ocots@noffset{0.1cm}%
+  \fi
+  \marginpar{%
+    \hspace*{\ocots@noffset}%
+    \topinset
+      {\scalebox{1.5}{\small\color{\ocotscolor{emph-a}}$\ocots@pointer$}}
+      {\belowbaseline[-1.5\baselineskip-#1]{%
+        \stackengine{-5pt}%
+          {\fcolorbox{\ocotscolor{emph-a}}{white}{%
+            \parbox{\ocots@nwidth}{\footnotesize\vspace{3pt}\raggedright#3\vspace{3pt}}}}%
+          {~\colorbox{white}{\sffamily\color{\ocotscolor{emph-a}}\ocotsstring{note}}}%
+          {O}{l}{F}{F}{S}}}%
+      {#1+3ex}{-2.2ex}}}
+
+% ---------------------------------------------------------------------------
+% Code source
+\definecolor{ocots@raw@mauve}{rgb}{0.58,0,0.82}
+\lstset{
+  backgroundcolor=\color{white},
+  basicstyle=\small,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  commentstyle=\color{\ocotscolor{emph-a}},
+  escapeinside={\%*}{*)},
+  extendedchars=true,
+  frame=single,
+  keepspaces=true,
+  keywordstyle=\color{\ocotscolor{emph-b}},
+  numbers=none,
+  numbersep=5pt,
+  numberstyle=\tiny\color{\ocotscolor{grey}},
+  rulecolor=\color{black},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stepnumber=2,
+  stringstyle=\color{ocots@raw@mauve},
+  tabsize=2,
+  frameround=tttt}
+
+\endinput

@@ -1,12 +1,11 @@
 % =====================================================================
-% Exemple minimal — EXAMEN (classe article)
-% Étape 1 : squelette qui compile. Le contenu viendra à l'étape 3.
-% Compilation : latexmk -pdf main.tex
+% Exemple minimal — EXAMEN
+% institution=insa,n7 remplace l'option `insa' du fork texCoursN7, dont
+% l'absence ici empêchait les sujets du dépôt de compiler (défaut D13).
 % =====================================================================
-\documentclass[11pt]{article}
-
-\newcommand{\relativePath}{../..}
-\usepackage[nocorrection, relativePath=\relativePath]{\relativePath/exam}
+\documentclass[11pt]{ocots-exam}
+\usepackage[lang=fr, theme=n7, solutions=none,
+            institution=insa,n7]{ocots}
 
 \title{Sujet d'examen --- exemple}
 \shorttitle{Sujet d'examen --- exemple}
@@ -19,27 +18,24 @@
 
 \maketitle
 
-\begin{myinstructions*}\retourligne%
+\begin{instructions}\breakline%
     \begin{itemize}
         \item Documents autorisés~: aucun~;
         \item Durée~: 1h30.
     \end{itemize}
-\end{myinstructions*}
+\end{instructions}
 
 \medskip
 
-\begin{myexercise}[4 points]
-
-    \begin{myquestion}
+\begin{exercise}[points=4]
+    \begin{question}
         Énoncé de la question.
-    \end{myquestion}
+    \end{question}
+\solution
+    Corrigé. Il suffit de passer \texttt{solutions=inline} pour composer
+    la version corrigée du même fichier.
+\end{exercise}
 
-    \begin{mycorrection}
-        Corrigé, masqué par l'option \texttt{nocorrection}.
-    \end{mycorrection}
-
-\end{myexercise}
-
-% <<< étape 3 : parties, barème, consignes, options >>>
+% <<< étape 3 : parties, barème, consignes, toutes les options >>>
 
 \end{document}

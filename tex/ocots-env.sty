@@ -1,0 +1,160 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-env}[2026/09/03 v1.0 ocots -- environnements]
+%
+% L'API publique du template : theoremes, definitions, exemples, remarques,
+% preuves, hypotheses.
+%
+% REGLE CENTRALE DE LA REFONTE
+% Ces environnements sont definis UNE SEULE FOIS, quel que soit le support.
+% Aucun \ifSLIDES, aucun test de theme : la forme vient de \ocotsboxstyle, les
+% couleurs du registre, les intitules de \ocotsstring. C'est ce qui permet de
+% coller un enonce de TD dans le polycopie sans le retoucher — impossible en
+% v0, ou les memes noms avaient deux signatures incompatibles (defaut D2).
+%
+% Les retouches propres a un medium (remise a zero des compteurs entre les
+% \pause de beamer, par exemple) sont enregistrees par carrier/, apres coup.
+
+% ---------------------------------------------------------------------------
+% Liberation des noms
+%
+% beamer definit deja theorem, definition, corollary, lemma, example, proof...
+% On les remplace deliberement par les notres, identiques d'un support a
+% l'autre. C'est ce que la v0 contournait en prefixant tout par « my ».
+\ocotsfreeenvs{theorem,definition,proposition,corollary,conjecture,lemma,%
+example,remark,proof,assumption,solution,exercise,question,fact,problem,%
+corollaire,theoreme,definitions,examples}
+
+% ---------------------------------------------------------------------------
+% Marqueurs de preuve
+\newcommand{\newstep}{\textasteriskcentered}
+\newcommand*{\QEDA}{\hfill\ensuremath{\blacksquare}}
+\newcommand*{\QEDB}{\hfill\ensuremath{\square}}
+
+% ---------------------------------------------------------------------------
+% Boites a titre : theoreme, definition, proposition, corollaire, conjecture
+%
+%   \begin{theorem}{Titre facultatif}{etiquette}
+%   \end{theorem}
+%
+% Compteur commun, numerote dans la section, comme en v0 : un theoreme et une
+% definition ne portent jamais le meme numero.
+\newtcbtheorem[number within=section]%
+  {theorem}{\ocotsstring{theorem}}{\ocotsboxstyle{theorem}}{thm}
+\newtcbtheorem[use counter from=theorem]%
+  {definition}{\ocotsstring{definition}}{\ocotsboxstyle{definition}}{def}
+\newtcbtheorem[use counter from=theorem]%
+  {proposition}{\ocotsstring{proposition}}{\ocotsboxstyle{proposition}}{prop}
+\newtcbtheorem[use counter from=theorem]%
+  {corollary}{\ocotsstring{corollary}}{\ocotsboxstyle{corollary}}{cor}
+\newtcbtheorem[use counter from=theorem]%
+  {conjecture}{\ocotsstring{conjecture}}{\ocotsboxstyle{conjecture}}{conj}
+
+% ---------------------------------------------------------------------------
+% Style des environnements de type theoreme classique
+%
+% Intitule en gras, numero, note entre parentheses, texte sur la meme ligne.
+\newtheoremstyle{ocots}%
+  {}{}{}{}{}{.}{ }%
+  {\noindent\textbf{\thmname{#1}\thmnumber{~#2}}\thmnote{\normalfont~(#3)}}
+\theoremstyle{ocots}
+
+% ---------------------------------------------------------------------------
+% Lemme
+\newtheorem{lemma}{\ocotsstring{lemma}}[section]
+\newtheorem*{lemma*}{\ocotsstring{lemma}}
+
+% ---------------------------------------------------------------------------
+% Exemple : se termine par un carre blanc
+\newtheorem{ocots@example}{\ocotsstring{example}}[section]
+\newtheorem*{ocots@example*}{\ocotsstring{example}}
+
+\newenvironment{example}[1][]
+  {\begin{ocots@example}[#1]\par\pushQED{\QEDB}}
+  {\popQED\endtrivlist\@endpefalse\end{ocots@example}}
+\newenvironment{example*}[1][]
+  {\begin{ocots@example*}[#1]\par\pushQED{\QEDB}}
+  {\popQED\endtrivlist\@endpefalse\end{ocots@example*}}
+
+% ---------------------------------------------------------------------------
+% Remarque : filet lateral, pas de cadre
+\newtheorem{remark}{\ocotsstring{remark}}[section]
+\newtheorem*{remark*}{\ocotsstring{remark}}
+\tcolorboxenvironment{remark}{\ocotsboxstyle{remark}}
+\tcolorboxenvironment{remark*}{\ocotsboxstyle{remark}}
+
+% ---------------------------------------------------------------------------
+% Blocs etiquetes H1, Q1, D1
+%
+% La v0 ecrivait trois fois le meme code (compteur + \tag + regtotcounter). Ici
+% une seule macro les fabrique : ajouter une famille tient en une ligne.
+%
+%   \ocots@taggedenv{nom}{prefixe affiche}{style de boite}
+\newcommand{\ocots@taggedenv}[3]{%
+  \newtheorem{#1}{}%
+  \@namedef{the#1}{#2\arabic{#1}}%
+  \tcolorboxenvironment{#1}{\ocotsboxstyle{#3}}%
+  \newtheorem*{#1*}{}%
+  \tcolorboxenvironment{#1*}{\ocotsboxstyle{#3}}}
+
+\ocots@taggedenv{assumption}{H}{assumption}
+\ocots@taggedenv{openquestion}{Q}{openquestion}
+\ocots@taggedenv{difficulty}{D}{difficulty}
+
+% ---------------------------------------------------------------------------
+% Renvoi vers une ressource en ligne
+\newenvironment{web}[1][]
+  {\par\addvspace{\ocotsboxbeforeskip}%
+   \noindent{\color{\ocotscolor{link}}\faExternalLink}~\textit{#1}\par\nobreak}
+  {\par\addvspace{\ocotsboxafterskip}}
+
+% ---------------------------------------------------------------------------
+% Preuves
+%
+% Marqueur triangulaire en tete, carre noir en fin, retrait et couleur donnes
+% par le theme.
+\newenvironment{proof}[1][{\color{\ocotscolor{proof}}$\RHD$}]
+  {\par\pushQED{{\color{\ocotscolor{proof}}\QEDA}}%
+   \normalsize\normalfont\topsep6\p@\@plus6\p@\relax
+   \trivlist\item[\hskip\labelsep\itshape#1\@addpunct{}]\ignorespaces}
+  {\popQED\endtrivlist\@endpefalse}
+\tcolorboxenvironment{proof}{\ocotsboxstyle{proof}}
+
+% Preuve etalee sur plusieurs diapositives : debut, milieu, fin. Seule la fin
+% pose le carre final.
+\newenvironment{proofbegin}[1][{\color{\ocotscolor{proof}}$\RHD$}]
+  {\par\pushQED{{\color{\ocotscolor{proof}}\QEDA}}%
+   \normalsize\normalfont\topsep6\p@\@plus6\p@\relax
+   \trivlist\item[\hskip\labelsep\itshape#1\@addpunct{}]\ignorespaces}
+  {\endtrivlist\@endpefalse}
+\newenvironment{proofmiddle}[1][]
+  {\par\pushQED{{\color{\ocotscolor{proof}}\QEDA}}\normalsize\normalfont}
+  {\endtrivlist\@endpefalse}
+\newenvironment{proofend}[1][]
+  {\par\pushQED{{\color{\ocotscolor{proof}}\QEDA}}\normalsize\normalfont}
+  {\popQED\endtrivlist\@endpefalse}
+\tcolorboxenvironment{proofbegin}{\ocotsboxstyle{proof}}
+\tcolorboxenvironment{proofmiddle}{\ocotsboxstyle{proof}}
+\tcolorboxenvironment{proofend}{\ocotsboxstyle{proof}}
+
+% ---------------------------------------------------------------------------
+% Numerotation des problemes : (P_1), (P_2)...
+\newcounter{problem}
+\regtotcounter{problem}
+\newcommand{\tagProblem}[1][]{\addtocounter{problem}{1}\tag{P$_\theproblem$#1}}
+
+% ---------------------------------------------------------------------------
+% Blocs de texte annexes
+\newcommand{\supplement}[1]{%
+  \noindent{\color{\ocotscolor{emph-c}}\itshape\ocotsstring{supplement}~: #1}}
+\newcommand{\reminder}[1]{%
+  \noindent{\color{\ocotscolor{emph-b}}\itshape\ocotsstring{reminder}~: #1}}
+
+% ---------------------------------------------------------------------------
+% Divers
+\newenvironment{todolist}{}{}
+
+\newenvironment{vcenterpage}
+  {\newpage\vspace*{\fill}\thispagestyle{empty}\renewcommand{\headrulewidth}{0pt}}
+  {\vspace*{\fill}}
+
+\endinput

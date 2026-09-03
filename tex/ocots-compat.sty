@@ -1,0 +1,86 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-compat}[2026/09/03 v1.0 ocots -- alias des noms v0]
+%
+% Alias de compatibilite. Les documents ecrits pour la v0 compilent sans
+% retouche : c'est ce qui permet de migrer poly/ et slides/ au fil de l'eau
+% plutot qu'en bloc (~600 occurrences).
+%
+% Rien de neuf ne doit utiliser ces noms. Ce fichier est destine a maigrir puis
+% a disparaitre ; chaque ligne supprimee est une migration terminee.
+
+% ---------------------------------------------------------------------------
+% Environnements a boite
+\ocotsaliasenv{mytheorem}{theorem}
+\ocotsaliasenv{mydefinition}{definition}
+\ocotsaliasenv{myproposition}{proposition}
+\ocotsaliasenv{mycorollary}{corollary}
+\ocotsaliasenv{myconjecture}{conjecture}
+
+% ---------------------------------------------------------------------------
+% Environnements de type theoreme
+\ocotsaliasenv{mylemma}{lemma}
+\ocotsaliasenv{mylemma*}{lemma*}
+\ocotsaliasenv{myexample}{example}
+\ocotsaliasenv{myexample*}{example*}
+\ocotsaliasenv{myremark}{remark}
+\ocotsaliasenv{myremark*}{remark*}
+\ocotsaliasenv{myassumption}{assumption}
+\ocotsaliasenv{myassumption*}{assumption*}
+\ocotsaliasenv{myquestionnement}{openquestion}
+\ocotsaliasenv{mydifficulty}{difficulty}
+\ocotsaliasenv{myweb}{web}
+
+% ---------------------------------------------------------------------------
+% Preuves
+\ocotsaliasenv{proofdeb}{proofbegin}
+\ocotsaliasenv{proofmil}{proofmiddle}
+\ocotsaliasenv{prooffin}{proofend}
+
+% ---------------------------------------------------------------------------
+% Exercices
+\ocotsaliasenv{myquestion}{question}
+\ocotsaliasenv{mysubquestion}{subquestion}
+\ocotsaliasenv{myexercise}{exercise}
+\ocotsaliasenv{mycorr}{correction}
+\ocotsaliasenv{mycorrection}{correction}
+
+% Ancienne syntaxe d'etiquette : \begin{myexercisecb}<etiquette>
+% La nouvelle passe par une clef : \begin{exercise}[label=ex:etiquette]
+\NewDocumentEnvironment{myexercisecb}{O{} d<>}
+  {\IfValueTF{#2}{\exercise[#1,label={ex:#2}]}{\exercise[#1]}}
+  {\endexercise}
+\tcbset{no solution/.style={nosolution}}
+\let\solutioncb\solution
+\let\mysolution\ocotssolutionbox
+
+\newcommand{\exenotext}{\exercisenotext}
+\newcommand{\anoter}{\handwrite}
+
+% ---------------------------------------------------------------------------
+% Mise en valeur
+\newcommand{\myemph}[1]{\keyword{#1}}
+\newcommand{\cblue}[1]{\emphA{#1}}
+\newcommand{\cred}[1]{\emphB{#1}}
+\newcommand{\cgreen}[1]{\emphC{#1}}
+\newcommand{\crose}[1]{\emphD{#1}}
+\newcommand{\clink}[1]{\emphLink{#1}}
+\let\emphb\cblue
+\let\emphr\cred
+\let\emphg\cgreen
+\let\emphp\crose
+\let\emphl\clink
+
+% ---------------------------------------------------------------------------
+% Texte
+\newcommand{\retourligne}{\breakline}
+\newcommand{\supple}[1]{\supplement{#1}}
+\newcommand{\rappel}[1]{\reminder{#1}}
+\newcommand{\notePerso}[1]{\notework{#1}}
+\newcommand{\noteInMarge}[1]{\noteinmargin{#1}}
+\newcommand{\todo}[1]{\worktodo{#1}}
+\newcommand{\mnote}[3][0pt]{\marginnote[#1]{#2}{#3}}
+\newcommand{\mynote}[1]{\marginnote{l}{#1}}
+\newcommand{\norme}[1]{\norm{#1}}
+\newcommand{\normeStyle}[1]{\normStyle{#1}}
+
+\endinput

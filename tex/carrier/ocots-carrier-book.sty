@@ -1,0 +1,140 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-carrier-book}[2026/09/03 v1.0 ocots -- support : polycopie]
+%
+% Support « livre » : geometrie, en-tetes, sommaires par chapitre, index, page
+% de titre, mise en forme des titres.
+%
+% Tout ce qui se trouve ici etait, en v0, soit dans un book.cls recopie de 788
+% lignes, soit — pour les en-tetes — recopie a la main dans chaque main.tex
+% (defauts D6 et D7).
+
+\RequirePackage{ocots-institution}
+
+% ---------------------------------------------------------------------------
+% Geometrie
+\RequirePackage[a4paper,includeheadfoot,margin=2.8cm]{geometry}
+\setlength{\headheight}{14pt}
+
+% Decalage de reliure, si l'option binding= est renseignee.
+\ifdim\ocots@binding>0pt
+  \addtolength{\oddsidemargin}{\ocots@binding}
+  \addtolength{\evensidemargin}{-\ocots@binding}
+\fi
+
+% ---------------------------------------------------------------------------
+% Sommaires, index, bibliographie
+\RequirePackage[nottoc,notlof,notlot]{tocbibind}
+\RequirePackage[\ocots@babellang]{minitoc}
+\mtcsettitle{minitoc}{}
+\nomtcrule
+\setcounter{minitocdepth}{2}
+\setlength{\mtcindent}{18pt}
+\renewcommand{\mtcfont}{\small\rm}
+\renewcommand{\mtcSfont}{\small\bf}
+
+\RequirePackage{makeidx}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{2}
+
+% ---------------------------------------------------------------------------
+% Titres
+\RequirePackage{titlesec}
+\RequirePackage{xhfill}          % \xrfill : les filets du titre de chapitre
+
+% \leavevmode est indispensable : \xrfill pose des \leaders, qui exigent d'etre
+% en mode horizontal. Sans lui, titlesec appelle le filet en mode vertical et
+% TeX repond « Leaders not followed by proper glue ».
+\newcommand{\ocotsrulefill}{\leavevmode\xrfill[0.5ex]{2pt}}
+
+% Titre de chapitre : un filet, le numero en petites capitales, un filet ; puis
+% le titre centre ; puis un filet pleine largeur.
+\titleformat{\chapter}[display]
+  {\normalfont}
+  {\centering\ocotsrulefill~~{\ocotsheading{chapter-number}%
+    \chaptertitlename\ \thechapter}~~\ocotsrulefill}
+  {0pt}
+  {\centering\ocotsheading{chapter-title}}
+  [\vskip10pt\noindent\rule{\textwidth}{1pt}]
+
+\titleformat{name=\chapter,numberless}[display]
+  {\normalfont}
+  {\centering\ocotsrulefill}
+  {0pt}
+  {\centering\ocotsheading{chapter-title}}
+  [\vskip10pt\noindent\rule{\textwidth}{1pt}]
+
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}
+
+\titleformat{\section}{\ocotsheading{section}}{\thesection}{1em}{}
+\titleformat{\subsection}{\ocotsheading{subsection}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\ocotsheading{subsubsection}}{\thesubsubsection}{1em}{}
+
+% ---------------------------------------------------------------------------
+% En-tetes
+%
+% Ce bloc etait recopie dans chaque polycopie. Il vit maintenant dans le
+% template : un document neuf n'a plus rien a en savoir.
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot{}
+\fancyhead[LE,RO]{\bfseries\thepage}
+\fancyhead[RE]{\bfseries\nouppercase{\leftmark}}
+\fancyhead[LO]{\bfseries\nouppercase{\rightmark}}
+\renewcommand{\headrulewidth}{1.0pt}
+\fancypagestyle{plain}{%
+  \fancyhead{}\fancyfoot{}\renewcommand{\headrulewidth}{0pt}}
+
+% Pages paires laissees vides : sans en-tete ni filet.
+\renewcommand{\cleardoublepage}{%
+  \clearpage
+  \if@twoside
+    \ifodd\c@page\else
+      \hbox{}\thispagestyle{empty}\newpage
+      \if@twocolumn\hbox{}\newpage\fi
+    \fi
+  \fi}
+
+% ---------------------------------------------------------------------------
+% Renvois de bibliographie : « ↩ p. N »
+\renewcommand*{\backref}[1]{}
+\renewcommand*{\backrefalt}[4]{\ifcase #1 \or$\hookleftarrow$~#2.\else$\hookleftarrow$~#2.\fi}
+\renewcommand*{\backrefsep}{, }
+\renewcommand*{\backreftwosep}{ et~}
+\renewcommand*{\backreflastsep}{ et~}
+
+% ---------------------------------------------------------------------------
+% Listes
+\setlist{itemsep=0.0em}
+\setitemize[1]{label={\small\textbullet}}
+\setitemize[2]{label=-}
+
+% ---------------------------------------------------------------------------
+% Page de titre
+%
+% Utilise \title, \author, \date et l'option institution=.
+\newcommand{\ocots@subtitle}{}
+\newcommand{\subtitle}[1]{\renewcommand{\ocots@subtitle}{#1}}
+
+\renewcommand{\maketitle}{%
+  \begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\Huge\bfseries\@title\par}
+    \ifx\ocots@subtitle\@empty\else
+      \vspace{1em}{\Large\ocots@subtitle\par}
+    \fi
+    \vspace{1.5em}
+    \noindent\rule{0.6\textwidth}{1pt}\par
+    \vspace{2em}
+    {\Large\@author\par}
+    \vspace{1em}
+    {\large\@date\par}
+    \vfill
+    \ocotslogos[2cm]\par
+    \vspace{2cm}
+  \end{titlepage}}
+
+\endinput

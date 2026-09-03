@@ -1,0 +1,139 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots}[2026/09/03 v1.0 ocots -- point d'entree du template]
+%
+% Point d'entree unique du template. Un document charge ce paquet et rien
+% d'autre :
+%
+%   \documentclass[11pt,twoside]{ocots-book}
+%   \usepackage[lang=fr, theme=n7, solutions=end, math=analysis]{ocots}
+%
+% ou, pour des diapositives :
+%
+%   \documentclass[9pt,t]{beamer}
+%   \usepackage[lang=fr, theme=n7-dark]{ocots}
+%
+% Le support est deduit de la classe : les classes ocots-*.cls le declarent,
+% beamer est reconnu automatiquement. Aucun booleen \ifSLIDES a la v0.
+%
+% Toutes les options sont de la forme clef=valeur et se resolvent en un nom de
+% fichier. Ajouter un theme, une langue ou un module de macros, c'est ajouter un
+% fichier : le noyau n'a pas a etre modifie.
+
+\RequirePackage{xkeyval}
+\RequirePackage{ocots-kernel}
+
+% ---------------------------------------------------------------------------
+% Options
+% ---------------------------------------------------------------------------
+
+% lang=fr|en          -> lang/ocots-lang-<valeur>.def
+\def\ocots@lang{fr}
+\DeclareOptionX{lang}{\def\ocots@lang{#1}}
+
+% theme=n7|n7-dark|n7-light|bw  -> theme/ocots-theme-<valeur>.sty
+% Vide par defaut : le defaut reel depend du support (voir plus bas).
+\def\ocots@theme{}
+\DeclareOptionX{theme}{\def\ocots@theme{#1}}
+
+% solutions=none|inline|end   (cf. ocots-exercise.sty)
+%   none   : les corriges ne sont pas composes du tout
+%   inline : le corrige suit immediatement l'enonce
+%   end    : le corrige est reporte en fin de partie, avec renvois croises
+\def\ocots@solutions{end}
+\DeclareOptionX{solutions}{\def\ocots@solutions{#1}}
+
+% math=base,analysis,control,measure  -> math/ocots-math-<valeur>.sty
+% « base » est toujours charge, meme s'il n'est pas cite.
+\def\ocots@math{}
+\DeclareOptionX{math}{\def\ocots@math{#1}}
+
+% institution=n7,insa,uftmp  -> logos de la page de titre et des en-tetes
+\def\ocots@institution{n7}
+\DeclareOptionX{institution}{\def\ocots@institution{#1}}
+
+% author=...  -> metadonnee pdfauthor (plus de nom en dur dans le noyau)
+\def\ocots@author{}
+\DeclareOptionX{author}{\def\ocots@author{#1}}
+
+% draft  -> affiche les notes de travail : \notework, \noteinmargin, \worktodo
+\newif\ifocots@draft \ocots@draftfalse
+\DeclareOptionX{draft}{\ocots@drafttrue}
+\DeclareOptionX{final}{\ocots@draftfalse}
+
+% layout=standard|fiche
+\def\ocots@layout{standard}
+\DeclareOptionX{layout}{\def\ocots@layout{#1}}
+
+% binding=<longueur>  -> decalage de reliure pour l'impression
+\def\ocots@binding{0mm}
+\DeclareOptionX{binding}{\def\ocots@binding{#1}}
+
+\DeclareOptionX*{\PackageWarning{ocots}{Unknown option `\CurrentOption' ignored}}
+\ProcessOptionsX\relax
+
+% ---------------------------------------------------------------------------
+% Chargement
+% ---------------------------------------------------------------------------
+
+\ocots@detectcarrier
+
+% Defaut de theme dependant du support. C'est un defaut, pas un test : une fois
+% le theme choisi, plus personne ne sait quel support est actif.
+\ifx\ocots@theme\@empty
+  \ocots@ifcarrier{slides}{\def\ocots@theme{n7-dark}}{\def\ocots@theme{n7}}%
+\fi
+
+% Charge un composant, avec un message clair s'il n'existe pas.
+\newcommand{\ocots@require}[3]{%
+  \IfFileExists{#1#2.#3}%
+    {\ifnum\pdfstrcmp{#3}{def}=\z@ \input{#1#2.#3}\else\RequirePackage{#1#2}\fi}%
+    {\PackageError{ocots}{Unknown #1 value `#2' (file #1#2.#3 not found)}%
+      {Check the corresponding package option.}}}
+
+% 1. Paquets. Charge aussi la langue au bon moment (juste apres l'encodage).
+\RequirePackage{ocots-packages}
+
+% 2. Macros de texte et de dessin.
+\RequirePackage{ocots-text}
+\RequirePackage{ocots-graphics}
+
+% 3. Macros mathematiques, a la carte. « base » d'abord et toujours.
+\RequirePackage{ocots-math-base}
+\ifx\ocots@math\@empty\else
+  \@for\ocots@tempc:=\ocots@math\do{%
+    \ifx\ocots@tempc\@empty\else
+      \edef\ocots@tempd{\ocots@tempc}%
+      \ifnum\pdfstrcmp{\ocots@tempd}{base}=\z@\else
+        \expandafter\ocots@require\expandafter{\detokenize{ocots-math-}}{\ocots@tempd}{sty}%
+      \fi
+    \fi}%
+\fi
+
+% 4. Theme : couleurs, styles de boites, mise en forme des titres.
+\expandafter\ocots@require\expandafter{\detokenize{ocots-theme-}}{\ocots@theme}{sty}
+
+% 5. Environnements. Definis une seule fois, contre les crochets du theme.
+\RequirePackage{ocots-env}
+\RequirePackage{ocots-exercise}
+
+% 6. Support : structure, page de titre, en-tetes, retouches propres au medium.
+\expandafter\ocots@require\expandafter{\detokenize{ocots-carrier-}}{\ocots@carrier}{sty}
+
+% 7. Alias des noms v0, pour que les documents existants compilent sans retouche.
+\RequirePackage{ocots-compat}
+
+% ---------------------------------------------------------------------------
+% Metadonnees PDF
+% ---------------------------------------------------------------------------
+\AtBeginDocument{%
+  \hypersetup{%
+    bookmarksopen=true,
+    pdfstartview={XYZ null null 1},
+    pdfhighlight=/O,
+    colorlinks=true,
+    linkcolor=\ocotscolor{link},
+    citecolor=\ocotscolor{cite},
+    urlcolor=\ocotscolor{link}}%
+  \ifx\ocots@author\@empty\else\hypersetup{pdfauthor={\ocots@author}}\fi}
+
+\endinput

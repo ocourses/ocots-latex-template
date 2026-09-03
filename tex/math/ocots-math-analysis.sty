@@ -1,0 +1,63 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-math-analysis}[2026/09/03 v1.0 ocots -- analyse, calcul differentiel, EDO]
+%
+% Notations du calcul differentiel et des equations differentielles.
+% Charge par math=analysis.
+
+% ---------------------------------------------------------------------------
+% Elements differentiels
+\newcommand{\xDif}{{\rm D}}
+\newcommand{\xdif}{\,{\rm d}}
+\newcommand{\diff}{\xdif}
+\newcommand{\Diff}{\xDif}
+\newcommand{\pardiff}{{\rm \partial}}
+
+% Derivees partielles
+\newcommand{\frp}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\frpp}[2]{\dfrac{\partial^2 #1}{\partial #2 ^2}}
+\newcommand{\frpij}[3]{\dfrac{\partial^2 #1}{\partial #2 \partial #3}}
+\newcommand{\frpxx}[1]{\dfrac{\partial^2 #1}{\partial x^2}}
+\newcommand{\frptt}[1]{\dfrac{\partial^2 #1}{\partial t^2}}
+\newcommand{\frpuu}[1]{\frac{\partial^2 #1}{\partial u^2}}
+\newcommand{\frpxu}[1]{\frac{\partial^2 #1}{\partial x \partial u}}
+\newcommand{\frpux}[1]{\frac{\partial^2 #1}{\partial u \partial x}}
+
+% Gradient : \grad{f} ou \grad{f}{x}
+\DeclareDocumentCommand\grad{ m g }{\IfNoValueTF{#2}{\nabla #1}{\nabla_{#2} #1}}
+
+% ---------------------------------------------------------------------------
+% Notations de Landau
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+% ---------------------------------------------------------------------------
+% Topologie
+\newcommand{\adherence}[1]{\xoverline{#1}}
+\newcommand{\Ball}{{B}}                 % boule ouverte
+\newcommand{\BallClosed}{\xoverline{B}} % boule fermee
+
+% ---------------------------------------------------------------------------
+% Espaces fonctionnels
+\newcommand{\Htrue}{\mathscr{H}}
+\newcommand{\GLcal}{\mathscr{GL}}
+\newcommand{\Ecal}{\mathscr{E}}
+\newcommand{\Kcal}{\mathscr{K}}
+\newcommand{\Ccal}{\mathscr{C}}
+\newcommand{\Fcal}{\mathscr{F}}
+\newcommand{\Ncal}{\mathscr{N}}
+\newcommand{\Lcal}{\mathscr{L}}
+\newcommand{\Dcal}{\mathscr{D}}
+\newcommand{\Ucal}{\mathscr{U}}
+\newcommand{\Acal}{\mathscr{A}}
+
+\newcommand{\xLn}[1]{{\Lcal}^{#1}}   % applications lineaires continues
+\newcommand{\xCn}[1]{{\Ccal}^{#1}}   % applications de classe C^k
+
+\newcommand*{\EnsembleQuotient}[2]{%
+  \ensuremath{#1\hspace{1pt}\!/\!\hspace{1pt}\raisebox{-.0ex}{\ensuremath{\mathcal{#2}}}}}
+
+% ---------------------------------------------------------------------------
+% Convergences
+\newcommand{\convn}{{\rightarrow}}
+
+\endinput

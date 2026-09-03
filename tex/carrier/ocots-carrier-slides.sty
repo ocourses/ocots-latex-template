@@ -1,0 +1,145 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-carrier-slides}[2026/09/03 v1.0 ocots -- support : diapositives]
+%
+% Support « diapositives », charge automatiquement quand la classe est beamer.
+%
+% Il fournit ce que les jeux de diapos de la v0 recopiaient a la main : la page
+% de titre (28 lignes identiques au bit pres dans les cinq jeux) et la notion de
+% chapitre (\setcounter{chapter}{5} + \def\chaptername{...} a chaque fois).
+% C'est le defaut D7.
+
+\RequirePackage{ocots-institution}
+
+% ---------------------------------------------------------------------------
+% Reglages beamer
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{structure}{fg=black}
+\setbeamertemplate{theorems}[numbered]
+\setbeamertemplate{caption}[numbered]
+\setbeamersize{text margin left=3mm,text margin right=3mm}
+\addtobeamertemplate{frametitle}{}{\vspace*{-5pt}}
+
+% Titre d'environnement sur la meme ligne que le texte : sans cela, beamer
+% ouvre un bloc et le rendu s'ecarte de celui du polycopie.
+\setbeamertemplate{theorem begin}{%
+  {\ifx\inserttheoremnumber\@empty
+     \textcolor{black}{\bfseries\inserttheoremname}%
+   \else
+     \textcolor{black}{\bfseries\inserttheoremname\inserttheoremnumber}%
+   \fi
+   \ifx\inserttheoremaddition\@empty\else\space(\inserttheoremaddition)\fi
+   \inserttheorempunctuation~}}
+\setbeamertemplate{theorem end}{}
+
+% ---------------------------------------------------------------------------
+% Chapitres
+%
+% beamer n'a pas de chapitre : on en fabrique un, et les sections s'y
+% raccrochent. \thesection devient « chapitre.section ».
+\newcounter{chapter}
+\@addtoreset{section}{chapter}
+\renewcommand\thechapter{\arabic{chapter}}
+\renewcommand\thesection{\thechapter.\arabic{section}}
+
+\setbeamertemplate{section in toc}{%
+  \thechapter.\inserttocsectionnumber.~\inserttocsection}
+\setbeamertemplate{subsection in toc}{%
+  \hspace{1.9em}\thechapter.\inserttocsectionnumber.\inserttocsubsectionnumber.~%
+  \inserttocsubsection\par}
+
+% \slidechapter{5}{Equations differentielles lineaires}
+% \def et non \newcommand : une macro \long ne serait jamais \ifx-egale a
+% \@empty, et le test « y a-t-il un chapitre ? » serait toujours faux.
+\def\ocots@chaptername{}
+\newcommand{\slidechapter}[2]{%
+  \setcounter{chapter}{#1}\def\ocots@chaptername{#2}}
+
+% ---------------------------------------------------------------------------
+% Compteur de diapositive : le numero cercle en haut a droite
+\newcommand*{\ocots@counterfont}[1][ptm]{\fontfamily{#1}\selectfont}
+\newcommand*{\slidecounter}[1][\ocotscolor{slidetitle}]{%
+  \begin{tikzpicture}[inner sep=0pt, baseline=(base)]
+    \def\ocots@thick{0.15em}%
+    \def\ocots@radius{0.55em}%
+    \coordinate (O) at (0em,0em);
+    \coordinate[shift={(0em,\ocots@radius)}] (A) at (O);
+    \draw[black] (O) node{%
+      \scriptsize\bfseries\ocots@counterfont
+      \textcolor{#1}{\insertframenumber}};
+    \draw[\ocotscolor{grey},line width=\ocots@thick,rotate=90]
+      (A) arc (0:360:\ocots@radius);
+    \node (base) at (0,-.25ex) {};
+  \end{tikzpicture}}
+
+% ---------------------------------------------------------------------------
+% La diapositive
+%
+%   \begin{slide}{Titre}          couleur d'en-tete courante
+%   \begin{slide}[\ocotscolor{slide2}]{Titre}
+%
+% \slidecolor change la couleur pour toutes les suivantes : c'est ce qui permet
+% de colorer un jeu de diapos par theme aborde.
+\def\ocots@slidecolor{\ocotscolor{slidetitle}}
+\newcommand{\slidecolor}[1]{\def\ocots@slidecolor{#1}}
+
+\newenvironment{slide}[2][]
+  {\ifx\relax#1\relax\else\def\ocots@slidecolor{#1}\fi
+   \begin{frame}%
+     \begin{minipage}{0.9\textwidth}
+       \large\color{\ocots@slidecolor}\textsc{#2}
+     \end{minipage}\hfill
+     \begin{minipage}{0.04\textwidth}
+       \begin{flushright}\slidecounter[\ocots@slidecolor]\end{flushright}
+     \end{minipage}
+     \vspace{-2pt}
+     {\color{\ocots@slidecolor}\noindent\rule{\textwidth}{0.1em}}}
+  {\end{frame}}
+
+% Bandeau de titre, utilise par \slidetitlepage.
+\newtcolorbox{titlebox}{\ocotsboxstyle{titlebox}}
+
+% ---------------------------------------------------------------------------
+% Page de titre
+%
+% Utilise \title, \author, \date, l'option institution= et \slidechapter.
+% Sous beamer, le titre et l'auteur se lisent avec \inserttitle et
+% \insertauthor : \@title y declenche « No \title given ».
+\newcommand{\slidetitlepage}{%
+  \begin{frame}
+    \vspace{2em}
+    \begin{titlebox}
+      \begin{center}
+        {\Large\inserttitle}%
+        \ifx\ocots@chaptername\@empty\else
+          \par\vspace{1em}
+          {\Large\ocotsstring{chapter-label}~\thechapter~: \ocots@chaptername}%
+        \fi
+      \end{center}
+    \end{titlebox}
+    \vspace{1em}
+    \begin{center}
+      {\large\insertauthor}\par
+      \vspace{1em}\insertdate\par
+      \vspace{2em}\ocotslogos[2.5em]
+    \end{center}
+  \end{frame}}
+
+% ---------------------------------------------------------------------------
+% Retouches propres au medium
+%
+% Sans cela les numeros de theoreme changent entre deux \pause d'une meme
+% diapositive. C'est exactement le genre de correctif qui a sa place ici, et
+% pas dans ocots-env.sty : le noyau n'a pas a savoir qu'il existe des overlays.
+\resetcounteronoverlays{tcb@cnt@theorem}
+\resetcounteronoverlays{assumption}
+\resetcounteronoverlays{openquestion}
+\resetcounteronoverlays{difficulty}
+\resetcounteronoverlays{problem}
+
+% ---------------------------------------------------------------------------
+% Listes : un peu plus aerees qu'au fil du texte
+\setlist{itemsep=0.25em}
+\setitemize[1]{label={\small\textbullet}}
+\setitemize[2]{label={\small -}}
+
+\endinput

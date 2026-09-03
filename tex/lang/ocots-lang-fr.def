@@ -1,0 +1,73 @@
+% ocots-lang-fr.def -- francais
+%
+% Un fichier de langue fait deux choses, et seulement deux :
+%   1. charger babel et regler la typographie ;
+%   2. remplir la table des chaines.
+%
+% Ajouter une langue = copier ce fichier, traduire, et passer lang=<code>.
+% Il n'y a plus d'arbre `template-en` a maintenir en parallele.
+%
+% La liste ci-dessous est exhaustive : toute chaine composee par le template en
+% fait partie. C'est ce qui evite les oublis de la v0 (« Solution de
+% l'Exercice », « Supplement », « Consigne », « Partie » n'avaient jamais ete
+% traduits dans template-en).
+
+\ProvidesFile{ocots-lang-fr.def}[2026/09/03 v1.0 ocots -- chaines francaises]
+
+% --------------------------------------------------------------------------
+% Typographie
+\def\ocots@babellang{french}
+\RequirePackage[french]{babel}
+\@ifundefined{frenchsetup}%
+  {\frenchbsetup{StandardLists=true}}%
+  {\frenchsetup{StandardLists=true}}
+
+% Convention pour les intervalles ouverts : ]a,b[ en francais.
+\def\ocots@intervalopenleft{]}
+\def\ocots@intervalopenright{[}
+
+% --------------------------------------------------------------------------
+% Environnements
+\ocotssetstring{theorem}{Théorème}
+\ocotssetstring{definition}{Définition}
+\ocotssetstring{proposition}{Proposition}
+\ocotssetstring{corollary}{Corollaire}
+\ocotssetstring{conjecture}{Conjecture}
+\ocotssetstring{lemma}{Lemme}
+\ocotssetstring{example}{Exemple}
+\ocotssetstring{remark}{Remarque}
+\ocotssetstring{chapter-label}{Chapitre}
+\ocotssetstring{assumption}{Hypothèse}
+
+% --------------------------------------------------------------------------
+% Exercices et corrections
+\ocotssetstring{exercise}{Exercice}
+\ocotssetstring{solution}{Solution}
+\ocotssetstring{correction}{Correction}
+\ocotssetstring{question}{Question}
+\ocotssetstring{part}{Partie}
+\ocotssetstring{instruction}{Consigne}
+\ocotssetstring{instructions}{Consignes}
+\ocotssetstring{points}{points}
+
+% Titres composes des boites d'exercice et de solution.
+%   « Exercice 3 (solution p. 42) : »
+%   « Solution de l'Exercice 3 p. 12 : »
+\ocotssetstring{page-abbr}{p.}
+\ocotssetstring{solution-at}{solution}
+\ocotssetstring{solution-of}{Solution de l'Exercice}
+
+% --------------------------------------------------------------------------
+% Blocs annexes
+\ocotssetstring{supplement}{Supplément}
+\ocotssetstring{reminder}{Rappels}
+\ocotssetstring{note}{Note}
+\ocotssetstring{todo}{À FAIRE}
+
+% --------------------------------------------------------------------------
+% Operateurs mathematiques dont le nom depend de la langue
+\ocotssetstring{op-rank}{rang}
+\ocotssetstring{op-minimize}{minimiser}
+\ocotssetstring{op-graph}{graphe}
+
+\endinput

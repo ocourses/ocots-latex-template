@@ -1,42 +1,54 @@
 % =====================================================================
-% Exemple minimal — DIAPOSITIVES (beamer)
-% Étape 1 : squelette qui compile. Le contenu viendra à l'étape 3.
-% Compilation : latexmk -pdf main.tex
+% Exemple minimal — DIAPOSITIVES
+% Le support est déduit de la classe : beamer suffit, aucune option à passer.
 % =====================================================================
 \documentclass[9pt,t]{beamer}
+\usepackage[lang=fr, theme=n7-dark, math=analysis,
+            institution=n7,insa]{ocots}
 
-\newcommand{\relativePath}{../..}
-\usepackage[dark, relativePath=\relativePath]{\relativePath/slides}
+\title{Exemple de diapositives}
+\author{Prénom \textsc{Nom}}
+\date{\today}
 
 \begin{document}
 
-\setcounter{chapter}{1}
-\def\chaptername{Titre du chapitre}
-
-% ---------------------------------------------------------------- titre
-\begin{frame}
-    \vspace{2em}
-    \begin{myboxtitle}
-        \begin{center}
-            {\Large Exemple de diapositives\\[1em]
-             Chapitre \thechapter\ : \chaptername}
-        \end{center}
-    \end{myboxtitle}
-
-    \vspace{2em}
-    \begin{center}
-        {\large Prénom~\textsc{Nom}}\\[1em]
-        \today
-    \end{center}
-\end{frame}
+\slidechapter{1}{Titre du chapitre}
+\slidetitlepage% remplace les 28 lignes recopiées dans chaque jeu de la v0
 
 % ---------------------------------------------------------------- contenu
-\begin{myframe}{Titre de la diapositive}
+\begin{slide}{Titre de la diapositive}
 
-Texte.
+Texte, avec une norme $\norm{x}$.
 
-% <<< étape 3 : environnements, preuves fractionnées, couleurs, options >>>
+\begin{definition}{Une définition}{}
+    Énoncé.
+\end{definition}
 
-\end{myframe}
+\pause
+
+\begin{remark}
+    Une remarque.
+\end{remark}
+
+\end{slide}
+
+% La couleur d'en-tête peut changer par thème abordé.
+\begin{slide}[\ocotscolor{slide2}]{Une autre couleur d'en-tête}
+
+\begin{proofbegin}
+    Début d'une preuve étalée sur plusieurs diapositives.
+\end{proofbegin}
+
+\end{slide}
+
+\begin{slide}{Suite de la preuve}
+
+\begin{proofend}
+    Fin de la preuve.
+\end{proofend}
+
+% <<< étape 3 : tous les environnements, toutes les options >>>
+
+\end{slide}
 
 \end{document}

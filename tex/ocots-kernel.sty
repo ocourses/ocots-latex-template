@@ -1,0 +1,104 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-kernel}[2026/09/03 v1.0 ocots -- noyau : registres et infrastructure]
+%
+% Infrastructure du template : registres de chaines (langue), de couleurs, de
+% styles de boites et de titres, plus la detection du support.
+%
+% Ce fichier ne charge aucun paquet en dehors de xkeyval et ne produit aucune
+% sortie. Il est charge en premier, avant meme les paquets, parce que les
+% options du template s'appuient sur ses registres.
+%
+% Les registres sont volontairement des tables clef -> valeur et non des
+% commandes dediees : c'est ce qui permet d'ajouter une couleur, une chaine ou
+% un style sans toucher au noyau.
+
+\RequirePackage{xkeyval}
+
+% ---------------------------------------------------------------------------
+% Support (« carrier »)
+%
+% Fixe par la classe : ocots-book.cls, ocots-td.cls et ocots-exam.cls
+% definissent \ocots@carrier avant que ocots.sty ne soit charge. Sous beamer il
+% n'y a pas de classe a nous, on le devine.
+% \def et non \providecommand : \newcommand rend la macro \long, et un
+% \ifx\ocots@carrier\@empty serait alors toujours faux.
+\@ifundefined{ocots@carrier}{\def\ocots@carrier{}}{}
+\newcommand{\ocots@detectcarrier}{%
+  \ifx\ocots@carrier\@empty
+    \@ifclassloaded{beamer}%
+      {\def\ocots@carrier{slides}}%
+      {\def\ocots@carrier{book}}%
+  \fi}
+
+% Vrai si le support courant est #1. A n'utiliser QUE dans les fichiers de
+% support et dans ocots.sty : un environnement ne teste jamais son support.
+\newcommand{\ocots@ifcarrier}[3]{%
+  \def\ocots@tempa{#1}%
+  \ifx\ocots@tempa\ocots@carrier#2\else#3\fi}
+
+% ---------------------------------------------------------------------------
+% Chaines (internationalisation)
+%
+%   \ocotssetstring{theorem}{Theoreme}   dans un fichier lang/
+%   \ocotsstring{theorem}                partout ailleurs
+%
+% Une chaine absente produit un avertissement et un marqueur visible plutot
+% qu'une erreur : une langue incomplete reste compilable, et le trou se voit.
+% \ocotsstring doit etre robuste : les titres de tcolorbox passent par un
+% \edef, qui developperait sinon le \csname du test en \csname\endcsname vide.
+\newcommand{\ocotssetstring}[2]{\@namedef{ocots@str@#1}{#2}}
+\DeclareRobustCommand{\ocotsstring}[1]{%
+  \@ifundefined{ocots@str@#1}%
+    {\PackageWarning{ocots}{String `#1' missing from current language}%
+     \texttt{?#1?}}%
+    {\@nameuse{ocots@str@#1}}}
+
+% ---------------------------------------------------------------------------
+% Couleurs
+%
+%   \ocotssetcolor{accent}{blue!60!black}   dans un fichier theme/
+%   \color{\ocotscolor{accent}}             partout ailleurs
+%
+% Les couleurs du template sont prefixees : on n'ecrase jamais les noms de
+% xcolor (blue, red, green...), contrairement a la v0.
+\newcommand{\ocotssetcolor}[2]{\colorlet{ocots@#1}{#2}}
+\newcommand{\ocotscolor}[1]{ocots@#1}
+
+% ---------------------------------------------------------------------------
+% Styles de boites tcolorbox
+%
+%   \ocotssetboxstyle{theorem}{colframe=..., colback=...}   dans theme/
+%   \tcbset{\ocotsboxstyle{theorem}}                        dans env
+\newcommand{\ocotssetboxstyle}[2]{\tcbset{ocots@box@#1/.style={#2}}}
+\newcommand{\ocotsboxstyle}[1]{ocots@box@#1}
+
+% ---------------------------------------------------------------------------
+% Titres (chapitre, section...)
+%
+% Le theme depose ici le code de mise en forme ; le support l'appelle au moment
+% ou il configure titlesec ou beamer.
+\newcommand{\ocotssetheading}[2]{\@namedef{ocots@head@#1}{#2}}
+\newcommand{\ocotsheading}[1]{\@nameuse{ocots@head@#1}}
+
+% ---------------------------------------------------------------------------
+% Alias d'environnement
+%
+% \ocotsaliasenv{ancien}{nouveau} rend « ancien » strictement equivalent a
+% « nouveau », arguments compris. Sert a ocots-compat.sty.
+\newcommand{\ocotsaliasenv}[2]{%
+  \expandafter\let\csname #1\expandafter\endcsname\csname #2\endcsname
+  \expandafter\let\csname end#1\expandafter\endcsname\csname end#2\endcsname}
+
+% Libere un nom d'environnement avant de le definir.
+%
+% Necessaire parce que beamer definit deja theorem, definition, corollary,
+% lemma, example, proof... On les remplace deliberement : le template fournit
+% ses propres versions, identiques d'un support a l'autre. C'est precisement ce
+% que la v0 contournait en prefixant tout par « my ».
+\newcommand{\ocotsfreeenv}[1]{%
+  \expandafter\let\csname #1\endcsname\@undefined
+  \expandafter\let\csname end#1\endcsname\@undefined}
+\newcommand{\ocotsfreeenvs}[1]{%
+  \@for\ocots@tempb:=#1\do{\expandafter\ocotsfreeenv\expandafter{\ocots@tempb}}}
+
+\endinput

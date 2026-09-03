@@ -1,0 +1,63 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-math-control}[2026/09/03 v1.0 ocots -- controle optimal et homotopie]
+%
+% Notations du controle optimal, de l'homotopie et des methodes de tir, plus les
+% noms des logiciels associes. Charge par math=control.
+%
+% Dans la v0 tout ceci vivait dans defs_macros.tex, donc dans tous les
+% documents, y compris ceux qui n'en avaient aucun usage (defaut D9).
+
+% ---------------------------------------------------------------------------
+% Solutions : notation barre
+\newcommand\rsol{\bar{r}}
+\newcommand\lsol{\bar{\lambda}}
+\newcommand\fsol{\bar{f}}
+\newcommand\ssol{\bar{s}}
+\newcommand\xsol{\bar{x}}
+\newcommand\ysol{\bar{y}}
+\newcommand\usol{\bar{u}}
+\newcommand\zsol{\bar{z}}
+\newcommand\psol{\bar{p}}
+\newcommand\tfsol{\bar{t}_f}
+\newcommand\tsol{\bar{t}\hspace{0.1em}}
+
+% ---------------------------------------------------------------------------
+% Homotopie
+\def\sbar{\bar{s}}
+\def\cbar{\bar{c}}
+\def\lbar{\bar{\lambda}}
+\def\sphere{\mathbb{S}}
+\def\laz{\lambda_0}
+\renewcommand{\hom}{\Phi}
+
+% ---------------------------------------------------------------------------
+% Lettres decorees
+\def\xt{\widetilde{x}}
+\def\ut{\widetilde{u}}
+\def\pt{\widetilde{p}}
+\def\ft{\widetilde{f}}
+\def\ct{\widetilde{c}}
+\def\Et{\widetilde{E}}
+\def\Ucalt{\widetilde{\Ucal}}
+\def\Acalt{\widetilde{\Acal}}
+\def\Phit{\widetilde{\Phi}}
+
+% ---------------------------------------------------------------------------
+% Crochets et flots
+\newcommand{\crochetDualite}[2]{#1 \cdot #2}
+\newcommand{\Lie}[2]{\left[#1, #2\right]}
+\newcommand{\expmap}[3]{\exp({#2 #3}) (#1)}
+\newcommand{\arc}{\gamma}
+
+% ---------------------------------------------------------------------------
+% Logiciels
+\newcommand{\hampath}{\lib{HamPath}}
+\newcommand{\bocop}{\lib{Bocop}}
+\newcommand{\cotcot}{\lib{cotcot}}
+\newcommand{\nutopy}{\lib{Nutopy}}
+\newcommand{\controltoolbox}{\lib{control-toolbox}}
+\newcommand{\tapenade}{\lib{TAPENADE}}
+\newcommand{\lapack}{\lib{LAPACK}}
+\newcommand{\minpack}{\lib{MINPACK}}
+
+\endinput

@@ -1,3 +1,0 @@
-
-- gérer exercices et corrections placées après avec tcolorbox
-- faire une commande pour encadrer des équations importantes

@@ -1,0 +1,56 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-graphics}[2026/09/03 v1.0 ocots -- dessins et tableaux]
+%
+% Aides TikZ, annotation d'images, colonnes et filets de tableaux.
+
+% ---------------------------------------------------------------------------
+% Annotation d'images bitmap : \begin{tikzgraphics}...\pxnode...\end{...}
+% Paquet tiers de Benjamin Kellermann (GPL), repris tel quel.
+\RequirePackage{tikzgraphicx}
+
+% ---------------------------------------------------------------------------
+% Reperage entre figures
+\tikzstyle{every picture}+=[remember picture]
+\tikzstyle{na} = [baseline=-.5ex]
+
+\newcommand{\gettikzxy}[3]{%
+  \makeatletter
+  \tikz@scan@one@point\pgfutil@firstofone#1\relax
+  \edef#2{\the\pgf@x}%
+  \edef#3{\the\pgf@y}%
+  \makeatother}
+
+% ---------------------------------------------------------------------------
+% Fenetre de trace : options xmin, xmax, ymin, ymax
+\tikzset{
+  xmin/.store in=\xmin, xmin/.default=-3, xmin=-3,
+  xmax/.store in=\xmax, xmax/.default=3,  xmax=3,
+  ymin/.store in=\ymin, ymin/.default=-3, ymin=-3,
+  ymax/.store in=\ymax, ymax/.default=3,  ymax=3}
+
+\newcommand{\grille}{\draw[help lines] (\xmin,\ymin) grid (\xmax,\ymax);}
+\newcommand{\fenetre}{\clip (\xmin,\ymin) rectangle (\xmax,\ymax);}
+
+\newcommand{\axes}[2]{%
+  \draw[->,gray] (\xmin,0) -- (\xmax,0);
+  \draw[->,gray] (0,\ymin) -- (0,\ymax);
+  \draw (\xmax,0) node[below]{#1};
+  \draw (0,\ymax) node[left]{#2};}
+
+\newcommand{\axesDown}[2]{%
+  \draw[->,gray] (\xmin,0) -- (\xmax,0);
+  \draw[->,gray] (0,\ymax) -- (0,\ymin);
+  \draw (\xmax,0) node[below]{#1};
+  \draw (0,\ymin) node[left]{#2};}
+
+% ---------------------------------------------------------------------------
+% Tableaux
+\newcolumntype{C}[1]{>{\centering}p{#1}}
+\newcolumntype{L}[1]{>{\raggedright}p{#1}}
+\newcommand\Tstrut{\rule{0pt}{2.6ex}}
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}
+\newcommand{\smallhrule}{\specialrule{0.02em}{0.25em}{0.25em}}
+\newcommand{\medhrule}{\specialrule{0.05em}{0.3em}{0.3em}}
+\newcommand{\bighrule}{\specialrule{0.1em}{0.3em}{0.5em}}
+
+\endinput

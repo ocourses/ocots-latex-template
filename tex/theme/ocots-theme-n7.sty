@@ -1,0 +1,97 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-theme-n7}[2026/09/03 v1.0 ocots -- theme N7 (sobre)]
+%
+% Theme par defaut des documents papier (polycopie, TD, examen). Reproduit la
+% palette « sobre » de la v0 : cadres pastel, titres noirs.
+%
+% Un theme ne fait que deux choses : nommer des couleurs, puis charger un socle
+% de formes. Il ne definit aucun environnement et ne teste aucun support.
+
+% ---------------------------------------------------------------------------
+% Palette
+%
+% Prefixe ocots@raw@ : on ne redefinit jamais blue, red, green ou black, qui
+% appartiennent a xcolor. La v0 les ecrasait, ce qui rendait « red!20!white »
+% dependant du contexte de chargement.
+\definecolor{ocots@raw@blue} {rgb}{0.06,0.06,0.60}
+\definecolor{ocots@raw@red}  {rgb}{0.60,0.04,0.04}
+\definecolor{ocots@raw@green}{rgb}{0.06,0.60,0.06}
+\definecolor{ocots@raw@grey} {rgb}{0.85,0.85,0.85}
+\definecolor{ocots@raw@forest}{cmyk}{0.91,0,0.88,0.12}
+\definecolor{ocots@raw@midnight}{cmyk}{0.98,0.13,0,0.43}
+
+% Mise en valeur dans le texte
+\ocotssetcolor{emph-a}{ocots@raw@blue}
+\ocotssetcolor{emph-b}{ocots@raw@red}
+\ocotssetcolor{emph-c}{ocots@raw@green}
+\ocotssetcolor{emph-d}{ocots@raw@midnight}
+\ocotssetcolor{grey}{ocots@raw@grey}
+
+% Liens
+\ocotssetcolor{link}{ocots@raw@blue}
+\ocotssetcolor{cite}{ocots@raw@red}
+
+% Preuves
+\ocotssetcolor{proof}{black}
+
+% Titres
+\ocotssetcolor{chapter}{black}
+\ocotssetcolor{section}{black}
+\ocotssetcolor{subsection}{black}
+\ocotssetcolor{subsubsection}{black}
+
+% Boites a titre : fond blanc, cadre pastel, titre noir.
+\ocotssetcolor{back-definition}{white}
+\ocotssetcolor{frame-definition}{ocots@raw@blue!20!white}
+\ocotssetcolor{title-definition}{black}
+
+\ocotssetcolor{back-theorem}{white}
+\ocotssetcolor{frame-theorem}{ocots@raw@red!20!white}
+\ocotssetcolor{title-theorem}{black}
+
+\ocotssetcolor{back-proposition}{white}
+\ocotssetcolor{frame-proposition}{ocots@raw@green!20!white}
+\ocotssetcolor{title-proposition}{black}
+
+\ocotssetcolor{back-corollary}{white}
+\ocotssetcolor{frame-corollary}{ocots@raw@green!20!white}
+\ocotssetcolor{title-corollary}{black}
+
+\ocotssetcolor{back-conjecture}{white}
+\ocotssetcolor{frame-conjecture}{ocots@raw@green!20!white}
+\ocotssetcolor{title-conjecture}{black}
+
+% Exercices en vert, solutions en rouge : c'est ce qui rend le renvoi croise
+% lisible d'un coup d'oeil dans le polycopie.
+\ocotssetcolor{back-exercise}{white}
+\ocotssetcolor{frame-exercise}{ocots@raw@green!20!white}
+\ocotssetcolor{title-exercise}{ocots@raw@green!40!black}
+
+\ocotssetcolor{back-solution}{white}
+\ocotssetcolor{frame-solution}{ocots@raw@red!20!white}
+\ocotssetcolor{title-solution}{ocots@raw@red!40!black}
+
+% Filets lateraux
+\ocotssetcolor{rule-remark}{ocots@raw@red}
+\ocotssetcolor{rule-assumption}{black}
+
+% Surlignage des formules
+\ocotssetcolor{mathhighlight}{yellow!25!white}
+
+% Diapositives : le theme reste utilisable sous beamer, avec la palette claire.
+\definecolor{ocots@raw@link}{RGB}{213,138,39}
+\ocotssetcolor{slide0}{ocots@raw@link!60!teal}
+\ocotssetcolor{slide1}{ocots@raw@link}
+\ocotssetcolor{slide2}{olive}
+\ocotssetcolor{slide3}{ocots@raw@red}
+\ocotssetcolor{slide4}{ocots@raw@blue}
+\ocotssetcolor{slidetitle}{ocots@raw@midnight}
+\ocotssetcolor{titlebox-back}{ocots@raw@midnight!10!white}
+\ocotssetcolor{titlebox-frame}{ocots@raw@midnight!60!white}
+\ocotssetcolor{titlebox-text}{black}
+
+% ---------------------------------------------------------------------------
+% Formes
+\RequirePackage{ocots-theme-base}
+
+\endinput

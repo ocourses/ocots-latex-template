@@ -1,12 +1,12 @@
 % =====================================================================
-% Exemple minimal — TD (classe article)
-% Étape 1 : squelette qui compile. Le contenu viendra à l'étape 3.
-% Compilation : latexmk -pdf main.tex
+% Exemple minimal — TD
+% L'énoncé ci-dessous se colle tel quel dans le polycopié : c'est le point
+% de la refonte. En v0, `exercise' et `question' n'avaient pas la même
+% signature d'un support à l'autre.
 % =====================================================================
-\documentclass[11pt]{article}
-
-\newcommand{\relativePath}{../..}
-\usepackage[nocorrection, relativePath=\relativePath]{\relativePath/td}
+\documentclass[11pt]{ocots-td}
+\usepackage[lang=fr, theme=n7, solutions=none,
+            institution=n7,insa]{ocots}
 
 \title{Exemple de TD}
 \shorttitle{Exemple de TD}
@@ -19,18 +19,22 @@
 
 \maketitle
 
-\begin{myexercise}
-
-    \begin{myquestion}
+\begin{exercise}[nosolution]
+    \begin{question}
         Énoncé de la question.
-    \end{myquestion}
+    \end{question}
+    \begin{question}
+        Énoncé de la question suivante.
+        \begin{subquestion}
+            Sous-question.
+        \end{subquestion}
+    \end{question}
+\end{exercise}
 
-    \begin{mycorrection}
-        Corrigé, masqué par l'option \texttt{nocorrection}.
-    \end{mycorrection}
+\begin{correction}
+    Corrigé, masqué ici par l'option \texttt{solutions=none}.
+\end{correction}
 
-\end{myexercise}
-
-% <<< étape 3 : sous-questions, problèmes, rappels, suppléments, options >>>
+% <<< étape 3 : rappels, suppléments, problèmes, toutes les options >>>
 
 \end{document}

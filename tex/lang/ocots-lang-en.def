@@ -1,0 +1,58 @@
+% ocots-lang-en.def -- english
+%
+% Voir ocots-lang-fr.def pour le mode d'emploi. La liste de chaines doit rester
+% strictement parallele : c'est ce qui rend les oublis visibles.
+
+\ProvidesFile{ocots-lang-en.def}[2026/09/03 v1.0 ocots -- english strings]
+
+% --------------------------------------------------------------------------
+% Typographie
+\def\ocots@babellang{english}
+\RequirePackage[english]{babel}
+
+% Convention pour les intervalles ouverts : (a,b) en anglais.
+\def\ocots@intervalopenleft{(}
+\def\ocots@intervalopenright{)}
+
+% --------------------------------------------------------------------------
+% Environnements
+\ocotssetstring{theorem}{Theorem}
+\ocotssetstring{definition}{Definition}
+\ocotssetstring{proposition}{Proposition}
+\ocotssetstring{corollary}{Corollary}
+\ocotssetstring{conjecture}{Conjecture}
+\ocotssetstring{lemma}{Lemma}
+\ocotssetstring{example}{Example}
+\ocotssetstring{remark}{Remark}
+\ocotssetstring{chapter-label}{Chapter}
+\ocotssetstring{assumption}{Assumption}
+
+% --------------------------------------------------------------------------
+% Exercices et corrections
+\ocotssetstring{exercise}{Exercise}
+\ocotssetstring{solution}{Solution}
+\ocotssetstring{correction}{Solution}
+\ocotssetstring{question}{Question}
+\ocotssetstring{part}{Part}
+\ocotssetstring{instruction}{Instruction}
+\ocotssetstring{instructions}{Instructions}
+\ocotssetstring{points}{points}
+
+\ocotssetstring{page-abbr}{p.}
+\ocotssetstring{solution-at}{solution}
+\ocotssetstring{solution-of}{Solution to Exercise}
+
+% --------------------------------------------------------------------------
+% Blocs annexes
+\ocotssetstring{supplement}{Further reading}
+\ocotssetstring{reminder}{Reminder}
+\ocotssetstring{note}{Note}
+\ocotssetstring{todo}{TODO}
+
+% --------------------------------------------------------------------------
+% Operateurs mathematiques dont le nom depend de la langue
+\ocotssetstring{op-rank}{rank}
+\ocotssetstring{op-minimize}{minimize}
+\ocotssetstring{op-graph}{graph}
+
+\endinput

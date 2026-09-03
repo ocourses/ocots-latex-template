@@ -1,0 +1,52 @@
+% Variante : corps écrit pour la v0, compilé par la v1.
+%
+% Seul le préambule change lors d'une migration — deux lignes. Le corps du
+% document, lui, n'est pas retouché : c'est ce que garantit ocots-compat.sty,
+% et c'est ce qui permet de migrer poly/ et slides/ au fil de l'eau plutôt
+% qu'en bloc (~600 occurrences).
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=n7, solutions=end, math=analysis]{ocots}
+
+\title{Variante : syntaxe v0}
+\author{Prénom \textsc{Nom}}
+\date{\today}
+
+\begin{document}
+\tcbstartrecording
+
+\chapter{Chapitre écrit avec les noms de la v0}
+\section{Une section}
+
+Du texte avec \myemph{une mise en valeur} et \cblue{de la couleur}.
+
+\begin{mytheorem}{Un théorème}{v0}
+    Énoncé.
+\end{mytheorem}
+
+\begin{myremark}
+    Une remarque.
+\end{myremark}
+
+\begin{myexample}
+    Un exemple.
+\end{myexample}
+
+\begin{proof}
+    Démonstration.
+\end{proof}
+
+\begin{myexercisecb}<etiquettev0>
+    Énoncé de l'exercice, avec l'ancienne syntaxe d'étiquette.
+\solutioncb
+    Corrigé.
+\end{myexercisecb}
+
+\begin{myexercisecb}[no solution]
+    Exercice sans corrigé, ancienne clef \texttt{no solution}.
+\end{myexercisecb}
+
+\chapter{Corrections}
+\tcbstoprecording
+\tcbinputrecords
+
+\end{document}

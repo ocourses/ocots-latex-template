@@ -1,0 +1,79 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-carrier-article}[2026/09/03 v1.0 ocots -- socle TD et examen]
+%
+% Ce que les TD et les sujets d'examen ont en commun : geometrie, en-tetes
+% porteurs des metadonnees, page de titre a logos.
+%
+% En v0, td.sty et exam.sty etaient deux copies quasi identiques de 190 lignes,
+% qui redefinissaient chacune leurs propres theoremes — d'ou l'incompatibilite
+% avec le polycopie (defaut D2). Ici les environnements viennent de
+% ocots-env.sty comme partout ailleurs, et seul le habillage est local.
+
+\RequirePackage{ocots-institution}
+\RequirePackage{fancyhdr}
+\RequirePackage{titlesec}
+
+% ---------------------------------------------------------------------------
+% Geometrie
+\RequirePackage[a4paper,includeheadfoot,margin=2.54cm]{geometry}
+\addtolength{\headheight}{\baselineskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% ---------------------------------------------------------------------------
+% Metadonnees
+%
+%   \title{...}       \shorttitle{...}   titre long / titre des pages suivantes
+%   \numero{...}      \date{...}         reference du document / annee
+%   \discipline{...}  \promotion{...}    matiere / public
+\newcommand{\ocots@shorttitle}{}
+\newcommand{\ocots@numero}{}
+\newcommand{\ocots@discipline}{}
+\newcommand{\ocots@promotion}{}
+\newcommand{\shorttitle}[1]{\renewcommand{\ocots@shorttitle}{#1}}
+\newcommand{\numero}[1]{\renewcommand{\ocots@numero}{#1}}
+\newcommand{\discipline}[1]{\renewcommand{\ocots@discipline}{#1}}
+\newcommand{\promotion}[1]{\renewcommand{\ocots@promotion}{#1}}
+
+% ---------------------------------------------------------------------------
+% En-tetes et pieds
+%
+% Premiere page : promotion et discipline a gauche, date et reference a droite.
+% Pages suivantes : versions courtes.
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{{\scriptsize\emph{\ocots@promotion}\\[-2pt]\textsc{\ocots@discipline}}}
+\fancyhead[R]{{\scriptsize\@date\\[-2pt]\ocots@numero}}
+\fancyfoot[C]{\textrm{\thepage}}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyhead[L]{\textsc{\small\ocots@discipline}}%
+  \fancyhead[R]{{\small\textbf{\ocots@shorttitle}}}%
+  \fancyfoot[C]{\textrm{\thepage}}}
+
+% ---------------------------------------------------------------------------
+% Titres de section, aux couleurs du theme
+\titleformat{\section}{\ocotsheading{section}}{\thesection}{1em}{}
+\titleformat{\subsection}{\ocotsheading{subsection}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\ocotsheading{subsubsection}}{\thesubsubsection}{1em}{}
+
+% ---------------------------------------------------------------------------
+% Titre du document
+\renewcommand{\maketitle}{%
+  \par
+  \begin{center}
+    \ocotslogos[1.2cm]\par
+    \vspace*{1.0em}
+    {\LARGE\bfseries\@title\par}
+  \end{center}%
+  \thispagestyle{plain}%
+  \addvspace{2em}}
+
+% ---------------------------------------------------------------------------
+% Consignes et parties
+\newtheorem*{instruction}{\ocotsstring{instruction}}
+\newtheorem*{instructions}{\ocotsstring{instructions}}
+\newtheorem{docpart}{\ocotsstring{part}}
+
+\endinput

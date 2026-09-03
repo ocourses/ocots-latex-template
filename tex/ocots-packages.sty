@@ -1,0 +1,107 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-packages}[2026/09/03 v1.0 ocots -- chargement des paquets]
+%
+% Tous les \RequirePackage du template, et rien d'autre : pas de reglage, pas de
+% couleur, pas d'environnement. C'est le seul fichier autorise a charger un
+% paquet tiers.
+%
+% Ce qui n'est PAS ici, deliberement :
+%   - geometry, fancyhdr, minitoc, makeidx, titlesec, caption : propres a un
+%     support, donc charges par carrier/ocots-carrier-*.sty ;
+%   - hyperref sous beamer : deja charge par la classe.
+%
+% L'ordre suit celui de la v0 la ou il compte (wasysym avant amssymb, esvect
+% apres les ams), pour ne pas changer le rendu.
+
+% ---------------------------------------------------------------------------
+% Encodage et polices. En premier : la langue en depend.
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern}
+\RequirePackage{textcomp}
+
+% ---------------------------------------------------------------------------
+% Langue. Charge babel et la table des chaines (lang/ocots-lang-<x>.def).
+% Doit venir tot : babel modifie la typographie et des caracteres actifs.
+\expandafter\ocots@require\expandafter{\detokenize{ocots-lang-}}{\ocots@lang}{def}
+
+% ---------------------------------------------------------------------------
+% Couleurs
+\RequirePackage{xcolor}
+\RequirePackage{colortbl}
+
+% ---------------------------------------------------------------------------
+% Structure et inclusion
+\RequirePackage{import}
+\RequirePackage{verbatim}
+\RequirePackage{xparse}
+\RequirePackage{pdfpages}
+
+% ---------------------------------------------------------------------------
+% Images
+\RequirePackage{graphicx}
+\DeclareGraphicsExtensions{.jpg,.pdf,.png}
+\RequirePackage[export]{adjustbox}
+% Les logos du template sont trouves via TEXINPUTS (cf. README) : plus de
+% \relativePath a tenir a jour dans chaque document, contrairement a la v0.
+\graphicspath{{.}{figures/}{Figures/}}
+
+% ---------------------------------------------------------------------------
+% Hyperliens. Sous beamer, la classe s'en est deja chargee.
+\@ifclassloaded{beamer}{}{%
+  \RequirePackage[pagebackref,hyperindex=true,linktoc=all]{hyperref}}
+
+% ---------------------------------------------------------------------------
+% Boites
+\RequirePackage[many,skins,breakable]{tcolorbox}
+\RequirePackage{totcount}
+\RequirePackage{versions}
+
+% ---------------------------------------------------------------------------
+% Symboles et mathematiques
+\RequirePackage{wasysym}      % \RHD : marqueur de debut de preuve
+\RequirePackage{bigints}
+\RequirePackage{amsfonts}
+\RequirePackage{amscd}
+\RequirePackage{amsthm}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{mathrsfs}     % \mathscr
+\RequirePackage{mathtools}
+\RequirePackage{xstring}
+\RequirePackage{dsfont}       % \mathds : indicatrice
+\RequirePackage{stmaryrd}     % intervalles d'entiers
+\RequirePackage{yhmath}       % \wideparen
+\RequirePackage[f]{esvect}    % \vv
+
+% ---------------------------------------------------------------------------
+% Dessins
+\RequirePackage{tikz}
+\RequirePackage{pgfkeys}
+\RequirePackage[european resistor, european voltage, european current]{circuitikz}
+\RequirePackage{pifont}
+\usetikzlibrary{arrows,shapes,backgrounds,patterns,babel}
+\usetikzlibrary{arrows.meta,decorations.markings}
+\tikzset{>={Latex[length=3mm,width=2mm]}}
+
+% ---------------------------------------------------------------------------
+% Tableaux
+\RequirePackage{calc}
+\RequirePackage{array}
+\RequirePackage{booktabs}
+
+% ---------------------------------------------------------------------------
+% Listes et pictogrammes
+\RequirePackage{marvosym}
+\RequirePackage[inline]{enumitem}
+\RequirePackage{fontawesome}  % \faExternalLink : environnement « web »
+
+% ---------------------------------------------------------------------------
+% Code source
+\RequirePackage{listings}
+
+% ---------------------------------------------------------------------------
+% Notes en marge
+\RequirePackage{stackengine}
+
+\endinput

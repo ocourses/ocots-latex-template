@@ -1,0 +1,35 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-institution}[2026/09/03 v1.0 ocots -- logos d'etablissement]
+%
+% Les logos de la page de titre, choisis par l'option institution= du paquet
+% ocots :
+%
+%   \usepackage[institution=insa,n7]{ocots}
+%
+% Remplace l'option `insa'/`enseeiht' qui n'existait que dans le fork
+% texCoursN7 — et dont l'absence ici empechait les sujets d'examen du depot de
+% compiler (defaut D13).
+%
+% Ajouter un etablissement : deposer l'image dans assets/logos/ et ajouter une
+% ligne ci-dessous.
+
+% Nom de fichier de chaque logo (trouve via TEXINPUTS, cf. README).
+\@namedef{ocots@logo@n7}{Logo-toulouse-inp-N7}
+\@namedef{ocots@logo@inp}{LOGO_INP_N7}
+\@namedef{ocots@logo@insa}{logo-insa}
+\@namedef{ocots@logo@uftmp}{LOGO_UFTMP}
+
+% Hauteur par defaut, ajustable par le support.
+\newcommand{\ocotslogoheight}{1.2cm}
+
+% \ocotslogos[hauteur] : compose les logos demandes, separes d'un cadratin.
+\newcommand{\ocotslogos}[1][\ocotslogoheight]{%
+  \def\ocots@logosep{}%
+  \@for\ocots@inst:=\ocots@institution\do{%
+    \@ifundefined{ocots@logo@\ocots@inst}%
+      {\PackageWarning{ocots}{Unknown institution `\ocots@inst'}}%
+      {\ocots@logosep
+       \includegraphics[height=#1]{\@nameuse{ocots@logo@\ocots@inst}}%
+       \def\ocots@logosep{\hspace{2em}}}}}
+
+\endinput

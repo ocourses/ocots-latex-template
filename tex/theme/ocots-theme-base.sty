@@ -1,0 +1,104 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-theme-base}[2026/09/03 v1.0 ocots -- socle commun aux themes]
+%
+% Socle partage par les themes livres avec le template. Il ne choisit AUCUNE
+% couleur : il decrit la *forme* des boites et des titres, et va chercher les
+% couleurs dans le registre du noyau.
+%
+% Un theme se resume donc a une liste de \ocotssetcolor, suivie de
+% \RequirePackage{ocots-theme-base}. Voir ocots-theme-n7.sty.
+%
+% Un theme qui veut changer les formes — ce sera le cas de la v2 — n'a pas a
+% charger ce fichier : il definit ses propres \ocotssetboxstyle et
+% \ocotssetheading. Le contrat vis-a-vis de ocots-env.sty reste le meme.
+%
+% Couleurs attendues dans le registre, pour chaque famille f parmi
+% definition, theorem, proposition, corollary, conjecture, exercise, solution :
+%     back-f    fond        frame-f   cadre        title-f   titre
+% plus : rule-remark, rule-assumption, proof, link, cite,
+%        titlebox-back, titlebox-frame, titlebox-text.
+
+% ---------------------------------------------------------------------------
+% Espacement vertical commun aux boites
+\providecommand{\ocotsboxbeforeskip}{10pt}
+\providecommand{\ocotsboxafterskip}{10pt}
+
+% ---------------------------------------------------------------------------
+% Forme commune des boites a titre
+\ocotssetboxstyle{base}{%
+  enhanced jigsaw, breakable,
+  fonttitle=\bfseries\upshape,
+  separator sign dash,
+  before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip}
+
+% Une famille = la forme commune + ses trois couleurs.
+\newcommand{\ocots@boxfamily}[1]{%
+  \ocotssetboxstyle{#1}{%
+    \ocotsboxstyle{base},
+    colback=\ocotscolor{back-#1},
+    colframe=\ocotscolor{frame-#1},
+    coltitle=\ocotscolor{title-#1}}}
+
+\ocots@boxfamily{definition}
+\ocots@boxfamily{theorem}
+\ocots@boxfamily{proposition}
+\ocots@boxfamily{corollary}
+\ocots@boxfamily{conjecture}
+\ocots@boxfamily{exercise}
+\ocots@boxfamily{solution}
+
+% ---------------------------------------------------------------------------
+% Boites sans cadre, marquees par un filet lateral
+\ocotssetboxstyle{sidebar}{%
+  enhanced jigsaw, breakable, blanker, left=5mm,
+  before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip}
+
+\ocotssetboxstyle{remark}{%
+  \ocotsboxstyle{sidebar},
+  borderline west={1mm}{0pt}{\ocotscolor{rule-remark}}}
+
+\ocotssetboxstyle{assumption}{%
+  \ocotsboxstyle{sidebar},
+  borderline west={1mm}{0pt}{\ocotscolor{rule-assumption}}}
+
+% Questionnements et difficultes : retrait seul, sans filet.
+\ocotssetboxstyle{difficulty}{\ocotsboxstyle{sidebar}}
+\ocotssetboxstyle{openquestion}{\ocotsboxstyle{sidebar}}
+
+% Preuves : retrait plus faible, texte colore.
+\ocotssetboxstyle{proof}{%
+  blanker, breakable, left=1.5em,
+  before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip,
+  coltext=\ocotscolor{proof}}
+
+% ---------------------------------------------------------------------------
+% Bandeau de page de titre (diapositives)
+\ocotssetboxstyle{titlebox}{%
+  colback=\ocotscolor{titlebox-back},
+  colframe=\ocotscolor{titlebox-frame},
+  coltext=\ocotscolor{titlebox-text}}
+
+% ---------------------------------------------------------------------------
+% Surlignage des formules mises en valeur : \tcbhighmath{...}
+\tcbset{highlight math style={%
+  enhanced, colback=\ocotscolor{mathhighlight}, arc=4pt,
+  drop fuzzy shadow, size=minimal, boxsep=5pt}}
+
+% ---------------------------------------------------------------------------
+% Titres
+%
+% Le support appelle \ocotsheading{chapter} au moment ou il configure titlesec.
+% Un filet, le numero en petites capitales, un second filet : c'est le titre de
+% chapitre de la v0.
+\ocotssetheading{chapter-number}{%
+  \color{\ocotscolor{chapter}}\Large\scshape}
+\ocotssetheading{chapter-title}{%
+  \color{\ocotscolor{chapter}}\LARGE\bfseries}
+\ocotssetheading{section}{%
+  \color{\ocotscolor{section}}\normalfont\Large\bfseries}
+\ocotssetheading{subsection}{%
+  \color{\ocotscolor{subsection}}\normalfont\large\bfseries}
+\ocotssetheading{subsubsection}{%
+  \color{\ocotscolor{subsubsection}}\normalfont\normalsize\bfseries}
+
+\endinput

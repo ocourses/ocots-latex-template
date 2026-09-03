@@ -1,0 +1,166 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-exercise}[2026/09/03 v1.0 ocots -- exercices et corriges]
+%
+% Un seul mecanisme d'exercice, avec un interrupteur qui marche.
+%
+%   \begin{exercise}[label=matrices, points=4]
+%     Calculer $e^{tA}$ pour ...
+%   \solution
+%     ...
+%   \end{exercise}
+%
+% L'option `solutions' du paquet ocots decide du sort du corrige :
+%
+%   none    le corrige n'est pas compose du tout  -> la version etudiante
+%   inline  le corrige suit immediatement l'enonce
+%   end     le corrige est reporte en fin de partie, avec renvois croises
+%
+% La v0 avait trois mecanismes concurrents (versions + \ifCORR, mycorr, et
+% myexercisecb), et le seul reellement utilise — myexercisecb, 50 emplois —
+% etait justement le seul sans interrupteur : sortir un polycopie sans corriges
+% imposait d'editer main.tex (defaut D4).
+%
+% Les corriges reportes sont ecrits a plat dans le repertoire de sortie, et non
+% dans un sous-repertoire `solutions/'. Le lien symbolique
+% `build/solutions -> ../solutions' que le .latexmkrc de la v0 devait creer
+% n'a plus lieu d'etre.
+
+% ---------------------------------------------------------------------------
+% Questions et sous-questions
+\newcounter{question}
+\newcounter{subquestion}
+
+\newenvironment{question}
+  {\normalsize\normalfont\topsep6\p@\@plus6\p@\relax\trivlist
+   \item[\stepcounter{question}\bfseries\hspace{0.5em}\hskip\labelsep
+         \thequestion\@addpunct{.}]\ignorespaces
+   \setcounter{subquestion}{1}}
+  {\endtrivlist}
+
+\newenvironment{subquestion}
+  {\normalsize\normalfont\topsep6\p@\@plus6\p@\relax\trivlist
+   \item[\bfseries\hspace{1.5em}\hskip\labelsep
+         \thequestion\@addpunct{.}\thesubquestion\@addpunct{.}]\ignorespaces}
+  {\stepcounter{subquestion}\endtrivlist}
+
+% Force le passage a la question suivante (utile dans un corrige redige a part).
+\newcommand{\newquestion}{\stepcounter{question}\setcounter{subquestion}{1}}
+
+% Utile avant une liste, quand l'enonce n'a pas de texte d'introduction.
+\newcommand{\exercisenotext}{~\\ \vspace{-\baselineskip}}
+
+% ---------------------------------------------------------------------------
+% Clefs propres aux exercices
+\tcbset{points/.store in=\ocots@ex@points, points={}}
+
+% Bareme affiche entre parentheses apres le numero, s'il est renseigne.
+\DeclareRobustCommand{\ocots@ex@pointstext}{%
+  \ifx\ocots@ex@points\@empty\else~(\ocots@ex@points~\ocotsstring{points})\fi}
+
+% ---------------------------------------------------------------------------
+% Compteurs de numerotation
+%
+% Deux compteurs : l'un pour l'affichage, l'autre pour les references. C'est le
+% montage de la v0, conserve tel quel — il permet a \ref de pointer l'exercice
+% et non la boite.
+\newcounter{ocots@exinner}[section]
+\newcounter{ocots@exouter}[section]
+\renewcommand{\theocots@exinner}{\thesection.\theocots@exouter}
+% Robuste, comme tout ce qui apparait dans une liste de clefs tcolorbox :
+% pgfkeys developpe la liste au moment de l'analyse, et un \stepcounter
+% developpe trop tot casse la construction de son \csname.
+\DeclareRobustCommand{\ocots@exstep}{%
+  \stepcounter{ocots@exouter}\refstepcounter{ocots@exinner}%
+  \setcounter{question}{0}}
+
+% ---------------------------------------------------------------------------
+% La boite d'exercice, declinee selon le mode
+%
+% Le corps est le meme dans les trois cas ; seuls changent le titre et le sort
+% de la partie basse. On ecrit donc la forme commune une fois.
+% Un fragment de liste de clefs doit etre un *style* pgfkeys, pas une macro :
+% pgfkeys decoupe la liste sur les virgules avant de developper, si bien qu'une
+% macro contenant des virgules est prise pour une clef unique.
+\tcbset{ocots@ex@common/.style={%
+  \ocotsboxstyle{exercise}, breakable, lower separated=false,
+  attach title to upper=~,
+  before title={\ocots@exstep}}}
+
+\def\ocots@sol@none{none}
+\def\ocots@sol@inline{inline}
+\ifx\ocots@solutions\ocots@sol@none
+  % ----- solutions=none : la partie basse est ignoree, rien n'est ecrit.
+  \NewTColorBox[auto counter, number within=section]{exercise}{ O{} }{%
+    ocots@ex@common,
+    title={\ocotsstring{exercise}~\thetcbcounter\ocots@ex@pointstext~:},
+    lowerbox=ignored, #1}
+\else\ifx\ocots@solutions\ocots@sol@inline
+  % ----- solutions=inline : la partie basse suit l'enonce.
+  \NewTColorBox[auto counter, number within=section]{exercise}{ O{} }{%
+    ocots@ex@common,
+    title={\ocotsstring{exercise}~\thetcbcounter\ocots@ex@pointstext~:},
+    #1}
+\else
+  % ----- solutions=end : la partie basse est enregistree et rejouee plus loin.
+  \NewTColorBox[auto counter, number within=section]{exercise}{ O{} }{%
+    ocots@ex@common,
+    title={\ocotsstring{exercise}~\thetcbcounter\ocots@ex@pointstext~%
+           (\ocotsstring{solution-at}~\ocotsstring{page-abbr}~%
+            \pageref{ocots@sol@\thetcbcounter})~:},
+    label={ocots@ex@\thetcbcounter},
+    lowerbox=ignored,
+    savelowerto={ocots-solution-\thetcbcounter.tex},
+    record={\string\ocotssolutionbox{\thetcbcounter}%
+            {ocots-solution-\thetcbcounter.tex}},
+    #1}
+
+  \NewTotalTColorBox{\ocotssolutionbox}{mm}{%
+    \ocotsboxstyle{solution}, breakable,
+    title={\ocotsstring{solution-of}~\ref{ocots@ex@#1}~%
+           \ocotsstring{page-abbr}~\pageref{ocots@ex@#1}~:},
+    phantomlabel={ocots@sol@#1},
+    attach title to upper=~}{\input{#2}}
+\fi\fi
+
+% Debut du corrige. En mode `none' ce qui suit est ignore par tcolorbox.
+%
+% C'est une commande et non un environnement, a dessein : \begin{solution}
+% ouvrirait un groupe, et la separation haute/basse d'une tcolorbox doit se
+% faire au premier niveau. Un \tcblower pris dans un groupe est perdu a sa
+% fermeture, et la boite part en « File ended while scanning use of \next ».
+\ocotsfreeenv{solution}
+\newcommand{\solution}{\tcblower}
+
+% Correction breve, hors boite d'exercice : sert dans les TD et les sujets
+% d'examen, ou l'enonce n'est pas encadre.
+\newenvironment{correction}
+  {\par\noindent{\color{\ocotscolor{emph-a}}$\RHD$}~\color{\ocotscolor{emph-a}}}
+  {\par}
+\ifx\ocots@solutions\ocots@sol@none\excludeversion{correction}\fi
+
+% Exercice sans corrige, quel que soit le mode :
+%   \begin{exercise}[nosolution]
+\tcbset{nosolution/.style={%
+  no recording, lowerbox=ignored,
+  title={\ocotsstring{exercise}~\thetcbcounter\ocots@ex@pointstext~:}}}
+
+% ---------------------------------------------------------------------------
+% Pilotage depuis le document
+%
+%   \ocotscollectsolutions      au debut d'une partie
+%   \ocotsprintsolutions        la ou les corriges doivent apparaitre
+%
+% En mode `none' et `inline', ce sont des instructions vides : le document ne
+% change pas d'une version a l'autre, seule l'option bouge.
+\ifx\ocots@solutions\ocots@sol@none
+  \newcommand{\ocotscollectsolutions}{}
+  \newcommand{\ocotsprintsolutions}{}
+\else\ifx\ocots@solutions\ocots@sol@inline
+  \newcommand{\ocotscollectsolutions}{}
+  \newcommand{\ocotsprintsolutions}{}
+\else
+  \newcommand{\ocotscollectsolutions}{\tcbstartrecording}
+  \newcommand{\ocotsprintsolutions}{\tcbstoprecording\tcbinputrecords}
+\fi\fi
+
+\endinput

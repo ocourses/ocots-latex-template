@@ -1,14 +1,14 @@
 % =====================================================================
-% Exemple minimal — POLYCOPIÉ (classe book)
-% Étape 1 : squelette qui compile. Le contenu viendra à l'étape 3.
-% Compilation : latexmk -pdf main.tex
+% Exemple minimal — POLYCOPIÉ
+% Compilation : make poly (depuis examples/), ou latexmk -pdf main.tex
+%                avec TEXINPUTS pointant sur tex/ et assets/.
 % =====================================================================
-\documentclass[11pt,onecolumn,twoside]{../../book}
-
-\newcommand{\relativePath}{../..}
-\usepackage[relativePath=\relativePath]{\relativePath/book}
+\documentclass[11pt,twoside]{ocots-book}
+\usepackage[lang=fr, theme=n7, solutions=end, math=analysis,
+            institution=n7,insa, author={Prénom Nom}]{ocots}
 
 \title{Exemple de polycopié}
+\subtitle{Sous-titre facultatif}
 \author{Prénom \textsc{Nom}}
 \date{\today}
 
@@ -21,7 +21,6 @@
 % ---------------------------------------------------------------- front
 \frontmatter%
 \maketitle
-\cleardoublepage%
 \tableofcontents
 
 % ---------------------------------------------------------------- main
@@ -29,6 +28,8 @@
 
 \part{Première partie}%
 \label{part:one}
+
+\ocotscollectsolutions% début de la collecte des corrigés
 
 \chapter{Premier chapitre}%
 \label{chap:one}
@@ -41,13 +42,30 @@
 \section{Première section}%
 \label{sec:one}
 
-Texte.
+Texte, avec une norme $\norm{x}$ et un intervalle $\intervalleoo{a}{b}$.
 
-% <<< étape 3 : environnements, exercices, corrigés, options >>>
+\begin{theorem}{Titre du théorème}{exemple}
+    Énoncé.
+\end{theorem}
+
+\begin{proof}
+    Démonstration.
+\end{proof}
+
+\begin{exercise}[label=ex:demo, points=4]
+    Énoncé de l'exercice.
+\solution
+    Corrigé, reporté en fin de partie par l'option \texttt{solutions=end}.
+\end{exercise}
+
+% <<< étape 3 : tous les environnements, toutes les options >>>
+
+%-------------------------------------------
+\chapter{Corrections des exercices}
+\ocotsprintsolutions% les corrigés collectés viennent ici
 
 % ---------------------------------------------------------------- back
 \backmatter%
-\cleardoublepage%
 \printindex%
 
 \end{document}
