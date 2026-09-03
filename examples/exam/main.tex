@@ -1,0 +1,45 @@
+% =====================================================================
+% Exemple minimal — EXAMEN (classe article)
+% Étape 1 : squelette qui compile. Le contenu viendra à l'étape 3.
+% Compilation : latexmk -pdf main.tex
+% =====================================================================
+\documentclass[11pt]{article}
+
+\newcommand{\relativePath}{../..}
+\usepackage[nocorrection, relativePath=\relativePath]{\relativePath/exam}
+
+\title{Sujet d'examen --- exemple}
+\shorttitle{Sujet d'examen --- exemple}
+\numero{Examen --- Session 1}
+\date{2025--2026}
+\discipline{Nom de la matière}
+\promotion{Établissement --- Promotion}
+
+\begin{document}
+
+\maketitle
+
+\begin{myinstructions*}\retourligne%
+    \begin{itemize}
+        \item Documents autorisés~: aucun~;
+        \item Durée~: 1h30.
+    \end{itemize}
+\end{myinstructions*}
+
+\medskip
+
+\begin{myexercise}[4 points]
+
+    \begin{myquestion}
+        Énoncé de la question.
+    \end{myquestion}
+
+    \begin{mycorrection}
+        Corrigé, masqué par l'option \texttt{nocorrection}.
+    \end{mycorrection}
+
+\end{myexercise}
+
+% <<< étape 3 : parties, barème, consignes, options >>>
+
+\end{document}

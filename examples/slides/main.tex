@@ -1,0 +1,42 @@
+% =====================================================================
+% Exemple minimal — DIAPOSITIVES (beamer)
+% Étape 1 : squelette qui compile. Le contenu viendra à l'étape 3.
+% Compilation : latexmk -pdf main.tex
+% =====================================================================
+\documentclass[9pt,t]{beamer}
+
+\newcommand{\relativePath}{../..}
+\usepackage[dark, relativePath=\relativePath]{\relativePath/slides}
+
+\begin{document}
+
+\setcounter{chapter}{1}
+\def\chaptername{Titre du chapitre}
+
+% ---------------------------------------------------------------- titre
+\begin{frame}
+    \vspace{2em}
+    \begin{myboxtitle}
+        \begin{center}
+            {\Large Exemple de diapositives\\[1em]
+             Chapitre \thechapter\ : \chaptername}
+        \end{center}
+    \end{myboxtitle}
+
+    \vspace{2em}
+    \begin{center}
+        {\large Prénom~\textsc{Nom}}\\[1em]
+        \today
+    \end{center}
+\end{frame}
+
+% ---------------------------------------------------------------- contenu
+\begin{myframe}{Titre de la diapositive}
+
+Texte.
+
+% <<< étape 3 : environnements, preuves fractionnées, couleurs, options >>>
+
+\end{myframe}
+
+\end{document}

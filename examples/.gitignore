@@ -1,0 +1,3 @@
+# Sorties de compilation des exemples : régénérées par `make`.
+build/
+*.pdf

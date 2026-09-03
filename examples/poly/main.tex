@@ -1,0 +1,53 @@
+% =====================================================================
+% Exemple minimal — POLYCOPIÉ (classe book)
+% Étape 1 : squelette qui compile. Le contenu viendra à l'étape 3.
+% Compilation : latexmk -pdf main.tex
+% =====================================================================
+\documentclass[11pt,onecolumn,twoside]{../../book}
+
+\newcommand{\relativePath}{../..}
+\usepackage[relativePath=\relativePath]{\relativePath/book}
+
+\title{Exemple de polycopié}
+\author{Prénom \textsc{Nom}}
+\date{\today}
+
+\makeindex
+
+\begin{document}
+
+\dominitoc%
+
+% ---------------------------------------------------------------- front
+\frontmatter%
+\maketitle
+\cleardoublepage%
+\tableofcontents
+
+% ---------------------------------------------------------------- main
+\mainmatter%
+
+\part{Première partie}%
+\label{part:one}
+
+\chapter{Premier chapitre}%
+\label{chap:one}
+\minitoc%
+
+\begin{quotation}
+    Chapeau du chapitre.
+\end{quotation}
+
+\section{Première section}%
+\label{sec:one}
+
+Texte.
+
+% <<< étape 3 : environnements, exercices, corrigés, options >>>
+
+% ---------------------------------------------------------------- back
+\backmatter%
+\cleardoublepage%
+\printindex%
+
+\end{document}

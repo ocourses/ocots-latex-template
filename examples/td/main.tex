@@ -1,0 +1,36 @@
+% =====================================================================
+% Exemple minimal — TD (classe article)
+% Étape 1 : squelette qui compile. Le contenu viendra à l'étape 3.
+% Compilation : latexmk -pdf main.tex
+% =====================================================================
+\documentclass[11pt]{article}
+
+\newcommand{\relativePath}{../..}
+\usepackage[nocorrection, relativePath=\relativePath]{\relativePath/td}
+
+\title{Exemple de TD}
+\shorttitle{Exemple de TD}
+\numero{TD n\textsuperscript{o}~1}
+\date{2025--2026}
+\discipline{Nom de la matière}
+\promotion{Établissement --- Promotion}
+
+\begin{document}
+
+\maketitle
+
+\begin{myexercise}
+
+    \begin{myquestion}
+        Énoncé de la question.
+    \end{myquestion}
+
+    \begin{mycorrection}
+        Corrigé, masqué par l'option \texttt{nocorrection}.
+    \end{mycorrection}
+
+\end{myexercise}
+
+% <<< étape 3 : sous-questions, problèmes, rappels, suppléments, options >>>
+
+\end{document}
