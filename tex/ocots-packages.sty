@@ -48,8 +48,20 @@
 
 % ---------------------------------------------------------------------------
 % Hyperliens. Sous beamer, la classe s'en est deja chargee.
+%
+% colorlinks doit etre passe ICI, comme option de chargement : c'est une des
+% options « figees » de hyperref, qui decident a l'instant du chargement
+% comment \theorem@,\hyperlink... etc. sont definis. Un \hypersetup{colorlinks
+% =true} ulterieur (dans ocots.sty, \AtBeginDocument, une fois les couleurs du
+% theme connues) ne fait plus rien — hyperref previent (« has already been
+% used, setting the option has no effect ») mais ne relance pas la definition
+% des macros : les liens restent encadres au lieu d'etre colores. Les
+% couleurs elles-memes (linkcolor, citecolor, urlcolor) restent, elles,
+% modifiables apres coup par \hypersetup — seul le booleen colorlinks est
+% fige au chargement.
 \@ifclassloaded{beamer}{}{%
-  \RequirePackage[pagebackref,hyperindex=true,linktoc=all]{hyperref}}
+  \RequirePackage[pagebackref,hyperindex=true,linktoc=all,%
+    colorlinks=true]{hyperref}}
 
 % ---------------------------------------------------------------------------
 % Boites
@@ -80,7 +92,7 @@
 \RequirePackage{pgfkeys}
 \RequirePackage[european resistor, european voltage, european current]{circuitikz}
 \RequirePackage{pifont}
-\usetikzlibrary{arrows,shapes,backgrounds,patterns,babel}
+\usetikzlibrary{arrows,shapes,backgrounds,patterns,babel,calc}
 \usetikzlibrary{arrows.meta,decorations.markings}
 \tikzset{>={Latex[length=3mm,width=2mm]}}
 

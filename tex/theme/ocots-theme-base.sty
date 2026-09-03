@@ -15,7 +15,7 @@
 % Couleurs attendues dans le registre, pour chaque famille f parmi
 % definition, theorem, proposition, corollary, conjecture, exercise, solution :
 %     back-f    fond        frame-f   cadre        title-f   titre
-% plus : rule-remark, rule-assumption, proof, link, cite,
+% plus : rule-remark, rule-assumption, proof, link, cite, url,
 %        titlebox-back, titlebox-frame, titlebox-text.
 
 % ---------------------------------------------------------------------------
@@ -80,9 +80,23 @@
 
 % ---------------------------------------------------------------------------
 % Surlignage des formules mises en valeur : \tcbhighmath{...}
-\tcbset{highlight math style={%
-  enhanced, colback=\ocotscolor{mathhighlight}, arc=4pt,
-  drop fuzzy shadow, size=minimal, boxsep=5pt}}
+%
+% initialize@reset, pas un \tcbset ordinaire : la bibliotheque theorems de
+% tcolorbox remet elle-meme « highlight math style » a sa valeur d'origine
+% (colframe=red, colback=yellow!25!white — cf. tcbtheorems.code.tex) via son
+% propre initialize@reset, rejoue a l'ouverture de CHAQUE boite, y compris
+% une boite theorem/definition/... Un \tcbhighmath place dans le corps du
+% texte n'est jamais concerne (rien ne remet la cle a zero avant lui) ; le
+% meme \tcbhighmath place a l'interieur d'un theoreme, si — d'ou une bordure
+% rouge sur une seule formule et pas les autres, sans rapport avec cette
+% formule elle-meme. initialize@reset s'ajoute a la meme file d'attente que
+% celle de tcolorbox, mais APRES elle (le theme se charge apres le paquet) :
+% notre style est donc rejoue en dernier a chaque fois, et gagne toujours.
+% boxrule=0pt : sans colframe explicite, une tcolorbox hors de tout \tcbset
+% reprend de toute facon le colframe de la boite englobante (cascade pgfkeys).
+\tcbset{initialize@reset={highlight math style={%
+  enhanced, colback=\ocotscolor{mathhighlight}, arc=4pt, boxrule=0pt,
+  drop fuzzy shadow, size=minimal, boxsep=5pt}}}
 
 % ---------------------------------------------------------------------------
 % Titres
@@ -107,6 +121,15 @@
 %
 % Titre de chapitre de la v0 : un filet, le numero en petites capitales, un
 % second filet ; le titre centre ; un filet pleine largeur.
+%
+% Le -11pt avant le filet du bas compense la profondeur (depth) que titlesec
+% reserve sous la ligne de titre en \LARGE\bfseries : mesure au pixel sur un
+% rendu (piege documente dans 04-journal.md), le titre laisse naturellement
+% ~21pt d'espace invisible sous lui avant qu'un \vskip explicite ne s'ajoute
+% — largement plus que les ~10pt naturels au-dessus (entre le filet du haut
+% et le titre, avec {0pt} de separation demandee). Sans ce -11pt, le titre
+% n'etait pas centre entre les deux filets malgre un vskip de +10pt qui
+% semblait pourtant symetrique sur le papier.
 \ocotssetheading{titles-book}{%
   \titleformat{\chapter}[display]
     {\normalfont}
@@ -114,13 +137,13 @@
       \chaptertitlename\ \thechapter}~~\ocotsrulefill}
     {0pt}
     {\centering\ocotsheading{chapter-title}}
-    [\vskip10pt\noindent\rule{\textwidth}{1pt}]%
+    [\vskip-11pt\noindent\rule{\textwidth}{1pt}]%
   \titleformat{name=\chapter,numberless}[display]
     {\normalfont}
     {\centering\ocotsrulefill}
     {0pt}
     {\centering\ocotsheading{chapter-title}}
-    [\vskip10pt\noindent\rule{\textwidth}{1pt}]%
+    [\vskip-11pt\noindent\rule{\textwidth}{1pt}]%
   \titlespacing*{\chapter}{0pt}{0pt}{20pt}%
   \ocotsheading{titles-article}}
 

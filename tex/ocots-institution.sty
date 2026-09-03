@@ -22,14 +22,78 @@
 % Hauteur par defaut, ajustable par le support.
 \newcommand{\ocotslogoheight}{1.2cm}
 
-% \ocotslogos[hauteur] : compose les logos demandes, separes d'un cadratin.
+% \ocotslogos[hauteur] : compose les logos demandes.
+%
+% Cas particulier : « uftmp » est un logo d'universite federale, generique,
+% qui chapeaute les etablissements (insa, n7...) plutot que de se ranger a
+% cote d'eux comme un pair. Demande avec d'autres, il passe donc en grand a
+% gauche, les autres logos empiles et centres a droite — la disposition de
+% la v0 (poly/frontmatter/title_page.tex, TikZ code en dur), reconstruite
+% ici a partir d'une liste d'etablissements quelconque plutot que figee pour
+% un seul document. Demande seul, ou sans « uftmp », comportement inchange :
+% simple rangee horizontale.
+% \newif est global et n'est pas concu pour etre appele deux fois : on cree
+% les indicateurs une seule fois, hors de \ocotslogos, pour que la macro
+% reste appelable plusieurs fois dans un meme document (en-tete + page de
+% titre, par exemple).
+\newif\ifocots@logo@uftmp
+\newif\ifocots@logo@others
 \newcommand{\ocotslogos}[1][\ocotslogoheight]{%
-  \def\ocots@logosep{}%
+  \ocots@logo@uftmpfalse
+  \ocots@logo@othersfalse
   \@for\ocots@inst:=\ocots@institution\do{%
-    \@ifundefined{ocots@logo@\ocots@inst}%
-      {\PackageWarning{ocots}{Unknown institution `\ocots@inst'}}%
-      {\ocots@logosep
-       \includegraphics[height=#1]{\@nameuse{ocots@logo@\ocots@inst}}%
-       \def\ocots@logosep{\hspace{2em}}}}}
+    \ifnum\pdfstrcmp{\ocots@inst}{uftmp}=\z@
+      \ocots@logo@uftmptrue
+    \else
+      \ocots@logo@otherstrue
+    \fi}%
+  \ifocots@logo@uftmp
+    % Double la hauteur pour le logo uftmp, en registre plutot qu'en
+    % concatenant du texte (« 2#1 » avec #1=2cm donnerait "22cm" — TeX
+    % substitue les parametres de macro comme du texte, pas comme un calcul).
+    \@tempdima=#1\relax
+    \multiply\@tempdima 2 %
+    \edef\ocots@logouftmpheight{\the\@tempdima}%
+    \ifocots@logo@others
+      % Construit d'abord la colonne empilee, dans un \def ordinaire — la
+      % boucle \@for ne doit pas etre relancee depuis l'interieur d'un noeud
+      % TikZ (son controle de liste s'y est deja avere fragile).
+      \def\ocots@logostack{}%
+      \@tempcnta=0 %
+      \@for\ocots@inst:=\ocots@institution\do{%
+        \ifnum\pdfstrcmp{\ocots@inst}{uftmp}=\z@\else
+          \@ifundefined{ocots@logo@\ocots@inst}%
+            {\PackageWarning{ocots}{Unknown institution `\ocots@inst'}}%
+            {% \edef, pas \g@addto@macro : le nom du logo (qui depend de la
+             % valeur COURANTE de \ocots@inst) doit etre fige tout de suite.
+             % \g@addto@macro ne developpe que \ocots@logostack lui-meme, pas
+             % le texte ajoute — \ocots@inst y resterait une reference vive,
+             % qui vaudrait le jeton de fin de boucle (@nil) une fois la
+             % boucle terminee, au moment ou \ocots@logostack est vraiment
+             % utilise (voir 04-journal.md).
+             \edef\ocots@logostack{\ocots@logostack
+               \ifnum\@tempcnta=0\else\noexpand\\[0.6em]\fi
+               \noexpand\includegraphics[height=#1]{\@nameuse{ocots@logo@\ocots@inst}}}%
+             \advance\@tempcnta by 1 }%
+        \fi}%
+      \begin{tikzpicture}[baseline]
+        \node[anchor=west,inner sep=0pt] (ocotslogouftmp) at (0,0)
+          {\includegraphics[height=\ocots@logouftmpheight]{\@nameuse{ocots@logo@uftmp}}};
+        \node[anchor=west,inner sep=0pt]
+          at ($(ocotslogouftmp.east)+(1.5em,0)$)
+          {\begin{tabular}{@{}c@{}}\ocots@logostack\end{tabular}};
+      \end{tikzpicture}%
+    \else
+      \includegraphics[height=\ocots@logouftmpheight]{\@nameuse{ocots@logo@uftmp}}%
+    \fi
+  \else
+    \def\ocots@logosep{}%
+    \@for\ocots@inst:=\ocots@institution\do{%
+      \@ifundefined{ocots@logo@\ocots@inst}%
+        {\PackageWarning{ocots}{Unknown institution `\ocots@inst'}}%
+        {\ocots@logosep
+         \includegraphics[height=#1]{\@nameuse{ocots@logo@\ocots@inst}}%
+         \def\ocots@logosep{\hspace{2em}}}}%
+  \fi}
 
 \endinput

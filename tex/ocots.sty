@@ -128,15 +128,18 @@
 % ---------------------------------------------------------------------------
 % Metadonnees PDF
 % ---------------------------------------------------------------------------
+% colorlinks=true est deja passe au chargement de hyperref (ocots-packages.sty)
+% : c'est une option figee au chargement, la repasser ici ne fait rien (juste
+% un avertissement). Les couleurs, elles, restent modifiables ici — c'est
+% pour ca qu'on attend \AtBeginDocument, une fois le theme charge.
 \AtBeginDocument{%
   \hypersetup{%
     bookmarksopen=true,
     pdfstartview={XYZ null null 1},
     pdfhighlight=/O,
-    colorlinks=true,
     linkcolor=\ocotscolor{link},
     citecolor=\ocotscolor{cite},
-    urlcolor=\ocotscolor{link}}%
+    urlcolor=\ocotscolor{url}}%
   \ifx\ocots@author\@empty\else\hypersetup{pdfauthor={\ocots@author}}\fi}
 
 \endinput

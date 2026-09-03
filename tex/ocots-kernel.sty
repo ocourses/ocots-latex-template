@@ -89,9 +89,25 @@
 %
 % \ocotsaliasenv{ancien}{nouveau} rend « ancien » strictement equivalent a
 % « nouveau », arguments compris. Sert a ocots-compat.sty.
+%
+% Le \let seul suffit pour theorem/definition/... (\newtcbtheorem : la boite
+% tcolorbox fait partie de la commande elle-meme) mais pas pour
+% remark/assumption/openquestion/difficulty/proof... : leur habillage vient
+% de \tcolorboxenvironment, qui n'agit pas en redefinissant \remark — il
+% accroche du code aux crochets d'environnement du noyau LaTeX2e (\AddToHook
+% {env/remark/before|after}), indexes par le NOM litteral passe a \begin{...}.
+% \begin{myremark} declenche donc les crochets « env/myremark/... », pas
+% « env/remark/... » : un \let de \myremark sur \remark, aussi complet
+% soit-il, ne branche jamais l'habillage boite de remark. D'ou le filet
+% lateral absent en \begin{myremark} alors qu'il apparait en \begin{remark}.
+% On rejoue donc explicitement les crochets de « nouveau » sous le nom
+% « ancien », via \UseHook — resolu a l'usage, donc peu importe l'ordre de
+% chargement ; sans effet si « nouveau » n'a aucun crochet enregistre.
 \newcommand{\ocotsaliasenv}[2]{%
   \expandafter\let\csname #1\expandafter\endcsname\csname #2\endcsname
-  \expandafter\let\csname end#1\expandafter\endcsname\csname end#2\endcsname}
+  \expandafter\let\csname end#1\expandafter\endcsname\csname end#2\endcsname
+  \AddToHook{env/#1/before}{\UseHook{env/#2/before}}%
+  \AddToHook{env/#1/after}{\UseHook{env/#2/after}}}
 
 % Libere un nom d'environnement avant de le definir.
 %
