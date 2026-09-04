@@ -9,6 +9,12 @@
 # `make` est VERT si aucune erreur n'est rencontrée. La liste KNOWN sert à
 # tolérer un défaut connu et documenté le temps qu'il soit corrigé ; elle est
 # vide depuis que l'étape 2 a remplacé le chargement de paquets de la v0.
+#
+# grep -a, pas grep : sous locale C (LANG vide), grep decide qu'un .log
+# contenant de l'UTF-8 (accents francais dans le texte source cite par les
+# messages d'erreur) est binaire et ne renvoie RIEN — ni erreur, ni "0",
+# juste silence. Le harnais annoncerait alors VERT sur un document qui ne
+# compile pas. Piege decouvert en verifiant poly/ a la main, cf. 04-journal.md.
 
 EXAMPLES := poly slides td exam
 
@@ -47,7 +53,7 @@ check:
 	for v in $(VARIANTS); do \
 	  log=variants/build/$$v.log; \
 	  [ -f "$$log" ] || { echo "  variants/$$v : pas de journal"; status=1; continue; }; \
-	  errs=$$(grep -E '^\./|^!' "$$log" || true); \
+	  errs=$$(grep -aE '^\./|^!' "$$log" || true); \
 	  if [ -n "$$errs" ]; then \
 	    echo "  variants/$$v : ERREUR"; echo "$$errs" | sed 's/^/      /'; status=1; \
 	  else \
@@ -57,7 +63,7 @@ check:
 	for d in $(EXAMPLES); do \
 	  log=$$d/build/main.log; \
 	  [ -f "$$log" ] || { echo "  $$d : pas de journal"; status=1; continue; }; \
-	  errs=$$(grep -E '^\./|^!' "$$log" $(if $(KNOWN),| grep -vE '$(KNOWN)') || true); \
+	  errs=$$(grep -aE '^\./|^!' "$$log" $(if $(KNOWN),| grep -vE '$(KNOWN)') || true); \
 	  if [ -n "$$errs" ]; then \
 	    echo "  $$d : ERREUR"; echo "$$errs" | sed 's/^/      /'; status=1; \
 	  else \
