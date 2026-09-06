@@ -1,0 +1,24 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-form-shaded}[2026/09/06 v1.0 ocots -- forme : aplat teinte]
+%
+% Aucun cadre, aucun filet : un aplat teinte pour toute la boite, angles
+% arrondis, titre dans une nuance soutenue de la couleur de la famille. Rendu
+% doux, adapte aux familles qu'on veut poser sans les cadrer (exercice, corrige).
+
+\newcommand{\ocots@form@shaded}[1]{%
+  \ocots@derivecolor{back-#1}{ocots@key-#1!10!white}%
+  \ocots@derivecolor{frame-#1}{ocots@key-#1!10!white}%
+  \ocots@derivecolor{title-#1}{ocots@key-#1!62!black}%
+  \ocotssetboxstyle{#1}{%
+    enhanced jigsaw, breakable,
+    arc=2pt, boxrule=0pt, frame hidden,
+    left=3mm, right=3mm, top=2.5mm, bottom=2.5mm,
+    fonttitle=\bfseries\upshape\ocotsboxtitlefont,
+    separator sign dash,
+    before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip,
+    colback=\ocotscolor{back-#1},
+    colframe=\ocotscolor{frame-#1},
+    coltitle=\ocotscolor{title-#1}}}
+\ocotsregisterform{shaded}{\ocots@form@shaded}
+
+\endinput

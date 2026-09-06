@@ -1,0 +1,10 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-mathbox-none}[2026/09/06 v1.0 ocots -- \string\tcbhighmath : sans marque]
+%
+% \tcbhighmath reste defini (les documents s'en servent) mais ne dessine rien :
+% ni fond, ni filet. Utile pour un thema volontairement plat, ou pour verifier
+% qu'une formule reste lisible sans mise en valeur.
+\tcbset{initialize@reset={highlight math style={%
+  enhanced, colback=white, boxrule=0pt, frame hidden, size=minimal, boxsep=0pt}}}
+
+\endinput

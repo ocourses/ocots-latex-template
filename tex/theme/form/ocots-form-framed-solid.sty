@@ -1,0 +1,23 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-form-framed-solid}[2026/09/06 v1.0 ocots -- forme : cadre plein]
+%
+% Variante « soutenue » de framed : le cadre est plein (couleur de la famille a
+% pleine densite) et le titre passe en blanc. C'est le rendu « Retro N7 » des
+% diapositives de la v0 : cadres pleins, titres blancs, teintes qui passent au
+% videoprojecteur.
+
+\newcommand{\ocots@form@framedsolid}[1]{%
+  \ocots@derivecolor{back-#1}{white}%
+  \ocots@derivecolor{frame-#1}{ocots@key-#1!90!white}%
+  \ocots@derivecolor{title-#1}{white}%
+  \ocotssetboxstyle{#1}{%
+    enhanced jigsaw, breakable,
+    fonttitle=\bfseries\upshape\ocotsboxtitlefont,
+    separator sign dash,
+    before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip,
+    colback=\ocotscolor{back-#1},
+    colframe=\ocotscolor{frame-#1},
+    coltitle=\ocotscolor{title-#1}}}
+\ocotsregisterform{framed-solid}{\ocots@form@framedsolid}
+
+\endinput

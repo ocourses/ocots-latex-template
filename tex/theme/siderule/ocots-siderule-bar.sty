@@ -1,0 +1,15 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-siderule-bar}[2026/09/06 v1.0 ocots -- filet lateral : plein]
+%
+% Bloc sans cadre ni fond, marque par un filet lateral epais (1 mm). Couleur :
+% rule-<famille> si le theme l'a posee, sinon key-<famille>.
+
+\newcommand{\ocots@siderule@bar}[1]{%
+  \ocots@derivecolor{rule-#1}{ocots@key-#1}%
+  \ocotssetboxstyle{#1}{%
+    enhanced jigsaw, breakable, blanker, left=5mm,
+    before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip,
+    borderline west={1mm}{0pt}{\ocotscolor{rule-#1}}}}
+\ocotsregistersiderule{bar}{\ocots@siderule@bar}
+
+\endinput

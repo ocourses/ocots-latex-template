@@ -1,0 +1,13 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-siderule-none}[2026/09/06 v1.0 ocots -- filet lateral : aucun]
+%
+% Retrait seul, sans filet ni fond. C'est le rendu des questionnements et des
+% difficultes en v0 : marques par l'intitule (Q1, D1...) et le decalage.
+
+\newcommand{\ocots@siderule@none}[1]{%
+  \ocotssetboxstyle{#1}{%
+    enhanced jigsaw, breakable, blanker, left=5mm,
+    before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip}}
+\ocotsregistersiderule{none}{\ocots@siderule@none}
+
+\endinput

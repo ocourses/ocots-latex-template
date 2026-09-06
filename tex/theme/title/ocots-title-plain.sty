@@ -1,0 +1,36 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-title-plain}[2026/09/06 v1.0 ocots -- titres : sobres]
+%
+% Le dessin par defaut de titlesec (numero puis titre, sur une ou deux lignes),
+% recolore seulement. Aucun filet, aucun grand chiffre : la reference neutre a
+% laquelle comparer « rules » et « bignum ».
+
+\ocotssetheading{chapter-number}{%
+  \color{\ocotscolor{chapter}}\huge\bfseries\ocotsboxtitlefont}
+\ocotssetheading{chapter-title}{%
+  \color{\ocotscolor{chapter}}\Huge\bfseries\ocotsboxtitlefont}
+\ocotssetheading{section}{%
+  \color{\ocotscolor{section}}\normalfont\Large\bfseries\ocotsboxtitlefont}
+\ocotssetheading{subsection}{%
+  \color{\ocotscolor{subsection}}\normalfont\large\bfseries\ocotsboxtitlefont}
+\ocotssetheading{subsubsection}{%
+  \color{\ocotscolor{subsubsection}}\normalfont\normalsize\bfseries\ocotsboxtitlefont}
+
+\ocotssetheading{titles-book}{%
+  \titleformat{\chapter}[display]
+    {\normalfont}
+    {\ocotsheading{chapter-number}\chaptertitlename\ \thechapter}
+    {8pt}
+    {\ocotsheading{chapter-title}}%
+  \titleformat{name=\chapter,numberless}[display]
+    {\normalfont}{}{0pt}
+    {\ocotsheading{chapter-title}}%
+  \titlespacing*{\chapter}{0pt}{0pt}{24pt}%
+  \ocotsheading{titles-article}}
+
+\ocotssetheading{titles-article}{%
+  \titleformat{\section}{\ocotsheading{section}}{\thesection}{1em}{}%
+  \titleformat{\subsection}{\ocotsheading{subsection}}{\thesubsection}{1em}{}%
+  \titleformat{\subsubsection}{\ocotsheading{subsubsection}}{\thesubsubsection}{1em}{}}
+
+\endinput

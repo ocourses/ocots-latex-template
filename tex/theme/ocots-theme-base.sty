@@ -1,155 +1,46 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ocots-theme-base}[2026/09/03 v1.0 ocots -- socle commun aux themes]
+\ProvidesPackage{ocots-theme-base}[2026/09/06 v2.0 ocots -- socle commun aux themes]
 %
-% Socle partage par les themes livres avec le template. Il ne choisit AUCUNE
-% couleur : il decrit la *forme* des boites et des titres, et va chercher les
-% couleurs dans le registre du noyau.
+% Socle « batteries incluses ». Il ne choisit AUCUNE couleur : il assemble un
+% jeu de presets par defaut (formes, filets, titres, encadre de formule) et
+% quelques styles qui n'ont pas de variante (preuve, bandeau de titre).
 %
-% Un theme se resume donc a une liste de \ocotssetcolor, suivie de
-% \RequirePackage{ocots-theme-base}. Voir ocots-theme-n7.sty.
+% Un theme minimal se resume donc a :
+%     ... palette (une couleur cle par famille + couleurs semantiques) ...
+%     \RequirePackage{ocots-theme-base}
+% et rien d'autre. Voir ocots-theme-classic.sty.
 %
-% Un theme qui veut changer les formes — ce sera le cas de la v2 — n'a pas a
-% charger ce fichier : il definit ses propres \ocotssetboxstyle et
-% \ocotssetheading. Le contrat vis-a-vis de ocots-env.sty reste le meme.
+% Un theme qui veut un autre rendu charge quand meme ce socle, puis surcharge
+% ce qu'il veut APRES : \ocotsformall{sidebar}, \ocotsusetitles{bignum}...
+% (voir ocots-theme-charter.sty). Le contrat vis-a-vis de ocots-env.sty ne
+% change pas : la couche env ne lit toujours que \ocotsboxstyle{<famille>}.
 %
-% Couleurs attendues dans le registre, pour chaque famille f parmi
-% definition, theorem, proposition, corollary, conjecture, exercise, solution :
-%     back-f    fond        frame-f   cadre        title-f   titre
-% plus : rule-remark, rule-assumption, proof, link, cite, url,
-%        titlebox-back, titlebox-frame, titlebox-text.
+% ATTENTION a l'ordre : \ocotsformall derive back-/frame-/title-<famille> de
+% key-<famille>. Le theme doit donc poser sa palette AVANT de charger ce socle.
 
-% ---------------------------------------------------------------------------
-% Espacement vertical commun aux boites
-\providecommand{\ocotsboxbeforeskip}{10pt}
-\providecommand{\ocotsboxafterskip}{10pt}
+% --- Familles a titre : cadre pastel de la couleur de la famille ----------
+\ocotsformall{framed}
 
-% ---------------------------------------------------------------------------
-% Forme commune des boites a titre
-\ocotssetboxstyle{base}{%
-  enhanced jigsaw, breakable,
-  fonttitle=\bfseries\upshape,
-  separator sign dash,
-  before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip}
+% --- Blocs a filet lateral ----------------------------------------------
+\ocotssiderule{remark}{bar}
+\ocotssiderule{assumption}{bar}
+\ocotssiderule{openquestion}{none}
+\ocotssiderule{difficulty}{none}
 
-% Une famille = la forme commune + ses trois couleurs.
-\newcommand{\ocots@boxfamily}[1]{%
-  \ocotssetboxstyle{#1}{%
-    \ocotsboxstyle{base},
-    colback=\ocotscolor{back-#1},
-    colframe=\ocotscolor{frame-#1},
-    coltitle=\ocotscolor{title-#1}}}
-
-\ocots@boxfamily{definition}
-\ocots@boxfamily{theorem}
-\ocots@boxfamily{proposition}
-\ocots@boxfamily{corollary}
-\ocots@boxfamily{conjecture}
-\ocots@boxfamily{exercise}
-\ocots@boxfamily{solution}
-
-% ---------------------------------------------------------------------------
-% Boites sans cadre, marquees par un filet lateral
-\ocotssetboxstyle{sidebar}{%
-  enhanced jigsaw, breakable, blanker, left=5mm,
-  before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip}
-
-\ocotssetboxstyle{remark}{%
-  \ocotsboxstyle{sidebar},
-  borderline west={1mm}{0pt}{\ocotscolor{rule-remark}}}
-
-\ocotssetboxstyle{assumption}{%
-  \ocotsboxstyle{sidebar},
-  borderline west={1mm}{0pt}{\ocotscolor{rule-assumption}}}
-
-% Questionnements et difficultes : retrait seul, sans filet.
-\ocotssetboxstyle{difficulty}{\ocotsboxstyle{sidebar}}
-\ocotssetboxstyle{openquestion}{\ocotsboxstyle{sidebar}}
-
-% Preuves : retrait plus faible, texte colore.
+% --- Preuves : retrait plus faible, texte colore, pas de cadre ----------
 \ocotssetboxstyle{proof}{%
   blanker, breakable, left=1.5em,
   before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip,
   coltext=\ocotscolor{proof}}
 
-% ---------------------------------------------------------------------------
-% Bandeau de page de titre (diapositives)
+% --- Bandeau de page de titre (diapositives) ---------------------------
 \ocotssetboxstyle{titlebox}{%
   colback=\ocotscolor{titlebox-back},
   colframe=\ocotscolor{titlebox-frame},
   coltext=\ocotscolor{titlebox-text}}
 
-% ---------------------------------------------------------------------------
-% Surlignage des formules mises en valeur : \tcbhighmath{...}
-%
-% initialize@reset, pas un \tcbset ordinaire : la bibliotheque theorems de
-% tcolorbox remet elle-meme « highlight math style » a sa valeur d'origine
-% (colframe=red, colback=yellow!25!white — cf. tcbtheorems.code.tex) via son
-% propre initialize@reset, rejoue a l'ouverture de CHAQUE boite, y compris
-% une boite theorem/definition/... Un \tcbhighmath place dans le corps du
-% texte n'est jamais concerne (rien ne remet la cle a zero avant lui) ; le
-% meme \tcbhighmath place a l'interieur d'un theoreme, si — d'ou une bordure
-% rouge sur une seule formule et pas les autres, sans rapport avec cette
-% formule elle-meme. initialize@reset s'ajoute a la meme file d'attente que
-% celle de tcolorbox, mais APRES elle (le theme se charge apres le paquet) :
-% notre style est donc rejoue en dernier a chaque fois, et gagne toujours.
-% boxrule=0pt : sans colframe explicite, une tcolorbox hors de tout \tcbset
-% reprend de toute facon le colframe de la boite englobante (cascade pgfkeys).
-\tcbset{initialize@reset={highlight math style={%
-  enhanced, colback=\ocotscolor{mathhighlight}, arc=4pt, boxrule=0pt,
-  drop fuzzy shadow, size=minimal, boxsep=5pt}}}
-
-% ---------------------------------------------------------------------------
-% Titres
-%
-% Le support appelle \ocotsheading{chapter} au moment ou il configure titlesec.
-% Un filet, le numero en petites capitales, un second filet : c'est le titre de
-% chapitre de la v0.
-\ocotssetheading{chapter-number}{%
-  \color{\ocotscolor{chapter}}\Large\scshape}
-\ocotssetheading{chapter-title}{%
-  \color{\ocotscolor{chapter}}\LARGE\bfseries}
-\ocotssetheading{section}{%
-  \color{\ocotscolor{section}}\normalfont\Large\bfseries}
-\ocotssetheading{subsection}{%
-  \color{\ocotscolor{subsection}}\normalfont\large\bfseries}
-\ocotssetheading{subsubsection}{%
-  \color{\ocotscolor{subsubsection}}\normalfont\normalsize\bfseries}
-
-% Le dessin complet des titres. Le support charge titlesec, puis execute ce
-% bloc : c'est ainsi qu'un theme peut changer la mise en page des titres, et
-% pas seulement leur police et leur couleur.
-%
-% Titre de chapitre de la v0 : un filet, le numero en petites capitales, un
-% second filet ; le titre centre ; un filet pleine largeur.
-%
-% Le -11pt avant le filet du bas compense la profondeur (depth) que titlesec
-% reserve sous la ligne de titre en \LARGE\bfseries : mesure au pixel sur un
-% rendu (piege documente dans 04-journal.md), le titre laisse naturellement
-% ~21pt d'espace invisible sous lui avant qu'un \vskip explicite ne s'ajoute
-% — largement plus que les ~10pt naturels au-dessus (entre le filet du haut
-% et le titre, avec {0pt} de separation demandee). Sans ce -11pt, le titre
-% n'etait pas centre entre les deux filets malgre un vskip de +10pt qui
-% semblait pourtant symetrique sur le papier.
-\ocotssetheading{titles-book}{%
-  \titleformat{\chapter}[display]
-    {\normalfont}
-    {\centering\ocotsrulefill~~{\ocotsheading{chapter-number}%
-      \chaptertitlename\ \thechapter}~~\ocotsrulefill}
-    {0pt}
-    {\centering\ocotsheading{chapter-title}}
-    [\vskip-11pt\noindent\rule{\textwidth}{1pt}]%
-  \titleformat{name=\chapter,numberless}[display]
-    {\normalfont}
-    {\centering\ocotsrulefill}
-    {0pt}
-    {\centering\ocotsheading{chapter-title}}
-    [\vskip-11pt\noindent\rule{\textwidth}{1pt}]%
-  \titlespacing*{\chapter}{0pt}{0pt}{20pt}%
-  \ocotsheading{titles-article}}
-
-\ocotssetheading{titles-article}{%
-  \titleformat{\section}{\ocotsheading{section}}{\thesection}{1em}{}%
-  \titleformat{\subsection}{\ocotsheading{subsection}}{\thesubsection}{1em}{}%
-  \titleformat{\subsubsection}{\ocotsheading{subsubsection}}{\thesubsubsection}{1em}{}}
+% --- Titres et encadre de formule ------------------------------------
+\ocotsusetitles{rules}
+\ocotsusemathbox{highlight}
 
 \endinput

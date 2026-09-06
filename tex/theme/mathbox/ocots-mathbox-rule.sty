@@ -1,0 +1,10 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-mathbox-rule}[2026/09/06 v1.0 ocots -- \string\tcbhighmath : encadre fin]
+%
+% Fond blanc, un filet fin de la couleur mathhighlight (assombrie pour rester
+% visible). Pour qui prefere encadrer plutot que surligner.
+\tcbset{initialize@reset={highlight math style={%
+  enhanced, colback=white, colframe=\ocotscolor{mathhighlight}!62!black,
+  boxrule=0.6pt, arc=2pt, size=minimal, boxsep=4pt}}}
+
+\endinput

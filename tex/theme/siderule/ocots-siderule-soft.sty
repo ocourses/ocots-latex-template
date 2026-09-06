@@ -1,0 +1,15 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-siderule-soft}[2026/09/06 v1.0 ocots -- filet lateral : leger]
+%
+% Comme « bar », mais un filet fin (0.6 mm) et une teinte plus douce : le bloc
+% se signale sans peser.
+
+\newcommand{\ocots@siderule@soft}[1]{%
+  \ocots@derivecolor{rule-#1}{ocots@key-#1}%
+  \ocotssetboxstyle{#1}{%
+    enhanced jigsaw, breakable, blanker, left=5mm,
+    before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip,
+    borderline west={0.6mm}{0pt}{\ocotscolor{rule-#1}!55!white}}}
+\ocotsregistersiderule{soft}{\ocots@siderule@soft}
+
+\endinput

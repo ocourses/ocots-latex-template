@@ -1,11 +1,13 @@
-# Template `ocots` — v1
+# Template `ocots`
 
 Template LaTeX pour polycopiés, diapositives, TD et sujets d'examen.
 
-La v1 est la refonte de l'**architecture** du template historique
-([`../template/`](../template), gelé). Le rendu visuel reste proche de celui de
-la v0 ; c'est la v2 qui le reprendra. Notes de conception dans
-[`../template-refonte/`](../template-refonte).
+Refonte de l'**architecture** du template historique (défauts et diagnostic
+recensés dans les notes de conception, ci-dessous). L'apparence est pilotée par
+des **thèmes** : `classic` reproduit le rendu historique, `charter` est une
+refonte visuelle complète, `slate` un thème sobre. Notes de conception dans
+[`../reports/template-refonte/`](../reports/template-refonte) du dépôt qui monte
+ce template en sous-module.
 
 ## Prise en main
 
@@ -13,7 +15,7 @@ Un polycopié :
 
 ```latex
 \documentclass[11pt,twoside]{ocots-book}
-\usepackage[lang=fr, theme=n7, solutions=end, math=analysis]{ocots}
+\usepackage[lang=fr, theme=classic, solutions=end, math=analysis]{ocots}
 
 \title{Calcul différentiel et équations différentielles}
 \author{Prénom \textsc{Nom}}
@@ -28,7 +30,7 @@ Des diapositives — le support est déduit de la classe, rien à déclarer :
 
 ```latex
 \documentclass[9pt,t]{beamer}
-\usepackage[lang=fr, theme=n7-dark]{ocots}
+\usepackage[lang=fr, theme=classic-dark]{ocots}
 ```
 
 Un TD ou un sujet d'examen :
@@ -57,10 +59,17 @@ disparu.
 | Option | Valeurs | Défaut | Effet |
 |--------|---------|--------|-------|
 | `lang` | `fr`, `en` | `fr` | langue des intitulés et de la typographie |
-| `theme` | `n7`, `n7-dark`, `n7-light`, `bw`, `v2` | `n7` (papier), `n7-dark` (diapos) | couleurs et formes |
+| `theme` | `classic`, `classic-dark`, `classic-light`, `mono`, `charter`, `slate` | `classic` (papier), `classic-dark` (diapos) | palette + formes + titres |
+| `boxform` | `framed`, `framed-solid`, `sidebar`, `shaded` | (le thème décide) | **surcharge** la forme des boîtes à titre |
+| `titles` | `rules`, `bignum`, `plain` | (le thème décide) | **surcharge** le dessin des titres |
+| `mathbox` | `highlight`, `flat`, `rule`, `none` | (le thème décide) | **surcharge** l'encadré de formule (`\tcbhighmath`) |
 | `solutions` | `none`, `inline`, `end` | `end` | sort des corrigés |
 | `math` | `base`, `analysis`, `control`, `measure` | `base` | modules de macros chargés |
 | `institution` | `n7`, `inp`, `insa`, `uftmp` | `n7` | logos de la page de titre |
+
+Les anciens noms de thème `n7`, `n7-dark`, `n7-light`, `bw`, `v2` restent
+acceptés (alias dépréciés → `classic`, `classic-dark`, `classic-light`, `mono`,
+`charter`), avec un avertissement à la compilation.
 
 `math` et `institution` acceptent plusieurs valeurs séparées par une virgule —
 **entourer alors la valeur d'accolades** : `institution={insa,n7}`, pas
@@ -72,16 +81,38 @@ ni avertissement.
 | `binding` | longueur | `0mm` | décalage de reliure pour l'impression |
 
 Chaque valeur se résout en un nom de fichier : `theme=foo` charge
-`tex/theme/ocots-theme-foo.sty`. **Ajouter un thème, une langue ou un module de
-macros, c'est ajouter un fichier** — le noyau n'est pas touché.
+`tex/theme/ocots-theme-foo.sty`, `boxform=bar` charge
+`tex/theme/form/ocots-form-bar.sty`. **Ajouter un thème, une forme, une langue
+ou un module de macros, c'est ajouter un fichier** — le noyau n'est pas touché.
 
-Les thèmes `n7*` et `bw` chargent `ocots-theme-base.sty` (le socle commun :
-cadres pastel, titres centrés entre deux filets) et ne fixent que des couleurs.
-`v2` est différent : il ne charge pas le socle, il **redessine les formes**
-(filet latéral au lieu du cadre complet, titres alignés à gauche, typographie
-Charter/Fira Sans) — la preuve que l'architecture à trois couches encaisse un
-changement visuel complet sans qu'aucun document n'ait à bouger. Comparer
-`examples/variants/theme-n7.tex` et `examples/variants/theme-v2.tex` : même
+### Comment un thème est fait
+
+Un thème fixe **trois choses qui varient indépendamment** :
+
+1. une **palette** — une couleur *clé* par famille (`key-theorem`,
+   `key-exercise`…) plus les couleurs sémantiques (`link`, `url`, `cite`,
+   `chapter`…) ;
+2. une **forme** par famille (`\ocotsformall{framed}`, ou `\ocotsform{exercise}{shaded}`) ;
+3. un **dessin de titres** (`\ocotsusetitles{rules}`) et un **encadré de
+   formule** (`\ocotsusemathbox{highlight}`).
+
+La forme dérive `back-`/`frame-`/`title-<famille>` de la couleur clé ; un thème
+qui veut sortir de la recette pose la couleur explicitement, elle est alors
+verrouillée. Les formes, filets, titres et encadrés vivent dans
+`tex/theme/{form,siderule,title,mathbox}/` : chacun est un preset réutilisable.
+
+Le socle `ocots-theme-base.sty` assemble un jeu par défaut (`framed` + `bar` +
+`rules` + `highlight`). Un thème minimal (`classic`, `mono`, `slate`) = une
+palette + `\RequirePackage{ocots-theme-base}` + éventuellement deux ou trois
+surcharges. `charter` (ex-`v2`) montre qu'une refonte visuelle complète —
+typographie Charter/Fira, filet latéral, grand chiffre de chapitre — tient dans
+une **trentaine de lignes** : palette + `\ocotsformall{sidebar}` +
+`\ocotsusetitles{bignum}`.
+
+Les options `boxform=`, `titles=`, `mathbox=` rejouent ces choix **après** le
+thème, pour comparer deux rendus sur un même document sans éditer de fichier :
+`examples/variants/form-sidebar.tex` = `theme=classic, boxform=sidebar`.
+Comparer `theme-classic.tex`, `theme-charter.tex`, `theme-slate.tex` : même
 corps, seule l'option change.
 
 ## Environnements
@@ -154,7 +185,11 @@ tex/
   ocots-compat.sty       alias des noms v0
   ocots-book.cls  ocots-td.cls  ocots-exam.cls
   carrier/               supports : book, slides, article, td, exam
-  theme/                 apparence : n7, n7-dark, n7-light, bw, v2, + socle commun
+  theme/                 thèmes : classic{,-dark,-light}, mono, charter, slate, + socle
+    theme/form/            formes de boîte : framed, framed-solid, sidebar, shaded
+    theme/siderule/        filets latéraux : bar, soft, none
+    theme/title/           dessin des titres : rules, bignum, plain
+    theme/mathbox/         encadré de formule : highlight, flat, rule, none
   lang/                  chaînes : fr, en
   math/                  macros : base, analysis, control, measure
   third-party/           tikzgraphicx (B. Kellermann, GPL)

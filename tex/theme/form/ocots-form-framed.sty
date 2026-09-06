@@ -1,0 +1,25 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-form-framed}[2026/09/06 v1.0 ocots -- forme : cadre pastel]
+%
+% La forme historique du template (v0 / theme classic) : fond blanc, cadre
+% pastel de la couleur de la famille, titre en gras sur la meme ligne que le
+% texte, tiret separateur.
+%
+% Une forme lit \ocotscolor{key-<famille>} (posee par le theme) et en derive
+% back-/frame-/title-<famille> si le theme ne les a pas verrouilles.
+
+\newcommand{\ocots@form@framed}[1]{%
+  \ocots@derivecolor{back-#1}{white}%
+  \ocots@derivecolor{frame-#1}{ocots@key-#1!20!white}%
+  \ocots@derivecolor{title-#1}{black}%
+  \ocotssetboxstyle{#1}{%
+    enhanced jigsaw, breakable,
+    fonttitle=\bfseries\upshape\ocotsboxtitlefont,
+    separator sign dash,
+    before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip,
+    colback=\ocotscolor{back-#1},
+    colframe=\ocotscolor{frame-#1},
+    coltitle=\ocotscolor{title-#1}}}
+\ocotsregisterform{framed}{\ocots@form@framed}
+
+\endinput

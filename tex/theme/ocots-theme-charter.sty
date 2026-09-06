@@ -1,0 +1,98 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-theme-charter}[2026/09/06 v1.0 ocots -- theme charter (refonte visuelle)]
+%
+% Le rendu visuel repris de zero (ex-« v2 »). Trois partis pris par rapport a
+% classic :
+%
+%   1. Typographie. XCharter pour le texte, newtxmath assorti pour les maths,
+%      Fira Sans pour les titres. Plus chaleureux que le Latin Modern, tient
+%      mieux a l'impression comme a l'ecran.
+%   2. Boites sans cadre : un filet lateral epais, un fond tres pale (forme
+%      sidebar). Moins de traits, plus de calme.
+%   3. Titres alignes a gauche, numero de chapitre en grand chiffre (titres
+%      bignum).
+%
+% Le theme ne redefinit AUCUNE forme lui-meme : il choisit des presets. C'est
+% la validation de l'architecture — une refonte visuelle complete = une
+% palette + trois choix + la typographie.
+
+% ---------------------------------------------------------------------------
+% Typographie
+\RequirePackage{XCharter}
+% yhmath (\wideparen) et newtxmath definissent tous deux \widering : on libere
+% le nom avant de charger le second.
+\let\widering\@undefined
+\RequirePackage[charter,vvarbb,scaled=1.04]{newtxmath}
+\RequirePackage[scaled=0.92]{FiraSans}
+% Les titres de boite et de chapitre passent en lineale.
+\renewcommand{\ocotsboxtitlefont}{\sffamily}
+
+% ---------------------------------------------------------------------------
+% Palette : une couleur par famille, toutes de meme densite. Fonds a ~5 %,
+% assez pales pour la photocopie.
+\definecolor{ocots@raw@ink}   {HTML}{1B1B1F}
+\definecolor{ocots@raw@indigo}{HTML}{2E4272}
+\definecolor{ocots@raw@terra} {HTML}{A03B2C}
+\definecolor{ocots@raw@pine}  {HTML}{2C6E58}
+\definecolor{ocots@raw@plum}  {HTML}{6B3A6B}
+\definecolor{ocots@raw@teal}  {HTML}{1F6F78}
+\definecolor{ocots@raw@ochre} {HTML}{8A5A17}
+\definecolor{ocots@raw@rule}  {HTML}{D5D5DA}
+
+\ocotssetcolor{emph-a}{ocots@raw@indigo}
+\ocotssetcolor{emph-b}{ocots@raw@terra}
+\ocotssetcolor{emph-c}{ocots@raw@pine}
+\ocotssetcolor{emph-d}{ocots@raw@ochre}
+\ocotssetcolor{grey}{ocots@raw@rule}
+
+\ocotssetcolor{link}{ocots@raw@indigo}
+\ocotssetcolor{cite}{ocots@raw@terra}
+\ocotssetcolor{url}{ocots@raw@plum}
+\ocotssetcolor{proof}{ocots@raw@ink}
+
+\ocotssetcolor{chapter}{ocots@raw@indigo}
+\ocotssetcolor{section}{ocots@raw@ink}
+\ocotssetcolor{subsection}{ocots@raw@ink}
+\ocotssetcolor{subsubsection}{ocots@raw@ink}
+
+\ocotssetcolor{key-definition}{ocots@raw@indigo}
+\ocotssetcolor{key-theorem}{ocots@raw@terra}
+\ocotssetcolor{key-proposition}{ocots@raw@pine}
+\ocotssetcolor{key-corollary}{ocots@raw@pine}
+\ocotssetcolor{key-conjecture}{ocots@raw@plum}
+\ocotssetcolor{key-exercise}{ocots@raw@teal}
+\ocotssetcolor{key-solution}{ocots@raw@ochre}
+
+\ocotssetcolor{rule-remark}{ocots@raw@terra}
+\ocotssetcolor{rule-assumption}{ocots@raw@ink}
+\ocotssetcolor{mathhighlight}{ocots@raw@ochre!14!white}
+
+\ocotssetcolor{slide0}{ocots@raw@teal}
+\ocotssetcolor{slide1}{ocots@raw@ochre}
+\ocotssetcolor{slide2}{ocots@raw@pine}
+\ocotssetcolor{slide3}{ocots@raw@terra}
+\ocotssetcolor{slide4}{ocots@raw@plum}
+\ocotssetcolor{slidetitle}{ocots@raw@indigo}
+\ocotssetcolor{titlebox-back}{ocots@raw@indigo}
+\ocotssetcolor{titlebox-frame}{ocots@raw@indigo}
+\ocotssetcolor{titlebox-text}{white}
+
+% ---------------------------------------------------------------------------
+% Formes : socle par defaut, puis on redessine.
+\RequirePackage{ocots-theme-base}
+\renewcommand{\ocotsboxbeforeskip}{12pt}
+\renewcommand{\ocotsboxafterskip}{12pt}
+\ocotsformall{sidebar}
+\ocotssiderule{remark}{soft}
+\ocotssiderule{assumption}{soft}
+\ocotsusetitles{bignum}
+\ocotsusemathbox{flat}
+
+% Bandeau de titre des diapositives : aplat plein, sans cadre.
+\ocotssetboxstyle{titlebox}{%
+  sharp corners, boxrule=0pt, frame hidden,
+  colback=\ocotscolor{titlebox-back},
+  coltext=\ocotscolor{titlebox-text},
+  top=4mm, bottom=4mm}
+
+\endinput
