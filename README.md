@@ -71,7 +71,7 @@ Un polycopié :
 
 ```latex
 \documentclass[11pt,twoside]{ocots-book}
-\usepackage[lang=fr, theme=classic, solutions=end, math=analysis]{ocots}
+\usepackage[lang=fr, theme=ocots, solutions=end, math=analysis]{ocots}
 
 \title{Calcul différentiel et équations différentielles}
 \author{Prénom \textsc{Nom}}
@@ -82,11 +82,14 @@ Un polycopié :
 \end{document}
 ```
 
+`theme=` est facultatif : sans lui, `ocots` sur papier et `legacy-dark` en
+diapositives.
+
 Des diapositives — le support est déduit de la classe, rien à déclarer :
 
 ```latex
 \documentclass[9pt,t]{beamer}
-\usepackage[lang=fr, theme=classic-dark]{ocots}
+\usepackage[lang=fr, theme=legacy-dark]{ocots}
 ```
 
 Un TD ou un sujet d'examen :
@@ -103,10 +106,11 @@ Un TD ou un sujet d'examen :
 | Option | Valeurs | Défaut | Effet |
 |--------|---------|--------|-------|
 | `lang` | `fr`, `en` | `fr` | langue des intitulés et de la typographie |
-| `theme` | `classic`, `classic-dark`, `classic-light`, `mono`, `charter`, `slate` | `classic` (papier), `classic-dark` (diapos) | palette + formes + titres |
-| `boxform` | `framed`, `framed-solid`, `sidebar`, `shaded` | (le thème décide) | **surcharge** la forme des boîtes à titre |
-| `titles` | `rules`, `bignum`, `plain` | (le thème décide) | **surcharge** le dessin des titres |
+| `theme` | `ocots`, `legacy`, `legacy-dark`, `legacy-light`, `mono`, `charter`, `slate` | `ocots` (papier), `legacy-dark` (diapos) | palette + formes + titres |
+| `boxform` | `bracket`, `framed`, `framed-solid`, `sidebar`, `shaded` | (le thème décide) | **surcharge** la forme des boîtes à titre |
+| `titles` | `plain`, `rules`, `bignum` | (le thème décide) | **surcharge** le dessin des titres |
 | `mathbox` | `highlight`, `flat`, `rule`, `none` | (le thème décide) | **surcharge** l'encadré de formule (`\tcbhighmath`) |
+| `listing` | `card`, `framed` | (le thème décide) | **surcharge** l'habillage des blocs de code |
 | `solutions` | `none`, `inline`, `end` | `end` | sort des corrigés |
 | `math` | `base`, `analysis`, `control`, `measure` | `base` | modules de macros chargés |
 | `institution` | `n7`, `inp`, `insa`, `uftmp` | `n7` | logos de la page de titre |
@@ -120,12 +124,13 @@ Un TD ou un sujet d'examen :
 avant d'atteindre l'option, qui ne reçoit alors que la première valeur, sans
 erreur ni avertissement).
 
-Chaque valeur se résout en un nom de fichier : `theme=classic` charge
-`tex/theme/ocots-theme-classic.sty`, `boxform=sidebar` charge
+Chaque valeur se résout en un nom de fichier : `theme=ocots` charge
+`tex/theme/ocots-theme-ocots.sty`, `boxform=sidebar` charge
 `tex/theme/form/ocots-form-sidebar.sty`. **Ajouter un thème, une forme, une
 langue ou un module de macros, c'est ajouter un fichier** — le noyau n'est pas
-touché. Les anciens noms de thème `n7`, `n7-dark`, `n7-light`, `bw`, `v2`
-restent acceptés (alias dépréciés, avec un avertissement).
+touché. Les anciens noms de thème `classic`, `n7`, `n7-dark`, `n7-light`, `bw`,
+`v2` restent acceptés (alias dépréciés vers `legacy*` / `charter`, avec un
+avertissement).
 
 Le détail des commandes est dans [`doc/commandes.md`](doc/commandes.md), celui
 des thèmes dans [`doc/themes.md`](doc/themes.md).
@@ -141,17 +146,18 @@ tex/
   ocots-packages.sty     les \RequirePackage, et rien d'autre
   ocots-env.sty          les environnements — définis une seule fois
   ocots-exercise.sty     exercices et corrigés
-  ocots-text.sty         mise en valeur, notes de travail, listings
+  ocots-text.sty         mise en valeur, notes de travail, coloration du code
   ocots-graphics.sty     aides TikZ, tableaux
   ocots-institution.sty  logos
   ocots-compat.sty       alias des noms v0
   ocots-book.cls  ocots-td.cls  ocots-exam.cls
   carrier/               supports : book, slides, article, td, exam
-  theme/                 thèmes : classic{,-dark,-light}, mono, charter, slate, + socle
-    theme/form/            formes de boîte : framed, framed-solid, sidebar, shaded
+  theme/                 thèmes : ocots, legacy{,-dark,-light}, mono, charter, slate, + socle
+    theme/form/            formes de boîte : bracket, framed, framed-solid, sidebar, shaded
     theme/siderule/        filets latéraux : bar, soft, none
-    theme/title/           dessin des titres : rules, bignum, plain
+    theme/title/           dessin des titres : plain, rules, bignum
     theme/mathbox/         encadré de formule : highlight, flat, rule, none
+    theme/listing/         habillage du code : card, framed
   lang/                  chaînes : fr, en
   math/                  macros : base, analysis, control, measure
   third-party/           tikzgraphicx (B. Kellermann, GPL)

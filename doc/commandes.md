@@ -190,7 +190,11 @@ Visibles **seulement avec l'option `draft`**, invisibles sinon.
 
 ### Code source
 
-`lstlisting` est préréglé (couleurs du thème, `breaklines`, cadre) :
+`lstlisting` est préréglé : `breaklines`, coloration syntaxique qui suit la
+palette (commentaires en vert italique, mots-clés en gras). L'**habillage**
+(cadre ou liseré, numéros de ligne) vient du thème — `card` (liseré en équerre,
+numéros en marge) pour `ocots`, `framed` (cadre complet) pour `legacy` ;
+`listing=card|framed` surcharge.
 
 ```latex
 \begin{lstlisting}[language=Python, caption={Une méthode d'Euler}]

@@ -48,6 +48,8 @@
 \DeclareOptionX{titles}{\def\ocots@titles{#1}}
 \def\ocots@mathbox{}
 \DeclareOptionX{mathbox}{\def\ocots@mathbox{#1}}
+\def\ocots@listing{}
+\DeclareOptionX{listing}{\def\ocots@listing{#1}}
 
 % solutions=none|inline|end   (cf. ocots-exercise.sty)
 %   none   : les corriges ne sont pas composes du tout
@@ -130,11 +132,12 @@
 % 4. Theme : couleurs, styles de boites, mise en forme des titres.
 \expandafter\ocots@require\expandafter{\detokenize{ocots-theme-}}{\ocots@theme}{sty}
 
-% 4 bis. Surcharges d'apparence (boxform=/titles=/mathbox=), une fois le theme
-% charge : elles rejouent les memes crochets et gagnent donc sur le theme.
+% 4 bis. Surcharges d'apparence (boxform=/titles=/mathbox=/listing=), une fois
+% le theme charge : elles rejouent les memes crochets et gagnent sur le theme.
 \ifx\ocots@boxform\@empty\else\ocotsformall{\ocots@boxform}\fi
 \ifx\ocots@titles\@empty\else\ocotsusetitles{\ocots@titles}\fi
 \ifx\ocots@mathbox\@empty\else\ocotsusemathbox{\ocots@mathbox}\fi
+\ifx\ocots@listing\@empty\else\ocotsuselisting{\ocots@listing}\fi
 
 % 5. Environnements. Definis une seule fois, contre les crochets du theme.
 \RequirePackage{ocots-env}
