@@ -1,0 +1,81 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-theme-legacy}[2026/09/06 v1.0 ocots -- theme legacy (rendu historique)]
+%
+% Le rendu HISTORIQUE du template (ex-« n7 », ex-« classic ») : cadres pastel,
+% titres noirs, titre de chapitre centre entre deux filets. Garde pour les
+% documents qui veulent ce rendu ; le defaut est maintenant `ocots'.
+%
+% Structure d'un theme : une palette (une couleur CLE par famille, plus les
+% couleurs semantiques), puis le socle. Les formes derivent le reste.
+
+% ---------------------------------------------------------------------------
+% Palette
+%
+% Prefixe ocots@raw@ : on ne redefinit jamais blue, red, green (xcolor).
+\definecolor{ocots@raw@blue}    {rgb}{0.06,0.06,0.60}
+\definecolor{ocots@raw@red}     {rgb}{0.60,0.04,0.04}
+\definecolor{ocots@raw@green}   {rgb}{0.06,0.60,0.06}
+\definecolor{ocots@raw@grey}    {rgb}{0.85,0.85,0.85}
+\definecolor{ocots@raw@midnight}{cmyk}{0.98,0.13,0,0.43}
+\definecolor{ocots@raw@pink}    {rgb}{0.60,0.04,0.42}
+\definecolor{ocots@raw@amber}   {RGB}{213,138,39}
+
+% --- Mise en valeur dans le texte
+\ocotssetcolor{emph-a}{ocots@raw@blue}
+\ocotssetcolor{emph-b}{ocots@raw@red}
+\ocotssetcolor{emph-c}{ocots@raw@green}
+\ocotssetcolor{emph-d}{ocots@raw@midnight}
+\ocotssetcolor{grey}{ocots@raw@grey}
+
+% --- Liens
+\ocotssetcolor{link}{ocots@raw@blue}
+\ocotssetcolor{cite}{ocots@raw@red}
+\ocotssetcolor{url}{ocots@raw@pink}
+
+% --- Preuves et titres : a l'encre
+\ocotssetcolor{proof}{black}
+\ocotssetcolor{chapter}{black}
+\ocotssetcolor{section}{black}
+\ocotssetcolor{subsection}{black}
+\ocotssetcolor{subsubsection}{black}
+
+% --- Couleur cle de chaque famille a titre
+% definition en bleu, theoreme en rouge, le reste en vert. Exercice vert et
+% corrige rouge : c'est ce qui rend le renvoi croise lisible d'un coup d'oeil.
+\ocotssetcolor{key-definition}{ocots@raw@blue}
+\ocotssetcolor{key-theorem}{ocots@raw@red}
+\ocotssetcolor{key-proposition}{ocots@raw@green}
+\ocotssetcolor{key-corollary}{ocots@raw@green}
+\ocotssetcolor{key-conjecture}{ocots@raw@green}
+\ocotssetcolor{key-exercise}{ocots@raw@green}
+\ocotssetcolor{key-solution}{ocots@raw@red}
+
+% Titre colore pour exercice et corrige (la forme framed met les autres a
+% l'encre) : couleur explicite, donc verrouillee, la forme ne la derive pas.
+\ocotssetcolor{title-exercise}{ocots@raw@green!40!black}
+\ocotssetcolor{title-solution}{ocots@raw@red!40!black}
+
+% --- Filets lateraux
+\ocotssetcolor{rule-remark}{ocots@raw@red}
+\ocotssetcolor{rule-assumption}{black}
+
+% --- Surlignage des formules
+\ocotssetcolor{mathhighlight}{yellow!25!white}
+
+% --- Diapositives : le theme reste utilisable sous beamer, palette claire.
+\ocotssetcolor{slide0}{ocots@raw@amber!60!teal}
+\ocotssetcolor{slide1}{ocots@raw@amber}
+\ocotssetcolor{slide2}{olive}
+\ocotssetcolor{slide3}{ocots@raw@red}
+\ocotssetcolor{slide4}{ocots@raw@blue}
+\ocotssetcolor{slidetitle}{ocots@raw@midnight}
+\ocotssetcolor{titlebox-back}{ocots@raw@midnight!10!white}
+\ocotssetcolor{titlebox-frame}{ocots@raw@midnight!60!white}
+\ocotssetcolor{titlebox-text}{black}
+
+% ---------------------------------------------------------------------------
+% Formes, filets, titres, encadre de formule : le socle par defaut
+% (framed + bar + rules + highlight).
+\RequirePackage{ocots-theme-base}
+
+\endinput

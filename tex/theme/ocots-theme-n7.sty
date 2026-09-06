@@ -1,8 +1,8 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ocots-theme-n7}[2026/09/06 v1.0 ocots -- alias deprecie : n7 -> classic]
+\ProvidesPackage{ocots-theme-n7}[2026/09/06 v1.1 ocots -- alias deprecie : n7 -> legacy]
 %
-% Ancien nom, garde pour ne pas casser poly/, slides/ et exams/. A retirer
-% quand tous les documents auront bascule sur `theme=classic'.
-\PackageWarningNoLine{ocots}{Le theme `n7' est deprecie : utiliser `theme=classic'}
-\RequirePackage{ocots-theme-classic}
+% Ancien nom, garde pour ne pas casser les documents existants. A retirer
+% quand tous auront bascule sur `theme=legacy' (ou `theme=ocots', le defaut).
+\PackageWarningNoLine{ocots}{Le theme `n7' est deprecie : utiliser `theme=legacy'}
+\RequirePackage{ocots-theme-legacy}
 \endinput

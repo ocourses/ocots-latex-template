@@ -1,0 +1,22 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-form-bracket}[2026/09/06 v1.0 ocots -- forme : equerre]
+%
+% Aucun fond : un liseré épais en bas et à gauche, en équerre. Le titre prend
+% la couleur de la famille. C'est le filet latéral de « sidebar » sans l'aplat,
+% fermé en bas — la boîte se signale par deux traits, pas par une teinte.
+
+\newcommand{\ocots@form@bracket}[1]{%
+  \ocots@derivecolor{frame-#1}{ocots@key-#1}%
+  \ocots@derivecolor{title-#1}{ocots@key-#1!62!black}%
+  \ocotssetboxstyle{#1}{%
+    enhanced jigsaw, breakable, blanker, sharp corners,
+    left=4.5mm, right=2mm, top=3mm, bottom=4mm,
+    fonttitle=\bfseries\upshape\ocotsboxtitlefont,
+    separator sign dash,
+    before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip,
+    coltitle=\ocotscolor{title-#1},
+    borderline west={2.4pt}{0pt}{\ocotscolor{frame-#1}},
+    borderline south={2.4pt}{0pt}{\ocotscolor{frame-#1}}}}
+\ocotsregisterform{bracket}{\ocots@form@bracket}
+
+\endinput

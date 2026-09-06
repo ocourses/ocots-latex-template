@@ -89,11 +89,15 @@ corollaire,theoreme,definitions,examples}
 % une seule macro les fabrique : ajouter une famille tient en une ligne.
 %
 %   \ocots@taggedenv{nom}{prefixe affiche}{style de boite}
+% La variante etoilee ne porte ni intitule ni numero : un \newtheorem* de
+% style « ocots » composerait un « . » solitaire avant le texte (nom et numero
+% vides, mais la ponctuation reste). C'est donc un environnement nu ; l'habillage
+% (filet lateral) vient de \tcolorboxenvironment comme pour la version numerotee.
 \newcommand{\ocots@taggedenv}[3]{%
   \newtheorem{#1}{}%
   \@namedef{the#1}{#2\arabic{#1}}%
   \tcolorboxenvironment{#1}{\ocotsboxstyle{#3}}%
-  \newtheorem*{#1*}{}%
+  \newenvironment{#1*}{\par\noindent\ignorespaces}{\par}%
   \tcolorboxenvironment{#1*}{\ocotsboxstyle{#3}}}
 
 \ocots@taggedenv{assumption}{H}{assumption}

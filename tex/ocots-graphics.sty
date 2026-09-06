@@ -45,8 +45,12 @@
 
 % ---------------------------------------------------------------------------
 % Tableaux
-\newcolumntype{C}[1]{>{\centering}p{#1}}
-\newcolumntype{L}[1]{>{\raggedright}p{#1}}
+%
+% \arraybackslash : sans lui, \centering / \raggedright redefinissent \\ dans
+% la colonne, et \\ en fin de ligne part en « Misplaced \noalign » / « Extra
+% alignment tab ». Piege classique de `array', latent depuis la v0.
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newcommand\Tstrut{\rule{0pt}{2.6ex}}
 \newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}
 \newcommand{\smallhrule}{\specialrule{0.02em}{0.25em}{0.25em}}
