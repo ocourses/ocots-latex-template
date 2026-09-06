@@ -1,0 +1,24 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-listing-card}[2026/09/06 v1.0 ocots -- listing : carte perforee]
+%
+% Pas de cadre : un liseré en équerre (gauche + bas), les numéros de ligne dans
+% la marge de gauche. Ça évoque une ancienne carte perforée et ça s'accorde à
+% la forme « bracket » des boîtes. Couleur du liseré : listing-rule (le thème
+% la pose ; par défaut, la couleur d'accent principale).
+
+\ocots@derivecolor{listing-rule}{ocots@emph-a}
+
+\lstset{
+  backgroundcolor=\color{white},
+  basicstyle=\footnotesize\ttfamily,
+  frame=lb,
+  framerule=1.4pt,
+  rulecolor=\color{\ocotscolor{listing-rule}},
+  framesep=3mm,
+  xleftmargin=9mm,
+  framexleftmargin=9mm,
+  numbers=left, numbersep=4mm, stepnumber=1,
+  numberstyle=\scriptsize\ttfamily\color{\ocotscolor{grey}!45!black},
+  aboveskip=\ocotsboxbeforeskip, belowskip=\ocotsboxafterskip}
+
+\endinput

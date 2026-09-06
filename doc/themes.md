@@ -2,10 +2,11 @@
 
 > [`README.md`](../README.md) · [`doc/commandes.md`](commandes.md) · **themes.md**
 
-L'apparence du template — couleurs, forme des boîtes, dessin des titres — est
-un **thème**. Le noyau et les environnements ne testent jamais le thème : ils
-lisent des registres (`\ocotsboxstyle{theorem}`, `\ocotscolor{link}`,
-`\ocotsheading{chapter}`). Changer de thème, c'est changer une option.
+L'apparence du template — couleurs, forme des boîtes, dessin des titres,
+habillage du code — est un **thème**. Le noyau et les environnements ne testent
+jamais le thème : ils lisent des registres (`\ocotsboxstyle{theorem}`,
+`\ocotscolor{link}`, `\ocotsheading{chapter}`). Changer de thème, c'est changer
+une option.
 
 ---
 
@@ -14,42 +15,45 @@ lisent des registres (`\ocotsboxstyle{theorem}`, `\ocotscolor{link}`,
 ## Choisir un thème
 
 ```latex
-\usepackage[lang=fr, theme=classic]{ocots}
+\usepackage[lang=fr, theme=ocots]{ocots}
 ```
 
-`theme=` se résout en un fichier : `theme=classic` charge
-`ocots-theme-classic.sty`. Sans l'option, le défaut dépend du support :
-`classic` sur papier, `classic-dark` en diapositives.
+`theme=` se résout en un fichier : `theme=ocots` charge `ocots-theme-ocots.sty`.
+Sans l'option, le défaut dépend du support : `ocots` sur papier, `legacy-dark`
+en diapositives.
 
-| thème | rendu | boîtes | titres | formule |
-|-------|-------|--------|--------|---------|
-| `classic` | le rendu historique : cadres pastel, titres entre filets | `framed` | `rules` | `highlight` |
-| `classic-dark` | soutenu : cadres pleins, titres blancs — défaut diapos | `framed-solid` | `rules` | `highlight` |
-| `classic-light` | pastel, en-têtes de diapo claires | `framed` | `rules` | `highlight` |
-| `mono` | niveaux de gris, pour l'impression sans couleur | `framed` | `rules` | `highlight` |
-| `charter` | refonte visuelle : XCharter/Fira, filet latéral, grand chiffre de chapitre | `sidebar` | `bignum` | `flat` |
-| `slate` | sobre : un seul accent, aplats teintés | `shaded` | `plain` | `flat` |
+| thème | rendu | boîtes | titres | formule | code |
+|-------|-------|--------|--------|---------|------|
+| `ocots` | **le défaut** : aucun fond, liseré en équerre, palette à 7 couleurs | `bracket` | `plain` | `highlight` | `card` |
+| `legacy` | le rendu historique : cadres pastel, titres entre filets | `framed` | `rules` | `highlight` | `framed` |
+| `legacy-dark` | soutenu : cadres pleins, titres blancs — défaut diapos | `framed-solid` | `rules` | `highlight` | `framed` |
+| `legacy-light` | pastel, en-têtes de diapo claires | `framed` | `rules` | `highlight` | `framed` |
+| `mono` | niveaux de gris, pour l'impression sans couleur | `framed` | `rules` | `highlight` | `framed` |
+| `charter` | Charter/Fira, filet latéral, grand chiffre de chapitre | `sidebar` | `bignum` | `flat` | `card` |
+| `slate` | sobre : un seul accent (ardoise), aplats teintés | `shaded` | `plain` | `flat` | `framed` |
 
-Les anciens noms `n7`, `n7-dark`, `n7-light`, `bw`, `v2` restent acceptés comme
-**alias dépréciés** (avertissement à la compilation).
+Les anciens noms `classic`, `classic-dark`, `classic-light`, `n7`, `n7-dark`,
+`n7-light`, `bw`, `v2` restent acceptés comme **alias dépréciés** (→ `legacy*` /
+`charter`, avertissement à la compilation).
 
 ## Régler une seule facette
 
-Trois options surchargent le thème, **après** son chargement — pour comparer
+Quatre options surchargent le thème, **après** son chargement — pour comparer
 deux rendus sur un même document sans éditer de fichier :
 
 | option | valeurs | remplace |
 |--------|---------|----------|
-| `boxform=` | `framed`, `framed-solid`, `sidebar`, `shaded` | la forme des 7 boîtes à titre |
-| `titles=` | `rules`, `bignum`, `plain` | le dessin des titres de chapitre / section |
+| `boxform=` | `bracket`, `framed`, `framed-solid`, `sidebar`, `shaded` | la forme des 7 boîtes à titre |
+| `titles=` | `plain`, `rules`, `bignum` | le dessin des titres de chapitre / section |
 | `mathbox=` | `highlight`, `flat`, `rule`, `none` | le style de `\tcbhighmath` |
+| `listing=` | `card`, `framed` | l'habillage des blocs de code |
 
 ```latex
-% palette et polices de « classic », mais boîtes dessinées comme « charter »
-\usepackage[lang=fr, theme=classic, boxform=sidebar]{ocots}
+% palette et police de « ocots », mais boîtes à cadre pastel
+\usepackage[lang=fr, theme=ocots, boxform=framed]{ocots}
 
-% « charter » complet, mais titre de chapitre entre filets
-\usepackage[lang=fr, theme=charter, titles=rules]{ocots}
+% « legacy » complet, mais titre de chapitre sobre
+\usepackage[lang=fr, theme=legacy, titles=plain]{ocots}
 ```
 
 Ce qui **n'est pas** pilotable par option : la palette (elle vient toujours du
@@ -63,9 +67,9 @@ filet latéral des remarques / hypothèses. Pour combiner autrement, il faut un
 
 | fichier | montre |
 |---------|--------|
-| `theme-classic.tex` / `theme-charter.tex` / `theme-slate.tex` | un thème chacun, contenu complet |
-| `form-sidebar.tex` / `form-shaded.tex` | `theme=classic` + `boxform=` |
-| `titles-bignum.tex` | `theme=classic` + `titles=bignum` |
+| `theme-ocots.tex` / `theme-legacy.tex` / `theme-charter.tex` / `theme-slate.tex` | un thème chacun, contenu complet |
+| `form-sidebar.tex` / `form-shaded.tex` | `theme=ocots` + `boxform=` |
+| `titles-bignum.tex` | `theme=ocots` + `titles=bignum` |
 
 ```bash
 cd examples && make variants     # puis ouvrir les PDF côte à côte
@@ -75,15 +79,16 @@ cd examples && make variants     # puis ouvrir les PDF côte à côte
 
 # 2. Côté développeur
 
-## Un thème = trois axes indépendants
+## Un thème = quelques axes indépendants
 
 1. une **palette** — une couleur *clé* par famille, plus les couleurs
    sémantiques ;
 2. une **forme** par famille de boîte, et un style de filet pour les blocs
    annexes ;
-3. un **dessin de titres** et un **encadré de formule**.
+3. un **dessin de titres**, un **encadré de formule**, un **habillage du code**.
 
-Chacun est une brique séparée. Un thème les assemble.
+Chacun est une brique séparée (un fichier dans
+`tex/theme/{form,siderule,title,mathbox,listing}/`). Un thème les assemble.
 
 ## Écrire un thème
 
@@ -114,26 +119,31 @@ Chacun est une brique séparée. Un thème les assemble.
 \ocotssetcolor{rule-remark}{ocots@raw@coffee}
 \ocotssetcolor{rule-assumption}{black}
 \ocotssetcolor{mathhighlight}{ocots@raw@olive!14!white}
+\ocotssetcolor{listing-rule}{ocots@raw@coffee}
 \ocotssetcolor{slide0}{ocots@raw@coffee}   % ... slide1..4, slidetitle
 \ocotssetcolor{titlebox-back}{ocots@raw@coffee}
 \ocotssetcolor{titlebox-frame}{ocots@raw@coffee}
 \ocotssetcolor{titlebox-text}{white}
 
-% --- 2 & 3. Socle : framed + bar + rules + highlight par défaut -----------
+% --- 2 & 3. Socle : bracket-non ; framed + bar + rules + highlight + framed
 \RequirePackage{ocots-theme-base}
 
 % --- surcharges éventuelles ---------------------------------------------
-\ocotsform{exercise}{shaded}       % une famille dans une autre forme
-\ocotssiderule{difficulty}{soft}
-\ocotsusemathbox{flat}
+\ocotsformall{bracket}             % ou une famille : \ocotsform{exercise}{shaded}
+\ocotsusetitles{plain}
+\ocotsuselisting{card}
 
 \endinput
 ```
 
 **Ordre obligatoire** : la palette **avant** `\RequirePackage{ocots-theme-base}`
 (ou avant tout `\ocotsformall`). Une forme dérive `back-`/`frame-`/`title-` de
-la couleur clé par un `\colorlet` immédiat : si `key-<famille>` n'est pas
-encore posée, erreur `undefined color`.
+la couleur clé par un `\colorlet` immédiat : si `key-<famille>` n'est pas encore
+posée, erreur `undefined color`.
+
+Le socle pose par défaut `framed` + `bar` + `rules` + `highlight` + `framed`
+(listing). Un thème `\RequirePackage`e le socle **puis** surcharge ce qu'il
+veut.
 
 ## Liste fermée des registres
 
@@ -147,8 +157,8 @@ encore posée, erreur `undefined color`.
 **Couleurs attendues** — clé de famille : `key-<famille>` (les 7 ci-dessus).
 Sémantiques : `link`, `url`, `cite`, `proof`, `emph-a`…`emph-d`, `grey`,
 `chapter`, `section`, `subsection`, `subsubsection`, `rule-remark`,
-`rule-assumption`, `mathhighlight`, `slide0`…`slide4`, `slidetitle`,
-`titlebox-back`, `titlebox-frame`, `titlebox-text`.
+`rule-assumption`, `mathhighlight`, `listing-rule`, `slide0`…`slide4`,
+`slidetitle`, `titlebox-back`, `titlebox-frame`, `titlebox-text`.
 
 `proof` et `titlebox` ont un style de boîte fixe posé par le socle ; un thème
 peut le redéfinir avec `\ocotssetboxstyle{proof}{...}` après le socle.
@@ -156,15 +166,15 @@ peut le redéfinir avec `\ocotssetboxstyle{proof}{...}` après le socle.
 ## Le modèle de couleurs : dérivation vs verrou
 
 - `\ocotssetcolor{<clef>}{<couleur>}` — appelé par un **thème**. La couleur est
-  **verrouillée** : une forme ne la dérivera pas par-dessus.
-- `\ocots@derivecolor{<clef>}{<couleur>}` — appelé par un **preset de forme**.
-  Ne pose la couleur que si elle n'est pas verrouillée.
+  **verrouillée** : un preset ne la dérivera pas par-dessus.
+- `\ocots@derivecolor{<clef>}{<couleur>}` — appelé par un **preset**. Ne pose la
+  couleur que si elle n'est pas verrouillée.
 
 Donc : un thème pose `key-theorem`, la forme `framed` en dérive
 `frame-theorem = key-theorem!20!white`. Si le thème pose *aussi*
-`\ocotssetcolor{frame-theorem}{...}`, la forme respecte ce choix.
-`mono` s'en sert : il pose les triplets `back-/frame-/title-` en clair (pour
-un contraste par famille impossible à dériver d'une teinte unique).
+`\ocotssetcolor{frame-theorem}{...}`, le preset respecte ce choix. `mono` s'en
+sert : il pose les triplets `back-/frame-/title-` en clair (pour un contraste
+par famille impossible à dériver d'une teinte unique).
 
 ## Écrire un preset
 
@@ -192,7 +202,9 @@ un contraste par famille impossible à dériver d'une teinte unique).
 
 `\ocotsboxbeforeskip`, `\ocotsboxafterskip`, `\ocotsboxtitlefont` sont fournis
 par le noyau (`\providecommand`) : un thème à police linéale pose
-`\renewcommand{\ocotsboxtitlefont}{\sffamily}`.
+`\renewcommand{\ocotsboxtitlefont}{\sffamily}`. La forme `bracket` (défaut de
+`ocots`) montre le motif à deux `borderline` : `west` + `south`, `blanker`,
+aucun `colback`.
 
 ### Filet latéral — `tex/theme/siderule/ocots-siderule-<nom>.sty`
 
@@ -234,6 +246,22 @@ titlesec puis les exécute via `\ocotsheading{titles-book}`.
   enhanced, colback=\ocotscolor{mathhighlight}, boxrule=0pt, size=minimal}}}
 ```
 
+### Habillage du code (`listing=`) — `tex/theme/listing/ocots-listing-<nom>.sty`
+
+Un `\lstset` : cadre, fonte de base, numéros de ligne, fond. La **coloration
+syntaxique** (commentaires, mots-clés, chaînes) reste dans `ocots-text.sty` —
+elle suit la palette et n'a pas de variante.
+
+```latex
+\ocots@derivecolor{listing-rule}{ocots@emph-a}
+\lstset{
+  backgroundcolor=\color{white},
+  basicstyle=\footnotesize\ttfamily,
+  frame=lb, framerule=1.4pt,
+  rulecolor=\color{\ocotscolor{listing-rule}},
+  numbers=left, numberstyle=\scriptsize\ttfamily\color{\ocotscolor{grey}}}
+```
+
 ## Pièges (vus en écrivant cette couche)
 
 - Un **chiffre après `@`** dans un nom de macro tronque le nom : `\ocots@v2foo`
@@ -246,6 +274,10 @@ titlesec puis les exécute via `\ocotsheading{titles-book}`.
   (`foo/.style={...}`) et non une macro contenant des virgules.
 - Ce qui apparaît dans une liste de clés tcolorbox doit être **robuste** :
   `\ocotscolor{...}` développe en un simple nom de couleur, c'est voulu.
+- `\newtheorem*` de style « ocots » avec nom **et** numéro vides compose un
+  « . » solitaire : les variantes étoilées des blocs étiquetés
+  (`assumption*`…) sont donc des environnements nus, décorés par
+  `\tcolorboxenvironment` comme les autres.
 
 ## API du noyau (rappel)
 
@@ -254,7 +286,7 @@ titlesec puis les exécute via `\ocotsheading{titles-book}`.
 | `\ocotssetcolor{clef}{couleur}` | pose une couleur (verrouillée) |
 | `\ocotsform{famille}{forme}` · `\ocotsformall{forme}` | applique une forme |
 | `\ocotssiderule{famille}{style}` | applique un filet latéral |
-| `\ocotsusetitles{preset}` · `\ocotsusemathbox{preset}` | charge le preset |
+| `\ocotsusetitles{preset}` · `\ocotsusemathbox{preset}` · `\ocotsuselisting{preset}` | charge le preset |
 | `\ocotssetboxstyle{clef}{...}` · `\ocotsboxstyle{clef}` | style tcolorbox brut |
 | `\ocotssetheading{clef}{...}` · `\ocotsheading{clef}` | crochet de titre |
 | `\ocotsregisterform{nom}{\macro}` · `\ocotsregistersiderule{nom}{\macro}` | (dans un preset) s'enregistrer |

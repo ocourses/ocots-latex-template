@@ -38,17 +38,20 @@ ligne `\usepackage` change.
 | `fr-none.tex`   | corrigés absents — la version étudiante |
 | `fr-inline.tex` | corrigés en place |
 | `en-end.tex`    | même contenu en anglais, corrigés reportés |
-| `bw-end.tex`    | noir et blanc, pour l'impression |
-| `compat.tex`    | un corps écrit **avec les noms de la v0**, compilé par la v1 |
-| `theme-n7.tex`  | thème `n7` — recoloration de la v0 (socle commun, cadres pastel) |
-| `theme-v2.tex`  | thème `v2` — refonte visuelle (filet latéral, titres alignés à gauche) |
+| `mono-end.tex`  | noir et blanc (`theme=mono`), pour l'impression |
+| `compat.tex`    | un corps écrit **avec les noms de la v0**, compilé aujourd'hui |
+| `theme-ocots.tex`   | thème `ocots` — le défaut (liseré en équerre, sans fond) |
+| `theme-legacy.tex`  | thème `legacy` — le rendu historique (cadres pastel, titres entre filets) |
+| `theme-charter.tex` | thème `charter` — Charter/Fira, filet latéral |
+| `theme-slate.tex`   | thème `slate` — un seul accent, aplats teintés |
+| `form-sidebar.tex` `form-shaded.tex` | `theme=ocots` + `boxform=` : même palette, boîtes redessinées |
+| `titles-bignum.tex` | `theme=ocots` + `titles=bignum` : même palette, titres redessinés |
 
-`fr-none`, `fr-inline`, `en-end` et `bw-end` partagent `body.tex`, un corps
-minimal. `compat.tex` ne le partage pas : il existe précisément pour prouver
-que l'ancienne syntaxe passe sans retouche. `theme-n7.tex` et `theme-v2.tex`
-partagent le contenu complet de `../content/` — c'est la base de comparaison
-de l'étape 3 : ouvrir les deux PDF côte à côte montre que `theme=` redessine
-sans qu'une ligne du document ne change.
+`fr-none`, `fr-inline`, `en-end`, `mono-end` partagent `body.tex`, un corps
+minimal. `compat.tex` ne le partage pas : il prouve que l'ancienne syntaxe passe
+sans retouche. Les `theme-*` partagent le contenu complet de `../content/` —
+ouvrir deux PDF côte à côte montre que `theme=` redessine sans qu'une ligne du
+document ne change.
 
 ## Compilation
 
@@ -61,15 +64,9 @@ make clean      # nettoie les auxiliaires
 ```
 
 `make` est **vert** si aucune erreur n'apparaît dans les journaux, **rouge** à
-la moindre. La liste `KNOWN` du `Makefile` sert à tolérer un défaut connu et
-documenté ; elle est vide depuis que l'étape 2 a remplacé le chargement de
-paquets de la v0 — ce qui a fait disparaître le `Extra \fi` (défaut D11).
+la moindre. Le motif d'erreur est `ERRPAT` dans le `Makefile` (il attrape aussi
+les erreurs venues d'un `\input` de `../content/`, ce que l'ancien `^\./`
+ratait). La liste `KNOWN` sert à tolérer un défaut connu et documenté.
 
 Le template est trouvé par `TEXINPUTS`, positionné par le `Makefile` : les
 documents n'ont aucun chemin relatif à tenir à jour.
-
-## État
-
-**Étapes 2 et 3 faites.** Les quatre supports et les sept variantes compilent
-sans erreur ; `theme-v2.tex` valide que la refonte visuelle (thème `v2`) tient
-dans un seul fichier de thème, sans toucher au noyau ni aux documents.

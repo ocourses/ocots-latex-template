@@ -8,7 +8,7 @@
 % Un theme minimal se resume donc a :
 %     ... palette (une couleur cle par famille + couleurs semantiques) ...
 %     \RequirePackage{ocots-theme-base}
-% et rien d'autre. Voir ocots-theme-classic.sty.
+% et rien d'autre. Voir ocots-theme-legacy.sty.
 %
 % Un theme qui veut un autre rendu charge quand meme ce socle, puis surcharge
 % ce qu'il veut APRES : \ocotsformall{sidebar}, \ocotsusetitles{bignum}...
@@ -39,8 +39,9 @@
   colframe=\ocotscolor{titlebox-frame},
   coltext=\ocotscolor{titlebox-text}}
 
-% --- Titres et encadre de formule ------------------------------------
+% --- Titres, encadre de formule, listings ------------------------------
 \ocotsusetitles{rules}
 \ocotsusemathbox{highlight}
+\ocotsuselisting{framed}
 
 \endinput

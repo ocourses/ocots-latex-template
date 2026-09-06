@@ -98,29 +98,25 @@
 
 % ---------------------------------------------------------------------------
 % Code source
-\definecolor{ocots@raw@mauve}{rgb}{0.58,0,0.82}
+%
+% Comportement + coloration syntaxique (qui suit la palette). Le CADRE, la
+% fonte de base, les numeros de ligne et le fond viennent du theme, via
+% \ocotsuselisting{...} (preset theme/listing/) : un theme sobre encadre
+% autrement qu'un theme classique.
+\definecolor{ocots@raw@mauve}{rgb}{0.55,0.10,0.55}
 \lstset{
-  backgroundcolor=\color{white},
-  basicstyle=\small,
   breakatwhitespace=false,
   breaklines=true,
   captionpos=b,
-  commentstyle=\color{\ocotscolor{emph-a}},
+  commentstyle=\color{\ocotscolor{emph-c}}\itshape,
   escapeinside={\%*}{*)},
   extendedchars=true,
-  frame=single,
   keepspaces=true,
-  keywordstyle=\color{\ocotscolor{emph-b}},
-  numbers=none,
-  numbersep=5pt,
-  numberstyle=\tiny\color{\ocotscolor{grey}},
-  rulecolor=\color{black},
+  keywordstyle=\color{\ocotscolor{emph-b}}\bfseries,
   showspaces=false,
   showstringspaces=false,
   showtabs=false,
-  stepnumber=2,
   stringstyle=\color{ocots@raw@mauve},
-  tabsize=2,
-  frameround=tttt}
+  tabsize=2}
 
 \endinput

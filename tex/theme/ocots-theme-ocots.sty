@@ -1,0 +1,90 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-theme-ocots}[2026/09/06 v1.0 ocots -- theme ocots (defaut)]
+%
+% Le theme par defaut. Trois partis pris, tires des retours utilisateur :
+%
+%   1. Pas de fond de couleur dans le texte. Les boites se signalent par un
+%      liseré en équerre (bas + gauche), pas par un aplat (forme « bracket »).
+%   2. Palette harmonieuse a sept couleurs de meme densite (celle de charter),
+%      titres et preuves a l'encre pour le contraste.
+%   3. Titres sobres (numero + titre recolores, sans filet ni grand chiffre).
+%
+% La typographie reste celle de LaTeX (Latin Modern) : charter apportait ses
+% polices, pas ce theme.
+
+% ---------------------------------------------------------------------------
+% Palette : sept couleurs de meme densite, aucune ne domine. Fonds jamais
+% teintes (la forme « bracket » n'en pose pas).
+\definecolor{ocots@raw@ink}   {HTML}{1B1B1F}
+\definecolor{ocots@raw@indigo}{HTML}{2E4272}
+\definecolor{ocots@raw@terra} {HTML}{A03B2C}
+\definecolor{ocots@raw@pine}  {HTML}{2C6E58}
+\definecolor{ocots@raw@plum}  {HTML}{6B3A6B}
+\definecolor{ocots@raw@teal}  {HTML}{1F6F78}
+\definecolor{ocots@raw@ochre} {HTML}{8A5A17}
+\definecolor{ocots@raw@rule}  {HTML}{C9C9CF}
+
+% --- Mise en valeur
+\ocotssetcolor{emph-a}{ocots@raw@indigo}
+\ocotssetcolor{emph-b}{ocots@raw@terra}
+\ocotssetcolor{emph-c}{ocots@raw@pine}
+\ocotssetcolor{emph-d}{ocots@raw@ochre}
+\ocotssetcolor{grey}{ocots@raw@rule}
+
+% --- Liens
+\ocotssetcolor{link}{ocots@raw@indigo}
+\ocotssetcolor{cite}{ocots@raw@terra}
+\ocotssetcolor{url}{ocots@raw@plum}
+
+% --- Preuves et titres : a l'encre, sauf le titre de chapitre (accent indigo)
+\ocotssetcolor{proof}{ocots@raw@ink}
+\ocotssetcolor{chapter}{ocots@raw@indigo}
+\ocotssetcolor{section}{ocots@raw@ink}
+\ocotssetcolor{subsection}{ocots@raw@ink}
+\ocotssetcolor{subsubsection}{ocots@raw@ink}
+
+% --- Couleur cle de chaque famille : le liseré et le titre s'y accordent.
+% definition indigo, theoreme terra, proposition/corollaire pine,
+% conjecture plum, exercice teal, corrige ochre.
+\ocotssetcolor{key-definition}{ocots@raw@indigo}
+\ocotssetcolor{key-theorem}{ocots@raw@terra}
+\ocotssetcolor{key-proposition}{ocots@raw@pine}
+\ocotssetcolor{key-corollary}{ocots@raw@pine}
+\ocotssetcolor{key-conjecture}{ocots@raw@plum}
+\ocotssetcolor{key-exercise}{ocots@raw@teal}
+\ocotssetcolor{key-solution}{ocots@raw@ochre}
+
+% --- Filets lateraux : gris pour la remarque (informelle), encre pour
+% l'hypothese (formelle, numerotee). Ni l'un ni l'autre ne reprend une couleur
+% de famille a cadre, pour ne pas se confondre avec un theoreme dans la marge.
+\ocotssetcolor{rule-remark}{ocots@raw@ink!55!white}
+\ocotssetcolor{rule-assumption}{ocots@raw@ink}
+
+% --- Surlignage des formules : surligneur jaune (rendu « highlight »)
+\ocotssetcolor{mathhighlight}{yellow!22!white}
+
+% --- Listings : liseré ocre, en clin d'oeil aux cartes perforees
+\ocotssetcolor{listing-rule}{ocots@raw@ochre}
+
+% --- Diapositives
+\ocotssetcolor{slide0}{ocots@raw@teal}
+\ocotssetcolor{slide1}{ocots@raw@ochre}
+\ocotssetcolor{slide2}{ocots@raw@pine}
+\ocotssetcolor{slide3}{ocots@raw@terra}
+\ocotssetcolor{slide4}{ocots@raw@plum}
+\ocotssetcolor{slidetitle}{ocots@raw@indigo}
+\ocotssetcolor{titlebox-back}{ocots@raw@indigo!8!white}
+\ocotssetcolor{titlebox-frame}{ocots@raw@indigo!55!white}
+\ocotssetcolor{titlebox-text}{ocots@raw@ink}
+
+% ---------------------------------------------------------------------------
+% Formes : socle par defaut, puis on redessine.
+\RequirePackage{ocots-theme-base}
+\ocotsformall{bracket}
+\ocotssiderule{remark}{bar}
+\ocotssiderule{assumption}{bar}
+\ocotsusetitles{plain}
+\ocotsusemathbox{highlight}
+\ocotsuselisting{card}
+
+\endinput
