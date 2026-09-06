@@ -1,5 +1,7 @@
 # Thèmes `ocots`
 
+> [`README.md`](../README.md) · [`doc/commandes.md`](commandes.md) · **themes.md**
+
 L'apparence du template — couleurs, forme des boîtes, dessin des titres — est
 un **thème**. Le noyau et les environnements ne testent jamais le thème : ils
 lisent des registres (`\ocotsboxstyle{theorem}`, `\ocotscolor{link}`,
@@ -232,7 +234,7 @@ titlesec puis les exécute via `\ocotsheading{titles-book}`.
   enhanced, colback=\ocotscolor{mathhighlight}, boxrule=0pt, size=minimal}}}
 ```
 
-## Pièges (vus en écrivant cette couche, cf. `reports/template-refonte/04-journal.md`)
+## Pièges (vus en écrivant cette couche)
 
 - Un **chiffre après `@`** dans un nom de macro tronque le nom : `\ocots@v2foo`
   n'existe pas, TeX lit `\ocots@v` puis le texte `2foo`. Utiliser

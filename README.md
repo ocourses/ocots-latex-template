@@ -1,13 +1,69 @@
 # Template `ocots`
 
-Template LaTeX pour polycopiés, diapositives, TD et sujets d'examen.
+Template LaTeX pour **polycopiés, diapositives, TD et sujets d'examen**, avec
+une seule API : un énoncé se colle tel quel du TD au polycopié. L'apparence est
+pilotée par des **thèmes** interchangeables (`classic` reproduit le rendu
+historique, `charter` est une refonte visuelle, `slate` un thème sobre).
 
-Refonte de l'**architecture** du template historique (défauts et diagnostic
-recensés dans les notes de conception, ci-dessous). L'apparence est pilotée par
-des **thèmes** : `classic` reproduit le rendu historique, `charter` est une
-refonte visuelle complète, `slate` un thème sobre. Notes de conception dans
-[`../reports/template-refonte/`](../reports/template-refonte) du dépôt qui monte
-ce template en sous-module.
+- **[`doc/commandes.md`](doc/commandes.md)** — toutes les commandes et
+  environnements, par thème.
+- **[`doc/themes.md`](doc/themes.md)** — choisir, régler ou écrire un thème
+  (partie utilisateur + partie développeur).
+- **[`examples/`](examples/)** — un document compilable par support, plus les
+  variantes d'options.
+
+---
+
+## Installation
+
+Le template est un jeu de fichiers `.sty` / `.cls` trouvés par `TEXINPUTS`. Il
+n'y a **rien à compiler** ni à configurer côté template ; trois façons de le
+rendre visible à LaTeX :
+
+### A. Sous-module git (recommandé pour un cours)
+
+```bash
+git submodule add git@github.com:ocourses/ocots-latex-template.git template
+```
+
+puis, dans le `.latexmkrc` du document (ou du dépôt) :
+
+```perl
+$ENV{'TEXINPUTS'} = '../template/tex//:../template/assets//:' . ($ENV{'TEXINPUTS'} // '');
+```
+
+Chaque cours **épingle une version** du template ; marche sur Overleaf ; se met
+à jour par `git -C template pull` + un commit du pointeur.
+[`examples/Makefile`](examples/Makefile) montre le réglage `TEXINPUTS` côté
+`make`.
+
+### B. Installation locale (`TEXMFHOME`)
+
+Pour raccourcir les préambules sur un poste, sans casser Overleaf ni les
+co-auteurs :
+
+```bash
+mkdir -p ~/texmf/tex/latex
+ln -s /chemin/vers/ocots-latex-template/tex ~/texmf/tex/latex/ocots
+```
+
+`\usepackage{ocots}` fonctionne alors sans `TEXINPUTS`. (Les logos de
+`assets/` restent à couvrir séparément si un document en a besoin.)
+
+### C. Overleaf
+
+Overleaf clone les sous-modules : la méthode A fonctionne telle quelle. À
+défaut, copier `tex/` et `assets/` dans le projet et pointer `TEXINPUTS`
+dessus via un `latexmkrc`.
+
+### Prérequis
+
+- **TeX Live complet** (`scheme-full`) ou MacTeX — le template charge une
+  quarantaine de paquets (`tcolorbox` avec `skins`/`breakable`, `beamer`,
+  `circuitikz`, `titlesec`, `stackengine`…) ;
+- `latexmk`.
+
+---
 
 ## Prise en main
 
@@ -40,19 +96,7 @@ Un TD ou un sujet d'examen :
 \usepackage[lang=fr, solutions=none, institution={insa,n7}]{ocots}
 ```
 
-## Où LaTeX trouve le template
-
-Par `TEXINPUTS`, qui doit couvrir `tex/` et `assets/` :
-
-```bash
-export TEXINPUTS="/chemin/vers/template-v1/tex//:/chemin/vers/template-v1/assets//:"
-latexmk -pdf main.tex
-```
-
-En pratique on met cette ligne dans le `Makefile` ou le `.latexmkrc` du projet ;
-[`examples/Makefile`](examples/Makefile) montre comment. Les documents n'ont
-donc **aucun chemin relatif** à tenir à jour — le `\relativePath` de la v0 a
-disparu.
+---
 
 ## Options
 
@@ -66,100 +110,34 @@ disparu.
 | `solutions` | `none`, `inline`, `end` | `end` | sort des corrigés |
 | `math` | `base`, `analysis`, `control`, `measure` | `base` | modules de macros chargés |
 | `institution` | `n7`, `inp`, `insa`, `uftmp` | `n7` | logos de la page de titre |
-
-Les anciens noms de thème `n7`, `n7-dark`, `n7-light`, `bw`, `v2` restent
-acceptés (alias dépréciés → `classic`, `classic-dark`, `classic-light`, `mono`,
-`charter`), avec un avertissement à la compilation.
-
-`math` et `institution` acceptent plusieurs valeurs séparées par une virgule —
-**entourer alors la valeur d'accolades** : `institution={insa,n7}`, pas
-`institution=insa,n7`. Sans elles, la virgule est vue par `\usepackage[...]`
-avant d'atteindre l'option, qui ne reçoit que la première valeur — sans erreur
-ni avertissement.
 | `author` | texte | vide | métadonnée `pdfauthor` |
 | `draft` | drapeau | absent | affiche les notes de travail |
 | `binding` | longueur | `0mm` | décalage de reliure pour l'impression |
 
-Chaque valeur se résout en un nom de fichier : `theme=foo` charge
-`tex/theme/ocots-theme-foo.sty`, `boxform=bar` charge
-`tex/theme/form/ocots-form-bar.sty`. **Ajouter un thème, une forme, une langue
-ou un module de macros, c'est ajouter un fichier** — le noyau n'est pas touché.
+`math` et `institution` acceptent plusieurs valeurs séparées par une virgule —
+**entourer alors la valeur d'accolades** : `institution={insa,n7}`, jamais
+`institution=insa,n7` (la virgule non protégée est vue par `\usepackage[...]`
+avant d'atteindre l'option, qui ne reçoit alors que la première valeur, sans
+erreur ni avertissement).
 
-### Thèmes
+Chaque valeur se résout en un nom de fichier : `theme=classic` charge
+`tex/theme/ocots-theme-classic.sty`, `boxform=sidebar` charge
+`tex/theme/form/ocots-form-sidebar.sty`. **Ajouter un thème, une forme, une
+langue ou un module de macros, c'est ajouter un fichier** — le noyau n'est pas
+touché. Les anciens noms de thème `n7`, `n7-dark`, `n7-light`, `bw`, `v2`
+restent acceptés (alias dépréciés, avec un avertissement).
 
-Un thème fixe **trois choses indépendantes** : une palette (une couleur *clé*
-par famille), une *forme* par famille de boîte, un *dessin de titres* +
-*encadré de formule*. Le socle `ocots-theme-base.sty` en assemble un jeu par
-défaut (`framed` + `bar` + `rules` + `highlight`) ; un thème minimal =
-palette + `\RequirePackage{ocots-theme-base}` + deux ou trois surcharges.
+Le détail des commandes est dans [`doc/commandes.md`](doc/commandes.md), celui
+des thèmes dans [`doc/themes.md`](doc/themes.md).
 
-Les options `boxform=`, `titles=`, `mathbox=` rejouent ces choix **après** le
-thème, pour comparer deux rendus sur un même document sans éditer de fichier.
-
-**Choisir, régler, ou écrire un thème : [`tex/theme/README.md`](tex/theme/README.md)**
-(partie utilisateur + partie développeur).
-
-## Environnements
-
-Ils sont définis **une seule fois**, quel que soit le support : un énoncé de TD
-se colle tel quel dans le polycopié.
-
-```latex
-\begin{theorem}{Titre facultatif}{étiquette}     % + definition, proposition,
-\end{theorem}                                    %   corollary, conjecture
-
-\begin{lemma} \begin{example} \begin{remark}     % et leurs variantes étoilées
-\begin{assumption}                               % étiquetées H1, H2...
-\begin{openquestion}                             % Q1, Q2...
-\begin{difficulty}                               % D1, D2...
-\begin{web}[texte]                               % renvoi vers une ressource
-
-\begin{proof} … \end{proof}
-\begin{proofbegin} \begin{proofmiddle} \begin{proofend}   % preuve sur n diapos
-```
-
-Diapositives :
-
-```latex
-\slidechapter{5}{Titre du chapitre}
-\slidetitlepage
-\begin{slide}{Titre}                  … \end{slide}
-\begin{slide}[\ocotscolor{slide2}]{…} … \end{slide}
-```
-
-## Exercices et corrigés
-
-```latex
-\ocotscollectsolutions                    % début de partie
-
-\begin{exercise}[label=matrices, points=4]
-    Énoncé.
-\solution
-    Corrigé.
-\end{exercise}
-
-\ocotsprintsolutions                      % là où les corrigés doivent paraître
-```
-
-`\solution` est une commande et non un environnement : `\begin{solution}`
-ouvrirait un groupe, et la séparation haut/bas d'une `tcolorbox` doit se faire
-au premier niveau.
-
-L'option `solutions=` décide de tout le reste :
-
-- `none` — les corrigés ne sont pas composés. **La version étudiante.**
-- `inline` — le corrigé suit l'énoncé.
-- `end` — le corrigé est reporté, avec renvois croisés dans les deux sens.
-
-Le document ne change pas d'un mode à l'autre ; seule l'option bouge.
-`\begin{exercise}[nosolution]` exclut un exercice précis, quel que soit le mode.
+---
 
 ## Organisation
 
 ```
 tex/
   ocots.sty              point d'entrée : options et orchestration
-  ocots-kernel.sty       registres (chaînes, couleurs, styles) et détection du support
+  ocots-kernel.sty       registres (chaînes, couleurs, styles, presets) + détection du support
   ocots-packages.sty     les \RequirePackage, et rien d'autre
   ocots-env.sty          les environnements — définis une seule fois
   ocots-exercise.sty     exercices et corrigés
@@ -178,18 +156,29 @@ tex/
   math/                  macros : base, analysis, control, measure
   third-party/           tikzgraphicx (B. Kellermann, GPL)
 assets/logos/
+doc/                     commandes.md, themes.md
 examples/                un document par support, plus les variantes d'options
 ```
 
-Trois couches, et une règle : **le noyau définit les environnements, le support
-fournit la structure, le thème fournit l'apparence.** Un environnement ne teste
+**Trois couches, une règle** : le noyau définit les environnements, le support
+fournit la structure, le thème fournit l'apparence. Un environnement ne teste
 jamais son support ni son thème. Les retouches propres à un médium (remise à
 zéro des compteurs entre deux `\pause`, par exemple) sont enregistrées par le
 support, après coup.
 
+**Étendre** :
+- une **langue** — copier `tex/lang/ocots-lang-fr.def`, traduire, `lang=<code>` ;
+- un **module de macros maths** — un fichier `tex/math/ocots-math-<nom>.sty`,
+  chargé par `math=<nom>` ;
+- un **thème** ou un **preset** — voir [`doc/themes.md`](doc/themes.md) ;
+- un **établissement** — image dans `assets/logos/` + une ligne dans
+  `tex/ocots-institution.sty`.
+
+---
+
 ## Migrer un document v0
 
-Deux lignes de préambule à changer :
+Deux lignes de préambule :
 
 ```latex
 % avant
@@ -202,17 +191,17 @@ Deux lignes de préambule à changer :
 \usepackage[lang=fr, solutions=end, math=analysis]{ocots}
 ```
 
-Le **corps du document n'est pas retouché** : `mytheorem`, `myremark`,
-`myexercisecb<étiquette>`, `\solutioncb`, `\myemph`, `no solution`… restent
-définis par [`tex/ocots-compat.sty`](tex/ocots-compat.sty).
-Voir [`examples/variants/compat.tex`](examples/variants/compat.tex), qui est
-écrit entièrement avec les noms de la v0.
+Le **corps n'est pas retouché** : `mytheorem`, `myexercisecb<étiquette>`,
+`\solutioncb`, `\myemph`, `no solution`… restent définis par
+[`tex/ocots-compat.sty`](tex/ocots-compat.sty). Voir
+[`examples/variants/compat.tex`](examples/variants/compat.tex), écrit
+entièrement avec les noms de la v0. Ces alias sont destinés à disparaître :
+chaque ligne supprimée de `ocots-compat.sty` est une migration terminée.
 
-Ces alias sont destinés à disparaître : chaque ligne supprimée de
-`ocots-compat.sty` est une migration terminée.
+---
 
 ## Compilation des exemples
 
 ```bash
-cd examples && make        # les quatre supports + les variantes d'options
+cd examples && make        # les quatre supports + les variantes d'options ; doit être VERT
 ```
