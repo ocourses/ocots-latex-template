@@ -143,9 +143,10 @@
     {\PackageError{ocots}{Side rule `#2' did not register itself}{}}%
     {\@nameuse{ocots@sidereg@#2}{#1}}}
 
-% --- Titres et encadre de formule -------------------------------------------
+% --- Titres, encadre de formule, listings ----------------------------------
 \newcommand{\ocotsusetitles}[1]{\ocots@loadpreset{title}{#1}}
 \newcommand{\ocotsusemathbox}[1]{\ocots@loadpreset{mathbox}{#1}}
+\newcommand{\ocotsuselisting}[1]{\ocots@loadpreset{listing}{#1}}
 
 % --- Reglages communs aux formes -------------------------------------------
 % Espacement vertical avant/apres une boite, et fonte du titre (un theme a
