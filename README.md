@@ -85,35 +85,19 @@ Chaque valeur se résout en un nom de fichier : `theme=foo` charge
 `tex/theme/form/ocots-form-bar.sty`. **Ajouter un thème, une forme, une langue
 ou un module de macros, c'est ajouter un fichier** — le noyau n'est pas touché.
 
-### Comment un thème est fait
+### Thèmes
 
-Un thème fixe **trois choses qui varient indépendamment** :
-
-1. une **palette** — une couleur *clé* par famille (`key-theorem`,
-   `key-exercise`…) plus les couleurs sémantiques (`link`, `url`, `cite`,
-   `chapter`…) ;
-2. une **forme** par famille (`\ocotsformall{framed}`, ou `\ocotsform{exercise}{shaded}`) ;
-3. un **dessin de titres** (`\ocotsusetitles{rules}`) et un **encadré de
-   formule** (`\ocotsusemathbox{highlight}`).
-
-La forme dérive `back-`/`frame-`/`title-<famille>` de la couleur clé ; un thème
-qui veut sortir de la recette pose la couleur explicitement, elle est alors
-verrouillée. Les formes, filets, titres et encadrés vivent dans
-`tex/theme/{form,siderule,title,mathbox}/` : chacun est un preset réutilisable.
-
-Le socle `ocots-theme-base.sty` assemble un jeu par défaut (`framed` + `bar` +
-`rules` + `highlight`). Un thème minimal (`classic`, `mono`, `slate`) = une
-palette + `\RequirePackage{ocots-theme-base}` + éventuellement deux ou trois
-surcharges. `charter` (ex-`v2`) montre qu'une refonte visuelle complète —
-typographie Charter/Fira, filet latéral, grand chiffre de chapitre — tient dans
-une **trentaine de lignes** : palette + `\ocotsformall{sidebar}` +
-`\ocotsusetitles{bignum}`.
+Un thème fixe **trois choses indépendantes** : une palette (une couleur *clé*
+par famille), une *forme* par famille de boîte, un *dessin de titres* +
+*encadré de formule*. Le socle `ocots-theme-base.sty` en assemble un jeu par
+défaut (`framed` + `bar` + `rules` + `highlight`) ; un thème minimal =
+palette + `\RequirePackage{ocots-theme-base}` + deux ou trois surcharges.
 
 Les options `boxform=`, `titles=`, `mathbox=` rejouent ces choix **après** le
-thème, pour comparer deux rendus sur un même document sans éditer de fichier :
-`examples/variants/form-sidebar.tex` = `theme=classic, boxform=sidebar`.
-Comparer `theme-classic.tex`, `theme-charter.tex`, `theme-slate.tex` : même
-corps, seule l'option change.
+thème, pour comparer deux rendus sur un même document sans éditer de fichier.
+
+**Choisir, régler, ou écrire un thème : [`tex/theme/README.md`](tex/theme/README.md)**
+(partie utilisateur + partie développeur).
 
 ## Environnements
 
