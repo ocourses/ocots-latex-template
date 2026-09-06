@@ -1,0 +1,53 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-title-bignum}[2026/09/06 v1.0 ocots -- titres : grand chiffre, a gauche]
+%
+% Le numero de chapitre en grand chiffre dans la couleur d'accent, le titre en
+% dessous, aligne a gauche, puis un filet court. C'est le rendu du theme
+% charter (ex-v2) : la v0 centrait tout entre deux filets pleine largeur, ce
+% qui alourdit une page de cours.
+%
+% Comme tous les presets de titre, il ne fait que deposer les crochets ; le
+% support charge titlesec et les execute.
+
+\ocotssetheading{chapter-number}{%
+  \bfseries\fontsize{56}{56}\selectfont\color{\ocotscolor{chapter}}\ocotsboxtitlefont}
+\ocotssetheading{chapter-title}{%
+  \bfseries\Huge\color{\ocotscolor{chapter}}\ocotsboxtitlefont}
+\ocotssetheading{section}{%
+  \bfseries\Large\color{\ocotscolor{section}}\ocotsboxtitlefont}
+\ocotssetheading{subsection}{%
+  \bfseries\large\color{\ocotscolor{subsection}}\ocotsboxtitlefont}
+\ocotssetheading{subsubsection}{%
+  \bfseries\normalsize\color{\ocotscolor{subsubsection}}\ocotsboxtitlefont}
+
+\ocotssetheading{titles-book}{%
+  \titleformat{\chapter}[display]
+    {\normalfont}
+    {\raggedright{\ocotsheading{chapter-number}\thechapter}}
+    {-8pt}
+    {\raggedright\ocotsheading{chapter-title}}
+    [\vskip8pt{\color{\ocotscolor{chapter}}\titlerule[1.2pt]}]%
+  \titleformat{name=\chapter,numberless}[display]
+    {\normalfont}
+    {}
+    {0pt}
+    {\raggedright\ocotsheading{chapter-title}}
+    [\vskip8pt{\color{\ocotscolor{chapter}}\titlerule[1.2pt]}]%
+  \titlespacing*{\chapter}{0pt}{0pt}{24pt}%
+  \ocotsheading{titles-article}}
+
+% Le numero de section prend la couleur d'accent, le titre reste a l'encre.
+\ocotssetheading{titles-article}{%
+  \titleformat{\section}
+    {\ocotsheading{section}}
+    {\color{\ocotscolor{chapter}}\thesection}{0.7em}{}%
+  \titleformat{\subsection}
+    {\ocotsheading{subsection}}
+    {\color{\ocotscolor{chapter}}\thesubsection}{0.7em}{}%
+  \titleformat{\subsubsection}
+    {\ocotsheading{subsubsection}}
+    {\color{\ocotscolor{chapter}}\thesubsubsection}{0.7em}{}%
+  \titlespacing*{\section}{0pt}{*3}{*1.5}%
+  \titlespacing*{\subsection}{0pt}{*2.5}{*1}}
+
+\endinput

@@ -19,8 +19,13 @@
 EXAMPLES := poly slides td exam
 
 # Variantes d'options : meme corps, options differentes. Elles prouvent que
-# lang=, theme= et solutions= agissent sans toucher au contenu.
-VARIANTS := fr-none fr-inline en-end bw-end compat theme-n7 theme-v2
+# lang=, theme=, solutions=, boxform= et titles= agissent sans toucher au
+# contenu.
+#   theme-classic / theme-charter : deux themes, meme contenu complet.
+#   form-* / titles-* : palette classic, une seule facette redessinee par option.
+VARIANTS := fr-none fr-inline en-end bw-end compat \
+            theme-classic theme-charter theme-slate \
+            form-sidebar form-shaded titles-bignum
 
 # Le template est trouvé par TEXINPUTS : les documents n'ont plus de chemin
 # relatif à tenir à jour, contrairement au \relativePath de la v0 (défaut D12).

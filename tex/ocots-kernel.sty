@@ -61,8 +61,16 @@
 %
 % Les couleurs du template sont prefixees : on n'ecrase jamais les noms de
 % xcolor (blue, red, green...), contrairement a la v0.
-\newcommand{\ocotssetcolor}[2]{\colorlet{ocots@#1}{#2}}
+%
+% Une couleur posee par un theme est VERROUILLEE : une forme (voir plus bas) ne
+% la derive pas par-dessus. Une forme, elle, appelle \ocots@derivecolor, qui
+% respecte le verrou. C'est ce qui permet a un theme de ne poser qu'une couleur
+% cle par famille (key-theorem, key-exercise...) et de laisser la forme en
+% deduire back-/frame-/title-, tout en gardant la main sur un cas particulier.
+\newcommand{\ocotssetcolor}[2]{\colorlet{ocots@#1}{#2}\@namedef{ocots@collock@#1}{}}
 \newcommand{\ocotscolor}[1]{ocots@#1}
+\newcommand{\ocots@derivecolor}[2]{%
+  \@ifundefined{ocots@collock@#1}{\colorlet{ocots@#1}{#2}}{}}
 
 % ---------------------------------------------------------------------------
 % Styles de boites tcolorbox
@@ -83,6 +91,69 @@
 % forme par defaut. C'est ce qui permet a un theme de ne redessiner que ce
 % qu'il veut.
 \newcommand{\ocotsifheading}[3]{\@ifundefined{ocots@head@#1}{#3}{#2}}
+
+% ---------------------------------------------------------------------------
+% Presets d'apparence : formes de boites, filets lateraux, dessin des titres,
+% encadre de formule.
+%
+% Un preset est un fichier theme/<genre>/ocots-<genre>-<nom>.sty qui, une fois
+% charge, enregistre une recette. Le theme la choisit, le noyau l'applique.
+% Ajouter un preset = ajouter un fichier ; ni le noyau ni les environnements
+% ne bougent.
+%
+%   \ocotsform{theorem}{framed}    une forme pour une famille a titre
+%   \ocotsformall{framed}          ... pour les sept familles d'un coup
+%   \ocotssiderule{remark}{bar}    filet lateral : bar | soft | none
+%   \ocotsusetitles{rules}         dessin des titres (crochets \ocotssetheading)
+%   \ocotsusemathbox{highlight}    style de \tcbhighmath
+%
+% Le chargement passe par le meme principe que ocots.sty (nom -> fichier,
+% erreur claire si absent), mais sans dependre de l'ordre : un preset est
+% demande depuis un theme, donc en phase preambule, ou \RequirePackage marche.
+\newcommand{\ocots@loadpreset}[2]{%
+  \@ifundefined{ocots@preset@#1@#2}{%
+    \IfFileExists{ocots-#1-#2.sty}%
+      {\RequirePackage{ocots-#1-#2}\@namedef{ocots@preset@#1@#2}{}}%
+      {\PackageError{ocots}{Unknown #1 preset `#2' (file ocots-#1-#2.sty not
+        found)}{Check the theme or the corresponding package option.}}}{}}
+
+% --- Formes de boites a titre -------------------------------------------------
+% Un preset de forme enregistre une macro a un argument (le nom de famille) :
+%   \ocotsregisterform{framed}{\ocots@form@framed}
+% et \ocots@form@framed{theorem} pose \ocotssetboxstyle{theorem}{...}, en
+% derivant au besoin back-/frame-/title-theorem depuis key-theorem.
+\newcommand{\ocotsregisterform}[2]{\@namedef{ocots@formreg@#1}{#2}}
+\newcommand{\ocotsform}[2]{%
+  \ocots@loadpreset{form}{#2}%
+  \@ifundefined{ocots@formreg@#2}%
+    {\PackageError{ocots}{Box form `#2' did not register itself}{}}%
+    {\@nameuse{ocots@formreg@#2}{#1}}}
+% Les sept familles a titre, en clair : pas de \@for sur une macro-liste
+% (le developpement de la liste par \@for est un piege).
+\newcommand{\ocotsformall}[1]{%
+  \ocotsform{theorem}{#1}\ocotsform{definition}{#1}\ocotsform{proposition}{#1}%
+  \ocotsform{corollary}{#1}\ocotsform{conjecture}{#1}\ocotsform{exercise}{#1}%
+  \ocotsform{solution}{#1}}
+
+% --- Filets lateraux (remark, assumption, openquestion, difficulty) ----------
+\newcommand{\ocotsregistersiderule}[2]{\@namedef{ocots@sidereg@#1}{#2}}
+\newcommand{\ocotssiderule}[2]{%
+  \ocots@loadpreset{siderule}{#2}%
+  \@ifundefined{ocots@sidereg@#2}%
+    {\PackageError{ocots}{Side rule `#2' did not register itself}{}}%
+    {\@nameuse{ocots@sidereg@#2}{#1}}}
+
+% --- Titres et encadre de formule -------------------------------------------
+\newcommand{\ocotsusetitles}[1]{\ocots@loadpreset{title}{#1}}
+\newcommand{\ocotsusemathbox}[1]{\ocots@loadpreset{mathbox}{#1}}
+
+% --- Reglages communs aux formes -------------------------------------------
+% Espacement vertical avant/apres une boite, et fonte du titre (un theme a
+% police lineale, comme charter, pose ici \sffamily). \providecommand : un
+% preset de forme ou un theme peut les avoir deja fixes.
+\providecommand{\ocotsboxbeforeskip}{10pt}
+\providecommand{\ocotsboxafterskip}{10pt}
+\providecommand{\ocotsboxtitlefont}{}
 
 % ---------------------------------------------------------------------------
 % Alias d'environnement

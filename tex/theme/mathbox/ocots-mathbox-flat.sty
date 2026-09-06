@@ -1,0 +1,10 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-mathbox-flat}[2026/09/06 v1.0 ocots -- \string\tcbhighmath : aplat net]
+%
+% Comme highlight, mais angles vifs et sans ombre : plus discret, mieux adapte
+% aux themes a typographie sobre (charter).
+\tcbset{initialize@reset={highlight math style={%
+  enhanced, colback=\ocotscolor{mathhighlight}, sharp corners, boxrule=0pt,
+  size=minimal, boxsep=4pt}}}
+
+\endinput

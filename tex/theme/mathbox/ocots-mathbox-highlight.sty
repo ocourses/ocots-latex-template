@@ -1,0 +1,17 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-mathbox-highlight}[2026/09/06 v1.0 ocots -- \string\tcbhighmath : surligneur]
+%
+% \tcbhighmath{...} : la formule est posee sur un aplat de couleur
+% \ocotscolor{mathhighlight}, angles arrondis, ombre douce.
+%
+% initialize@reset, et non un \tcbset ordinaire : la bibliotheque theorems de
+% tcolorbox remet elle-meme « highlight math style » a sa valeur d'origine
+% (colframe=red, colback=yellow!25) a l'ouverture de CHAQUE boite. On s'ajoute
+% donc a la meme file d'attente, mais APRES elle (le preset se charge apres le
+% paquet) : notre style est rejoue en dernier, et gagne toujours. Piege
+% documente dans 04-journal.md (defaut 5 des retours de rendu).
+\tcbset{initialize@reset={highlight math style={%
+  enhanced, colback=\ocotscolor{mathhighlight}, arc=4pt, boxrule=0pt,
+  drop fuzzy shadow, size=minimal, boxsep=5pt}}}
+
+\endinput

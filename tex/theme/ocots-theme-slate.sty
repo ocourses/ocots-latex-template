@@ -1,0 +1,62 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-theme-slate}[2026/09/06 v1.0 ocots -- theme slate (sobre, un accent)]
+%
+% Un theme volontairement retenu : une seule couleur d'accent (ardoise), des
+% familles distinguees par la nuance et non par la teinte, aplats teintes sans
+% cadre, titres sobres. Ecrit apres coup, il tient en une trentaine de lignes :
+% une palette, trois choix de presets.
+
+\definecolor{ocots@raw@slate} {HTML}{3A506B}
+\definecolor{ocots@raw@stone} {HTML}{5C6B73}
+\definecolor{ocots@raw@rust}  {HTML}{9A3B2E}
+\definecolor{ocots@raw@moss}  {HTML}{4F6D50}
+\definecolor{ocots@raw@grey}  {rgb}{0.85,0.85,0.85}
+
+\ocotssetcolor{emph-a}{ocots@raw@slate}
+\ocotssetcolor{emph-b}{ocots@raw@rust}
+\ocotssetcolor{emph-c}{ocots@raw@moss}
+\ocotssetcolor{emph-d}{ocots@raw@stone}
+\ocotssetcolor{grey}{ocots@raw@grey}
+
+\ocotssetcolor{link}{ocots@raw@slate}
+\ocotssetcolor{cite}{ocots@raw@rust}
+\ocotssetcolor{url}{ocots@raw@stone}
+\ocotssetcolor{proof}{ocots@raw@stone}
+
+\ocotssetcolor{chapter}{ocots@raw@slate}
+\ocotssetcolor{section}{ocots@raw@slate}
+\ocotssetcolor{subsection}{ocots@raw@stone}
+\ocotssetcolor{subsubsection}{ocots@raw@stone}
+
+% Familles : trois nuances autour de l'ardoise, deux accents pour exercice et
+% corrige (les seuls qu'on veut vraiment separer d'un coup d'oeil).
+\ocotssetcolor{key-definition}{ocots@raw@slate}
+\ocotssetcolor{key-theorem}{ocots@raw@slate!75!black}
+\ocotssetcolor{key-proposition}{ocots@raw@stone}
+\ocotssetcolor{key-corollary}{ocots@raw@stone}
+\ocotssetcolor{key-conjecture}{ocots@raw@stone}
+\ocotssetcolor{key-exercise}{ocots@raw@moss}
+\ocotssetcolor{key-solution}{ocots@raw@rust}
+
+\ocotssetcolor{rule-remark}{ocots@raw@rust}
+\ocotssetcolor{rule-assumption}{ocots@raw@stone}
+\ocotssetcolor{mathhighlight}{ocots@raw@slate!12!white}
+
+\ocotssetcolor{slide0}{ocots@raw@slate}
+\ocotssetcolor{slide1}{ocots@raw@rust}
+\ocotssetcolor{slide2}{ocots@raw@moss}
+\ocotssetcolor{slide3}{ocots@raw@stone}
+\ocotssetcolor{slide4}{ocots@raw@slate!70!black}
+\ocotssetcolor{slidetitle}{ocots@raw@slate}
+\ocotssetcolor{titlebox-back}{ocots@raw@slate}
+\ocotssetcolor{titlebox-frame}{ocots@raw@slate}
+\ocotssetcolor{titlebox-text}{white}
+
+\RequirePackage{ocots-theme-base}
+\ocotsformall{shaded}
+\ocotssiderule{remark}{soft}
+\ocotssiderule{assumption}{soft}
+\ocotsusetitles{plain}
+\ocotsusemathbox{flat}
+
+\endinput

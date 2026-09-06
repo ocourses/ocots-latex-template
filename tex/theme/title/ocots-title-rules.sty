@@ -1,0 +1,51 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-title-rules}[2026/09/06 v1.0 ocots -- titres : filets, centre]
+%
+% Le titre de chapitre de la v0 : un filet, le numero en petites capitales, un
+% second filet ; le titre centre dessous ; un filet pleine largeur en bas.
+% Sections alignees a gauche, numero puis titre.
+%
+% Ce preset ne fait que DEPOSER les crochets \ocotssetheading : le support
+% (carrier/) charge titlesec puis les execute. Un preset de titre peut donc
+% changer le dessin complet, pas seulement police et couleur.
+
+% --- police et couleur de chaque niveau -----------------------------------
+\ocotssetheading{chapter-number}{%
+  \color{\ocotscolor{chapter}}\Large\scshape}
+\ocotssetheading{chapter-title}{%
+  \color{\ocotscolor{chapter}}\LARGE\bfseries}
+\ocotssetheading{section}{%
+  \color{\ocotscolor{section}}\normalfont\Large\bfseries}
+\ocotssetheading{subsection}{%
+  \color{\ocotscolor{subsection}}\normalfont\large\bfseries}
+\ocotssetheading{subsubsection}{%
+  \color{\ocotscolor{subsubsection}}\normalfont\normalsize\bfseries}
+
+% --- dessin complet -------------------------------------------------------
+% Le -11pt avant le filet du bas compense la profondeur que titlesec reserve
+% sous un titre \LARGE\bfseries : sans lui le titre n'est pas centre entre les
+% deux filets malgre un \vskip qui semble symetrique (mesure au pixel, cf.
+% 04-journal.md, entree du 2026-09-03 sur les six defauts de rendu).
+\ocotssetheading{titles-book}{%
+  \titleformat{\chapter}[display]
+    {\normalfont}
+    {\centering\ocotsrulefill~~{\ocotsheading{chapter-number}%
+      \chaptertitlename\ \thechapter}~~\ocotsrulefill}
+    {0pt}
+    {\centering\ocotsheading{chapter-title}}
+    [\vskip-11pt\noindent\rule{\textwidth}{1pt}]%
+  \titleformat{name=\chapter,numberless}[display]
+    {\normalfont}
+    {\centering\ocotsrulefill}
+    {0pt}
+    {\centering\ocotsheading{chapter-title}}
+    [\vskip-11pt\noindent\rule{\textwidth}{1pt}]%
+  \titlespacing*{\chapter}{0pt}{0pt}{20pt}%
+  \ocotsheading{titles-article}}
+
+\ocotssetheading{titles-article}{%
+  \titleformat{\section}{\ocotsheading{section}}{\thesection}{1em}{}%
+  \titleformat{\subsection}{\ocotsheading{subsection}}{\thesubsection}{1em}{}%
+  \titleformat{\subsubsection}{\ocotsheading{subsubsection}}{\thesubsubsection}{1em}{}}
+
+\endinput

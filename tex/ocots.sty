@@ -30,10 +30,23 @@
 \def\ocots@lang{fr}
 \DeclareOptionX{lang}{\def\ocots@lang{#1}}
 
-% theme=n7|n7-dark|n7-light|bw  -> theme/ocots-theme-<valeur>.sty
+% theme=classic|classic-dark|classic-light|mono|charter
+%   -> theme/ocots-theme-<valeur>.sty
 % Vide par defaut : le defaut reel depend du support (voir plus bas).
+% Les anciens noms n7|n7-dark|n7-light|bw|v2 restent acceptes (alias deprecies).
 \def\ocots@theme{}
 \DeclareOptionX{theme}{\def\ocots@theme{#1}}
+
+% Surcharges d'apparence, appliquees APRES le theme : elles rejouent les memes
+% \ocotsformall / \ocotsusetitles / \ocotsusemathbox que le theme, pour
+% comparer deux rendus sur un meme document sans editer de fichier de theme.
+% Vides par defaut : le theme decide.
+\def\ocots@boxform{}
+\DeclareOptionX{boxform}{\def\ocots@boxform{#1}}
+\def\ocots@titles{}
+\DeclareOptionX{titles}{\def\ocots@titles{#1}}
+\def\ocots@mathbox{}
+\DeclareOptionX{mathbox}{\def\ocots@mathbox{#1}}
 
 % solutions=none|inline|end   (cf. ocots-exercise.sty)
 %   none   : les corriges ne sont pas composes du tout
@@ -83,7 +96,8 @@
 % Defaut de theme dependant du support. C'est un defaut, pas un test : une fois
 % le theme choisi, plus personne ne sait quel support est actif.
 \ifx\ocots@theme\@empty
-  \ocots@ifcarrier{slides}{\def\ocots@theme{n7-dark}}{\def\ocots@theme{n7}}%
+  \ocots@ifcarrier{slides}%
+    {\def\ocots@theme{classic-dark}}{\def\ocots@theme{classic}}%
 \fi
 
 % Charge un composant, avec un message clair s'il n'existe pas.
@@ -114,6 +128,12 @@
 
 % 4. Theme : couleurs, styles de boites, mise en forme des titres.
 \expandafter\ocots@require\expandafter{\detokenize{ocots-theme-}}{\ocots@theme}{sty}
+
+% 4 bis. Surcharges d'apparence (boxform=/titles=/mathbox=), une fois le theme
+% charge : elles rejouent les memes crochets et gagnent donc sur le theme.
+\ifx\ocots@boxform\@empty\else\ocotsformall{\ocots@boxform}\fi
+\ifx\ocots@titles\@empty\else\ocotsusetitles{\ocots@titles}\fi
+\ifx\ocots@mathbox\@empty\else\ocotsusemathbox{\ocots@mathbox}\fi
 
 % 5. Environnements. Definis une seule fois, contre les crochets du theme.
 \RequirePackage{ocots-env}
