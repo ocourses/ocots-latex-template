@@ -26,21 +26,44 @@
 % n'a plus lieu d'etre.
 
 % ---------------------------------------------------------------------------
+% Support
+% Le support est connu avant le chargement de ce paquet (la classe le definit).
+% Les examens ont une numerotation autonome et un rendu sans boite ; les autres
+% supports conservent la numerotation liee aux sections et le style du theme.
+\def\ocots@exam@carrier{exam}
+\newif\ifocots@exam
+\ifx\ocots@carrier\ocots@exam@carrier
+  \ocots@examtrue
+\else
+  \ocots@examfalse
+\fi
+
+% ---------------------------------------------------------------------------
 % Questions et sous-questions
 \newcounter{question}
 \newcounter{subquestion}
 
 \newenvironment{question}
   {\normalsize\normalfont\topsep6\p@\@plus6\p@\relax\trivlist
-   \item[\stepcounter{question}\bfseries\hspace{0.5em}\hskip\labelsep
-         \thequestion\@addpunct{.}]\ignorespaces
+   \ifocots@exam
+     \item[\stepcounter{question}\bfseries\hspace{0.5em}\hskip\labelsep
+           \theocots@exinner.\thequestion\@addpunct{.}]\ignorespaces
+   \else
+     \item[\stepcounter{question}\bfseries\hspace{0.5em}\hskip\labelsep
+           \thequestion\@addpunct{.}]\ignorespaces
+   \fi
    \setcounter{subquestion}{1}}
   {\endtrivlist}
 
 \newenvironment{subquestion}
   {\normalsize\normalfont\topsep6\p@\@plus6\p@\relax\trivlist
-   \item[\bfseries\hspace{1.5em}\hskip\labelsep
-         \thequestion\@addpunct{.}\thesubquestion\@addpunct{.}]\ignorespaces}
+   \ifocots@exam
+     \item[\bfseries\hspace{1.5em}\hskip\labelsep
+           \theocots@exinner.\thequestion.\thesubquestion\@addpunct{.}]\ignorespaces
+   \else
+     \item[\bfseries\hspace{1.5em}\hskip\labelsep
+           \thequestion\@addpunct{.}\thesubquestion\@addpunct{.}]\ignorespaces
+   \fi}
   {\stepcounter{subquestion}\endtrivlist}
 
 % Force le passage a la question suivante (utile dans un corrige redige a part).
@@ -65,7 +88,13 @@
 % et non la boite.
 \newcounter{ocots@exinner}[section]
 \newcounter{ocots@exouter}[section]
-\renewcommand{\theocots@exinner}{\thesection.\theocots@exouter}
+\ifocots@exam
+  \renewcommand{\theocots@exinner}{\theocots@exouter}
+  \def\ocots@ex@counter{auto counter}
+\else
+  \renewcommand{\theocots@exinner}{\thesection.\theocots@exouter}
+  \def\ocots@ex@counter{auto counter, number within=section}
+\fi
 % Robuste, comme tout ce qui apparait dans une liste de clefs tcolorbox :
 % pgfkeys developpe la liste au moment de l'analyse, et un \stepcounter
 % developpe trop tot casse la construction de son \csname.
@@ -81,30 +110,42 @@
 % Un fragment de liste de clefs doit etre un *style* pgfkeys, pas une macro :
 % pgfkeys decoupe la liste sur les virgules avant de developper, si bien qu'une
 % macro contenant des virgules est prise pour une clef unique.
-\tcbset{ocots@ex@common/.style={%
-  \ocotsboxstyle{exercise}, breakable, lower separated=false,
-  attach title to upper=~,
-  before title={\ocots@exstep}}}
+\ifocots@exam
+  \def\ocots@ex@mark{$\rhd$\hspace{1ex}}
+  \tcbset{ocots@ex@common/.style={%
+    enhanced jigsaw, blanker, breakable, lower separated=false,
+    left=0pt, right=0pt, top=2mm, bottom=2mm,
+    attach title to upper=~,
+    before title={\ocots@exstep},
+    fonttitle=\bfseries\upshape,
+    coltitle=black}}
+\else
+  \def\ocots@ex@mark{}
+  \tcbset{ocots@ex@common/.style={%
+    \ocotsboxstyle{exercise}, breakable, lower separated=false,
+    attach title to upper=~,
+    before title={\ocots@exstep}}}
+\fi
 
 \def\ocots@sol@none{none}
 \def\ocots@sol@inline{inline}
 \ifx\ocots@solutions\ocots@sol@none
   % ----- solutions=none : la partie basse est ignoree, rien n'est ecrit.
-  \NewTColorBox[auto counter, number within=section]{exercise}{ O{} }{%
+  \expandafter\NewTColorBox\expandafter[\ocots@ex@counter]{exercise}{ O{} }{%
     ocots@ex@common,
-    title={\ocotsstring{exercise}~\thetcbcounter\ocots@ex@pointstext~:},
+    title={\ocots@ex@mark\ocotsstring{exercise}~\thetcbcounter\ocots@ex@pointstext~:},
     lowerbox=ignored, #1}
 \else\ifx\ocots@solutions\ocots@sol@inline
   % ----- solutions=inline : la partie basse suit l'enonce.
-  \NewTColorBox[auto counter, number within=section]{exercise}{ O{} }{%
+  \expandafter\NewTColorBox\expandafter[\ocots@ex@counter]{exercise}{ O{} }{%
     ocots@ex@common,
-    title={\ocotsstring{exercise}~\thetcbcounter\ocots@ex@pointstext~:},
+    title={\ocots@ex@mark\ocotsstring{exercise}~\thetcbcounter\ocots@ex@pointstext~:},
     #1}
 \else
   % ----- solutions=end : la partie basse est enregistree et rejouee plus loin.
-  \NewTColorBox[auto counter, number within=section]{exercise}{ O{} }{%
+  \expandafter\NewTColorBox\expandafter[\ocots@ex@counter]{exercise}{ O{} }{%
     ocots@ex@common,
-    title={\ocotsstring{exercise}~\thetcbcounter\ocots@ex@pointstext~%
+    title={\ocots@ex@mark\ocotsstring{exercise}~\thetcbcounter\ocots@ex@pointstext~%
            (\ocotsstring{solution-at}~\ocotsstring{page-abbr}~%
             \pageref{ocots@sol@\thetcbcounter})~:},
     label={ocots@ex@\thetcbcounter},
@@ -142,7 +183,7 @@
 %   \begin{exercise}[nosolution]
 \tcbset{nosolution/.style={%
   no recording, lowerbox=ignored,
-  title={\ocotsstring{exercise}~\thetcbcounter\ocots@ex@pointstext~:}}}
+  title={\ocots@ex@mark\ocotsstring{exercise}~\thetcbcounter\ocots@ex@pointstext~:}}}
 
 % ---------------------------------------------------------------------------
 % Pilotage depuis le document
