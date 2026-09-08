@@ -305,6 +305,11 @@ Support déduit de la classe `beamer`, rien à déclarer.
 | `\slidecolor{…}` | change la couleur d'en-tête pour toutes les diapos suivantes |
 | `\slidecounter` | le numéro cerclé en haut à droite (posé automatiquement par `slide`) |
 
+Les diapositives utilisent les couleurs du thème pour `\alert`, les liens
+internes (`\href`, `\hyperref`), les URL (`\url`, `\myurl`) et les entrées de
+table des matières. Le thème `ocots` est le défaut, mais `legacy-dark` et les
+autres thèmes restent utilisables explicitement.
+
 Les preuves fractionnées (`proofbegin`/`proofmiddle`/`proofend`) et la remise à
 zéro des compteurs entre deux `\pause` sont gérées par le support.
 

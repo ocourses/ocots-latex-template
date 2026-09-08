@@ -82,21 +82,22 @@ Un polycopié :
 \end{document}
 ```
 
-`theme=` est facultatif : sans lui, `ocots` sur papier et `legacy-dark` en
-diapositives.
+`theme=` est facultatif : sans lui, le thème `ocots` est utilisé sur papier comme
+en diapositives. `legacy-dark` reste disponible comme variante adaptée à la
+projection.
 
 Des diapositives — le support est déduit de la classe, rien à déclarer :
 
 ```latex
 \documentclass[9pt,t]{beamer}
-\usepackage[lang=fr, theme=legacy-dark]{ocots}
+\usepackage[lang=fr, theme=ocots]{ocots}
 ```
 
 Un TD ou un sujet d'examen :
 
 ```latex
 \documentclass[11pt]{ocots-td}     % ou ocots-exam
-\usepackage[lang=fr, solutions=none, institution={insa,n7}]{ocots}
+\usepackage[lang=fr, solutions=none, institution={n7}]{ocots}
 ```
 
 ---
@@ -106,7 +107,7 @@ Un TD ou un sujet d'examen :
 | Option | Valeurs | Défaut | Effet |
 |--------|---------|--------|-------|
 | `lang` | `fr`, `en` | `fr` | langue des intitulés et de la typographie |
-| `theme` | `ocots`, `legacy`, `legacy-dark`, `legacy-light`, `mono`, `charter`, `slate` | `ocots` (papier), `legacy-dark` (diapos) | palette + formes + titres |
+| `theme` | `ocots`, `legacy`, `legacy-dark`, `legacy-light`, `mono`, `charter`, `slate` | `ocots` | palette + formes + titres |
 | `boxform` | `bracket`, `framed`, `framed-solid`, `sidebar`, `shaded` | (le thème décide) | **surcharge** la forme des boîtes à titre |
 | `titles` | `plain`, `rules`, `bignum` | (le thème décide) | **surcharge** le dessin des titres |
 | `mathbox` | `highlight`, `flat`, `rule`, `none` | (le thème décide) | **surcharge** l'encadré de formule (`\tcbhighmath`) |
@@ -119,7 +120,7 @@ Un TD ou un sujet d'examen :
 | `binding` | longueur | `0mm` | décalage de reliure pour l'impression |
 
 `math` et `institution` acceptent plusieurs valeurs séparées par une virgule —
-**entourer alors la valeur d'accolades** : `institution={insa,n7}`, jamais
+**entourer alors la valeur d'accolades** : `institution={n7,inp}`, jamais
 `institution=insa,n7` (la virgule non protégée est vue par `\usepackage[...]`
 avant d'atteindre l'option, qui ne reçoit alors que la première valeur, sans
 erreur ni avertissement).
