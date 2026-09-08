@@ -84,7 +84,8 @@
 % Titres (chapitre, section...)
 %
 % Le theme depose ici le code de mise en forme ; le support l'appelle au moment
-% ou il configure titlesec ou beamer.
+% ou il configure titlesec ou beamer. Les carriers peuvent aussi lire les
+% couleurs semantiques du theme pour leurs reglages propres au medium.
 \newcommand{\ocotssetheading}[2]{\@namedef{ocots@head@#1}{#2}}
 \newcommand{\ocotsheading}[1]{\@nameuse{ocots@head@#1}}
 % Un crochet absent n'est pas une erreur : le support garde alors sa mise en

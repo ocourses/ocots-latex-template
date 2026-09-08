@@ -13,7 +13,23 @@
 % ---------------------------------------------------------------------------
 % Reglages beamer
 \setbeamertemplate{navigation symbols}{}
-\setbeamercolor{structure}{fg=black}
+\setbeamercolor{structure}{fg=\ocotscolor{slidetitle}}
+\setbeamercolor{alerted text}{fg=\ocotscolor{emph-b}}
+\setbeamercolor{section in toc}{fg=\ocotscolor{section}}
+\setbeamercolor{subsection in toc}{fg=\ocotscolor{subsection}}
+
+% Beamer charge hyperref avant ocots et desactive ensuite l'option colorlinks.
+% On reconfigure uniquement les macros internes de couleur a la fin du preambule,
+% apres les hooks de hyperref, sans repasser l'option qui provoquerait un warning.
+\AddToHook{begindocument/end}{%
+  \Hy@colorlinkstrue
+  \def\@pdfborder{0 0 0}%
+  \let\@pdfborderstyle\@empty
+  \def\Hy@colorlink#1{%
+    \begingroup
+    \HyColor@UseColor#1}%
+  \def\Hy@endcolorlink{\endgroup}}
+
 \setbeamertemplate{theorems}[numbered]
 \setbeamertemplate{caption}[numbered]
 \setbeamersize{text margin left=3mm,text margin right=3mm}
@@ -86,7 +102,7 @@
   {\ifx\relax#1\relax\else\def\ocots@slidecolor{#1}\fi
    \begin{frame}%
      \begin{minipage}{0.9\textwidth}
-       \large\color{\ocots@slidecolor}\textsc{#2}
+       \large\bfseries\color{\ocots@slidecolor}#2
      \end{minipage}\hfill
      \begin{minipage}{0.04\textwidth}
        \begin{flushright}\slidecounter[\ocots@slidecolor]\end{flushright}

@@ -100,7 +100,7 @@
 % le theme choisi, plus personne ne sait quel support est actif.
 \ifx\ocots@theme\@empty
   \ocots@ifcarrier{slides}%
-    {\def\ocots@theme{legacy-dark}}{\def\ocots@theme{ocots}}%
+    {\def\ocots@theme{ocots}}{\def\ocots@theme{ocots}}%
 \fi
 
 % Charge un composant, avec un message clair s'il n'existe pas.
@@ -152,17 +152,18 @@
 % ---------------------------------------------------------------------------
 % Metadonnees PDF
 % ---------------------------------------------------------------------------
-% colorlinks=true est deja passe au chargement de hyperref (ocots-packages.sty)
-% : c'est une option figee au chargement, la repasser ici ne fait rien (juste
-% un avertissement). Les couleurs, elles, restent modifiables ici — c'est
-% pour ca qu'on attend \AtBeginDocument, une fois le theme charge.
+% Les metadonnees doivent etre deposees avant le debut du document : hyperref
+% desactive ensuite certaines options et avertit si elles sont repassees trop tard.
+\ifx\ocots@author\@empty\else\hypersetup{pdfauthor={\ocots@author}}\fi
+
+% Les couleurs dependent du theme, charge juste avant ce bloc. Elles restent
+% modifiables apres le chargement de hyperref, contrairement a colorlinks.
 \AtBeginDocument{%
   \hypersetup{%
     bookmarksopen=true,
     pdfhighlight=/O,
     linkcolor=\ocotscolor{link},
     citecolor=\ocotscolor{cite},
-    urlcolor=\ocotscolor{url}}%
-  \ifx\ocots@author\@empty\else\hypersetup{pdfauthor={\ocots@author}}\fi}
+    urlcolor=\ocotscolor{url}}}
 
 \endinput

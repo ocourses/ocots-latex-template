@@ -19,14 +19,14 @@ une option.
 ```
 
 `theme=` se résout en un fichier : `theme=ocots` charge `ocots-theme-ocots.sty`.
-Sans l'option, le défaut dépend du support : `ocots` sur papier, `legacy-dark`
-en diapositives.
+Sans l'option, `ocots` est utilisé sur papier comme en diapositives ;
+`legacy-dark` reste disponible comme variante adaptée à la projection.
 
 | thème | rendu | boîtes | titres | formule | code |
 |-------|-------|--------|--------|---------|------|
 | `ocots` | **le défaut** : aucun fond, liseré en équerre, palette à 7 couleurs | `bracket` | `plain` | `highlight` | `card` |
 | `legacy` | le rendu historique : cadres pastel, titres entre filets | `framed` | `rules` | `highlight` | `framed` |
-| `legacy-dark` | soutenu : cadres pleins, titres blancs — défaut diapos | `framed-solid` | `rules` | `highlight` | `framed` |
+| `legacy-dark` | soutenu : cadres pleins, titres blancs — variante projection | `framed-solid` | `rules` | `highlight` | `framed` |
 | `legacy-light` | pastel, en-têtes de diapo claires | `framed` | `rules` | `highlight` | `framed` |
 | `mono` | niveaux de gris, pour l'impression sans couleur | `framed` | `rules` | `highlight` | `framed` |
 | `charter` | Charter/Fira, filet latéral, grand chiffre de chapitre | `sidebar` | `bignum` | `flat` | `card` |
