@@ -28,22 +28,19 @@
 % ---------------------------------------------------------------------------
 % Support
 % Le support est connu avant le chargement de ce paquet (la classe le definit).
-% Les examens, TD et polycopies utilisent le rendu sobre des exercices :
-% numerotation autonome, sans boite, avec le marqueur d'exercice. Les diapositives
-% conservent le style du theme.
+% Les examens et les TD utilisent le rendu sobre des exercices : numerotation
+% autonome, sans boite, avec le marqueur d'exercice. Le polycopie et les
+% diapositives conservent la boite et le style du theme.
 \def\ocots@exam@carrier{exam}
 \def\ocots@td@carrier{td}
-\def\ocots@book@carrier{book}
 \newif\ifocots@exam
 \ifx\ocots@carrier\ocots@exam@carrier
   \ocots@examtrue
 \else\ifx\ocots@carrier\ocots@td@carrier
   \ocots@examtrue
-\else\ifx\ocots@carrier\ocots@book@carrier
-  \ocots@examtrue
 \else
   \ocots@examfalse
-\fi\fi\fi
+\fi\fi
 
 % ---------------------------------------------------------------------------
 % Questions et sous-questions
