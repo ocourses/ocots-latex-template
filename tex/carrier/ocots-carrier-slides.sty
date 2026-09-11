@@ -136,8 +136,8 @@
     \begin{center}
       {\large\insertauthor}\par
       \vspace{1em}\insertdate\par
-      \vspace{2em}\ocotslogos[2.5em]
-      #1
+      \vspace{2em}\ocotslogos[2.5em]%
+      \IfBlankTF{#1}{}{\par\vspace{1em}#1}%
     \end{center}
   \end{frame}}
 
