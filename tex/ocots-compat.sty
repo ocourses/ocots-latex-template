@@ -131,12 +131,7 @@
 \DeclareRobustCommand{\Ecal}{\ocots@deprecatedmath{\Ecal}{\MultilinearSpace}\MultilinearSpace}
 \DeclareRobustCommand{\Fcal}{\ocots@deprecatedmath{\Fcal}{\AllMaps}\AllMaps}
 \DeclareRobustCommand{\Acal}{\ocots@deprecatedmath{\Acal}{\Reachable}\Reachable}
-\DeclareRobustCommand{\GLcal}{\ocots@deprecatedmath{\GLcal}{\GL}\ocots@calSet{GL}}
-\DeclareRobustCommand{\Dcal}{\ocots@deprecatedmath{\Dcal}{\mathcal{D}}\ocots@calSet{D}}
-\DeclareRobustCommand{\Kcal}{\ocots@deprecatedmath{\Kcal}{\mathcal{K}}\ocots@calSet{K}}
-\DeclareRobustCommand{\Ncal}{\ocots@deprecatedmath{\Ncal}{\mathcal{N}}\ocots@calSet{N}}
-\DeclareRobustCommand{\Ucal}{\ocots@deprecatedmath{\Ucal}{\mathcal{U}}\ocots@calSet{U}}
-\DeclareRobustCommand{\Htrue}{\ocots@deprecatedmath{\Htrue}{\mathcal{H}}\ocots@calSet{H}}
+\DeclareRobustCommand{\GLcal}{\ocots@deprecatedmath{\GLcal}{\GL}\GL}
 \DeclareRobustCommand{\ind}{\ocots@deprecatedmath{\ind}{\indicator}\indicator}
 
 % Constructions et intervalles
@@ -194,6 +189,14 @@
 
 % Mesure et integration. Les lettres de tribus restent des alias de transition :
 % elles dependent du cours et n'ont pas de remplacement semantique universel.
+%
+% \tribu est marquee "a supprimer sans alias" par le chantier 2 de
+% conventions/template.md, sur l'hypothese que c'est un doublon inutilise de
+% \sigma. En realite mesure-integration-enseignants (le depot de validation
+% du chantier) l'utilise comme operateur \tribu(\CT) (« tribu engendree par
+% C ») des dizaines de fois dans poly/ et slides/ : le supprimer casserait
+% la compilation du cours. Alias conserve tant que ces documents n'ont pas
+% migre vers \sigma(\CT) explicitement.
 \DeclareRobustCommand{\tribu}{\ocots@deprecatedmath{\tribu}{\sigma}\sigma}
 \DeclareRobustCommand{\Bor}{\ocots@deprecatedmath{\Bor}{\Borel}\Borel}
 \DeclareRobustCommand{\Parties}{\ocots@deprecatedmath{\Parties}{\PowerSet}\PowerSet}
