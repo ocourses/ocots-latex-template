@@ -347,8 +347,43 @@ Classes `ocots-td` et `ocots-exam`. Métadonnées portées par les en-têtes :
 Sur `ocots-td` et `ocots-exam`, `\maketitle` compose le titre sous un
 en-tête de première page (`plain`) : les logos sont à gauche, la promotion et
 la discipline au centre, la date et la référence à droite. Les pages suivantes
-conservent leur en-tête court. Environnements propres : `instruction`,
-`instructions` (non numérotés), `docpart` (Partie 1, 2, …).
+conservent leur en-tête court.
+
+Pour `ocots-exam`, les champs renseignés sont ensuite composés dans l'ordre
+`\duree`, `\documents`, `\calculatrice`, puis `\examnote` :
+
+```latex
+\duree{1h30}
+\documents{deux feuilles A4 recto-verso manuscrites}
+\calculatrice{interdite}
+\examnote{Les parties sont indépendantes.}
+```
+
+Un champ absent n'ajoute ni ligne vide ni libellé. `\examnote` est le hook libre
+pour les consignes qui ne correspondent à aucun champ standard. `\maketitle`
+appelle automatiquement `\printinstructions` pour un examen ; cette commande
+peut aussi être appelée explicitement si l'auteur veut placer le bloc ailleurs.
+Les anciennes formes `instruction` et `instructions` restent valides ; elles
+permettent la migration progressive et ne sont pas composées automatiquement si
+aucun nouveau champ n'est renseigné.
+
+Les environnements propres sont `instruction`, `instructions` (non numérotés) et
+`docpart` (Partie 1, 2, …). Chaque `points=<n>` d'un `exercise` alimente le
+barème de la partie courante et le total du sujet. Le total de chaque partie est
+imprimé avant la partie suivante, et le total général à la fin du sujet :
+
+```latex
+\begin{docpart}
+    Analyse
+\end{docpart}
+\begin{exercise}[points=8]
+    Énoncé.
+\end{exercise}
+```
+
+Le barème est la somme des clés `points=` ; il n'est pas normalisé sur 20 et ne
+doit pas être recopié en prose. Un exercice sans `points=` reste valide, mais ne
+contribue pas au total calculé.
 
 ---
 

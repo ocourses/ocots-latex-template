@@ -48,6 +48,11 @@
 \ocotssetstring{part}{Partie}
 \ocotssetstring{instruction}{Consigne}
 \ocotssetstring{instructions}{Consignes}
+\ocotssetstring{duration}{Durée}
+\ocotssetstring{documents}{Documents autorisés}
+\ocotssetstring{calculator}{Calculatrice}
+\ocotssetstring{graded-out-of}{noté sur}
+\ocotssetstring{total}{Total}
 \ocotssetstring{points}{points}
 
 % Titres composes des boites d'exercice et de solution.
