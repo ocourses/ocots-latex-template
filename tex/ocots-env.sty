@@ -31,23 +31,73 @@ corollaire,theoreme,definitions,examples}
 \newcommand*{\QEDB}{\hfill\ensuremath{\square}}
 
 % ---------------------------------------------------------------------------
-% Boites a titre : theoreme, definition, proposition, corollaire, conjecture
+% Signature commune : titre, etiquette et note sont des clefs optionnelles.
 %
-%   \begin{theorem}{Titre facultatif}{etiquette}
-%   \end{theorem}
-%
-% Compteur commun, numerote dans la section, comme en v0 : un theoreme et une
-% definition ne portent jamais le meme numero.
-\newtcbtheorem[number within=section]%
-  {theorem}{\ocotsstring{theorem}}{\ocotsboxstyle{theorem}}{thm}
-\newtcbtheorem[use counter from=theorem]%
-  {definition}{\ocotsstring{definition}}{\ocotsboxstyle{definition}}{def}
-\newtcbtheorem[use counter from=theorem]%
-  {proposition}{\ocotsstring{proposition}}{\ocotsboxstyle{proposition}}{prop}
-\newtcbtheorem[use counter from=theorem]%
-  {corollary}{\ocotsstring{corollary}}{\ocotsboxstyle{corollary}}{cor}
-\newtcbtheorem[use counter from=theorem]%
-  {conjecture}{\ocotsstring{conjecture}}{\ocotsboxstyle{conjecture}}{conj}
+% Les environnements de resultat partagent explicitement le compteur `theorem'.
+% On n'utilise pas \newtcbtheorem ici : son dernier argument impose un prefixe
+% de label et rend impossible une etiquette brute (par exemple `thm:cauchy').
+\@ifundefined{c@theorem}{\newcounter{theorem}[section]}{\@addtoreset{theorem}{section}}
+\renewcommand{\thetheorem}{\thesection.\arabic{theorem}}
+
+\pgfkeys{/ocots/result/.is family,
+  /ocots/result,
+  title/.store in=\ocots@result@title,
+  label/.store in=\ocots@result@label,
+  note/.store in=\ocots@result@note}
+
+\newcommand{\ocots@result@reset}{%
+  \def\ocots@result@title{}%
+  \def\ocots@result@label{}%
+  \def\ocots@result@note{}}
+
+% Lit l'argument optionnel commun : soit une liste `cle=valeur' (des qu'un `='
+% apparait), soit un titre brut. Ce filet est ce qui permet a l'ancienne
+% syntaxe a un seul argument (`\begin{example}[Titre]', ou encore
+% `\begin{remark*}[Contre-exemple]', toujours presente dans le corpus, cf.
+% td/td3/td3.tex) de continuer a fonctionner : sans lui, un titre brut sans
+% `=' tombe dans pgfkeys et casse la compilation (« I do not know the key »).
+\newcommand{\ocots@result@parseopt}[1]{%
+  \ocots@result@reset
+  \IfBlankTF{#1}{}{%
+    \IfSubStr{#1}{=}{\pgfkeys{/ocots/result,#1}}{\def\ocots@result@title{#1}}}}
+
+\newcommand{\ocots@result@beginbox}[6]{%
+  \ocots@result@parseopt{#3}%
+  \IfNoValueF{#4}{\def\ocots@result@title{#4}}
+  % L'ancienne forme {titre}{etiquette} attend une etiquette SANS le prefixe
+  % (que ce mecanisme ajoute) ; mais rien n'empeche un auteur de le taper quand
+  % meme par habitude, ce qui donnait `thm:thm:cauchy' (defaut d'origine de ce
+  % chantier). Idempotence : si le prefixe y est deja, on ne le rajoute pas.
+  \IfNoValueF{#5}{\IfBlankTF{#5}{}{%
+    \IfBeginWith{#5}{#6}
+      {\def\ocots@result@label{#5}}%
+      {\def\ocots@result@label{#6#5}}}}
+  \refstepcounter{theorem}%
+  \ifx\ocots@result@label\@empty\else
+    \label{\ocots@result@label}%
+  \fi
+  \begin{tcolorbox}[
+    \ocotsboxstyle{#2}, breakable, attach title to upper=~,
+    title={#1~\thetheorem%
+      \ifx\ocots@result@title\@empty\else~\ocots@result@title\fi
+      \ifx\ocots@result@note\@empty\else~(\ocots@result@note)\fi}]}
+\newcommand{\ocots@result@endbox}{\end{tcolorbox}}
+
+\NewDocumentEnvironment{theorem}{O{} g g}
+  {\ocots@result@beginbox{\ocotsstring{theorem}}{theorem}{#1}{#2}{#3}{thm:}}
+  {\ocots@result@endbox}
+\NewDocumentEnvironment{definition}{O{} g g}
+  {\ocots@result@beginbox{\ocotsstring{definition}}{definition}{#1}{#2}{#3}{def:}}
+  {\ocots@result@endbox}
+\NewDocumentEnvironment{proposition}{O{} g g}
+  {\ocots@result@beginbox{\ocotsstring{proposition}}{proposition}{#1}{#2}{#3}{prop:}}
+  {\ocots@result@endbox}
+\NewDocumentEnvironment{corollary}{O{} g g}
+  {\ocots@result@beginbox{\ocotsstring{corollary}}{corollary}{#1}{#2}{#3}{cor:}}
+  {\ocots@result@endbox}
+\NewDocumentEnvironment{conjecture}{O{} g g}
+  {\ocots@result@beginbox{\ocotsstring{conjecture}}{conjecture}{#1}{#2}{#3}{conj:}}
+  {\ocots@result@endbox}
 
 % ---------------------------------------------------------------------------
 % Style des environnements de type theoreme classique
@@ -58,29 +108,72 @@ corollaire,theoreme,definitions,examples}
   {\noindent\textbf{\thmname{#1}\thmnumber{~#2}}\thmnote{\normalfont~(#3)}}
 \theoremstyle{ocots}
 
-% ---------------------------------------------------------------------------
-% Lemme
-\newtheorem{lemma}{\ocotsstring{lemma}}[section]
-\newtheorem*{lemma*}{\ocotsstring{lemma}}
-
-% ---------------------------------------------------------------------------
-% Exemple : se termine par un carre blanc
-\newtheorem{ocots@example}{\ocotsstring{example}}[section]
+% Les trois familles classiques reutilisent le compteur des boites a titre.
+\newtheorem{ocots@lemma}[theorem]{\ocotsstring{lemma}}
+\newtheorem*{ocots@lemma*}{\ocotsstring{lemma}}
+\newtheorem{ocots@example}[theorem]{\ocotsstring{example}}
 \newtheorem*{ocots@example*}{\ocotsstring{example}}
+\newtheorem{ocots@remark}[theorem]{\ocotsstring{remark}}
+\newtheorem*{ocots@remark*}{\ocotsstring{remark}}
+
+% `\begin{env}[]' (crochets vides) bascule inconditionnellement amsthm dans sa
+% forme « avec note », qui imprime une parenthese vide : `Exemple 2.1.2 ().'
+% sur tout emploi nu, l'usage le plus frequent du corpus. On ne pose donc les
+% crochets que s'il y a effectivement un titre ou une note a y mettre.
+%
+% Le style « ocots' (ci-dessus) enveloppe deja son 3e argument dans des
+% parentheses : si on y glisse nous-memes `~(note)', ca en fait deux paires
+% - `Exemple ( (note)).' Le titre seul reste donc nu (amsthm pose l'unique
+% paire), et la note ne prend sa propre parenthese interieure que si elle
+% accompagne un titre, pour rester distinguable de lui.
+\newif\ifocots@result@hasnote
+\newcommand{\ocots@result@classical}[2]{%
+  \ocots@result@parseopt{#2}%
+  \ocots@result@hasnotefalse
+  \ifx\ocots@result@title\@empty\else\ocots@result@hasnotetrue\fi
+  \ifx\ocots@result@note\@empty\else\ocots@result@hasnotetrue\fi
+  \ifocots@result@hasnote
+    \begin{#1}[\ifx\ocots@result@title\@empty
+        \ocots@result@note
+      \else
+        \ocots@result@title
+        \ifx\ocots@result@note\@empty\else~(\ocots@result@note)\fi
+      \fi]%
+  \else
+    \begin{#1}%
+  \fi
+  \ifx\ocots@result@label\@empty\else
+    \label{\ocots@result@label}%
+  \fi}
+
+\newenvironment{lemma}[1][]
+  {\ocots@result@classical{ocots@lemma}{#1}}
+  {\end{ocots@lemma}}
+\newenvironment{lemma*}[1][]
+  {\ocots@result@classical{ocots@lemma*}{#1}}
+  {\end{ocots@lemma*}}
 
 \newenvironment{example}[1][]
-  {\begin{ocots@example}[#1]\par\pushQED{\QEDB}}
+  {\ocots@result@classical{ocots@example}{#1}\par\pushQED{\QEDB}}
   {\popQED\endtrivlist\@endpefalse\end{ocots@example}}
 \newenvironment{example*}[1][]
-  {\begin{ocots@example*}[#1]\par\pushQED{\QEDB}}
+  {\ocots@result@classical{ocots@example*}{#1}\par\pushQED{\QEDB}}
   {\popQED\endtrivlist\@endpefalse\end{ocots@example*}}
 
-% ---------------------------------------------------------------------------
-% Remarque : filet lateral, pas de cadre
-\newtheorem{remark}{\ocotsstring{remark}}[section]
-\newtheorem*{remark*}{\ocotsstring{remark}}
+\newenvironment{remark}[1][]
+  {\ocots@result@classical{ocots@remark}{#1}}
+  {\end{ocots@remark}}
+\newenvironment{remark*}[1][]
+  {\ocots@result@classical{ocots@remark*}{#1}}
+  {\end{ocots@remark*}}
 \tcolorboxenvironment{remark}{\ocotsboxstyle{remark}}
 \tcolorboxenvironment{remark*}{\ocotsboxstyle{remark}}
+
+% ---------------------------------------------------------------------------
+% Introduction de chapitre : texte compose en retrait, rendu du theme
+\newenvironment{chapterintro}
+  {\begin{tcolorbox}[\ocotsboxstyle{chapterintro}]}
+  {\end{tcolorbox}}
 
 % ---------------------------------------------------------------------------
 % Blocs etiquetes H1, Q1, D1
