@@ -101,10 +101,11 @@
   \setcounter{ocots@partpoints}{0}%
   \global\ocots@partactivetrue}
 \newcommand{\ocots@endpart}[1]{%
-  \par\medskip
-  \noindent\textit{\ocotsstring{part}~#1~:~\ocotsstring{graded-out-of}~%
-    \arabic{ocots@partpoints}~\ocotsstring{points}}%
-  }
+  \ifnum\value{ocots@partpoints}>0
+    \par\medskip
+    \noindent\textit{\ocotsstring{part}~#1~:~\ocotsstring{graded-out-of}~%
+      \arabic{ocots@partpoints}~\ocotsstring{points}}%
+  \fi}
 \AtEndDocument{%
   \ifocots@partactive
     \ocots@endpart{\theocots@docpart}%
