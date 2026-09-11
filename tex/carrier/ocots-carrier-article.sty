@@ -34,6 +34,17 @@
 \newcommand{\ocots@documents}{}
 \newcommand{\ocots@calculator}{}
 \newcommand{\ocots@examnote}{}
+% \ifocots@exam (ocots-exercise.sty) couvre aussi le TD -- il ne pilote que le
+% rendu sobre des exercices. Les champs d'en-tete d'examen et leur composition
+% automatique par \maketitle sont propres a la classe ocots-exam : un
+% indicateur dedie evite qu'un TD qui finirait par appeler \examnote par
+% erreur voie le bloc se composer tout seul.
+\newif\ifocots@examdoc
+\ifx\ocots@carrier\ocots@exam@carrier
+  \ocots@examdoctrue
+\else
+  \ocots@examdocfalse
+\fi
 \newif\ifocots@hasexamdata
 \newif\ifocots@hasduration
 \newif\ifocots@hasdocuments
@@ -109,7 +120,7 @@
   \end{center}%
   \thispagestyle{plain}%
   \addvspace{2em}%
-  \ifocots@exam\printinstructions\fi}
+  \ifocots@examdoc\printinstructions\fi}
 
 % ---------------------------------------------------------------------------
 % Consignes et parties
