@@ -10,20 +10,44 @@
 
 % ---------------------------------------------------------------------------
 % Environnements a boite
-\ocotsaliasenv{mytheorem}{theorem}
-\ocotsaliasenv{mydefinition}{definition}
-\ocotsaliasenv{myproposition}{proposition}
-\ocotsaliasenv{mycorollary}{corollary}
-\ocotsaliasenv{myconjecture}{conjecture}
+% La v0 prenait {titre}{cle} et ajoutait le prefixe historique. Idempotence
+% sur le prefixe : si l'auteur l'a deja tape dans la clef (habitude de la
+% syntaxe encore plus ancienne), on ne le rajoute pas par-dessus. Le calcul se
+% fait AVANT le `label=', pas dedans : `\IfBeginWith' est fragile dans un
+% argument que `\label' finit par ecrire tel quel dans le .aux.
+\newcommand{\ocots@compat@prefixlabel}[2]{%
+  \IfBeginWith{#2}{#1}{\def\ocots@compat@label{#2}}{\def\ocots@compat@label{#1#2}}}
+\NewDocumentEnvironment{mytheorem}{m m}
+  {\ocots@compat@prefixlabel{thm:}{#2}%
+   \begin{theorem}[title={#1},label=\ocots@compat@label]}{\end{theorem}}
+\NewDocumentEnvironment{mydefinition}{m m}
+  {\ocots@compat@prefixlabel{def:}{#2}%
+   \begin{definition}[title={#1},label=\ocots@compat@label]}{\end{definition}}
+\NewDocumentEnvironment{myproposition}{m m}
+  {\ocots@compat@prefixlabel{prop:}{#2}%
+   \begin{proposition}[title={#1},label=\ocots@compat@label]}{\end{proposition}}
+\NewDocumentEnvironment{mycorollary}{m m}
+  {\ocots@compat@prefixlabel{cor:}{#2}%
+   \begin{corollary}[title={#1},label=\ocots@compat@label]}{\end{corollary}}
+\NewDocumentEnvironment{myconjecture}{m m}
+  {\ocots@compat@prefixlabel{conj:}{#2}%
+   \begin{conjecture}[title={#1},label=\ocots@compat@label]}{\end{conjecture}}
 
 % ---------------------------------------------------------------------------
 % Environnements de type theoreme
-\ocotsaliasenv{mylemma}{lemma}
-\ocotsaliasenv{mylemma*}{lemma*}
-\ocotsaliasenv{myexample}{example}
-\ocotsaliasenv{myexample*}{example*}
-\ocotsaliasenv{myremark}{remark}
-\ocotsaliasenv{myremark*}{remark*}
+% Les variantes v0 a titre optionnel conservent leur syntaxe.
+\NewDocumentEnvironment{mylemma}{O{}}
+  {\IfBlankTF{#1}{\begin{lemma}}{\begin{lemma}[title={#1}]}}{\end{lemma}}
+\NewDocumentEnvironment{mylemma*}{O{}}
+  {\IfBlankTF{#1}{\begin{lemma*}}{\begin{lemma*}[title={#1}]}}{\end{lemma*}}
+\NewDocumentEnvironment{myexample}{O{}}
+  {\IfBlankTF{#1}{\begin{example}}{\begin{example}[title={#1}]}}{\end{example}}
+\NewDocumentEnvironment{myexample*}{O{}}
+  {\IfBlankTF{#1}{\begin{example*}}{\begin{example*}[title={#1}]}}{\end{example*}}
+\NewDocumentEnvironment{myremark}{O{}}
+  {\IfBlankTF{#1}{\begin{remark}}{\begin{remark}[title={#1}]}}{\end{remark}}
+\NewDocumentEnvironment{myremark*}{O{}}
+  {\IfBlankTF{#1}{\begin{remark*}}{\begin{remark*}[title={#1}]}}{\end{remark*}}
 \ocotsaliasenv{myassumption}{assumption}
 \ocotsaliasenv{myassumption*}{assumption*}
 \ocotsaliasenv{myquestionnement}{openquestion}

@@ -16,34 +16,44 @@ Sommaire : [environnements](#environnements) · [exercices et corrigés](#exerci
 
 ## Environnements
 
-### Boîtes à titre — compteur commun, numéroté dans la section
+### Résultats — une signature et un compteur commun
+
+Les huit environnements de résultats acceptent une liste de clés optionnelle :
+`title=`, `label=` et `note=`. Le label est posé **tel quel** : le template
+n'ajoute aucun préfixe.
 
 ```latex
-\begin{theorem}{Titre facultatif}{étiquette}
-    Un énoncé. Se cite par \ref{thm:étiquette}.
+\begin{theorem}[title={Théorème de Cauchy-Lipschitz}, label=thm:cauchy]
+    Un énoncé. Se cite par \ref{thm:cauchy}.
 \end{theorem}
+
+\begin{definition}[label=def:ouvert]
+    Un énoncé sans titre supplémentaire.
+\end{definition}
+
+\begin{example}[note={Cas particulier}, label=exa:cas]
+    Un exemple numéroté.
+\end{example}
+
+\begin{remark}                         % aucune clé n'est obligatoire
+    Une remarque non étiquetée.
+\end{remark}
 ```
 
-| environnement | préfixe de `\label` | intitulé (fr) |
-|---------------|---------------------|---------------|
-| `theorem` | `thm:` | Théorème |
-| `definition` | `def:` | Définition |
-| `proposition` | `prop:` | Proposition |
-| `corollary` | `cor:` | Corollaire |
-| `conjecture` | `conj:` | Conjecture |
+| environnement | compteur | variante étoilée | intitulé (fr) |
+|---------------|----------|------------------|---------------|
+| `theorem` | partagé, dans la section | — | Théorème |
+| `definition` | partagé, dans la section | — | Définition |
+| `proposition` | partagé, dans la section | — | Proposition |
+| `corollary` | partagé, dans la section | — | Corollaire |
+| `conjecture` | partagé, dans la section | — | Conjecture |
+| `lemma` | partagé, dans la section | `lemma*` | Lemme |
+| `example` | partagé, dans la section, carré blanc | `example*` | Exemple |
+| `remark` | partagé, dans la section | `remark*` | Remarque |
 
-Les **deux arguments sont obligatoires mais peuvent être vides** :
-`\begin{theorem}{}{}`. La forme (cadre, filet, aplat…) vient du thème.
-
-### Au fil du texte — intitulé en gras, texte sur la même ligne
-
-| environnement | numéroté | étoilé |
-|---------------|----------|--------|
-| `lemma` | dans la section | `lemma*` (non numéroté) |
-| `example` | dans la section, finit par un carré blanc | `example*` |
-| `remark` | dans la section | `remark*` |
-
-`example` et `example*` acceptent une note : `\begin{example*}[avec une note]`.
+Les variantes étoilées sont non numérotées. La forme (cadre, filet, aplat…) vient
+du thème. Les familles `assumption`, `openquestion`, `difficulty` et `exercise`
+conservent leurs compteurs propres.
 
 ### Blocs étiquetés — filet latéral ou simple retrait
 
