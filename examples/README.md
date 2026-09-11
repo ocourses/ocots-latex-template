@@ -16,11 +16,10 @@ Trois rôles :
 | `td/`     | travaux dirigés| `ocots-td` |
 | `exam/`   | examen         | `ocots-exam` |
 
-Chacun exerce tout ce que le template sait faire pour son support : toutes les
-familles d'environnements, les trois modes de corrigés, les macros de mise en
-valeur. `poly/main.tex` est le plus complet — c'est la vitrine. `exam/main.tex`
-montre en plus les champs d'en-tête d'un sujet et le calcul du barème par partie
-et pour le sujet.
+valeur. L'exemple `slides/` couvre les diapositives `slide` titrées et sans
+titre, ainsi que les surcharges de couleur. `poly/main.tex` est le plus
+complet — c'est la vitrine. `exam/main.tex` montre en plus les champs
+d'en-tête d'un sujet et le calcul du barème par partie et pour le sujet.
 
 ## Contenu partagé
 

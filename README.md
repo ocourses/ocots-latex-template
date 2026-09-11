@@ -93,7 +93,17 @@ Des diapositives — le support est déduit de la classe, rien à déclarer :
 ```latex
 \documentclass[9pt,t]{beamer}
 \usepackage[lang=fr, theme=ocots]{ocots}
+
+\begin{slide}{Une diapositive titrée} … \end{slide}
+\begin{slide}                       … \end{slide} % transition sans titre
 ```
+
+`slide` accepte un titre optionnel : la forme titrée reçoit le bandeau et le
+compteur du template, tandis que la forme sans titre conserve le rendu d'un
+`frame` nu. `frame` reste disponible comme environnement natif de beamer. Le
+titre est détecté par un groupe `{…}` en premier ; si le corps d'un `slide`
+sans titre doit commencer par un groupe brut, voir la mise en garde dans
+[`doc/commandes.md`](doc/commandes.md#diapositives).
 
 `\slidetitlepage` accepte un contenu optionnel placé sous le bloc
 auteur/date/logos, tout en restant vide par défaut.

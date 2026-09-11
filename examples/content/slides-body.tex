@@ -4,6 +4,28 @@
 % C'est la vérification que l'API ne dépend pas du support.
 
 %------------------------------------------------------------------
+\begin{slide}
+
+\vfill
+\begin{center}
+    \large Une transition sans titre conserve le rendu d'un frame nu.
+\end{center}
+\vfill
+
+\end{slide}
+
+%------------------------------------------------------------------
+% Le titre est detecte par un groupe {...} en premier : un slide sans
+% titre dont le corps commencerait par un tel groupe serait pris pour
+% une forme titree. \begingroup...\endgroup evite l'ambiguite.
+\begin{slide}
+\begingroup\small
+Un corps sans titre qui doit s'ouvrir par une portee locale utilise
+\texttt{\string\begingroup...\string\endgroup}, pas une accolade nue.
+\endgroup
+\end{slide}
+
+%------------------------------------------------------------------
 \begin{slide}{Les cinq familles à cadre}
 
 \begin{theorem}{Cauchy--Lipschitz}{cauchyslide}
