@@ -7,6 +7,8 @@ historique, `charter` est une refonte visuelle, `slate` un thème sobre).
 
 - **[`doc/commandes.md`](doc/commandes.md)** — toutes les commandes et
   environnements, par thème.
+- **[`doc/notations.md`](doc/notations.md)** — la référence exhaustive des
+  notations mathématiques et de leurs modules.
 - **[`doc/themes.md`](doc/themes.md)** — choisir, régler ou écrire un thème
   (partie utilisateur + partie développeur).
 - **[`examples/`](examples/)** — un document compilable par support, plus les
@@ -93,6 +95,9 @@ Des diapositives — le support est déduit de la classe, rien à déclarer :
 \usepackage[lang=fr, theme=ocots]{ocots}
 ```
 
+`\slidetitlepage` accepte un contenu optionnel placé sous le bloc
+auteur/date/logos, tout en restant vide par défaut.
+
 Un TD ou un sujet d'examen :
 
 ```latex
@@ -114,6 +119,8 @@ Un TD ou un sujet d'examen :
 | `listing` | `card`, `framed` | (le thème décide) | **surcharge** l'habillage des blocs de code |
 | `solutions` | `none`, `inline`, `end` | `end` | sort des corrigés |
 | `math` | `base`, `analysis`, `control`, `measure` | `base` | modules de macros chargés |
+| `setfont` | `bb`, `rm` | `bb` | police des ensembles de nombres |
+| `calfont` | `scr`, `cal` | `scr` | police des familles calligraphiques |
 | `institution` | `n7`, `inp`, `insa`, `uftmp` | `n7` | logos de la page de titre |
 | `author` | texte | vide | métadonnée `pdfauthor` |
 | `draft` | drapeau | absent | affiche les notes de travail |
@@ -133,8 +140,9 @@ touché. Les anciens noms de thème `classic`, `n7`, `n7-dark`, `n7-light`, `bw`
 `v2` restent acceptés (alias dépréciés vers `legacy*` / `charter`, avec un
 avertissement).
 
-Le détail des commandes est dans [`doc/commandes.md`](doc/commandes.md), celui
-des thèmes dans [`doc/themes.md`](doc/themes.md).
+Le détail des commandes est dans [`doc/commandes.md`](doc/commandes.md), les
+notations mathématiques dans [`doc/notations.md`](doc/notations.md), et les
+thèmes dans [`doc/themes.md`](doc/themes.md).
 
 ---
 

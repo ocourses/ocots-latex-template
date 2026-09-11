@@ -48,6 +48,11 @@
 \ocotssetstring{solution-of}{Solution to Exercise}
 
 % --------------------------------------------------------------------------
+% Textual abbreviations
+\ocotssetstring{ie}{i.e.}
+\ocotssetstring{cf}{cf.}
+
+% --------------------------------------------------------------------------
 % Blocs annexes
 \ocotssetstring{supplement}{Further reading}
 \ocotssetstring{reminder}{Reminder}
@@ -57,6 +62,10 @@
 % --------------------------------------------------------------------------
 % Operateurs mathematiques dont le nom depend de la langue
 \ocotssetstring{op-rank}{rank}
+\ocotssetstring{op-span}{span}
+\ocotssetstring{op-cofactor}{cofactor}
+\ocotssetstring{op-sinh}{sinh}
+\ocotssetstring{op-argsinh}{argsinh}
 \ocotssetstring{op-minimize}{minimize}
 \ocotssetstring{op-graph}{graph}
 
