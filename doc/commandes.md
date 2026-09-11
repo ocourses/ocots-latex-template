@@ -352,7 +352,7 @@ conservent leur en-tête court. Environnements propres : `instruction`,
 
 `\ocotslogos[hauteur]` compose les logos de page de titre demandés par
 l'option `institution=` (`n7`, `inp`, `insa`, `uftmp` ; plusieurs valeurs entre
-accolades). Pour un en-tête de TD ou d'examen, le carrier utilise
+accolades). Pour un en-tête de TD ou d'examen, le support utilise
 `\ocotslogosheader[hauteur]` : tous les établissements sont alignés sur une
 seule ligne à une hauteur commune, y compris `uftmp`. La disposition spéciale
 de `uftmp` (grand à gauche, établissements empilés à droite) reste réservée
