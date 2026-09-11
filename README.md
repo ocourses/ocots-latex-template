@@ -2,7 +2,7 @@
 
 Template LaTeX pour **polycopiés, diapositives, TD et sujets d'examen**, avec
 une seule API : un énoncé se colle tel quel du TD au polycopié. L'apparence est
-pilotée par des **thèmes** interchangeables (`classic` reproduit le rendu
+pilotée par des **thèmes** interchangeables (`legacy` reproduit le rendu
 historique, `charter` est une refonte visuelle, `slate` un thème sobre).
 
 - **[`doc/commandes.md`](doc/commandes.md)** — toutes les commandes et
@@ -146,9 +146,9 @@ Chaque valeur se résout en un nom de fichier : `theme=ocots` charge
 `tex/theme/ocots-theme-ocots.sty`, `boxform=sidebar` charge
 `tex/theme/form/ocots-form-sidebar.sty`. **Ajouter un thème, une forme, une
 langue ou un module de macros, c'est ajouter un fichier** — le noyau n'est pas
-touché. Les anciens noms de thème `classic`, `n7`, `n7-dark`, `n7-light`, `bw`,
-`v2` restent acceptés (alias dépréciés vers `legacy*` / `charter`, avec un
-avertissement).
+touché. Les anciens noms de thème `classic`, `classic-dark`, `classic-light`,
+`n7`, `n7-dark`, `n7-light`, `bw`, `v2` restent acceptés (alias dépréciés vers
+`legacy*` / `charter`, avec un avertissement).
 
 Le détail des commandes est dans [`doc/commandes.md`](doc/commandes.md), les
 notations mathématiques dans [`doc/notations.md`](doc/notations.md), et les
