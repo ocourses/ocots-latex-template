@@ -55,6 +55,22 @@ Les variantes étoilées sont non numérotées. La forme (cadre, filet, aplat…
 du thème. Les familles `assumption`, `openquestion`, `difficulty` et `exercise`
 conservent leurs compteurs propres.
 
+### Introduction de chapitre — retrait configurable par le thème
+
+À l'ouverture d'un chapitre, composer le texte d'introduction dans `chapterintro` plutôt
+que de détourner `quote` ou `quotation` :
+
+```latex
+\chapter{Théorie de la mesure}
+\minitoc
+\begin{chapterintro}
+    Ce chapitre présente les notions nécessaires à la définition de l'intégrale.
+\end{chapterintro}
+```
+
+L'environnement n'ajoute ni guillemets ni titre : son retrait et ses espacements
+sont fournis par le thème via le style `chapterintro`.
+
 ### Blocs étiquetés — filet latéral ou simple retrait
 
 | environnement | étiquette | étoilé |
@@ -124,7 +140,7 @@ Preuve étalée sur plusieurs diapositives — seul `proofend` pose le carré fi
 
 | clé de `\begin{exercise}[…]` | effet |
 |------------------------------|-------|
-| `label=<nom>` | pose `\label{ex:<nom>}` |
+| `label=<nom>` | pose `\label{<nom>}` tel quel |
 | `points=<n>` | affiche `(n points)` après le numéro |
 | `nosolution` | exclut ce corrigé quel que soit le mode |
 
@@ -166,7 +182,19 @@ Preuve étalée sur plusieurs diapositives — seul `proofend` pose le carré fi
 | `\breakline` | saut de ligne sans alinéa (`~\\ \vspace{-\baselineskip}`) |
 | `\HRule` | filet pleine largeur, fin |
 | `\myurl{…}` | `\href{url}{url}` |
-| `\ie` `\cf` | *i.e.* / cf. |
+| `\ie` `\cf` | abréviations localisées, avec espacement automatique |
+
+### Guillemets
+
+Utiliser `\enquote{…}` pour des guillemets adaptés à la langue déclarée par
+`lang=`. Le paquet `csquotes` est chargé par le template avec `autostyle=true` :
+
+```latex
+\enquote{un texte cité, avec \enquote{une citation imbriquée}}
+```
+
+La même source produit des guillemets français avec `lang=fr` et anglais avec
+`lang=en`.
 
 ### Blocs annexes
 

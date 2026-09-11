@@ -19,11 +19,13 @@
 \RequirePackage[T1]{fontenc}
 \RequirePackage{lmodern}
 \RequirePackage{textcomp}
+\RequirePackage{xspace}
 
 % ---------------------------------------------------------------------------
 % Langue. Charge babel et la table des chaines (lang/ocots-lang-<x>.def).
 % Doit venir tot : babel modifie la typographie et des caracteres actifs.
 \expandafter\ocots@require\expandafter{\detokenize{ocots-lang-}}{\ocots@lang}{def}
+\RequirePackage[autostyle=true]{csquotes}
 
 % ---------------------------------------------------------------------------
 % Couleurs

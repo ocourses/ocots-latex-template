@@ -170,6 +170,12 @@ corollaire,theoreme,definitions,examples}
 \tcolorboxenvironment{remark*}{\ocotsboxstyle{remark}}
 
 % ---------------------------------------------------------------------------
+% Introduction de chapitre : texte compose en retrait, rendu du theme
+\newenvironment{chapterintro}
+  {\begin{tcolorbox}[\ocotsboxstyle{chapterintro}]}
+  {\end{tcolorbox}}
+
+% ---------------------------------------------------------------------------
 % Blocs etiquetes H1, Q1, D1
 %
 % La v0 ecrivait trois fois le meme code (compteur + \tag + regtotcounter). Ici

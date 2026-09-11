@@ -27,6 +27,11 @@
 \ocotssiderule{openquestion}{none}
 \ocotssiderule{difficulty}{none}
 
+% --- Introduction de chapitre : retrait sans cadre ----------------------
+\ocotssetboxstyle{chapterintro}{%
+  blanker, breakable, left=2em, right=0pt,
+  before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip}
+
 % --- Preuves : retrait plus faible, texte colore, pas de cadre ----------
 \ocotssetboxstyle{proof}{%
   blanker, breakable, left=1.5em,

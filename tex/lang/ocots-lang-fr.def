@@ -58,6 +58,11 @@
 \ocotssetstring{solution-of}{Solution de l'Exercice}
 
 % --------------------------------------------------------------------------
+% Abréviations textuelles
+\ocotssetstring{ie}{i.e.}
+\ocotssetstring{cf}{cf.}
+
+% --------------------------------------------------------------------------
 % Blocs annexes
 \ocotssetstring{supplement}{Supplément}
 \ocotssetstring{reminder}{Rappels}

@@ -43,6 +43,11 @@
 \ocotssetstring{solution-of}{Solution to Exercise}
 
 % --------------------------------------------------------------------------
+% Textual abbreviations
+\ocotssetstring{ie}{i.e.}
+\ocotssetstring{cf}{cf.}
+
+% --------------------------------------------------------------------------
 % Blocs annexes
 \ocotssetstring{supplement}{Further reading}
 \ocotssetstring{reminder}{Reminder}
