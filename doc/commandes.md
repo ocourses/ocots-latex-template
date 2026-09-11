@@ -92,7 +92,7 @@ Preuve étalée sur plusieurs diapositives — seul `proofend` pose le carré fi
 
 ```latex
 \begin{equation}
-    \min_u \int_0^{t_f} \ell(x,u)\,\xdif t   \tagProblem      % (P₁), (P₂)…
+    \min_u \int_0^{t_f} \ell(x,u)\,\dif t   \tagProblem      % (P₁), (P₂)…
 \end{equation}
 ```
 
