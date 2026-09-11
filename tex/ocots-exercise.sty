@@ -90,6 +90,30 @@
 % Deux compteurs : l'un pour l'affichage, l'autre pour les references. C'est le
 % montage de la v0, conserve tel quel — il permet a \ref de pointer l'exercice
 % et non la boite.
+\newcounter{ocots@partpoints}
+\newcounter{ocots@totalpoints}
+\newif\ifocots@partactive
+\ocots@partactivefalse
+\newcommand{\ocots@startpart}{%
+  \ifocots@partactive
+    \ocots@endpart{\theocots@docpart}%
+  \fi
+  \setcounter{ocots@partpoints}{0}%
+  \global\ocots@partactivetrue}
+\newcommand{\ocots@endpart}[1]{%
+  \par\medskip
+  \noindent\textit{\ocotsstring{part}~#1~:~\ocotsstring{graded-out-of}~%
+    \arabic{ocots@partpoints}~\ocotsstring{points}}%
+  }
+\AtEndDocument{%
+  \ifocots@partactive
+    \ocots@endpart{\theocots@docpart}%
+  \fi
+  \ifnum\value{ocots@totalpoints}>0
+    \par\medskip
+    \noindent\textit{\ocotsstring{total}~:~\ocotsstring{graded-out-of}~%
+      \arabic{ocots@totalpoints}~\ocotsstring{points}}%
+  \fi}
 \newcounter{ocots@exinner}[section]
 \newcounter{ocots@exouter}[section]
 \ifocots@exam
@@ -104,7 +128,11 @@
 % developpe trop tot casse la construction de son \csname.
 \DeclareRobustCommand{\ocots@exstep}{%
   \stepcounter{ocots@exouter}\refstepcounter{ocots@exinner}%
-  \setcounter{question}{0}}
+  \setcounter{question}{0}%
+  \ifx\ocots@ex@points\@empty\else
+    \global\advance\c@ocots@totalpoints by \ocots@ex@points\relax
+    \global\advance\c@ocots@partpoints by \ocots@ex@points\relax
+  \fi}
 
 % ---------------------------------------------------------------------------
 % La boite d'exercice, declinee selon le mode

@@ -36,6 +36,11 @@
 \ocotssetstring{part}{Part}
 \ocotssetstring{instruction}{Instruction}
 \ocotssetstring{instructions}{Instructions}
+\ocotssetstring{duration}{Duration}
+\ocotssetstring{documents}{Allowed documents}
+\ocotssetstring{calculator}{Calculator}
+\ocotssetstring{graded-out-of}{graded out of}
+\ocotssetstring{total}{Total}
 \ocotssetstring{points}{points}
 
 \ocotssetstring{page-abbr}{p.}
