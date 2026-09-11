@@ -16,11 +16,10 @@ Trois rôles :
 | `td/`     | travaux dirigés| `ocots-td` |
 | `exam/`   | examen         | `ocots-exam` |
 
-Chacun exerce tout ce que le template sait faire pour son support : toutes les
-familles d'environnements, les trois modes de corrigés, les macros de mise en
 valeur. L'exemple `slides/` couvre les diapositives `slide` titrées et sans
 titre, ainsi que les surcharges de couleur. `poly/main.tex` est le plus
-complet — c'est la vitrine.
+complet — c'est la vitrine. `exam/main.tex` montre en plus les champs
+d'en-tête d'un sujet et le calcul du barème par partie et pour le sujet.
 
 ## Contenu partagé
 
@@ -41,7 +40,9 @@ ligne `\usepackage` change.
 | `fr-inline.tex` | corrigés en place |
 | `en-end.tex`    | même contenu en anglais, corrigés reportés |
 | `mono-end.tex`  | noir et blanc (`theme=mono`), pour l'impression |
+| `fonts.tex`     | options `setfont=rm` et `calfont=cal` |
 | `compat.tex`    | un corps écrit **avec les noms de la v0**, compilé aujourd'hui |
+| `slides-hook.tex` | page de titre Beamer avec contenu optionnel sous auteur/date/logos |
 | `theme-ocots.tex`   | thème `ocots` — le défaut (liseré en équerre, sans fond) |
 | `theme-legacy.tex`  | thème `legacy` — le rendu historique (cadres pastel, titres entre filets) |
 | `theme-charter.tex` | thème `charter` — Charter/Fira, filet latéral |

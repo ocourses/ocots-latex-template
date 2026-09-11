@@ -1,6 +1,6 @@
 # Référence des commandes `ocots`
 
-> [`README.md`](../README.md) · **commandes.md** · [`doc/themes.md`](themes.md)
+> [`README.md`](../README.md) · **commandes.md** · [`doc/notations.md`](notations.md) · [`doc/themes.md`](themes.md)
 
 Tout ce que le template met à disposition dans un document, par thème. Les
 environnements sont **définis une seule fois** : un énoncé se colle tel quel du
@@ -16,34 +16,60 @@ Sommaire : [environnements](#environnements) · [exercices et corrigés](#exerci
 
 ## Environnements
 
-### Boîtes à titre — compteur commun, numéroté dans la section
+### Résultats — une signature et un compteur commun
+
+Les huit environnements de résultats acceptent une liste de clés optionnelle :
+`title=`, `label=` et `note=`. Le label est posé **tel quel** : le template
+n'ajoute aucun préfixe.
 
 ```latex
-\begin{theorem}{Titre facultatif}{étiquette}
-    Un énoncé. Se cite par \ref{thm:étiquette}.
+\begin{theorem}[title={Théorème de Cauchy-Lipschitz}, label=thm:cauchy]
+    Un énoncé. Se cite par \ref{thm:cauchy}.
 \end{theorem}
+
+\begin{definition}[label=def:ouvert]
+    Un énoncé sans titre supplémentaire.
+\end{definition}
+
+\begin{example}[note={Cas particulier}, label=exa:cas]
+    Un exemple numéroté.
+\end{example}
+
+\begin{remark}                         % aucune clé n'est obligatoire
+    Une remarque non étiquetée.
+\end{remark}
 ```
 
-| environnement | préfixe de `\label` | intitulé (fr) |
-|---------------|---------------------|---------------|
-| `theorem` | `thm:` | Théorème |
-| `definition` | `def:` | Définition |
-| `proposition` | `prop:` | Proposition |
-| `corollary` | `cor:` | Corollaire |
-| `conjecture` | `conj:` | Conjecture |
+| environnement | compteur | variante étoilée | intitulé (fr) |
+|---------------|----------|------------------|---------------|
+| `theorem` | partagé, dans la section | — | Théorème |
+| `definition` | partagé, dans la section | — | Définition |
+| `proposition` | partagé, dans la section | — | Proposition |
+| `corollary` | partagé, dans la section | — | Corollaire |
+| `conjecture` | partagé, dans la section | — | Conjecture |
+| `lemma` | partagé, dans la section | `lemma*` | Lemme |
+| `example` | partagé, dans la section, carré blanc | `example*` | Exemple |
+| `remark` | partagé, dans la section | `remark*` | Remarque |
 
-Les **deux arguments sont obligatoires mais peuvent être vides** :
-`\begin{theorem}{}{}`. La forme (cadre, filet, aplat…) vient du thème.
+Les variantes étoilées sont non numérotées. La forme (cadre, filet, aplat…) vient
+du thème. Les familles `assumption`, `openquestion`, `difficulty` et `exercise`
+conservent leurs compteurs propres.
 
-### Au fil du texte — intitulé en gras, texte sur la même ligne
+### Introduction de chapitre — retrait configurable par le thème
 
-| environnement | numéroté | étoilé |
-|---------------|----------|--------|
-| `lemma` | dans la section | `lemma*` (non numéroté) |
-| `example` | dans la section, finit par un carré blanc | `example*` |
-| `remark` | dans la section | `remark*` |
+À l'ouverture d'un chapitre, composer le texte d'introduction dans `chapterintro` plutôt
+que de détourner `quote` ou `quotation` :
 
-`example` et `example*` acceptent une note : `\begin{example*}[avec une note]`.
+```latex
+\chapter{Théorie de la mesure}
+\minitoc
+\begin{chapterintro}
+    Ce chapitre présente les notions nécessaires à la définition de l'intégrale.
+\end{chapterintro}
+```
+
+L'environnement n'ajoute ni guillemets ni titre : son retrait et ses espacements
+sont fournis par le thème via le style `chapterintro`.
 
 ### Blocs étiquetés — filet latéral ou simple retrait
 
@@ -92,7 +118,7 @@ Preuve étalée sur plusieurs diapositives — seul `proofend` pose le carré fi
 
 ```latex
 \begin{equation}
-    \min_u \int_0^{t_f} \ell(x,u)\,\xdif t   \tagProblem      % (P₁), (P₂)…
+    \min_u \int_0^{t_f} \ell(x,u)\,\dif t   \tagProblem      % (P₁), (P₂)…
 \end{equation}
 ```
 
@@ -114,7 +140,7 @@ Preuve étalée sur plusieurs diapositives — seul `proofend` pose le carré fi
 
 | clé de `\begin{exercise}[…]` | effet |
 |------------------------------|-------|
-| `label=<nom>` | pose `\label{ex:<nom>}` |
+| `label=<nom>` | pose `\label{<nom>}` tel quel |
 | `points=<n>` | affiche `(n points)` après le numéro |
 | `nosolution` | exclut ce corrigé quel que soit le mode |
 
@@ -156,7 +182,19 @@ Preuve étalée sur plusieurs diapositives — seul `proofend` pose le carré fi
 | `\breakline` | saut de ligne sans alinéa (`~\\ \vspace{-\baselineskip}`) |
 | `\HRule` | filet pleine largeur, fin |
 | `\myurl{…}` | `\href{url}{url}` |
-| `\ie` `\cf` | *i.e.* / cf. |
+| `\ie` `\cf` | abréviations localisées, avec espacement automatique |
+
+### Guillemets
+
+Utiliser `\enquote{…}` pour des guillemets adaptés à la langue déclarée par
+`lang=`. Le paquet `csquotes` est chargé par le template avec `autostyle=true` :
+
+```latex
+\enquote{un texte cité, avec \enquote{une citation imbriquée}}
+```
+
+La même source produit des guillemets français avec `lang=fr` et anglais avec
+`lang=en`.
 
 ### Blocs annexes
 
@@ -207,52 +245,23 @@ def euler(f, t0, x0, tf, n):
 
 ## Mathématiques
 
-Chargées **à la carte** par l'option `math=` (séparateur virgule, valeur entre
-accolades : `math={analysis,control}`). `base` est toujours là.
+Les modules mathématiques sont chargés **à la carte** par l'option `math=` ;
+`base` est toujours chargé. Les noms, signatures, rendus et exemples sont
+référencés dans la fiche dédiée [`doc/notations.md`](notations.md).
 
-### `math=base` — toujours chargé
+```latex
+\usepackage[lang=fr, math={analysis,measure}]{ocots}
+```
 
-| domaine | macros |
-|---------|--------|
-| ensembles | `\N \Z \Q \R \C \K \Sn` |
-| ensembles décorés | `\Nb \Ns \Nsb` · `\Rn \Rp \Rb \Rbp \Rs \Rsp \Rsn` (barre, étoile, signe) |
-| classes | `\M \B \E \F \D \O \P \Vcal \Ical \Sgot` · `\ind` (indicatrice) |
-| valeur absolue, norme | `\abs{…} \norm{…}` et leurs variantes `…Style` (délimiteurs extensibles) |
-| produit scalaire | `\prodscal{u}{v}` |
-| ensemble défini | `\enstq{x}{P(x)}` → `{ x | P(x) }` |
-| application | `\fonction{f}{E}{F}{x}{f(x)}` (tableau `array`) |
-| intervalles | `\intervalleff \intervalleof \intervallefo \intervalleoo` (f=fermé, o=ouvert), `\intervalleentier` — l'ouvert suit la langue (`]a,b[` / `(a,b)`) |
-| matrices | `\semidefpos \defpos \defneg` |
-| grec | `\veps \vphi` |
-| opérateurs | `\argmax \codim \rank \rang \vect \im \Im \trace \sign \Ker \ker \diag \id \Hom \GL \sym \card \dd \minimize \graphe` … |
-| barre ajustée | `\xoverline[ratio]{expr}` — remplace `\bar` sur les symboles larges |
+La fiche couvre notamment les ensembles (`\R`, `\Rpos`, `\Sphere`), les
+constructions (`\norm`, `\abs`, `\inner`, `\setst`, `\functiondef`), les
+intervalles (`\intervalcc`, `\intervaloo`), les opérateurs localisés (`\rank`,
+`\spanop`, `\graph`) et les modules `analysis`, `control` et `measure`.
 
-### `math=analysis` — calcul différentiel, EDO
-
-| domaine | macros |
-|---------|--------|
-| éléments différentiels | `\xdif \xDif \diff \Diff \pardiff` |
-| dérivées partielles | `\frp{f}{x}` `\frpp{f}{x}` `\frpij{f}{x}{y}` `\frpxx \frptt \frpuu \frpxu \frpux` |
-| gradient | `\grad{f}` ou `\grad{f}{x}` |
-| Landau | `\petito{h} \grandO{h}` |
-| topologie | `\adherence{A}` `\Ball` `\BallClosed` |
-| espaces | `\Htrue \Ccal \Lcal \Dcal \Ucal \Acal \Ecal \Fcal \Kcal \Ncal \GLcal` · `\xCn{k}` (classe Cᵏ) · `\xLn{k}` (linéaires continues) |
-| quotient | `\EnsembleQuotient{E}{R}` |
-| convergence | `\convn` |
-| solutions (notation barre) | `\xsol \ysol \zsol \ssol \tsol \lsol` |
-| commutateur de matrices | `\Lie{A}{B}` = `[A,B]` |
-
-### `math=control` — contrôle optimal, homotopie, tir
-
-`\rsol \fsol \usol \psol \tfsol` · homotopie `\sbar \cbar \lbar \sphere \laz \hom`
-· décorées `\xt \ut \pt \ft \ct \Et \Ucalt \Acalt \Phit`
-· `\crochetDualite{p}{v}` `\expmap{x}{t}{v}` `\arc`
-· logiciels `\hampath \bocop \cotcot \nutopy \controltoolbox \tapenade \lapack \minpack`
-
-### `math=measure` — mesure et intégration
-
-`\tribu \Bor \AT \BT \NT \CT \OT \FT \Parties` · `\FM` (mesurable) `\FE` (étagée)
-· `\cl{f}` (classe d'équivalence) · `\convps` (→ p.p.)
+Les options `setfont=bb|rm` et `calfont=scr|cal` règlent respectivement la
+police des ensembles de nombres et des familles calligraphiques. Les anciens
+noms sont conservés par `ocots-compat.sty` pour la migration, mais tout nouveau
+document doit utiliser les noms de [`notations.md`](notations.md).
 
 ---
 
@@ -294,7 +303,9 @@ Support déduit de la classe `beamer`, rien à déclarer.
 
 ```latex
 \slidechapter{5}{Équations différentielles linéaires}   % pose le n° de chapitre
-\slidetitlepage                                         % page de titre
+\slidetitlepage                                         % page de titre standard
+% ou, avec un contenu additionnel sous auteur/date/logos :
+\slidetitlepage[{\includegraphics[height=5em]{qr-code-cours.pdf}}]
 
 \begin{slide}{Titre}                       … \end{slide}
 \begin{slide}[\ocotscolor{slide2}]{Titre}  … \end{slide}   % couleur ponctuelle
@@ -318,6 +329,12 @@ silencieusement si ce groupe ne contient pas de saut de paragraphe (sinon
 LaTeX signale une erreur « Paragraph ended before \ocots@slidetitle was
 complete »). Dans ce cas précis, remplacer le groupe accolade par
 `\begingroup … \endgroup`, qui ne déclenche pas la détection.
+
+L'argument optionnel de `\slidetitlepage` est vide par défaut. Lorsqu'il est
+renseigné, son contenu est placé sous le bloc auteur/date/logos, dans le même
+centrage. Les appels existants sans argument restent donc inchangés. Lorsque le
+contenu contient lui-même des crochets optionnels, comme ceux de
+`\includegraphics`, on le groupe entre accolades dans l'argument externe.
 
 | macro | effet |
 |-------|-------|
@@ -346,8 +363,42 @@ Classes `ocots-td` et `ocots-exam`. Métadonnées portées par les en-têtes :
 | `\discipline{…}` | matière |
 | `\promotion{…}` | public |
 
-`\maketitle` compose logos + titre. Environnements propres : `instruction`,
-`instructions` (non numérotés), `docpart` (Partie 1, 2, …).
+`\maketitle` compose logos + titre. Pour `ocots-exam`, les champs renseignés
+sont ensuite composés dans l'ordre `\duree`, `\documents`, `\calculatrice`, puis
+`\examnote` :
+
+```latex
+\duree{1h30}
+\documents{deux feuilles A4 recto-verso manuscrites}
+\calculatrice{interdite}
+\examnote{Les parties sont indépendantes.}
+```
+
+Un champ absent n'ajoute ni ligne vide ni libellé. `\examnote` est le hook libre
+pour les consignes qui ne correspondent à aucun champ standard. `\maketitle`
+appelle automatiquement `\printinstructions` pour un examen ; cette commande
+peut aussi être appelée explicitement si l'auteur veut placer le bloc ailleurs.
+Les anciennes formes `instruction` et `instructions` restent valides ; elles
+permettent la migration progressive et ne sont pas composées automatiquement si
+aucun nouveau champ n'est renseigné.
+
+Les environnements propres sont `instruction`, `instructions` (non numérotés) et
+`docpart` (Partie 1, 2, …). Chaque `points=<n>` d'un `exercise` alimente le
+barème de la partie courante et le total du sujet. Le total de chaque partie est
+imprimé avant la partie suivante, et le total général à la fin du sujet :
+
+```latex
+\begin{docpart}
+    Analyse
+\end{docpart}
+\begin{exercise}[points=8]
+    Énoncé.
+\end{exercise}
+```
+
+Le barème est la somme des clés `points=` ; il n'est pas normalisé sur 20 et ne
+doit pas être recopié en prose. Un exercice sans `points=` reste valide, mais ne
+contribue pas au total calculé.
 
 ---
 

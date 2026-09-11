@@ -124,7 +124,7 @@
 % Utilise \title, \author, \date, l'option institution= et \slidechapter.
 % Sous beamer, le titre et l'auteur se lisent avec \inserttitle et
 % \insertauthor : \@title y declenche « No \title given ».
-\newcommand{\slidetitlepage}{%
+\newcommand{\slidetitlepage}[1][]{%
   \begin{frame}
     \vspace{2em}
     \begin{titlebox}
@@ -140,7 +140,8 @@
     \begin{center}
       {\large\insertauthor}\par
       \vspace{1em}\insertdate\par
-      \vspace{2em}\ocotslogos[2.5em]
+      \vspace{2em}\ocotslogos[2.5em]%
+      \IfBlankTF{#1}{}{\par\vspace{1em}#1}%
     \end{center}
   \end{frame}}
 
