@@ -1,6 +1,6 @@
 # Référence des commandes `ocots`
 
-> [`README.md`](../README.md) · **commandes.md** · [`doc/themes.md`](themes.md)
+> [`README.md`](../README.md) · **commandes.md** · [`doc/notations.md`](notations.md) · [`doc/themes.md`](themes.md)
 
 Tout ce que le template met à disposition dans un document, par thème. Les
 environnements sont **définis une seule fois** : un énoncé se colle tel quel du
@@ -207,52 +207,23 @@ def euler(f, t0, x0, tf, n):
 
 ## Mathématiques
 
-Chargées **à la carte** par l'option `math=` (séparateur virgule, valeur entre
-accolades : `math={analysis,control}`). `base` est toujours là.
+Les modules mathématiques sont chargés **à la carte** par l'option `math=` ;
+`base` est toujours chargé. Les noms, signatures, rendus et exemples sont
+référencés dans la fiche dédiée [`doc/notations.md`](notations.md).
 
-### `math=base` — toujours chargé
+```latex
+\usepackage[lang=fr, math={analysis,measure}]{ocots}
+```
 
-| domaine | macros |
-|---------|--------|
-| ensembles | `\N \Z \Q \R \C \K \Sn` |
-| ensembles décorés | `\Nb \Ns \Nsb` · `\Rn \Rp \Rb \Rbp \Rs \Rsp \Rsn` (barre, étoile, signe) |
-| classes | `\M \B \E \F \D \O \P \Vcal \Ical \Sgot` · `\ind` (indicatrice) |
-| valeur absolue, norme | `\abs{…} \norm{…}` et leurs variantes `…Style` (délimiteurs extensibles) |
-| produit scalaire | `\prodscal{u}{v}` |
-| ensemble défini | `\enstq{x}{P(x)}` → `{ x | P(x) }` |
-| application | `\fonction{f}{E}{F}{x}{f(x)}` (tableau `array`) |
-| intervalles | `\intervalleff \intervalleof \intervallefo \intervalleoo` (f=fermé, o=ouvert), `\intervalleentier` — l'ouvert suit la langue (`]a,b[` / `(a,b)`) |
-| matrices | `\semidefpos \defpos \defneg` |
-| grec | `\veps \vphi` |
-| opérateurs | `\argmax \codim \rank \rang \vect \im \Im \trace \sign \Ker \ker \diag \id \Hom \GL \sym \card \dd \minimize \graphe` … |
-| barre ajustée | `\xoverline[ratio]{expr}` — remplace `\bar` sur les symboles larges |
+La fiche couvre notamment les ensembles (`\R`, `\Rpos`, `\Sphere`), les
+constructions (`\norm`, `\abs`, `\inner`, `\setst`, `\functiondef`), les
+intervalles (`\intervalcc`, `\intervaloo`), les opérateurs localisés (`\rank`,
+`\spanop`, `\graph`) et les modules `analysis`, `control` et `measure`.
 
-### `math=analysis` — calcul différentiel, EDO
-
-| domaine | macros |
-|---------|--------|
-| éléments différentiels | `\xdif \xDif \diff \Diff \pardiff` |
-| dérivées partielles | `\frp{f}{x}` `\frpp{f}{x}` `\frpij{f}{x}{y}` `\frpxx \frptt \frpuu \frpxu \frpux` |
-| gradient | `\grad{f}` ou `\grad{f}{x}` |
-| Landau | `\petito{h} \grandO{h}` |
-| topologie | `\adherence{A}` `\Ball` `\BallClosed` |
-| espaces | `\Htrue \Ccal \Lcal \Dcal \Ucal \Acal \Ecal \Fcal \Kcal \Ncal \GLcal` · `\xCn{k}` (classe Cᵏ) · `\xLn{k}` (linéaires continues) |
-| quotient | `\EnsembleQuotient{E}{R}` |
-| convergence | `\convn` |
-| solutions (notation barre) | `\xsol \ysol \zsol \ssol \tsol \lsol` |
-| commutateur de matrices | `\Lie{A}{B}` = `[A,B]` |
-
-### `math=control` — contrôle optimal, homotopie, tir
-
-`\rsol \fsol \usol \psol \tfsol` · homotopie `\sbar \cbar \lbar \sphere \laz \hom`
-· décorées `\xt \ut \pt \ft \ct \Et \Ucalt \Acalt \Phit`
-· `\crochetDualite{p}{v}` `\expmap{x}{t}{v}` `\arc`
-· logiciels `\hampath \bocop \cotcot \nutopy \controltoolbox \tapenade \lapack \minpack`
-
-### `math=measure` — mesure et intégration
-
-`\tribu \Bor \AT \BT \NT \CT \OT \FT \Parties` · `\FM` (mesurable) `\FE` (étagée)
-· `\cl{f}` (classe d'équivalence) · `\convps` (→ p.p.)
+Les options `setfont=bb|rm` et `calfont=scr|cal` règlent respectivement la
+police des ensembles de nombres et des familles calligraphiques. Les anciens
+noms sont conservés par `ocots-compat.sty` pour la migration, mais tout nouveau
+document doit utiliser les noms de [`notations.md`](notations.md).
 
 ---
 
