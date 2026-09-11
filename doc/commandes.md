@@ -309,6 +309,16 @@ filet. La couleur entre crochets reste une surcharge ponctuelle, et
 valide comme environnement natif de beamer pendant la migration progressive
 des cours.
 
+Le titre est détecté par la présence d'un groupe `{…}` immédiatement après
+`\begin{slide}` (ou son option de couleur) : le premier groupe accolade
+rencontré est toujours pris pour le titre, sans exception. Un `slide` sans
+titre dont le corps commence lui-même par un groupe brut — `{\small …}` pour
+une portée locale, par exemple — serait donc pris pour un titre,
+silencieusement si ce groupe ne contient pas de saut de paragraphe (sinon
+LaTeX signale une erreur « Paragraph ended before \ocots@slidetitle was
+complete »). Dans ce cas précis, remplacer le groupe accolade par
+`\begingroup … \endgroup`, qui ne déclenche pas la détection.
+
 | macro | effet |
 |-------|-------|
 | `\slidecolor{…}` | change la couleur d'en-tête pour toutes les diapos suivantes |

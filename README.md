@@ -98,7 +98,10 @@ Des diapositives — le support est déduit de la classe, rien à déclarer :
 
 `slide` accepte un titre optionnel : la forme titrée reçoit le bandeau et le
 compteur du template, tandis que la forme sans titre conserve le rendu d'un
-`frame` nu. `frame` reste disponible comme environnement natif de beamer.
+`frame` nu. `frame` reste disponible comme environnement natif de beamer. Le
+titre est détecté par un groupe `{…}` en premier ; si le corps d'un `slide`
+sans titre doit commencer par un groupe brut, voir la mise en garde dans
+[`doc/commandes.md`](doc/commandes.md#diapositives).
 
 Un TD ou un sujet d'examen :
 
