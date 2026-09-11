@@ -93,9 +93,6 @@ Des diapositives — le support est déduit de la classe, rien à déclarer :
 \usepackage[lang=fr, theme=ocots]{ocots}
 ```
 
-`\slidetitlepage` accepte un contenu optionnel placé sous le bloc
-auteur/date/logos, tout en restant vide par défaut.
-
 Un TD ou un sujet d'examen :
 
 ```latex
