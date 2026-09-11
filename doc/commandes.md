@@ -275,11 +275,19 @@ Support déduit de la classe `beamer`, rien à déclarer.
 
 ```latex
 \slidechapter{5}{Équations différentielles linéaires}   % pose le n° de chapitre
-\slidetitlepage                                         % page de titre
+\slidetitlepage                                         % page de titre standard
+% ou, avec un contenu additionnel sous auteur/date/logos :
+\slidetitlepage[{\includegraphics[height=5em]{qr-code-cours.pdf}}]
 
 \begin{slide}{Titre}                       … \end{slide}
 \begin{slide}[\ocotscolor{slide2}]{Titre}  … \end{slide}   % couleur d'en-tête ponctuelle
 ```
+
+L'argument optionnel de `\slidetitlepage` est vide par défaut. Lorsqu'il est
+renseigné, son contenu est placé sous le bloc auteur/date/logos, dans le même
+centrage. Les appels existants sans argument restent donc inchangés. Lorsque le
+contenu contient lui-même des crochets optionnels, comme ceux de
+`\includegraphics`, on le groupe entre accolades dans l'argument externe.
 
 | macro | effet |
 |-------|-------|
