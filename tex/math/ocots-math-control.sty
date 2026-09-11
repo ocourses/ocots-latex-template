@@ -1,51 +1,43 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ocots-math-control}[2026/09/03 v1.0 ocots -- controle optimal et homotopie]
+\ProvidesPackage{ocots-math-control}[2026/09/11 v1.1 ocots -- controle optimal et homotopie]
 %
 % Notations du controle optimal, de l'homotopie et des methodes de tir, plus les
 % noms des logiciels associes. Charge par math=control.
 %
 % Dans la v0 tout ceci vivait dans defs_macros.tex, donc dans tous les
-% documents, y compris ceux qui n'en avaient aucun usage (defaut D9).
+% documents, y compris ceux qui n'en avaient aucun usage.
 
 % ---------------------------------------------------------------------------
-% Solutions : notation barre propre au controle (costate, commande...).
-% xsol/ysol/zsol/ssol/tsol/lsol : notation generique (« une solution »,
-% « une valeur fixee du parametre ») deplacee dans ocots-math-analysis.sty —
-% utilisee dans tout le cours d'EDO, pas seulement en controle. Cf.
-% 04-journal.md, etape 5 (sous-module).
-\newcommand\rsol{\bar{r}}
-\newcommand\fsol{\bar{f}}
-\newcommand\usol{\bar{u}}
-\newcommand\psol{\bar{p}}
-\newcommand\tfsol{\bar{t}_f}
+% Solutions propres au controle (costate, commande...)
+\newcommand{\rsol}{\bar{r}}
+\newcommand{\fsol}{\bar{f}}
+\newcommand{\usol}{\bar{u}}
+\newcommand{\psol}{\bar{p}}
+\newcommand{\tfsol}{\bar{t}_f}
 
 % ---------------------------------------------------------------------------
 % Homotopie
-\def\sbar{\bar{s}}
-\def\cbar{\bar{c}}
-\def\lbar{\bar{\lambda}}
-\def\sphere{\mathbb{S}}
-\def\laz{\lambda_0}
+\newcommand{\sbar}{\bar{s}}
+\newcommand{\cbar}{\bar{c}}
+\newcommand{\lbar}{\bar{\lambda}}
+\newcommand{\sphere}{\mathbb{S}}
+\newcommand{\laz}{\lambda_0}
 \renewcommand{\hom}{\Phi}
 
 % ---------------------------------------------------------------------------
 % Lettres decorees
-\def\xt{\widetilde{x}}
-\def\ut{\widetilde{u}}
-\def\pt{\widetilde{p}}
-\def\ft{\widetilde{f}}
-\def\ct{\widetilde{c}}
-\def\Et{\widetilde{E}}
-\def\Ucalt{\widetilde{\Ucal}}
-\def\Acalt{\widetilde{\Acal}}
-\def\Phit{\widetilde{\Phi}}
+\newcommand{\xt}{\widetilde{x}}
+\newcommand{\ut}{\widetilde{u}}
+\newcommand{\pt}{\widetilde{p}}
+\newcommand{\ft}{\widetilde{f}}
+\newcommand{\ct}{\widetilde{c}}
+\newcommand{\Et}{\widetilde{E}}
+\newcommand{\Ucalt}{\widetilde{\ocots@calSet{U}}}
+\newcommand{\Acalt}{\widetilde{\ocots@calSet{A}}}
+\newcommand{\Phit}{\widetilde{\Phi}}
 
 % ---------------------------------------------------------------------------
 % Crochets et flots
-%
-% \Lie deplace vers ocots-math-analysis.sty : commutateur de matrices dans
-% un cours d'EDO (edo-linear.tex), pas un crochet de Lie de champs de
-% vecteurs — meme piege que \xsol, cf. 04-journal.md.
 \newcommand{\crochetDualite}[2]{#1 \cdot #2}
 \newcommand{\expmap}[3]{\exp({#2 #3}) (#1)}
 \newcommand{\arc}{\gamma}

@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ocots-math-base}[2026/09/03 v1.0 ocots -- macros mathematiques de base]
+\ProvidesPackage{ocots-math-base}[2026/09/11 v1.1 ocots -- macros mathematiques de base]
 %
 % Notations communes a tous les cours : ensembles de nombres, normes,
 % intervalles, operateurs. Toujours charge.
@@ -7,6 +7,9 @@
 % Les modules thematiques (analysis, control, measure) viennent par-dessus, via
 % l'option math= : un polycopie de calcul differentiel n'a pas a embarquer les
 % notations du controle optimal, contrairement a la v0.
+%
+% Les noms publics suivent les concepts en anglais ; leur rendu peut suivre la
+% langue et les options setfont/calfont du document.
 
 \RequirePackage{xspace}
 
@@ -32,61 +35,68 @@
 
 % ---------------------------------------------------------------------------
 % Ensembles de nombres
-\newcommand{\nbSet}[1]{\mathbb{#1}}
-\newcommand{\setPositive}{+}
-\newcommand{\setNegative}{-}
-\newcommand{\setStar}{\text{*}}
+\ifnum\pdfstrcmp{\ocots@setfont}{rm}=\z@
+  \newcommand{\nbSet}[1]{\mathrm{#1}}
+\else
+  \newcommand{\nbSet}[1]{\mathbb{#1}}
+\fi
+\newcommand{\ocots@calSet}[1]{%
+  \ifnum\pdfstrcmp{\ocots@calfont}{cal}=\z@\mathcal{#1}\else\mathscr{#1}\fi}
+
 \newcommand{\N}{\nbSet{N}}
 \newcommand{\Z}{\nbSet{Z}}
 \newcommand{\Q}{\nbSet{Q}}
 \newcommand{\R}{\nbSet{R}}
 \newcommand{\C}{\nbSet{C}}
-\newcommand{\Sn}{\nbSet{S}}
 \newcommand{\K}{\nbSet{K}}
+\newcommand{\Sphere}{\nbSet{S}}
 
-% Decorations : barre, etoile, signe. \Rsp = R^*_+
-\newcommand{\setDeco}[2]{%
-  \IfEqCase{#2}{%
-    {b} {\xoverline{\nbSet{#1}}}%
-    {s} {\nbSet{#1}^{\setStar}}%
-    {sb}{\xoverline{\nbSet{#1}}^{\setStar}}%
-    {n} {\nbSet{#1}^{\phantom{\setStar}}_{\setNegative}}%
-    {p} {\nbSet{#1}^{\phantom{\setStar}}_{\setPositive}}%
-    {sn}{\nbSet{#1}^{\setStar}_{\setNegative}}%
-    {sp}{\nbSet{#1}^{\setStar}_{\setPositive}}%
-    {bp}{\xoverline{\nbSet{#1}}_{\setPositive}}}}
+\newcommand{\ocots@setDeco}[2]{%
+  \ifnum\pdfstrcmp{#2}{bar}=\z@
+    \xoverline{\nbSet{#1}}%
+  \else\ifnum\pdfstrcmp{#2}{star}=\z@
+    \nbSet{#1}^{\text{*}}%
+  \else\ifnum\pdfstrcmp{#2}{barstar}=\z@
+    \xoverline{\nbSet{#1}}^{\text{*}}%
+  \else\ifnum\pdfstrcmp{#2}{nonneg}=\z@
+    \nbSet{#1}^{\phantom{\text{*}}}_{+}%
+  \else\ifnum\pdfstrcmp{#2}{nonpos}=\z@
+    \nbSet{#1}^{\phantom{\text{*}}}_{-}%
+  \else\ifnum\pdfstrcmp{#2}{neg}=\z@
+    \nbSet{#1}^{\text{*}}_{-}%
+  \else\ifnum\pdfstrcmp{#2}{pos}=\z@
+    \nbSet{#1}^{\text{*}}_{+}%
+  \else\ifnum\pdfstrcmp{#2}{barnonneg}=\z@
+    \xoverline{\nbSet{#1}}_{+}%
+  \fi\fi\fi\fi\fi\fi\fi\fi}
 
-\newcommand{\Nb}{\ensuremath{\setDeco{N}{b}}}
-\newcommand{\Ns}{\ensuremath{\setDeco{N}{s}}}
-\newcommand{\Nsb}{\ensuremath{\setDeco{N}{sb}}}
-\newcommand{\Rn}{\ensuremath{\setDeco{R}{n}}}
-\newcommand{\Rp}{\ensuremath{\setDeco{R}{p}}}
-\newcommand{\Rb}{\ensuremath{\setDeco{R}{b}}}
-\newcommand{\Rbp}{\ensuremath{\setDeco{R}{bp}}}
-\newcommand{\Rs}{\ensuremath{\setDeco{R}{s}}}
-\newcommand{\Rsp}{\ensuremath{\setDeco{R}{sp}}}
-\newcommand{\Rsn}{\ensuremath{\setDeco{R}{sn}}}
+\newcommand{\Nbar}{\ensuremath{\ocots@setDeco{N}{bar}}}
+\newcommand{\Nstar}{\ensuremath{\ocots@setDeco{N}{star}}}
+\newcommand{\Nbarstar}{\ensuremath{\ocots@setDeco{N}{barstar}}}
+\newcommand{\Rnonneg}{\ensuremath{\ocots@setDeco{R}{nonneg}}}
+\newcommand{\Rnonpos}{\ensuremath{\ocots@setDeco{R}{nonpos}}}
+\newcommand{\Rneg}{\ensuremath{\ocots@setDeco{R}{neg}}}
+\newcommand{\Rpos}{\ensuremath{\ocots@setDeco{R}{pos}}}
+\newcommand{\Rstar}{\ensuremath{\ocots@setDeco{R}{star}}}
+\newcommand{\Rbar}{\ensuremath{\ocots@setDeco{R}{bar}}}
+\newcommand{\Rbarnonneg}{\ensuremath{\ocots@setDeco{R}{barnonneg}}}
 
 % ---------------------------------------------------------------------------
-% Ensembles usuels
-\newcommand{\M}{\mbox{$\mathbf{M}$}\xspace}
-\newcommand{\U}{U}
-\newcommand{\X}{X}
-\newcommand{\B}{\mathcal{B}}
-\newcommand{\E}{\mathcal{E}}
-\newcommand{\F}{\mathcal{F}}
-\newcommand{\D}{\mathcal{D}}
-\renewcommand{\O}{\mathcal{O}}
-\renewcommand{\P}{\mathcal{P}}
-\newcommand{\Vcal}{\mathcal{V}}
-\newcommand{\Ical}{\mathcal{I}}
-\newcommand{\Sgot}{\mathfrak{S}}   % groupe symetrique
-\newcommand{\ind}{\mathds{1}}      % indicatrice
+% Familles calligraphiques : les noms disent le concept, la police est une option
+\newcommand{\Neighborhoods}{\ocots@calSet{V}}
+\newcommand{\TimeInterval}{\ocots@calSet{I}}
+\newcommand{\ContinuousLinear}[1]{\ocots@calSet{L}^{#1}}
+\newcommand{\Cclass}[1]{\ocots@calSet{C}^{#1}}
+\newcommand{\AllMaps}{\ocots@calSet{F}}
+\newcommand{\MultilinearSpace}{\ocots@calSet{E}}
+\newcommand{\Reachable}{\ocots@calSet{A}}
+\newcommand{\calset}[1]{\ocots@calSet{#1}}
+\newcommand{\indicator}{\mathds{1}}
 
 % ---------------------------------------------------------------------------
 % Applications
-%   \fonction{f}{E}{F}{x}{f(x)}
-\newcommand{\fonction}[5]{%
+%   \functiondef{f}{E}{F}{x}{f(x)}
+\newcommand{\functiondef}[5]{%
   \begin{array}{rcll}
     #1 \colon & #2 & \longrightarrow & #3 \\
               & #4 & \longmapsto     & #5
@@ -94,14 +104,12 @@
 
 % ---------------------------------------------------------------------------
 % Valeur absolue, norme, produit scalaire
-\newcommand{\abs}[1]{\lvert#1\rvert}
-\newcommand{\absStyle}[1]{\left\lvert#1\right\rvert}
-\newcommand{\norm}[1]{\lVert#1\rVert}
-\newcommand{\normStyle}[1]{\left\lVert#1\right\rVert}
-\newcommand{\prodscal}[2]{\left(#1 \,|\, #2\right)}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\newcommand{\inner}[2]{\left(#1 \,|\, #2\right)}
 
 % Ensemble des ... tels que ...
-\newcommand{\enstq}[2]{\left\{#1\mathrel{}\middle|\mathrel{}#2\right\}}
+\newcommand{\setst}[2]{\left\{#1\mathrel{}\middle|\mathrel{}#2\right\}}
 
 % ---------------------------------------------------------------------------
 % Intervalles
@@ -109,20 +117,20 @@
 % La convention des intervalles ouverts depend de la langue : ]a,b[ en
 % francais, (a,b) en anglais. Elle vient du fichier lang/, ce qui evite de
 % dupliquer tout le fichier de macros comme le faisait template-en.
-\newcommand{\intervalle}[4]{%
+\newcommand{\interval}[4]{%
   \mathopen{#1}#2\mathclose{}\mathpunct{},#3\mathclose{#4}}
-\newcommand{\intervalleff}[2]{\intervalle{[}{#1}{#2}{]}}
-\newcommand{\intervalleof}[2]{\intervalle{\ocots@intervalopenleft}{#1}{#2}{]}}
-\newcommand{\intervallefo}[2]{\intervalle{[}{#1}{#2}{\ocots@intervalopenright}}
-\newcommand{\intervalleoo}[2]{%
-  \intervalle{\ocots@intervalopenleft}{#1}{#2}{\ocots@intervalopenright}}
-\newcommand{\intervalleentier}[2]{\intervalle{\llbracket}{#1}{#2}{\rrbracket}}
+\newcommand{\intervalcc}[2]{\interval{[}{#1}{#2}{]}}
+\newcommand{\intervaloc}[2]{\interval{\ocots@intervalopenleft}{#1}{#2}{]}}
+\newcommand{\intervalco}[2]{\interval{[}{#1}{#2}{\ocots@intervalopenright}}
+\newcommand{\intervaloo}[2]{%
+  \interval{\ocots@intervalopenleft}{#1}{#2}{\ocots@intervalopenright}}
+\newcommand{\intervalint}[2]{\interval{\llbracket}{#1}{#2}{\rrbracket}}
 
 % ---------------------------------------------------------------------------
 % Comparaison de matrices
-\newcommand{\semidefpos}{\succeq 0}
-\newcommand{\defpos}{\succ 0}
-\newcommand{\defneg}{\prec 0}
+\newcommand{\possemidef}{\succeq 0}
+\newcommand{\posdef}{\succ 0}
+\newcommand{\negdef}{\prec 0}
 
 % ---------------------------------------------------------------------------
 % Lettres grecques d'usage courant
@@ -148,34 +156,28 @@
 
 \DeclareMathOperator{\argmax}{arg\,max}
 \DeclareMathOperator{\codim}{codim}
-\DeclareMathOperator{\rand}{rand}
-\DeclareMathOperator{\rank}{rank}
-\DeclareMathOperator{\vect}{Vect}
+\DeclareMathOperator{\rank}{\ocotsstring{op-rank}}
+\DeclareMathOperator{\spanop}{\ocotsstring{op-span}}
+\DeclareMathOperator{\cofactor}{\ocotsstring{op-cofactor}}
+\DeclareMathOperator{\graph}{\ocotsstring{op-graph}}
+\RedeclareMathOperator{\sinh}{\ocotsstring{op-sinh}}
+\DeclareMathOperator{\argsinh}{\ocotsstring{op-argsinh}}
 \DeclareMathOperator{\Isom}{Isom}
 \DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\trace}{tr}
-\DeclareMathOperator{\comatrice}{com}
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\sign}{sign}
-\DeclareMathOperator{\comp}{num}
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\diag}{diag}
 \DeclareMathOperator{\id}{Id}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\GL}{GL}
-\DeclareMathOperator{\sh}{sh}
-\DeclareMathOperator{\argsh}{argsh}
 \DeclareMathOperator{\inv}{inv}
 \DeclareMathOperator{\sym}{Sym}
 \DeclareMathOperator{\card}{card}
-\DeclareMathOperator{\dd}{d}
+\DeclareMathOperator{\minimize}{\ocotsstring{op-minimize}}
 \RedeclareMathOperator{\Im}{Im}
 \RedeclareMathOperator{\det}{det}
 \RedeclareMathOperator{\ker}{Ker}
-
-% Operateurs dont le nom depend de la langue.
-\DeclareMathOperator{\rang}{\ocotsstring{op-rank}}
-\DeclareMathOperator{\minimize}{\ocotsstring{op-minimize}}
-\DeclareMathOperator{\graphe}{\ocotsstring{op-graph}}
 
 \endinput

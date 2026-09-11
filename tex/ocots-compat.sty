@@ -124,4 +124,115 @@
 \newcommand{\norme}[1]{\norm{#1}}
 \newcommand{\normeStyle}[1]{\normStyle{#1}}
 
+% ---------------------------------------------------------------------------
+% Macros mathematiques renommees par le chantier 2.
+% Les alias restent ici pour permettre une migration progressive des cours.
+\newif\ifocots@deprecatedmathwarned
+\ocots@deprecatedmathwarnedfalse
+\newcommand{\ocots@deprecatedmath}[2]{%
+  \ifocots@deprecatedmathwarned\else
+    \PackageWarningNoLine{ocots}{Deprecated mathematical macro used; migrate to the new notation}%
+    \global\ocots@deprecatedmathwarnedtrue
+  \fi
+}
+
+% Ensembles de nombres et familles calligraphiques
+\DeclareRobustCommand{\Sn}{\ocots@deprecatedmath{\Sn}{\Sphere}\Sphere}
+\DeclareRobustCommand{\Nb}{\ocots@deprecatedmath{\Nb}{\Nbar}\Nbar}
+\DeclareRobustCommand{\Ns}{\ocots@deprecatedmath{\Ns}{\Nstar}\Nstar}
+\DeclareRobustCommand{\Nsb}{\ocots@deprecatedmath{\Nsb}{\Nbarstar}\Nbarstar}
+\DeclareRobustCommand{\Rn}{\ocots@deprecatedmath{\Rn}{\Rnonpos}\Rnonpos}
+\DeclareRobustCommand{\Rp}{\ocots@deprecatedmath{\Rp}{\Rnonneg}\Rnonneg}
+\DeclareRobustCommand{\Rsn}{\ocots@deprecatedmath{\Rsn}{\Rneg}\Rneg}
+\DeclareRobustCommand{\Rsp}{\ocots@deprecatedmath{\Rsp}{\Rpos}\Rpos}
+\DeclareRobustCommand{\Rs}{\ocots@deprecatedmath{\Rs}{\Rstar}\Rstar}
+\DeclareRobustCommand{\Rb}{\ocots@deprecatedmath{\Rb}{\Rbar}\Rbar}
+\DeclareRobustCommand{\Rbp}{\ocots@deprecatedmath{\Rbp}{\Rbarnonneg}\Rbarnonneg}
+\DeclareRobustCommand{\Vcal}{\ocots@deprecatedmath{\Vcal}{\Neighborhoods}\Neighborhoods}
+\DeclareRobustCommand{\Ical}{\ocots@deprecatedmath{\Ical}{\TimeInterval}\TimeInterval}
+\DeclareRobustCommand{\Lcal}{\ocots@deprecatedmath{\Lcal}{\ContinuousLinear}\ocots@calSet{L}}
+\DeclareRobustCommand{\Ccal}{\ocots@deprecatedmath{\Ccal}{\Cclass}\Cclass{}}
+\DeclareRobustCommand{\Ecal}{\ocots@deprecatedmath{\Ecal}{\MultilinearSpace}\MultilinearSpace}
+\DeclareRobustCommand{\Fcal}{\ocots@deprecatedmath{\Fcal}{\AllMaps}\AllMaps}
+\DeclareRobustCommand{\Acal}{\ocots@deprecatedmath{\Acal}{\Reachable}\Reachable}
+\DeclareRobustCommand{\GLcal}{\ocots@deprecatedmath{\GLcal}{\GL}\GL}
+\DeclareRobustCommand{\ind}{\ocots@deprecatedmath{\ind}{\indicator}\indicator}
+
+% Constructions et intervalles
+\DeclareRobustCommand{\fonction}[5]{\ocots@deprecatedmath{\fonction}{\functiondef}\functiondef{#1}{#2}{#3}{#4}{#5}}
+\DeclareRobustCommand{\absStyle}[1]{\ocots@deprecatedmath{\absStyle}{\abs*}\abs*{#1}}
+\DeclareRobustCommand{\normStyle}[1]{\ocots@deprecatedmath{\normStyle}{\norm*}\norm*{#1}}
+\DeclareRobustCommand{\prodscal}[2]{\ocots@deprecatedmath{\prodscal}{\inner}\inner{#1}{#2}}
+\DeclareRobustCommand{\enstq}[2]{\ocots@deprecatedmath{\enstq}{\setst}\setst{#1}{#2}}
+\DeclareRobustCommand{\intervalleff}[2]{\ocots@deprecatedmath{\intervalleff}{\intervalcc}\intervalcc{#1}{#2}}
+\DeclareRobustCommand{\intervalleof}[2]{\ocots@deprecatedmath{\intervalleof}{\intervaloc}\intervaloc{#1}{#2}}
+\DeclareRobustCommand{\intervallefo}[2]{\ocots@deprecatedmath{\intervallefo}{\intervalco}\intervalco{#1}{#2}}
+\DeclareRobustCommand{\intervalleoo}[2]{\ocots@deprecatedmath{\intervalleoo}{\intervaloo}\intervaloo{#1}{#2}}
+\DeclareRobustCommand{\intervalleentier}[2]{\ocots@deprecatedmath{\intervalleentier}{\intervalint}\intervalint{#1}{#2}}
+\DeclareRobustCommand{\semidefpos}{\ocots@deprecatedmath{\semidefpos}{\possemidef}\possemidef}
+\DeclareRobustCommand{\defpos}{\ocots@deprecatedmath{\defpos}{\posdef}\posdef}
+\DeclareRobustCommand{\defneg}{\ocots@deprecatedmath{\defneg}{\negdef}\negdef}
+
+% Operateurs
+\DeclareRobustCommand{\rang}{\ocots@deprecatedmath{\rang}{\rank}\rank}
+\DeclareRobustCommand{\vect}{\ocots@deprecatedmath{\vect}{\spanop}\spanop}
+\DeclareRobustCommand{\comatrice}{\ocots@deprecatedmath{\comatrice}{\cofactor}\cofactor}
+\DeclareRobustCommand{\graphe}{\ocots@deprecatedmath{\graphe}{\graph}\graph}
+\DeclareRobustCommand{\sh}{\ocots@deprecatedmath{\sh}{\sinh}\sinh}
+\DeclareRobustCommand{\argsh}{\ocots@deprecatedmath{\argsh}{\argsinh}\argsinh}
+\DeclareRobustCommand{\dd}{\ocots@deprecatedmath{\dd}{\dif}\dif}
+
+% Analyse
+\DeclareRobustCommand{\xDif}{\ocots@deprecatedmath{\xDif}{\Dif}\Dif}
+\DeclareRobustCommand{\xdif}{\ocots@deprecatedmath{\xdif}{\dif}\dif}
+\DeclareRobustCommand{\diff}{\ocots@deprecatedmath{\diff}{\dif}\dif}
+\DeclareRobustCommand{\Diff}{\ocots@deprecatedmath{\Diff}{\Dif}\Dif}
+\DeclareRobustCommand{\pardiff}{\ocots@deprecatedmath{\pardiff}{\partialop}\partialop}
+\DeclareRobustCommand{\frp}[2]{\ocots@deprecatedmath{\frp}{\pd}\pd{#1}{#2}}
+\DeclareRobustCommand{\frpp}[2]{\ocots@deprecatedmath{\frpp}{\pdd}\pdd{#1}{#2}{#2}}
+\DeclareRobustCommand{\frpij}[3]{\ocots@deprecatedmath{\frpij}{\pdd}\pdd{#1}{#2}{#3}}
+\DeclareRobustCommand{\frpxx}[1]{\ocots@deprecatedmath{\frpxx}{\pdd}\pdd{#1}{x}{x}}
+\DeclareRobustCommand{\frptt}[1]{\ocots@deprecatedmath{\frptt}{\pdd}\pdd{#1}{t}{t}}
+\DeclareRobustCommand{\frpuu}[1]{\ocots@deprecatedmath{\frpuu}{\pdd}\pdd{#1}{u}{u}}
+\DeclareRobustCommand{\frpxu}[1]{\ocots@deprecatedmath{\frpxu}{\pdd}\pdd{#1}{x}{u}}
+\DeclareRobustCommand{\frpux}[1]{\ocots@deprecatedmath{\frpux}{\pdd}\pdd{#1}{u}{x}}
+\DeclareRobustCommand{\petito}[1]{\ocots@deprecatedmath{\petito}{\smallo}\smallo{#1}}
+\DeclareRobustCommand{\grandO}[1]{\ocots@deprecatedmath{\grandO}{\bigO}\bigO{#1}}
+\DeclareRobustCommand{\adherence}[1]{\ocots@deprecatedmath{\adherence}{\closure}\closure{#1}}
+\DeclareRobustCommand{\Ball}{\ocots@deprecatedmath{\Ball}{\ball}\ball}
+\DeclareRobustCommand{\BallClosed}{\ocots@deprecatedmath{\BallClosed}{\closedball}\closedball}
+\DeclareRobustCommand{\EnsembleQuotient}[2]{\ocots@deprecatedmath{\EnsembleQuotient}{\quotient}\quotient{#1}{#2}}
+\DeclareRobustCommand{\xLn}[1]{\ocots@deprecatedmath{\xLn}{\ContinuousLinear}\ContinuousLinear{#1}}
+\DeclareRobustCommand{\xCn}[1]{\ocots@deprecatedmath{\xCn}{\Cclass}\Cclass{#1}}
+\DeclareRobustCommand{\lsol}{\ocots@deprecatedmath{\lsol}{\sol}\sol{\lambda}}
+\DeclareRobustCommand{\ssol}{\ocots@deprecatedmath{\ssol}{\sol}\sol{s}}
+\DeclareRobustCommand{\xsol}{\ocots@deprecatedmath{\xsol}{\sol}\sol{x}}
+\DeclareRobustCommand{\ysol}{\ocots@deprecatedmath{\ysol}{\sol}\sol{y}}
+\DeclareRobustCommand{\zsol}{\ocots@deprecatedmath{\zsol}{\sol}\sol{z}}
+\DeclareRobustCommand{\tsol}{\ocots@deprecatedmath{\tsol}{\sol}\sol{t}}
+
+% Mesure et integration. Les lettres de tribus restent des alias de transition :
+% elles dependent du cours et n'ont pas de remplacement semantique universel.
+%
+% \tribu est marquee "a supprimer sans alias" par le chantier 2 de
+% conventions/template.md, sur l'hypothese que c'est un doublon inutilise de
+% \sigma. En realite mesure-integration-enseignants (le depot de validation
+% du chantier) l'utilise comme operateur \tribu(\CT) (« tribu engendree par
+% C ») des dizaines de fois dans poly/ et slides/ : le supprimer casserait
+% la compilation du cours. Alias conserve tant que ces documents n'ont pas
+% migre vers \sigma(\CT) explicitement.
+\DeclareRobustCommand{\tribu}{\ocots@deprecatedmath{\tribu}{\sigma}\sigma}
+\DeclareRobustCommand{\Bor}{\ocots@deprecatedmath{\Bor}{\Borel}\Borel}
+\DeclareRobustCommand{\Parties}{\ocots@deprecatedmath{\Parties}{\PowerSet}\PowerSet}
+\DeclareRobustCommand{\FM}{\ocots@deprecatedmath{\FM}{\Measurable}\Measurable}
+\DeclareRobustCommand{\FE}{\ocots@deprecatedmath{\FE}{\Simple}\Simple}
+\DeclareRobustCommand{\cl}[1]{\ocots@deprecatedmath{\cl}{\eqclass}\eqclass{#1}}
+\DeclareRobustCommand{\convps}{\ocots@deprecatedmath{\convps}{\convae}\convae}
+\DeclareRobustCommand{\AT}{\ocots@deprecatedmath{\AT}{\mathcal{A}}\ocots@calSet{A}}
+\DeclareRobustCommand{\BT}{\ocots@deprecatedmath{\BT}{\mathcal{B}}\ocots@calSet{B}}
+\DeclareRobustCommand{\NT}{\ocots@deprecatedmath{\NT}{\mathcal{N}}\ocots@calSet{N}}
+\DeclareRobustCommand{\CT}{\ocots@deprecatedmath{\CT}{\mathcal{C}}\ocots@calSet{C}}
+\DeclareRobustCommand{\OT}{\ocots@deprecatedmath{\OT}{\mathcal{O}}\ocots@calSet{O}}
+\DeclareRobustCommand{\FT}{\ocots@deprecatedmath{\FT}{\mathcal{F}}\ocots@calSet{F}}
+
 \endinput

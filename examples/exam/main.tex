@@ -39,20 +39,20 @@
     Soit $E$ un espace vectoriel normé et $B \colon E \times E \to \R$ une
     application bilinéaire continue. On pose $Q(x) = B(x,x)$.
     \begin{question}
-        Montrer que $Q$ est différentiable et calculer $\xDif Q(x)$.
+        Montrer que $Q$ est différentiable et calculer $\Dif Q(x)$.
     \end{question}
     \begin{question}
-        En déduire $\xDif^2 Q(x)$.
+        En déduire $\Dif^2 Q(x)$.
     \end{question}
 \solution
     \begin{question}
         $Q(x+h) - Q(x) = B(x,h) + B(h,x) + B(h,h)$, et
-        $\norm{B(h,h)} \le \norm{B}\, \norm{h}^2 = \petito{h}$. Donc
-        $\xDif Q(x) \cdot h = B(x,h) + B(h,x)$.
+        $\norm{B(h,h)} \le \norm{B}\, \norm{h}^2 = \smallo{h}$. Donc
+        $\Dif Q(x) \cdot h = B(x,h) + B(h,x)$.
     \end{question}
     \begin{question}
-        $\xDif Q$ est linéaire en $x$, donc
-        $\xDif^2 Q(x)\cdot(h,k) = B(k,h) + B(h,k)$, indépendante de $x$.
+        $\Dif Q$ est linéaire en $x$, donc
+        $\Dif^2 Q(x)\cdot(h,k) = B(k,h) + B(h,k)$, indépendante de $x$.
     \end{question}
 \end{exercise}
 
