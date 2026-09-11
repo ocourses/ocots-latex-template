@@ -15,6 +15,12 @@
 # messages d'erreur) est binaire et ne renvoie RIEN — ni erreur, ni "0",
 # juste silence. Le harnais annoncerait alors VERT sur un document qui ne
 # compile pas. Piege decouvert en verifiant poly/ a la main, cf. 04-journal.md.
+#
+# `check` relit aussi poly/main.pdf avec check-numbering.sh : le chantier 1
+# promet qu'un numero ne designe qu'un seul objet (compteur partage), une
+# propriete que « pas d'erreur LaTeX » ne peut pas verifier — elle echoue en
+# silence. Necessite pdftotext ; sans lui cette verification est ignoree,
+# pas bloquante.
 
 EXAMPLES := poly slides td exam
 
@@ -87,6 +93,10 @@ check:
 	    echo "  $$d : ok ($$(sed -n 's/.*Output written on.*(\([0-9]*\) pages\{0,1\}.*/\1 p./p' "$$log" | tail -1))"; \
 	  fi; \
 	done; \
+	if [ -f poly/main.pdf ]; then \
+	  dups=$$(./check-numbering.sh poly/main.pdf 2>&1) || { \
+	    echo "  poly : DOUBLON DE NUMEROTATION (chantier 1)"; echo "$$dups" | sed 's/^/      /'; status=1; }; \
+	fi; \
 	[ $$status -eq 0 ] && echo "==> harnais VERT" || { echo "==> harnais ROUGE"; exit 1; }
 
 clean:
