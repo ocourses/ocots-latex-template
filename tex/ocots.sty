@@ -65,6 +65,14 @@
 \def\ocots@math{}
 \DeclareOptionX{math}{\def\ocots@math{#1}}
 
+% setfont=bb|rm  -> police des ensembles de nombres
+\def\ocots@setfont{bb}
+\DeclareOptionX{setfont}{\def\ocots@setfont{#1}}
+
+% calfont=scr|cal  -> police des familles calligraphiques
+\def\ocots@calfont{scr}
+\DeclareOptionX{calfont}{\def\ocots@calfont{#1}}
+
 % institution=n7|inp|insa|uftmp  -> logos de la page de titre et des en-tetes
 % Plusieurs etablissements : entourer d'accolades,
 % institution={n7,insa} et non institution=n7,insa — la virgule non protegee

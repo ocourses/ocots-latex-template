@@ -9,39 +9,39 @@
 \minitoc%
 
 \begin{chapterintro}
-    Les cinq familles à cadre partagent un compteur : un théorème et une
-    définition ne portent jamais le même numéro. Toutes prennent deux arguments,
-    un titre et une étiquette, tous deux facultatifs — laisser l'étiquette vide
-    est licite.
+    Les huit familles de résultats partagent un compteur : un théorème, une
+    définition, un lemme, un exemple et une remarque portent donc des numéros
+    distincts dans une même section. Toutes prennent une liste de clés
+    optionnelle : `title=', `label=' et `note='. Une étiquette est posée telle
+    quelle, sans préfixe ajouté par le template.
 \end{chapterintro}
 
 %---------------------------------------------------------------------------
-\section{Les cinq familles à cadre}%
+\section{Les familles à cadre}%
 \label{sec:framed}
 
-\begin{theorem}{Théorème avec titre et étiquette}{cauchy}
-    Un énoncé. Cette boîte porte l'étiquette \texttt{thm:cauchy} et se cite par
-    \verb|\ref{thm:cauchy}| : théorème~\ref{thm:cauchy}.
+\begin{theorem}[title={Théorème avec titre}, label=thm:cauchy]
+    Un énoncé. Cette boîte porte l'étiquette brute \texttt{thm:cauchy} et se cite
+    par \verb|\ref{thm:cauchy}| : théorème~\ref{thm:cauchy}.
 \end{theorem}
 
-\begin{theorem}{}{}
-    Un énoncé sans titre ni étiquette : les deux arguments restent obligatoires,
-    mais peuvent être vides.
+\begin{theorem}
+    Un énoncé sans titre ni étiquette : la liste de clés est facultative.
 \end{theorem}
 
-\begin{definition}{Définition}{ouvert}
+\begin{definition}[title={Définition}, label=def:ouvert, note={utile}]
     Un énoncé. Référence~: définition~\ref{def:ouvert}.
 \end{definition}
 
-\begin{proposition}{Proposition}{}
+\begin{proposition}
     Un énoncé.
 \end{proposition}
 
-\begin{corollary}{Corollaire}{}
+\begin{corollary}[title={Corollaire}]
     Un énoncé.
 \end{corollary}
 
-\begin{conjecture}{Conjecture}{}
+\begin{conjecture}[title={Conjecture}]
     Un énoncé. Cette famille venait du fork HDR et manquait au template de ce
     dépôt.
 \end{conjecture}
@@ -65,7 +65,7 @@ gras suivi du texte sur la même ligne.
     Un exemple. Il se termine par un carré blanc.
 \end{example}
 
-\begin{example*}[avec une note]
+\begin{example*}[note={avec une note}]
     Un exemple non numéroté, avec une note entre parenthèses.
 \end{example*}
 
@@ -75,6 +75,12 @@ gras suivi du texte sur la même ligne.
 
 \begin{remark*}
     Une remarque non numérotée.
+\end{remark*}
+
+\begin{remark*}[Titre brut]
+    Une variante étoilée avec un titre brut, sans `='. C'est la syntaxe
+    encore en usage dans le corpus (par exemple \texttt{td/td3.tex}) : elle
+    doit continuer à fonctionner, pas seulement la forme \texttt{title=}.
 \end{remark*}
 
 %---------------------------------------------------------------------------
@@ -89,7 +95,7 @@ support à l'autre.
 \begin{exercise}[nosolution]
     Soit $E$ un espace vectoriel normé.
     \begin{question}
-        Montrer que la boule $\Ball(0,1)$ est convexe.
+        Montrer que la boule $\ball(0,1)$ est convexe.
     \end{question}
     \begin{question}
         En déduire que $\norm{\cdot}$ est convexe.

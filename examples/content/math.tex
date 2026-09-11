@@ -13,29 +13,30 @@
 \section{Ensembles de nombres}%
 \label{sec:numbers}
 
-Les ensembles usuels~: $\N$, $\Z$, $\Q$, $\R$, $\C$, $\K$, $\Sn$.
+Les ensembles usuels~: $\N$, $\Z$, $\Q$, $\R$, $\C$, $\K$, $\Sphere$.
 
-Leurs décorations, construites par \verb|\setDeco|~:
-$\Rp$, $\Rn$, $\Rs$, $\Rsp$, $\Rsn$, $\Rb$, $\Rbp$, $\Ns$, $\Nb$.
+Leurs décorations~: $\Rnonneg$, $\Rnonpos$, $\Rstar$, $\Rpos$, $\Rneg$,
+$\Rbar$, $\Rbarnonneg$, $\Nstar$, $\Nbar$.
 
-Ensembles et espaces~: $\M_n(\R)$, $\B$, $\E$, $\F$, $\D$, $\O$, $\P$,
-$\Vcal$, $\Ical$, $\Sgot$, et l'indicatrice $\ind_A$.
+Ensembles et espaces~: $\calset{M}_n(\R)$ et $\calset{D}$, $\calset{O}$,
+$\calset{P}$, $\Neighborhoods$, $\TimeInterval$, et l'indicatrice
+$\indicator_A$.
 
 %---------------------------------------------------------------------------
 \section{Normes, intervalles, opérateurs}%
 \label{sec:norms}
 
 Valeur absolue et norme, en version fixe ou extensible~:
-$\abs{x}$, $\absStyle{\frac{a}{b}}$, $\norm{x}$, $\normStyle{\frac{a}{b}}$.
+$\abs{x}$, $\abs*{\frac{a}{b}}$, $\norm{x}$, $\norm*{\frac{a}{b}}$.
 
-Produit scalaire $\prodscal{x}{y}$ et ensemble défini en compréhension~:
+Produit scalaire $\inner{x}{y}$ et ensemble défini en compréhension~:
 \[
-    \enstq{x \in \R^n}{\norm{x} \le 1}.
+    \setst{x \in \R^n}{\norm{x} \le 1}.
 \]
 
-Intervalles~: $\intervalleff{a}{b}$, $\intervallefo{a}{b}$,
-$\intervalleof{a}{b}$, $\intervalleoo{a}{b}$, et l'intervalle d'entiers
-$\intervalleentier{1}{n}$.
+Intervalles~: $\intervalcc{a}{b}$, $\intervalco{a}{b}$,
+$\intervaloc{a}{b}$, $\intervaloo{a}{b}$, et l'intervalle d'entiers
+$\intervalint{1}{n}$.
 
 \begin{remark}
     La convention des intervalles ouverts vient du fichier de langue~: $]a,b[$
@@ -43,59 +44,57 @@ $\intervalleentier{1}{n}$.
     fichier de macros pour changer de langue.
 \end{remark}
 
-Opérateurs~: $\rang A$, $\rank A$, $\trace A$, $\det A$, $\Ker A$, $\im A$,
-$\vect(u,v)$, $\diag(a_1,\ldots,a_n)$, $\card E$, $\supp f$, $\sign x$,
-$\graphe f$, $\GL_n(\R)$, $\id$.
+Opérateurs~: $\rank A$, $\trace A$, $\det A$, $\Ker A$, $\im A$,
+$\spanop(u,v)$, $\diag(a_1,\ldots,a_n)$, $\card E$, $\supp f$, $\sign x$,
+$\graph f$, $\GL_n(\R)$, $\id$.
 
-Les noms de $\rang$, $\minimize$ et $\graphe$ dépendent de la langue.
+Les noms de $\rank$, $\minimize$ et $\graph$ dépendent de la langue.
 
-Comparaison de matrices~: $A \semidefpos$, $A \defpos$, $A \defneg$.
+Comparaison de matrices~: $A \possemidef$, $A \posdef$, $A \negdef$.
 
 %---------------------------------------------------------------------------
 \section{Applications et différentielles}%
 \label{sec:diff}
 
-Une application, avec \verb|\fonction|~:
+Une application, avec \verb|\functiondef|~:
 \[
-    \fonction{f}{\R^n}{\R^p}{x}{f(x)}
+    \functiondef{f}{\R^n}{\R^p}{x}{f(x)}
 \]
 
-Éléments différentiels~: $\xdif t$, $\xDif f(x)$, $\pardiff_x f$.
+Éléments différentiels~: $\dif t$, $\Dif f(x)$, $\partialop_x f$.
 
-Dérivées partielles~: $\frp{f}{x}$, $\frpp{f}{x}$, $\frpij{f}{x}{y}$,
-$\frpxx{f}$, $\frptt{f}$.
+Dérivées partielles~: $\pd{f}{x}$, $\pdd{f}{x}{x}$, $\pdd{f}{x}{y}$.
 
 Gradient, avec ou sans indice~: $\grad{f}$ et $\grad{f}{x}$.
 
-Notations de Landau~: $g(v) = \petito{v^2}$ et $h(v) = \grandO{v}$.
+Notations de Landau~: $g(v) = \smallo{v^2}$ et $h(v) = \bigO{v}$.
 
-Espaces fonctionnels~: $\xCn{1}(\Ical, \R^n)$, $\xLn{2}(E,F)$, $\Ccal$,
-$\Lcal$, $\Dcal$, $\Ucal$, $\Acal$, $\Ecal$, $\Fcal$, $\Kcal$, $\Ncal$,
-$\GLcal$, $\Htrue$.
+Espaces fonctionnels~: $\Cclass{1}(\TimeInterval, \R^n)$,
+$\ContinuousLinear{2}(E,F)$, $\AllMaps$, $\MultilinearSpace$ et $\Reachable$.
 
-Topologie~: la boule ouverte $\Ball(x,r)$, la boule fermée $\BallClosed(x,r)$,
-l'adhérence $\adherence{A}$, et la barre ajustée $\xoverline{AB}$ qui remplace
+Topologie~: la boule ouverte $\ball(x,r)$, la boule fermée $\closedball(x,r)$,
+l'adhérence $\closure{A}$, et la barre ajustée $\xoverline{AB}$ qui remplace
 $\bar{\phantom{x}}$ sur les symboles larges.
 
-Quotient~: $\EnsembleQuotient{E}{R}$. Convergence~: $u_n \convn u$.
+Quotient~: $\quotient{E}{R}$. Convergence~: $u_n \to u$.
 
 %---------------------------------------------------------------------------
 \section{Un énoncé complet}%
 \label{sec:realstatement}
 
 \begin{theorem}{Cauchy--Lipschitz}{cauchylipschitz}
-    Soit $f \colon \Ical \times \Omega \to \R^n$ continue, localement
-    lipschitzienne en $x$, avec $\Ical$ un intervalle ouvert de $\R$ et
+    Soit $f \colon \TimeInterval \times \Omega \to \R^n$ continue, localement
+    lipschitzienne en $x$, avec $\TimeInterval$ un intervalle ouvert de $\R$ et
     $\Omega$ un ouvert de $\R^n$. Alors pour tout
-    $(t_0, x_0) \in \Ical \times \Omega$, le problème de Cauchy
+    $(t_0, x_0) \in \TimeInterval \times \Omega$, le problème de Cauchy
     \[
         \dot{x}(t) = f(t, x(t)), \qquad x(t_0) = x_0,
     \]
     admet une unique solution maximale, définie sur un intervalle ouvert
-    $\intervalleoo{t_-}{t_+} \subset \Ical$ contenant $t_0$.
+    $\intervaloo{t_-}{t_+} \subset \TimeInterval$ contenant $t_0$.
 \end{theorem}
 
 \begin{proof}
-    Le point fixe de Picard sur $\xCn{0}(\intervalleff{t_0-\eta}{t_0+\eta},
-    \BallClosed(x_0,r))$, muni de $\norm{\cdot}_\infty$.
+    Le point fixe de Picard sur $\Cclass{0}(\intervalcc{t_0-\eta}{t_0+\eta},
+    \closedball(x_0,r))$, muni de $\norm{\cdot}_\infty$.
 \end{proof}

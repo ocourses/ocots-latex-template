@@ -72,6 +72,10 @@
 % --------------------------------------------------------------------------
 % Operateurs mathematiques dont le nom depend de la langue
 \ocotssetstring{op-rank}{rang}
+\ocotssetstring{op-span}{Vect}
+\ocotssetstring{op-cofactor}{com}
+\ocotssetstring{op-sinh}{sh}
+\ocotssetstring{op-argsinh}{argsh}
 \ocotssetstring{op-minimize}{minimiser}
 \ocotssetstring{op-graph}{graphe}
 
