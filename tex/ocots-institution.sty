@@ -38,6 +38,18 @@
 % titre, par exemple).
 \newif\ifocots@logo@uftmp
 \newif\ifocots@logo@others
+% \ocotslogosheader[hauteur] : variante pour un en-tete. Tous les logos
+% sont des pairs : meme hauteur, rangee horizontale, y compris uftmp.
+\newcommand{\ocotslogosheader}[1][0.9cm]{%
+  \def\ocots@logosep{}%
+  \@for\ocots@inst:=\ocots@institution\do{%
+    \@ifundefined{ocots@logo@\ocots@inst}%
+      {\PackageWarning{ocots}{Unknown institution `\ocots@inst'}}%
+      {\ocots@logosep
+       \includegraphics[height=#1]{\@nameuse{ocots@logo@\ocots@inst}}%
+       \def\ocots@logosep{\hspace{1.2em}}}}%
+}
+
 \newcommand{\ocotslogos}[1][\ocotslogoheight]{%
   \ocots@logo@uftmpfalse
   \ocots@logo@othersfalse

@@ -50,6 +50,7 @@ ligne `\usepackage` change.
 | `theme-slate.tex`   | thème `slate` — un seul accent, aplats teintés |
 | `form-sidebar.tex` `form-shaded.tex` | `theme=ocots` + `boxform=` : même palette, boîtes redessinées |
 | `titles-bignum.tex` | `theme=ocots` + `titles=bignum` : même palette, titres redessinés |
+| `header-article.tex` | TD multi-établissement : logos `uftmp` et `n7` côte à côte dans l’en-tête |
 
 `fr-none`, `fr-inline`, `en-end`, `mono-end` partagent `body.tex`, un corps
 minimal. `compat.tex` ne le partage pas : il prouve que l'ancienne syntaxe passe

@@ -16,7 +16,7 @@
 % ---------------------------------------------------------------------------
 % Geometrie
 \RequirePackage[a4paper,includeheadfoot,margin=2.54cm]{geometry}
-\addtolength{\headheight}{\baselineskip}
+\setlength{\headheight}{1.2cm}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{5pt}
 
@@ -87,12 +87,11 @@
 % ---------------------------------------------------------------------------
 % En-tetes et pieds
 %
-% Premiere page : promotion et discipline a gauche, date et reference a droite.
-% Pages suivantes : versions courtes.
-% `plain' est le style de la premiere page, pose par \maketitle : c'est lui qui
+% Premiere page : logo a gauche, promotion et discipline au centre, date et
+% reference a droite. Les pages suivantes gardent les versions courtes.
+% `plain' est le style de la premiere page, pose par \maketitle ; c'est lui qui
 % porte la version longue. Les pages suivantes utilisent `fancy' et sa version
-% courte. La v0 obtenait le meme effet avec \fancyplain, dont les deux arguments
-% sont faciles a intervertir.
+% courte.
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\textsc{\small\ocots@discipline}}
@@ -101,7 +100,8 @@
 
 \fancypagestyle{plain}{%
   \fancyhf{}%
-  \fancyhead[L]{{\scriptsize\emph{\ocots@promotion}\\[-2pt]\textsc{\ocots@discipline}}}%
+  \fancyhead[L]{\ocotslogosheader[0.9cm]}%
+  \fancyhead[C]{{\scriptsize\emph{\ocots@promotion}\\[-2pt]\textsc{\ocots@discipline}}}%
   \fancyhead[R]{{\scriptsize\@date\\[-2pt]\ocots@numero}}%
   \fancyfoot[C]{\textrm{\thepage}}}
 
@@ -114,12 +114,10 @@
 \renewcommand{\maketitle}{%
   \par
   \begin{center}
-    \ocotslogos[1.2cm]\par
-    \vspace*{1.0em}
     {\LARGE\bfseries\@title\par}
   \end{center}%
   \thispagestyle{plain}%
-  \addvspace{2em}%
+  \addvspace{1.5em}%
   \ifocots@examdoc\printinstructions\fi}
 
 % ---------------------------------------------------------------------------

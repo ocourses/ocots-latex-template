@@ -121,7 +121,7 @@ Un TD ou un sujet d'examen :
 | `math` | `base`, `analysis`, `control`, `measure` | `base` | modules de macros chargés |
 | `setfont` | `bb`, `rm` | `bb` | police des ensembles de nombres |
 | `calfont` | `scr`, `cal` | `scr` | police des familles calligraphiques |
-| `institution` | `n7`, `inp`, `insa`, `uftmp` | `n7` | logos de la page de titre |
+| `institution` | `n7`, `inp`, `insa`, `uftmp` | `n7` | logos de la page de titre et des en-têtes TD/examen |
 | `author` | texte | vide | métadonnée `pdfauthor` |
 | `draft` | drapeau | absent | affiche les notes de travail |
 | `binding` | longueur | `0mm` | décalage de reliure pour l'impression |
