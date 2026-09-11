@@ -30,10 +30,59 @@
 \newcommand{\ocots@numero}{}
 \newcommand{\ocots@discipline}{}
 \newcommand{\ocots@promotion}{}
+\newcommand{\ocots@duration}{}
+\newcommand{\ocots@documents}{}
+\newcommand{\ocots@calculator}{}
+\newcommand{\ocots@examnote}{}
+% \ifocots@exam (ocots-exercise.sty) couvre aussi le TD -- il ne pilote que le
+% rendu sobre des exercices. Les champs d'en-tete d'examen et leur composition
+% automatique par \maketitle sont propres a la classe ocots-exam : un
+% indicateur dedie evite qu'un TD qui finirait par appeler \examnote par
+% erreur voie le bloc se composer tout seul.
+\newif\ifocots@examdoc
+\ifx\ocots@carrier\ocots@exam@carrier
+  \ocots@examdoctrue
+\else
+  \ocots@examdocfalse
+\fi
+\newif\ifocots@hasexamdata
+\newif\ifocots@hasduration
+\newif\ifocots@hasdocuments
+\newif\ifocots@hascalculator
+\newif\ifocots@hasexamnote
+\ocots@hasexamdatafalse
+\ocots@hasdurationfalse
+\ocots@hasdocumentsfalse
+\ocots@hascalculatorfalse
+\ocots@hasexamnotefalse
 \newcommand{\shorttitle}[1]{\renewcommand{\ocots@shorttitle}{#1}}
 \newcommand{\numero}[1]{\renewcommand{\ocots@numero}{#1}}
 \newcommand{\discipline}[1]{\renewcommand{\ocots@discipline}{#1}}
 \newcommand{\promotion}[1]{\renewcommand{\ocots@promotion}{#1}}
+\newcommand{\duree}[1]{\renewcommand{\ocots@duration}{#1}\ocots@hasexamdatatrue\ocots@hasdurationtrue}
+\newcommand{\documents}[1]{\renewcommand{\ocots@documents}{#1}\ocots@hasexamdatatrue\ocots@hasdocumentstrue}
+\newcommand{\calculatrice}[1]{\renewcommand{\ocots@calculator}{#1}\ocots@hasexamdatatrue\ocots@hascalculatortrue}
+\newcommand{\examnote}[1]{\renewcommand{\ocots@examnote}{#1}\ocots@hasexamdatatrue\ocots@hasexamnotetrue}
+
+\newcommand{\printinstructions}{%
+  \ifocots@hasexamdata
+    \begin{instructions}
+      \begin{itemize}
+        \ifocots@hasduration
+          \item \textbf{\ocotsstring{duration}}~:~\ocots@duration
+        \fi
+        \ifocots@hasdocuments
+          \item \textbf{\ocotsstring{documents}}~:~\ocots@documents
+        \fi
+        \ifocots@hascalculator
+          \item \textbf{\ocotsstring{calculator}}~:~\ocots@calculator
+        \fi
+        \ifocots@hasexamnote
+          \item \ocots@examnote
+        \fi
+      \end{itemize}
+    \end{instructions}
+  \fi}
 
 % ---------------------------------------------------------------------------
 % En-tetes et pieds
@@ -70,12 +119,16 @@
     {\LARGE\bfseries\@title\par}
   \end{center}%
   \thispagestyle{plain}%
-  \addvspace{2em}}
+  \addvspace{2em}%
+  \ifocots@examdoc\printinstructions\fi}
 
 % ---------------------------------------------------------------------------
 % Consignes et parties
 \newtheorem*{instruction}{\ocotsstring{instruction}}
 \newtheorem*{instructions}{\ocotsstring{instructions}}
-\newtheorem{docpart}{\ocotsstring{part}}
+\newtheorem{ocots@docpart}{\ocotsstring{part}}
+\newenvironment{docpart}[1][]
+  {\ocots@startpart\begin{ocots@docpart}[#1]}
+  {\end{ocots@docpart}}
 
 \endinput

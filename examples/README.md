@@ -18,7 +18,9 @@ Trois rôles :
 
 Chacun exerce tout ce que le template sait faire pour son support : toutes les
 familles d'environnements, les trois modes de corrigés, les macros de mise en
-valeur. `poly/main.tex` est le plus complet — c'est la vitrine.
+valeur. `poly/main.tex` est le plus complet — c'est la vitrine. `exam/main.tex`
+montre en plus les champs d'en-tête d'un sujet et le calcul du barème par partie
+et pour le sujet.
 
 ## Contenu partagé
 
