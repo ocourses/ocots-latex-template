@@ -114,7 +114,7 @@ Un TD ou un sujet d'examen :
 | `listing` | `card`, `framed` | (le thème décide) | **surcharge** l'habillage des blocs de code |
 | `solutions` | `none`, `inline`, `end` | `end` | sort des corrigés |
 | `math` | `base`, `analysis`, `control`, `measure` | `base` | modules de macros chargés |
-| `institution` | `n7`, `inp`, `insa`, `uftmp` | `n7` | logos de la page de titre |
+| `institution` | `n7`, `inp`, `insa`, `uftmp` | `n7` | logos de la page de titre et des en-têtes TD/examen |
 | `author` | texte | vide | métadonnée `pdfauthor` |
 | `draft` | drapeau | absent | affiche les notes de travail |
 | `binding` | longueur | `0mm` | décalage de reliure pour l'impression |

@@ -327,7 +327,10 @@ Classes `ocots-td` et `ocots-exam`. Métadonnées portées par les en-têtes :
 | `\discipline{…}` | matière |
 | `\promotion{…}` | public |
 
-`\maketitle` compose logos + titre. Environnements propres : `instruction`,
+Sur `ocots-td` et `ocots-exam`, `\maketitle` compose le titre sous un
+en-tête de première page (`plain`) : les logos sont à gauche, la promotion et
+la discipline au centre, la date et la référence à droite. Les pages suivantes
+conservent leur en-tête court. Environnements propres : `instruction`,
 `instructions` (non numérotés), `docpart` (Partie 1, 2, …).
 
 ---
@@ -347,11 +350,17 @@ Classes `ocots-td` et `ocots-exam`. Métadonnées portées par les en-têtes :
 
 ### Logos
 
-`\ocotslogos[hauteur]` compose les logos demandés par l'option
-`institution=` (`n7`, `inp`, `insa`, `uftmp` ; plusieurs valeurs entre
-accolades). `uftmp` demandé avec d'autres passe en grand à gauche, les autres
-empilés à droite. Ajouter un établissement = déposer l'image dans
+`\ocotslogos[hauteur]` compose les logos de page de titre demandés par
+l'option `institution=` (`n7`, `inp`, `insa`, `uftmp` ; plusieurs valeurs entre
+accolades). Pour un en-tête de TD ou d'examen, le carrier utilise
+`\ocotslogosheader[hauteur]` : tous les établissements sont alignés sur une
+seule ligne à une hauteur commune, y compris `uftmp`. La disposition spéciale
+de `uftmp` (grand à gauche, établissements empilés à droite) reste réservée
+aux pages de titre. Ajouter un établissement = déposer l'image dans
 `assets/logos/` + une ligne dans `ocots-institution.sty`.
+
+Les pages de titre des polycopiés et des diapositives ne sont pas concernées
+par le placement des logos dans l'en-tête article.
 
 ---
 
