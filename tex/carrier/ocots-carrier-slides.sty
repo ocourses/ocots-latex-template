@@ -92,23 +92,27 @@
 %
 %   \begin{slide}{Titre}          couleur d'en-tete courante
 %   \begin{slide}[\ocotscolor{slide2}]{Titre}
+%   \begin{slide}                  sans habillage de titre
 %
 % \slidecolor change la couleur pour toutes les suivantes : c'est ce qui permet
 % de colorer un jeu de diapos par theme aborde.
 \def\ocots@slidecolor{\ocotscolor{slidetitle}}
 \newcommand{\slidecolor}[1]{\def\ocots@slidecolor{#1}}
 
-\newenvironment{slide}[2][]
+\def\ocots@slidetitle#1{%
+  \begin{minipage}{0.9\textwidth}
+    \large\bfseries\color{\ocots@slidecolor}#1
+  \end{minipage}\hfill
+  \begin{minipage}{0.04\textwidth}
+    \begin{flushright}\slidecounter[\ocots@slidecolor]\end{flushright}
+  \end{minipage}
+  \vspace{-2pt}
+  {\color{\ocots@slidecolor}\noindent\rule{\textwidth}{0.1em}}}
+
+\newenvironment{slide}[1][]
   {\ifx\relax#1\relax\else\def\ocots@slidecolor{#1}\fi
    \begin{frame}%
-     \begin{minipage}{0.9\textwidth}
-       \large\bfseries\color{\ocots@slidecolor}#2
-     \end{minipage}\hfill
-     \begin{minipage}{0.04\textwidth}
-       \begin{flushright}\slidecounter[\ocots@slidecolor]\end{flushright}
-     \end{minipage}
-     \vspace{-2pt}
-     {\color{\ocots@slidecolor}\noindent\rule{\textwidth}{0.1em}}}
+   \@ifnextchar\bgroup\ocots@slidetitle\relax}
   {\end{frame}}
 
 % Bandeau de titre, utilise par \slidetitlepage.

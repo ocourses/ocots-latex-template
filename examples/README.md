@@ -18,7 +18,9 @@ Trois rôles :
 
 Chacun exerce tout ce que le template sait faire pour son support : toutes les
 familles d'environnements, les trois modes de corrigés, les macros de mise en
-valeur. `poly/main.tex` est le plus complet — c'est la vitrine.
+valeur. L'exemple `slides/` couvre les diapositives `slide` titrées et sans
+titre, ainsi que les surcharges de couleur. `poly/main.tex` est le plus
+complet — c'est la vitrine.
 
 ## Contenu partagé
 

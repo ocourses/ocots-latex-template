@@ -297,13 +297,22 @@ Support déduit de la classe `beamer`, rien à déclarer.
 \slidetitlepage                                         % page de titre
 
 \begin{slide}{Titre}                       … \end{slide}
-\begin{slide}[\ocotscolor{slide2}]{Titre}  … \end{slide}   % couleur d'en-tête ponctuelle
+\begin{slide}[\ocotscolor{slide2}]{Titre}  … \end{slide}   % couleur ponctuelle
+\begin{slide}                              … \end{slide}   % sans titre
 ```
+
+`slide` est l'environnement unique pour une diapositive. Son titre est
+optionnel : avec un titre, le template ajoute le bandeau, le filet et le
+compteur ; sans titre, il conserve le rendu d'un `frame` nu, sans bandeau ni
+filet. La couleur entre crochets reste une surcharge ponctuelle, et
+`\slidecolor{…}` règle la couleur des diapositives suivantes. `frame` reste
+valide comme environnement natif de beamer pendant la migration progressive
+des cours.
 
 | macro | effet |
 |-------|-------|
 | `\slidecolor{…}` | change la couleur d'en-tête pour toutes les diapos suivantes |
-| `\slidecounter` | le numéro cerclé en haut à droite (posé automatiquement par `slide`) |
+| `\slidecounter` | le numéro cerclé en haut à droite, disponible pour un usage explicite et posé automatiquement par `slide` titré |
 
 Les diapositives utilisent les couleurs du thème pour `\alert`, les liens
 internes (`\href`, `\hyperref`), les URL (`\url`, `\myurl`) et les entrées de

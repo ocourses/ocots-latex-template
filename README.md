@@ -91,7 +91,14 @@ Des diapositives — le support est déduit de la classe, rien à déclarer :
 ```latex
 \documentclass[9pt,t]{beamer}
 \usepackage[lang=fr, theme=ocots]{ocots}
+
+\begin{slide}{Une diapositive titrée} … \end{slide}
+\begin{slide}                       … \end{slide} % transition sans titre
 ```
+
+`slide` accepte un titre optionnel : la forme titrée reçoit le bandeau et le
+compteur du template, tandis que la forme sans titre conserve le rendu d'un
+`frame` nu. `frame` reste disponible comme environnement natif de beamer.
 
 Un TD ou un sujet d'examen :
 
