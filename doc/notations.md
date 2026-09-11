@@ -48,7 +48,7 @@ $\Rpos \subset \R$, $\Nstar = \N \setminus \{0\}$.
 |---|---|
 | `\Neighborhoods` | voisinages |
 | `\TimeInterval` | intervalle de temps |
-| `\ContinuousLinear{k}` | applications linéaires continues de classe `k` |
+| `\ContinuousLinear{k}` | espace `\mathscr{L}^k` des applications `k`-linéaires continues |
 | `\Cclass{k}` | applications de classe `C^k` |
 | `\AllMaps` | ensemble des applications |
 | `\MultilinearSpace` | espace des applications multilinéaires |

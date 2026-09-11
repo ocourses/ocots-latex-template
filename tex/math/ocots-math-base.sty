@@ -59,9 +59,9 @@
   \else\ifnum\pdfstrcmp{#2}{barstar}=\z@
     \xoverline{\nbSet{#1}}^{\text{*}}%
   \else\ifnum\pdfstrcmp{#2}{nonneg}=\z@
-    \nbSet{#1}_{+}%
+    \nbSet{#1}^{\phantom{\text{*}}}_{+}%
   \else\ifnum\pdfstrcmp{#2}{nonpos}=\z@
-    \nbSet{#1}_{-}%
+    \nbSet{#1}^{\phantom{\text{*}}}_{-}%
   \else\ifnum\pdfstrcmp{#2}{neg}=\z@
     \nbSet{#1}^{\text{*}}_{-}%
   \else\ifnum\pdfstrcmp{#2}{pos}=\z@
