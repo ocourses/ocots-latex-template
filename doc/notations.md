@@ -53,6 +53,10 @@ $\Rpos \subset \R$, $\Nstar = \N \setminus \{0\}$.
 | `\AllMaps` | ensemble des applications |
 | `\MultilinearSpace` | espace des applications multilinéaires |
 | `\Reachable` | ensemble atteignable |
+| `\FlowDomain` | domaine de définition du flot |
+| `\Differentiable` | ensemble des applications différentiables en un point |
+| `\SolutionSpace` | espace des solutions d'une équation différentielle (linéaire homogène) |
+| `\GenericNorm` | norme générique, sans rapport avec une notation déjà fixée |
 | `\calset{A}` | lettre calligraphique générique, selon `calfont` |
 | `\indicator` | fonction indicatrice `\mathds{1}` |
 
