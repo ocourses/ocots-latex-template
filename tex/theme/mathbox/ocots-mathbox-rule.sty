@@ -3,8 +3,11 @@
 %
 % Fond blanc, un filet fin de la couleur mathhighlight (assombrie pour rester
 % visible). Pour qui prefere encadrer plutot que surligner.
+\newcommand{\ocots@mathbox@rule}{%
 \tcbset{initialize@reset={highlight math style={%
-  enhanced, colback=white, colframe=\ocotscolor{mathhighlight}!68!black,
-  boxrule=1pt, arc=2pt, size=minimal, boxsep=4pt}}}
+  enhanced, size=minimal, colback=white,
+  colframe=\ocotscolor{mathhighlight}!68!black,
+  boxrule=1pt, arc=2pt, boxsep=4pt}}}}
+\ocotsregistermathbox{rule}{\ocots@mathbox@rule}
 
 \endinput
