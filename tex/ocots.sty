@@ -5,12 +5,12 @@
 % d'autre :
 %
 %   \documentclass[11pt,twoside]{ocots-book}
-%   \usepackage[lang=fr, theme=n7, solutions=end, math=analysis]{ocots}
+%   \usepackage[lang=fr, theme=ocots, solutions=end, math=analysis]{ocots}
 %
 % ou, pour des diapositives :
 %
 %   \documentclass[9pt,t]{beamer}
-%   \usepackage[lang=fr, theme=n7-dark]{ocots}
+%   \usepackage[lang=fr, theme=ocots]{ocots}
 %
 % Le support est deduit de la classe : les classes ocots-*.cls le declarent,
 % beamer est reconnu automatiquement. Aucun booleen \ifSLIDES a la v0.
@@ -30,11 +30,9 @@
 \def\ocots@lang{fr}
 \DeclareOptionX{lang}{\def\ocots@lang{#1}}
 
-% theme=ocots|legacy|legacy-dark|legacy-light|mono|charter|slate
+% theme=ocots|legacy|charter|slate
 %   -> theme/ocots-theme-<valeur>.sty
 % Vide par defaut : le defaut reel depend du support (voir plus bas).
-% Anciens noms acceptes en alias deprecies : classic -> legacy,
-% classic-dark -> legacy-dark, n7 -> legacy, bw -> mono, v2 -> charter...
 \def\ocots@theme{}
 \DeclareOptionX{theme}{\def\ocots@theme{#1}}
 

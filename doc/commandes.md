@@ -343,8 +343,8 @@ contenu contient lui-même des crochets optionnels, comme ceux de
 
 Les diapositives utilisent les couleurs du thème pour `\alert`, les liens
 internes (`\href`, `\hyperref`), les URL (`\url`, `\myurl`) et les entrées de
-table des matières. Le thème `ocots` est le défaut, mais `legacy-dark` et les
-autres thèmes restent utilisables explicitement.
+table des matières. Le thème `ocots` est le défaut, mais les autres thèmes
+(`legacy`, `charter`, `slate`) restent utilisables explicitement.
 
 Les preuves fractionnées (`proofbegin`/`proofmiddle`/`proofend`) et la remise à
 zéro des compteurs entre deux `\pause` sont gérées par le support.
