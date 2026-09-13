@@ -130,9 +130,16 @@
 \DeclareRobustCommand{\ocots@exstep}{%
   \stepcounter{ocots@exouter}\refstepcounter{ocots@exinner}%
   \setcounter{question}{0}%
-  \ifx\ocots@ex@points\@empty\else
-    \global\advance\c@ocots@totalpoints by \ocots@ex@points\relax
-    \global\advance\c@ocots@partpoints by \ocots@ex@points\relax
+  % Le bareme (total de partie, total de sujet) n'a de sens que pour un
+  % document note - TD ou examen. Ailleurs (polycopie, diapositives),
+  % points= ne sert qu'a l'affichage local "(N points)" ci-dessus : ne pas
+  % alimenter ocots@totalpoints/ocots@partpoints y evite un "Total : note
+  % sur N points" surprenant en fin de document (cf. issue #22).
+  \ifocots@exam
+    \ifx\ocots@ex@points\@empty\else
+      \global\advance\c@ocots@totalpoints by \ocots@ex@points\relax
+      \global\advance\c@ocots@partpoints by \ocots@ex@points\relax
+    \fi
   \fi}
 
 % ---------------------------------------------------------------------------
