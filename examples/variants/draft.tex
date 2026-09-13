@@ -1,0 +1,44 @@
+% Variante : option draft — les notes de travail deviennent visibles.
+% Sans draft, \notework / \noteinmargin / \worktodo / worknotes ne composent
+% rien : le même corps passe de la version relue à la version de travail sans
+% retouche. Le corps partagé body.tex est compilé tel quel, puis une section
+% exerce les quatre formes de notes.
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=ocots, draft, solutions=inline, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Variante : notes de travail (\texttt{draft})}
+\author{Prénom \textsc{Nom}}
+\date{\today}
+
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
+\begin{document}
+
+\begin{lstlisting}
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=ocots, draft, ...]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{draft} (absent par défaut) : les macros
+\texttt{\textbackslash notework}, \texttt{\textbackslash noteinmargin},
+\texttt{\textbackslash worktodo} et l'environnement \texttt{worknotes}
+deviennent visibles — hors \texttt{draft} ils ne composent rien.}
+
+\ocotscollectsolutions
+\input{body}
+\ocotsprintsolutions
+
+\section{Notes de travail}
+
+Une phrase ordinaire, suivie d'une note au fil du texte \notework{vérifier
+cette hypothèse avant diffusion} et d'une note en
+marge\noteinmargin{à relire}.
+
+\worktodo{compléter la bibliographie du chapitre}
+
+\begin{worknotes}
+    Tout ce bloc est exclu hors \texttt{draft} : liste de points à reprendre,
+    restes de calcul, questions en suspens.
+\end{worknotes}
+
+\end{document}

@@ -1,0 +1,55 @@
+% Variante : plusieurs modules de macros mathématiques chargés à la carte.
+% math={control,measure} — la virgule DOIT être protégée par des accolades :
+% sans elles, \usepackage coupe sur la virgule et seule la première valeur
+% atteint la clef (silencieusement). Le corps ci-dessous exerce quelques
+% macros propres à chaque module ; base est toujours chargé.
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=ocots, solutions=inline, math={control,measure}]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Variante : modules mathématiques à la carte}
+\author{Prénom \textsc{Nom}}
+\date{\today}
+
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
+\begin{document}
+
+\begin{lstlisting}
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=ocots, math={control,measure}]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{math=\{control,measure\}} (le défaut est
+\texttt{math=} vide, c'est-à-dire \texttt{base} seul) : chaque valeur charge
+\texttt{tex/math/ocots-math-<module>.sty}. Les accolades autour de la liste
+sont obligatoires — la virgule non protégée est avalée par
+\texttt{\textbackslash usepackage} avant d'atteindre l'option.}
+
+\chapter{Module \texttt{control}}
+\section{Solutions remarquables et homotopie}
+
+Solutions remarquables barrées~: $\rsol$, $\fsol$, $\usol$, $\psol$, instant
+final $\tfsol$. Paramètres d'homotopie~: $\sbar$, $\cbar$, $\lbar$, $\laz$,
+application $\hom$, sphère $\sphere$.
+
+Versions tildées (chemin d'homotopie)~: $\xt$, $\ut$, $\pt$, $\ft$, $\ct$,
+$\Phit$, ensembles $\Et$, $\Ucalt$, $\Acalt$.
+
+Crochet de dualité, application exponentielle, arc~:
+\[
+    \crochetDualite{p}{x}, \qquad \expmap{x}{t}{h}, \qquad \arc.
+\]
+
+Logiciels~: \hampath, \bocop, \cotcot, \nutopy, \controltoolbox, \tapenade,
+\lapack, \minpack.
+
+\chapter{Module \texttt{measure}}
+\section{Tribus et fonctions mesurables}
+
+Tribu borélienne $\Borel$, ensemble des parties $\PowerSet$, fonctions
+mesurables $\Measurable$, fonctions étagées $\Simple$.
+
+Classe d'équivalence $\eqclass{f}$ et convergence presque partout
+$u_n \convae u$.
+
+\end{document}

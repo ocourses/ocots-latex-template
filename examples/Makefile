@@ -1,10 +1,10 @@
 # Compilation des exemples du template — harnais de non-régression.
 #
-#   make                     compile tout : 16 supports, 56+6 variantes, verification
+#   make                     compile tout : 16 supports, 56+11 variantes, verification
 #   make themes              les 16 supports (4 themes x 4 supports)
 #   make themes/legacy/poly  un seul document
 #   make theme-variants      les 56 variantes de facette (matrice complete, par theme)
-#   make variants            les 6 variantes independantes du theme (lang=, solutions=, compat...)
+#   make variants            les 11 variantes independantes du theme (lang=, solutions=, compat...)
 #   make check               revérifie les journaux sans recompiler
 #   make clean               efface les auxiliaires (garde les PDF)
 #   make mrproper             efface tout, PDF compris
@@ -45,7 +45,8 @@ THEME_VARIANTS := $(foreach t,$(THEMES), \
 
 # Variantes independantes du theme : meme corps, options lang=/solutions=/
 # compat/hooks differentes. Toutes utilisent le theme par defaut (`ocots`).
-VARIANTS := fr-none fr-inline en-end compat header-article slides-hook
+VARIANTS := fr-none fr-inline en-end compat header-article slides-hook \
+            math-modules draft binding institution-inp institution-insa
 
 # Le template est trouvé par TEXINPUTS : les documents n'ont plus de chemin
 # relatif à tenir à jour, contrairement au \relativePath de la v0 (défaut D12).
