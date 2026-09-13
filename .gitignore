@@ -1,2 +1,67 @@
-# Fichiers système macOS
+# ── Fichiers système ───────────────────────────────────────────────
+# macOS
 .DS_Store
+._*
+.AppleDouble
+.LSOverride
+Icon?
+.Spotlight-V100
+.Trashes
+.fseventsd
+.DocumentRevisions-V100
+.TemporaryItems
+
+# Windows / divers
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# ── Éditeurs ───────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*~
+.auctex-auto/
+auto/
+
+# ── Résidus de compilation LaTeX ──────────────────────────────────
+# Les exemples ont leur propre .gitignore (build/, *.pdf) ; ces motifs
+# couvrent une compilation faite ailleurs (doc/, racine, tests à la main).
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.idx
+*.ind
+*.ilg
+*.glo
+*.gls
+*.glg
+*.acn
+*.acr
+*.alg
+*.xdv
+*.listing
+*.pyg
+_minted-*/
+*-SAVE-ERROR
+*.backup
+
+# Fichiers écrits par le mécanisme solutions=end via \openout
+*.records
+ocots-solution-*.tex
