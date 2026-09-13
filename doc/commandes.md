@@ -118,7 +118,7 @@ Preuve étalée sur plusieurs diapositives — seul `proofend` pose le carré fi
 
 ```latex
 \begin{equation}
-    \min_u \int_0^{t_f} \ell(x,u)\,\dif t   \tagProblem      % (P₁), (P₂)…
+    \min_u \int_0^{t_f} \ell(x,u)\,\dif t   \problemtag      % (P₁), (P₂)…
 \end{equation}
 ```
 
@@ -453,6 +453,7 @@ Ajouter une langue = copier `tex/lang/ocots-lang-fr.def`, traduire, `lang=<code>
 ## Compatibilité v0
 
 Les noms de la v0 (`mytheorem`, `myexercisecb<étiquette>`, `\solutioncb`,
-`\myemph`, `no solution`, `\cblue`…) restent définis par `tex/ocots-compat.sty`
+`\myemph`, `no solution`, `\cblue`, `\tagProblem`…) restent définis par
+`tex/ocots-compat.sty`
 — pour migrer au fil de l'eau, pas en bloc. **Rien de neuf ne doit les
 utiliser** ; chaque ligne supprimée de ce fichier est une migration terminée.

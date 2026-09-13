@@ -25,8 +25,9 @@
 choix arbitraire hérité de la v0. Ensuite et surtout : le corps ci-dessous
 emploie les \textbf{anciens noms de macros de la v0} (\texttt{mytheorem},
 \texttt{myremark}, \texttt{myexample}, \texttt{myexercisecb}, \texttt{myemph},
-\texttt{cblue}...) au lieu des noms actuels (\texttt{theorem}, \texttt{remark},
-\texttt{example}, \texttt{exercise}, \texttt{keyword}, \texttt{emphA}...) —
+\texttt{cblue}, \texttt{tagProblem}...) au lieu des noms actuels
+(\texttt{theorem}, \texttt{remark}, \texttt{example}, \texttt{exercise},
+\texttt{keyword}, \texttt{emphA}, \texttt{problemtag}...) —
 \texttt{ocots-compat.sty} les fait encore fonctionner sans retouche, pour
 permettre une migration au fil de l'eau.}
 
@@ -52,6 +53,10 @@ Du texte avec \myemph{une mise en valeur} et \cblue{de la couleur}.
 \begin{proof}
     Démonstration.
 \end{proof}
+
+\begin{equation}
+    \dot{x}(t) = A\, x(t) \tagProblem
+\end{equation}
 
 \begin{myexercisecb}<etiquettev0>
     Énoncé de l'exercice, avec l'ancienne syntaxe d'étiquette.
