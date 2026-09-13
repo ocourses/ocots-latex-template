@@ -56,10 +56,21 @@ corollaire,theoreme,definitions,examples}
 % `\begin{remark*}[Contre-exemple]', toujours presente dans le corpus, cf.
 % td/td3/td3.tex) de continuer a fonctionner : sans lui, un titre brut sans
 % `=' tombe dans pgfkeys et casse la compilation (« I do not know the key »).
+%
+% La detection du `=' NE DOIT PAS passer par \IfSubStr (xstring) : xstring
+% force l'expansion complete de #1 pour le scruter, et plante des qu'un titre
+% contient une macro non trivialement expansible (\R, \mathbb{R}, \iere de
+% babel-french...), y compris standard — cf. issue #18. \tl_if_in:nnTF est un
+% test « n » (non-expansible) de l3tl : il compare les tokens de #1 sans
+% jamais les developper, donc sans jamais executer les macros du titre. Cout
+% nul en dependances : xparse (deja charge, cf. ocots-packages.sty) tire
+% expl3.
+\ExplSyntaxOn
 \newcommand{\ocots@result@parseopt}[1]{%
   \ocots@result@reset
   \IfBlankTF{#1}{}{%
-    \IfSubStr{#1}{=}{\pgfkeys{/ocots/result,#1}}{\def\ocots@result@title{#1}}}}
+    \tl_if_in:nnTF{#1}{=}{\pgfkeys{/ocots/result,#1}}{\def\ocots@result@title{#1}}}}
+\ExplSyntaxOff
 
 \newcommand{\ocots@result@beginbox}[6]{%
   \ocots@result@parseopt{#3}%
