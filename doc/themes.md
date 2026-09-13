@@ -59,18 +59,27 @@ filet latéral des remarques / hypothèses. Pour combiner autrement, il faut un
 `slides.tex`, `td.tex`, `exam.tex`) avec un thème donné — c'est la vitrine
 complète de ce thème. `examples/themes/<theme>/variants/` isole ensuite une
 seule facette, appliquée par-dessus le thème du dossier (pas par-dessus le
-défaut `ocots`) :
+défaut `ocots`) — **toutes les valeurs** de chaque facette, nommées
+`<facette>-<valeur>.tex` :
 
 | fichier | montre |
 |---------|--------|
 | `variants/fonts.tex` | `setfont=` / `calfont=` par-dessus le thème du dossier |
-| `variants/boxform-<alt>.tex` | `boxform=` par-dessus le thème du dossier (une forme qui n'est pas la sienne) |
-| `variants/titles-<alt>.tex` | `titles=` par-dessus le thème du dossier |
+| `variants/boxform-{bracket,framed,sidebar,shaded}.tex` | les 4 formes de boîtes à titre |
+| `variants/titles-{plain,rules,bignum}.tex` | les 3 dessins de titres |
+| `variants/mathbox-{highlight,flat,rule,none}.tex` | les 4 encadrés de formule |
+| `variants/listing-{card,framed}.tex` | les 2 habillages de code |
+
+Soit 14 variantes par thème. La valeur propre du thème y figure aussi : la
+note de première page la signale alors comme réglage par défaut forcé
+explicitement. Le filet latéral (`siderule`) n'a pas de variante, n'étant pas
+pilotable par option.
 
 Chaque PDF de `variants/` affiche en première page une note rappelant ce qui
 change par rapport au réglage par défaut du thème du dossier.
 `examples/variants/` (au niveau racine) garde en plus les variantes
-indépendantes du thème : langue, corrigés, syntaxe v0, etc.
+indépendantes du thème : langue, corrigés, modules `math=`, `draft`,
+`binding=`, établissements, syntaxe v0, etc.
 
 ```bash
 cd examples && make themes           # les quatre supports, quatre thèmes
