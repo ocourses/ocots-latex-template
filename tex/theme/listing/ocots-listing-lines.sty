@@ -1,0 +1,24 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-listing-lines}[2026/09/13 v1.0 ocots -- listing : filets haut et bas]
+%
+% Deux filets fins, en haut et en bas, et rien d'autre : le code se lit comme
+% un extrait dans un tableau « booktabs ». Aucun fond, aucun numero de ligne —
+% la variante la plus sobre, qui s'accorde au dessin de titres « rules ».
+% Couleur des filets : listing-rule (le theme la pose ; par defaut, la couleur
+% d'accent principale).
+
+\newcommand{\ocots@listing@lines}{%
+\ocots@derivecolor{listing-rule}{ocots@emph-a}
+\lstset{
+  backgroundcolor=\color{white},
+  basicstyle=\footnotesize\ttfamily,
+  frame=lines,
+  framerule=0.5pt,
+  rulecolor=\color{\ocotscolor{listing-rule}},
+  framesep=2mm,
+  xleftmargin=0pt,
+  numbers=none,
+  aboveskip=\ocotsboxbeforeskip, belowskip=\ocotsboxafterskip}}
+\ocotsregisterlisting{lines}{\ocots@listing@lines}
+
+\endinput

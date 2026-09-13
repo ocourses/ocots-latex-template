@@ -38,7 +38,7 @@ deux rendus sur un même document sans éditer de fichier :
 | `boxform=` | `bracket`, `framed`, `sidebar`, `shaded` | la forme des 7 boîtes à titre |
 | `titles=` | `plain`, `rules`, `bignum` | le dessin des titres de chapitre / section |
 | `mathbox=` | `highlight`, `flat`, `rule`, `none` | le style de `\tcbhighmath` |
-| `listing=` | `card`, `framed` | l'habillage des blocs de code |
+| `listing=` | `card`, `framed`, `lines`, `shade` | l'habillage des blocs de code |
 
 ```latex
 % palette et police de « ocots », mais boîtes à cadre pastel
@@ -68,9 +68,9 @@ défaut `ocots`) — **toutes les valeurs** de chaque facette, nommées
 | `variants/boxform-{bracket,framed,sidebar,shaded}.tex` | les 4 formes de boîtes à titre |
 | `variants/titles-{plain,rules,bignum}.tex` | les 3 dessins de titres |
 | `variants/mathbox-{highlight,flat,rule,none}.tex` | les 4 encadrés de formule |
-| `variants/listing-{card,framed}.tex` | les 2 habillages de code |
+| `variants/listing-{card,framed,lines,shade}.tex` | les 4 habillages de code |
 
-Soit 14 variantes par thème. La valeur propre du thème y figure aussi : la
+Soit 16 variantes par thème. La valeur propre du thème y figure aussi : la
 note de première page la signale alors comme réglage par défaut forcé
 explicitement. Le filet latéral (`siderule`) n'a pas de variante, n'étant pas
 pilotable par option.
