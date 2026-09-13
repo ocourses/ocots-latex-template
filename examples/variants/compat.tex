@@ -6,12 +6,30 @@
 % qu'en bloc (~600 occurrences).
 \documentclass[11pt]{ocots-book}
 \usepackage[lang=fr, theme=legacy, solutions=end, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
 
 \title{Variante : syntaxe v0}
 \author{Prénom \textsc{Nom}}
 \date{\today}
 
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
 \begin{document}
+
+\begin{lstlisting}
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=legacy, solutions=end, math=analysis]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{deux écarts par rapport au défaut. D'abord \texttt{theme=legacy}
+(le défaut est \texttt{theme=ocots}), sans rapport avec la compatibilité —
+choix arbitraire hérité de la v0. Ensuite et surtout : le corps ci-dessous
+emploie les \textbf{anciens noms de macros de la v0} (\texttt{mytheorem},
+\texttt{myremark}, \texttt{myexample}, \texttt{myexercisecb}, \texttt{myemph},
+\texttt{cblue}...) au lieu des noms actuels (\texttt{theorem}, \texttt{remark},
+\texttt{example}, \texttt{exercise}, \texttt{keyword}, \texttt{emphA}...) —
+\texttt{ocots-compat.sty} les fait encore fonctionner sans retouche, pour
+permettre une migration au fil de l'eau.}
+
 \tcbstartrecording
 
 \chapter{Chapitre écrit avec les noms de la v0}

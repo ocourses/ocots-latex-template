@@ -1,6 +1,7 @@
 % Variante : theme=ocots + boxform=sidebar (voir la note affichée dans le PDF).
 \documentclass[11pt]{ocots-book}
 \usepackage[lang=fr, theme=ocots, boxform=sidebar, solutions=inline, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
 
 \title{Variante d'option}
 \author{Prénom \textsc{Nom}}
@@ -9,6 +10,10 @@
 
 \begin{document}
 \maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=ocots, boxform=sidebar]{ocots}
+\end{lstlisting}
 \ocotsvariantnote{\texttt{boxform=sidebar} (le th\`eme \texttt{ocots} utilise par d\'efaut \texttt{bracket}).}
 \input{../../../content/variant-body}
 \end{document}

@@ -3,6 +3,7 @@
 \documentclass[11pt]{ocots-td}
 \usepackage[lang=fr, theme=ocots, solutions=none, math=analysis,
             institution={uftmp,n7}]{ocots}
+\lstset{language=[LaTeX]TeX}
 
 \title{TD de démonstration — En-tête article}
 \shorttitle{TD — En-tête}
@@ -11,9 +12,19 @@
 \discipline{Calcul différentiel}
 \promotion{ENSEEIHT / INSA — 1A}
 
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
 \begin{document}
 
 \maketitle
+
+\begin{lstlisting}
+\usepackage[..., institution={uftmp,n7}]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{institution=\{uftmp,n7\}} : deux établissements
+séparés par une virgule et entourés d'accolades (le défaut est un seul,
+\texttt{institution=n7}) — les deux logos sont composés côte à côte, à
+hauteur commune, dans l'en-tête.}
 
 \begin{instructions}
     Les logos de la première page sont composés en mode en-tête.

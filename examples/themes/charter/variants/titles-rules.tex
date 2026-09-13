@@ -1,6 +1,7 @@
 % Variante : theme=charter + titles=rules (voir la note affichée dans le PDF).
 \documentclass[11pt]{ocots-book}
 \usepackage[lang=fr, theme=charter, titles=rules, solutions=inline, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
 
 \title{Variante d'option}
 \author{Prénom \textsc{Nom}}
@@ -9,6 +10,10 @@
 
 \begin{document}
 \maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=charter, titles=rules]{ocots}
+\end{lstlisting}
 \ocotsvariantnote{\texttt{titles=rules} (le th\`eme \texttt{charter} utilise par d\'efaut \texttt{bignum}).}
 \input{../../../content/variant-body}
 \end{document}

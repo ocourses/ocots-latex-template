@@ -1,6 +1,7 @@
 % Variante : theme=ocots + titles=bignum (voir la note affichée dans le PDF).
 \documentclass[11pt]{ocots-book}
 \usepackage[lang=fr, theme=ocots, titles=bignum, solutions=inline, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
 
 \title{Variante d'option}
 \author{Prénom \textsc{Nom}}
@@ -9,6 +10,10 @@
 
 \begin{document}
 \maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=ocots, titles=bignum]{ocots}
+\end{lstlisting}
 \ocotsvariantnote{\texttt{titles=bignum} (le th\`eme \texttt{ocots} utilise par d\'efaut \texttt{plain}).}
 \input{../../../content/variant-body}
 \end{document}
