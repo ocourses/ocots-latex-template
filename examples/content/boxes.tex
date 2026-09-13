@@ -65,6 +65,14 @@ gras suivi du texte sur la même ligne.
     Un exemple. Il se termine par un carré blanc.
 \end{example}
 
+\begin{example}[title={Cas $E=\R$}]
+    Un exemple dont le titre contient une macro mathématique --- garde-fou de
+    la régression de l'issue \#18 : la détection \texttt{title=} forçait
+    autrefois l'expansion complète du titre (\texttt{xstring}) et cassait dès
+    qu'une macro non trivialement expansible y apparaissait, même standard
+    (\texttt{\textbackslash R}, \verb|\mathbb{R}|...).
+\end{example}
+
 \begin{example*}[note={avec une note}]
     Un exemple non numéroté, avec une note entre parenthèses.
 \end{example*}
