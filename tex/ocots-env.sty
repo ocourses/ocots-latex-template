@@ -246,9 +246,12 @@ corollaire,theoreme,definitions,examples}
 
 % ---------------------------------------------------------------------------
 % Numerotation des problemes : (P_1), (P_2)...
-\newcounter{problem}
-\regtotcounter{problem}
-\newcommand{\tagProblem}[1][]{\addtocounter{problem}{1}\tag{P$_\theproblem$#1}}
+% Le compteur est prefixe « ocots@ » : beamer cree \c@problem au \documentclass
+% sur ses versions recentes, et \ocotsfreeenvs ne libere que les noms
+% d'environnements — un \newcounter{problem} mourrait donc en diapositives.
+\newcounter{ocots@problem}
+\regtotcounter{ocots@problem}
+\newcommand{\problemtag}[1][]{\addtocounter{ocots@problem}{1}\tag{P$_\theocots@problem$#1}}
 
 % ---------------------------------------------------------------------------
 % Blocs de texte annexes
