@@ -1,0 +1,19 @@
+% Variante : theme=charter + listing=card (voir la note affichée dans le PDF).
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=charter, listing=card, solutions=inline, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Variante d'option}
+\author{Prénom \textsc{Nom}}
+
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
+\begin{document}
+\maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=charter, listing=card]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{listing=card} (r\'eglage par d\'efaut du th\`eme \texttt{charter} : la variante force explicitement la valeur).}
+\input{../../../content/variant-body}
+\end{document}

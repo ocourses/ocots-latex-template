@@ -1,0 +1,19 @@
+% Variante : theme=ocots + boxform=framed (voir la note affichée dans le PDF).
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=ocots, boxform=framed, solutions=inline, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Variante d'option}
+\author{Prénom \textsc{Nom}}
+
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
+\begin{document}
+\maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=ocots, boxform=framed]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{boxform=framed} (le th\`eme \texttt{ocots} utilise par d\'efaut \texttt{bracket}).}
+\input{../../../content/variant-body}
+\end{document}

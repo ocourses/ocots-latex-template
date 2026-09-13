@@ -1,0 +1,19 @@
+% Variante : theme=legacy + mathbox=flat (voir la note affichée dans le PDF).
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=legacy, mathbox=flat, solutions=inline, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Variante d'option}
+\author{Prénom \textsc{Nom}}
+
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
+\begin{document}
+\maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=legacy, mathbox=flat]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{mathbox=flat} (le th\`eme \texttt{legacy} utilise par d\'efaut \texttt{highlight}).}
+\input{../../../content/variant-body}
+\end{document}

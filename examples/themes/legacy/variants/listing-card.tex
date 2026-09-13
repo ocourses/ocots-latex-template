@@ -1,0 +1,19 @@
+% Variante : theme=legacy + listing=card (voir la note affichée dans le PDF).
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=legacy, listing=card, solutions=inline, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Variante d'option}
+\author{Prénom \textsc{Nom}}
+
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
+\begin{document}
+\maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=legacy, listing=card]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{listing=card} (le th\`eme \texttt{legacy} utilise par d\'efaut \texttt{framed}).}
+\input{../../../content/variant-body}
+\end{document}

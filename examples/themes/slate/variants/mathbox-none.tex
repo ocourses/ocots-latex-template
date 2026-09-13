@@ -1,0 +1,19 @@
+% Variante : theme=slate + mathbox=none (voir la note affichée dans le PDF).
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=slate, mathbox=none, solutions=inline, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Variante d'option}
+\author{Prénom \textsc{Nom}}
+
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
+\begin{document}
+\maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=slate, mathbox=none]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{mathbox=none} (le th\`eme \texttt{slate} utilise par d\'efaut \texttt{flat}).}
+\input{../../../content/variant-body}
+\end{document}
