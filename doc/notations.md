@@ -57,6 +57,7 @@ $\Rpos \subset \R$, $\Nstar = \N \setminus \{0\}$.
 | `\Differentiable` | ensemble des applications différentiables en un point |
 | `\SolutionSpace` | espace des solutions d'une équation différentielle (linéaire homogène) |
 | `\GenericNorm` | norme générique, sans rapport avec une notation déjà fixée |
+| `\MatrixSpace` | espace des matrices, p. ex. `\MatrixSpace_n(\R)`, `\MatrixSpace_{m,n}(\R)` |
 | `\calset{A}` | lettre calligraphique générique, selon `calfont` |
 | `\indicator` | fonction indicatrice `\mathds{1}` |
 
