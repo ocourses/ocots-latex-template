@@ -3,6 +3,8 @@
 % Le sort des corrigés dépend uniquement de l'option solutions= du paquet.
 % Ce fichier est identique dans les trois modes.
 
+\lstset{language=[LaTeX]TeX}
+
 \chapter{Exercices et corrigés}%
 \label{chap:exercises}
 \minitoc%
@@ -18,12 +20,31 @@
 \section{Formes d'exercice}%
 \label{sec:exforms}
 
+\begin{lstlisting}
+\begin{exercise}
+    Un exercice simple, sans etiquette ni bareme.
+\solution
+    Son corrige.
+\end{exercise}
+\end{lstlisting}
 \begin{exercise}
     Un exercice simple, sans étiquette ni barème.
 \solution
     Son corrigé.
 \end{exercise}
 
+\begin{lstlisting}
+\begin{exercise}[label=ex:matrices, points=4]
+    Un exercice etiquete et bareme. On le cite par \verb|\ref{ex:matrices}|.
+    Calculer $e^{tA}$ pour $A = \begin{pmatrix} 0 & 1 \\ -1 & 0\end{pmatrix}$.
+\solution
+    On part de la definition $e^{tA} = \sum_{n \ge 0} \frac{t^n}{n!} A^n$ et de
+    l'identite $A^2 = -I$, d'ou
+    \[
+        e^{tA} = \begin{pmatrix} \cos t & \sin t \\ -\sin t & \cos t\end{pmatrix}.
+    \]
+\end{exercise}
+\end{lstlisting}
 \begin{exercise}[label=ex:matrices, points=4]
     Un exercice étiqueté et barémé. On le cite par \verb|\ref{ex:matrices}|.
     Calculer $e^{tA}$ pour $A = \begin{pmatrix} 0 & 1 \\ -1 & 0\end{pmatrix}$.
@@ -37,6 +58,13 @@
 
 L'exercice précédent est l'exercice~\ref{ex:matrices}.
 
+\begin{lstlisting}
+\begin{exercise}[nosolution]
+    Un exercice sans corrige, quel que soit le mode~: la clef
+    \texttt{nosolution} l'exclut individuellement, et le titre ne porte alors
+    aucun renvoi.
+\end{exercise}
+\end{lstlisting}
 \begin{exercise}[nosolution]
     Un exercice sans corrigé, quel que soit le mode~: la clef
     \texttt{nosolution} l'exclut individuellement, et le titre ne porte alors
@@ -47,6 +75,35 @@ L'exercice précédent est l'exercice~\ref{ex:matrices}.
 \section{Questions et sous-questions}%
 \label{sec:questions}
 
+\begin{lstlisting}
+\begin{exercise}[points=6]
+    \begin{question}
+        Une premiere question, numerotee dans l'exercice.
+    \end{question}
+    \begin{question}
+        Une deuxieme question.
+        \begin{subquestion}
+            Une sous-question.
+        \end{subquestion}
+        \begin{subquestion}
+            Une autre sous-question.
+        \end{subquestion}
+    \end{question}
+    \begin{question}
+        Une troisieme question.
+    \end{question}
+\solution
+    Le compteur de questions repart a zero dans le corrige~; \verb|\newquestion|
+    permet de le faire avancer a la main quand le corrige ne suit pas l'enonce
+    question par question.
+    \begin{question}
+        Corrige de la premiere question.
+    \end{question}
+    \begin{question}
+        Corrige de la deuxieme.
+    \end{question}
+\end{exercise}
+\end{lstlisting}
 \begin{exercise}[points=6]
     \begin{question}
         Une première question, numérotée dans l'exercice.
@@ -83,6 +140,11 @@ Dans un TD ou un sujet d'examen, l'énoncé n'est pas toujours encadré. Le bloc
 \texttt{correction} suit alors le texte et disparaît en mode
 \texttt{solutions=none}.
 
+\begin{lstlisting}
+\begin{correction}
+    Une correction breve, au fil du texte.
+\end{correction}
+\end{lstlisting}
 \begin{correction}
     Une correction brève, au fil du texte.
 \end{correction}

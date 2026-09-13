@@ -3,77 +3,119 @@
 Trois rôles :
 
 1. **Test de non-régression** — `make` doit toujours être vert.
-2. **Documentation** — un exemple vaut mieux qu'une page de manuel.
-3. **Base de comparaison de thèmes** — le même contenu, deux thèmes, deux PDF
-   à mettre côte à côte.
+2. **Documentation** — un exemple vaut mieux qu'une page de manuel. Dans
+   `content/`, chaque construction démontrée (environnement, macro) est
+   montrée en paire **code puis rendu** : le lecteur voit le `\begin{...}`
+   qui produit exactement ce qui suit.
+3. **Base de comparaison de thèmes** — un répertoire par thème, avec les
+   quatre mêmes supports et les mêmes options isolées, pour mettre deux PDF
+   côte à côte.
 
-## Un document par support
+## Un dossier par thème, quatre supports chacun
 
-| Répertoire | Support | Classe |
-|------------|---------|--------|
-| `poly/`   | polycopié      | `ocots-book` |
-| `slides/` | diapositives   | `beamer` |
-| `td/`     | travaux dirigés| `ocots-td` |
-| `exam/`   | examen         | `ocots-exam` |
+```text
+examples/themes/<theme>/{poly,slides,td,exam}.tex
+```
 
-valeur. L'exemple `slides/` couvre les diapositives `slide` titrées et sans
-titre, ainsi que les surcharges de couleur. `poly/main.tex` est le plus
-complet — c'est la vitrine. `exam/main.tex` montre en plus les champs
-d'en-tête d'un sujet et le calcul du barème par partie et pour le sujet.
+pour chacun des quatre thèmes (`ocots`, `legacy`, `charter`, `slate`) :
+
+| Fichier | Support | Classe | Montre |
+|---------|---------|--------|--------|
+| `poly.tex`  | polycopié       | `ocots-book`  | le plus complet — c'est la vitrine |
+| `slides.tex` | diapositives   | `beamer`      | diapositives `slide` titrées et sans titre, surcharges de couleur |
+| `td.tex`     | travaux dirigés| `ocots-td`    | un TD complet, corrigés en fin de séance |
+| `exam.tex`   | examen         | `ocots-exam`  | champs d'en-tête d'un sujet, calcul du barème par partie et pour le sujet |
+
+Un même document (par exemple `poly.tex`) est **identique d'un thème à
+l'autre** à l'exception de la ligne `theme=` : ouvrir
+`themes/ocots/poly.pdf` et `themes/legacy/poly.pdf` côte à côte montre que
+`theme=` redessine sans qu'une ligne du contenu ne change.
 
 ## Contenu partagé
 
-`content/` porte le contenu de démonstration une seule fois
-(`boxes.tex`, `blocks.tex`, `exercises.tex`, `math.tex`, `text.tex`,
-`slides-body.tex`), `\input` par `poly/main.tex` et par les variantes de
-`variants/`. C'est la démonstration de l'étape 2 de la refonte : un énoncé ne
-dépend pas du support qui le compose.
+`content/` porte le contenu de démonstration une seule fois — huit fichiers,
+`\input` par les 16 documents `themes/*/{poly,slides,td,exam}.tex` et par les
+12 variantes de facette `themes/*/variants/` :
 
-## Variantes d'options
+| fichier | utilisé par |
+|---------|-------------|
+| `boxes.tex`, `blocks.tex`, `exercises.tex`, `math.tex`, `text.tex` | `poly.tex`, un thème à la fois |
+| `slides-body.tex` | `slides.tex` |
+| `td-body.tex` | `td.tex` |
+| `exam-body.tex` | `exam.tex` |
+| `variant-body.tex` | les 12 variantes de facette (`themes/*/variants/`) |
 
-`variants/` compile le **même corps** avec des options différentes ; seule la
-ligne `\usepackage` change.
+C'est la démonstration de l'étape 2 de la refonte : un énoncé ne dépend ni du
+support qui le compose, ni du thème qui l'affiche.
+
+## Variantes indépendantes du thème
+
+`variants/` (à la racine) compile le **même corps** avec des options
+différentes ; seule la ligne `\usepackage` change. Toutes utilisent le thème
+par défaut (`ocots`) — ce ne sont pas des comparaisons de thème, voir plus bas.
 
 | Fichier | Ce qu'il montre |
 |---------|-----------------|
 | `fr-none.tex`   | corrigés absents — la version étudiante |
 | `fr-inline.tex` | corrigés en place |
 | `en-end.tex`    | même contenu en anglais, corrigés reportés |
-| `mono-end.tex`  | noir et blanc (`theme=mono`), corps minimal — test d'impression |
-| `fonts.tex`     | options `setfont=rm` et `calfont=cal` |
 | `compat.tex`    | un corps écrit **avec les noms de la v0**, compilé aujourd'hui |
 | `slides-hook.tex` | page de titre Beamer avec contenu optionnel sous auteur/date/logos |
-| `theme-ocots.tex`   | thème `ocots` — le défaut (liseré en équerre, sans fond) |
-| `theme-legacy.tex`  | thème `legacy` — le rendu historique (cadres pastel, titres entre filets) |
-| `theme-legacy-dark.tex`  | thème `legacy-dark` — cadres pleins, titres blancs, projection |
-| `theme-legacy-light.tex` | thème `legacy-light` — pastel, en-têtes claires |
-| `theme-charter.tex` | thème `charter` — Charter/Fira, filet latéral |
-| `theme-slate.tex`   | thème `slate` — un seul accent, aplats teintés |
-| `theme-mono.tex`    | thème `mono` — niveaux de gris, contenu complet |
-| `form-sidebar.tex` `form-shaded.tex` | `theme=ocots` + `boxform=` : même palette, boîtes redessinées |
-| `titles-bignum.tex` | `theme=ocots` + `titles=bignum` : même palette, titres redessinés |
-| `header-article.tex` | TD multi-établissement : logos `uftmp` et `n7` côte à côte dans l’en-tête |
+| `header-article.tex` | TD multi-établissement : logos `uftmp` et `n7` côte à côte dans l'en-tête |
 
-`fr-none`, `fr-inline`, `en-end`, `mono-end` partagent `body.tex`, un corps
-minimal. `compat.tex` ne le partage pas : il prouve que l'ancienne syntaxe passe
-sans retouche. Les `theme-*` partagent le contenu complet de `../content/` —
-ouvrir deux PDF côte à côte montre que `theme=` redessine sans qu'une ligne du
-document ne change.
+`fr-none`, `fr-inline`, `en-end` partagent `body.tex`, un corps minimal.
+`compat.tex` ne le partage pas : il prouve que l'ancienne syntaxe passe sans
+retouche.
+
+## Variantes par thème
+
+`examples/themes/<theme>/variants/` isole **une seule facette**, appliquée
+**par-dessus le thème du dossier** (pas par-dessus le défaut `ocots`) — c'est
+ce qui répond à « qu'est-ce que cette option change, pour ce thème-là ? ».
+Chaque PDF affiche en première page une note rappelant l'écart par rapport au
+réglage par défaut du thème (le détail des notes est dans
+[`doc/themes.md`](../doc/themes.md)).
+
+| fichier | montre |
+|---------|--------|
+| `variants/fonts.tex` | `setfont=`/`calfont=` par-dessus le thème du dossier |
+| `variants/boxform-<alt>.tex` | `boxform=` par-dessus le thème du dossier (une forme qui n'est pas la sienne) |
+| `variants/titles-<alt>.tex` | `titles=` par-dessus le thème du dossier |
+
+`<alt>` diffère par thème (chaque thème emprunte la forme/le dessin de titres
+d'un autre thème, pour qu'on voie sa propre palette sous un autre habit) :
+
+| thème | `boxform-<alt>` | `titles-<alt>` |
+|-------|-----------------|-----------------|
+| `ocots`   | `boxform-sidebar` | `titles-bignum` |
+| `legacy`  | `boxform-shaded`  | `titles-plain`  |
+| `charter` | `boxform-bracket` | `titles-rules`  |
+| `slate`   | `boxform-framed`  | `titles-bignum` |
 
 ## Compilation
 
 ```bash
-make            # les quatre supports, les variantes, puis la vérification
-make poly       # un seul support
-make variants   # seulement les variantes
-make check      # revérifie les journaux sans recompiler
-make clean      # nettoie les auxiliaires
+make                        # tout : 16 supports, 12+6 variantes, verification
+make themes                 # les 16 supports (4 themes x 4 supports)
+make themes/legacy/poly     # un seul document
+make theme-variants         # les 12 variantes de facette (par theme)
+make variants                # les 6 variantes independantes du theme
+make check                  # revérifie les journaux sans recompiler
+make clean                  # nettoie les auxiliaires
+make mrproper                # nettoie tout, PDF compris
 ```
+
+`make poly` n'existe plus : le support ne suffit plus à désigner un fichier
+à lui seul, il faut préciser le thème — `make themes/<theme>/<support>`.
 
 `make` est **vert** si aucune erreur n'apparaît dans les journaux, **rouge** à
 la moindre. Le motif d'erreur est `ERRPAT` dans le `Makefile` (il attrape aussi
-les erreurs venues d'un `\input` de `../content/`, ce que l'ancien `^\./`
-ratait). La liste `KNOWN` sert à tolérer un défaut connu et documenté.
+les erreurs venues d'un `\input` de `../../content/`, ce que l'ancien `^\./`
+ratait). La liste `KNOWN` sert à tolérer un défaut connu et documenté — elle
+contient aujourd'hui l'avertissement bénin de `newtxmath` (thème `charter`,
+famille `symbolsC` désactivée pour rester sous la limite des 16 familles
+mathématiques de TeX) : `\nplus` garde la définition de `stmaryrd`, sans effet
+visible.
 
 Le template est trouvé par `TEXINPUTS`, positionné par le `Makefile` : les
 documents n'ont aucun chemin relatif à tenir à jour.

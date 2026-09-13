@@ -1,18 +1,18 @@
 % =====================================================================
-% Exemple complet — POLYCOPIÉ
+% Exemple complet — POLYCOPIÉ — thème `legacy`
 %
-% Ce document exerce tout ce que le template sait faire. Il sert à la fois
-% de test de non-régression, de documentation par l'exemple, et de base de
-% comparaison entre thèmes : voir examples/variants/.
+% Même contenu que themes/ocots/poly.tex, thème `legacy' seul change : c'est la
+% base de comparaison entre thèmes, voir ../ (les autres dossiers de
+% examples/themes/).
 %
-% Compilation : make poly (depuis examples/)
+% Compilation : make themes/legacy/poly (depuis examples/)
 % =====================================================================
 \documentclass[11pt,twoside]{ocots-book}
-\usepackage[lang=fr, theme=ocots, solutions=end, math=analysis,
+\usepackage[lang=fr, theme=legacy, solutions=end, math=analysis,
             institution={n7}, author={Prénom Nom}]{ocots}
 
 \title{Le template \texttt{ocots}}
-\subtitle{Tout ce qu'il sait faire, sur un support papier}
+\subtitle{Tout ce qu'il sait faire, sur un support papier --- thème legacy}
 \author{Prénom \textsc{Nom}}
 \date{\today}
 
@@ -35,9 +35,9 @@
 
 \ocotscollectsolutions% début de la collecte des corrigés
 
-\input{../content/boxes}
-\input{../content/blocks}
-\input{../content/exercises}
+\input{../../content/boxes}
+\input{../../content/blocks}
+\input{../../content/exercises}
 
 \chapter{Corrections des exercices}%
 \label{chap:solutions}
@@ -47,8 +47,8 @@
 \part{Les macros}%
 \label{part:macros}
 
-\input{../content/math}
-\input{../content/text}
+\input{../../content/math}
+\input{../../content/text}
 
 % ------------------------------------------------------------------
 \part{Annexes}%

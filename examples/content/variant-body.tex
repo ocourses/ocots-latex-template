@@ -1,0 +1,71 @@
+% Corps partagé par les variantes de facette (examples/themes/<theme>/variants/) :
+% aucune option, aucun préambule. Repris de l'ancien examples/variants/body.tex,
+% avec des paires code/rendu et une ligne de polices pour la variante « fonts ».
+
+\lstset{language=[LaTeX]TeX}
+
+\chapter{Chapitre de démonstration}
+\begin{chapterintro}
+    Une introduction de chapitre, avec \ie un exemple de macro localisée et
+    \enquote{un texte cité}. Quelques symboles à police variable :
+    $\N$, $\Z$, $\R$, $\calset{O}$.
+\end{chapterintro}
+\section{Une section}
+
+\begin{lstlisting}
+\begin{theorem}{Un theoreme}{demo}
+    Enonce.
+\end{theorem}
+\end{lstlisting}
+\begin{theorem}{Un théorème}{demo}
+    Énoncé.
+\end{theorem}
+
+\begin{lstlisting}
+\begin{proof}
+    Demonstration.
+\end{proof}
+\end{lstlisting}
+\begin{proof}
+    Démonstration.
+\end{proof}
+
+\begin{lstlisting}
+\begin{definition}{Une definition}{}
+    Enonce.
+\end{definition}
+\end{lstlisting}
+\begin{definition}{Une définition}{}
+    Énoncé.
+\end{definition}
+
+\begin{lstlisting}
+\begin{remark}
+    Une remarque.
+\end{remark}
+\end{lstlisting}
+\begin{remark}
+    Une remarque.
+\end{remark}
+
+\begin{lstlisting}
+\begin{assumption}
+    Une hypothese, etiquetee automatiquement.
+\end{assumption}
+\end{lstlisting}
+\begin{assumption}
+    Une hypothèse, étiquetée automatiquement.
+\end{assumption}
+
+\begin{lstlisting}
+\begin{exercise}[points=4]
+    Enonce de l'exercice.
+\solution
+    Corrige.
+\end{exercise}
+\end{lstlisting}
+\begin{exercise}[points=4]
+    Énoncé de l'exercice.
+\solution
+    Corrigé.
+\end{exercise}

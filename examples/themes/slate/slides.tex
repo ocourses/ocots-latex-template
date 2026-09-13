@@ -1,15 +1,16 @@
 % =====================================================================
-% Exemple complet — DIAPOSITIVES
+% Exemple complet — DIAPOSITIVES — thème `slate`
 %
-% Le support est déduit de la classe : beamer suffit, rien à déclarer.
-% Le corps est dans ../content/slides-body.tex, partagé avec les variantes
-% de thème.
+% Même contenu que themes/ocots/slides.tex, thème seul change. Le support
+% est déduit de la classe (beamer) ; le corps est dans
+% ../../content/slides-body.tex, partagé par les 4 thèmes.
 % =====================================================================
 \documentclass[9pt,t]{beamer}
-\usepackage[lang=fr, theme=ocots, math=analysis,
+\usepackage[lang=fr, theme=slate, math=analysis,
             institution={n7}, author={Prénom Nom}]{ocots}
 
 \title{Le template \texttt{ocots}}
+\subtitle{Th\`eme slate}
 \author{Prénom \textsc{Nom}}
 \date{\today}
 
@@ -18,6 +19,6 @@
 \slidechapter{1}{Tout ce qu'il sait faire, en diapositives}
 \slidetitlepage% remplace les 28 lignes recopiées dans chaque jeu de la v0
 
-\input{../content/slides-body}
+\input{../../content/slides-body}
 
 \end{document}

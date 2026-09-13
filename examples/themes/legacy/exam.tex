@@ -1,0 +1,32 @@
+% =====================================================================
+% Exemple complet — EXAMEN — thème `legacy`
+%
+% L'option institution={n7} sélectionne le logo de la N7 pour ce sujet. Le
+% corps est dans ../../content/exam-body.tex, partagé par les 4 thèmes.
+%
+% Le même fichier produit le sujet et son corrigé : seule l'option
+% solutions= change.
+% =====================================================================
+\documentclass[11pt]{ocots-exam}
+\usepackage[lang=fr, theme=legacy, solutions=none, math=analysis,
+            institution={n7}]{ocots}
+
+\title{Sujet d'examen --- Équations différentielles}
+\shorttitle{Examen --- 2025--2026 --- Session 1}
+\numero{Examen --- Session 1}
+\date{2025--2026}
+\discipline{Équations différentielles}
+\promotion{INSA / ENSEEIHT --- 1A ModIA}
+\duree{1h30}
+\documents{une feuille A4 recto-verso écrite à la main}
+\calculatrice{interdite}
+\examnote{Le barème est calculé automatiquement à partir des points des exercices.}
+
+\begin{document}
+
+\maketitle
+
+\medskip
+\input{../../content/exam-body}
+
+\end{document}

@@ -1,5 +1,7 @@
 % Contenu partagé — preuves, blocs étiquetés, mises en valeur.
 
+\lstset{language=[LaTeX]TeX}
+
 \chapter{Preuves et blocs annexes}%
 \label{chap:blocks}
 \minitoc%
@@ -8,15 +10,31 @@
 \section{Preuves}%
 \label{sec:proofs}
 
+\begin{lstlisting}
+\begin{proposition}{Une proposition a demontrer}{ademontrer}
+    Pour tout $x \in \R$, $x^2 \ge 0$.
+\end{proposition}
+\end{lstlisting}
 \begin{proposition}{Une proposition à démontrer}{ademontrer}
     Pour tout $x \in \R$, $x^2 \ge 0$.
 \end{proposition}
 
+\begin{lstlisting}
+\begin{proof}
+    Le marqueur d'ouverture et le carre de fin viennent du theme, comme la
+    couleur du texte. \newstep{} Un asterisque separe deux etapes.
+\end{proof}
+\end{lstlisting}
 \begin{proof}
     Le marqueur d'ouverture et le carré de fin viennent du thème, comme la
     couleur du texte. \newstep{} Un astérisque sépare deux étapes.
 \end{proof}
 
+\begin{lstlisting}
+\begin{proof}[Demonstration de la proposition~\ref{prop:ademontrer}]
+    L'argument facultatif remplace le marqueur d'ouverture.
+\end{proof}
+\end{lstlisting}
 \begin{proof}[Démonstration de la proposition~\ref{prop:ademontrer}]
     L'argument facultatif remplace le marqueur d'ouverture.
 \end{proof}
@@ -24,12 +42,27 @@
 Une preuve peut être étalée sur plusieurs diapositives. Sur papier, les trois
 morceaux se suivent~; en diapositives, seul le dernier pose le carré final.
 
+\begin{lstlisting}
 \begin{proofbegin}
     Premier morceau.
 \end{proofbegin}
+\end{lstlisting}
+\begin{proofbegin}
+    Premier morceau.
+\end{proofbegin}
+\begin{lstlisting}
+\begin{proofmiddle}
+    Morceau intermediaire.
+\end{proofmiddle}
+\end{lstlisting}
 \begin{proofmiddle}
     Morceau intermédiaire.
 \end{proofmiddle}
+\begin{lstlisting}
+\begin{proofend}
+    Dernier morceau.
+\end{proofend}
+\end{lstlisting}
 \begin{proofend}
     Dernier morceau.
 \end{proofend}
@@ -42,26 +75,56 @@ Trois familles numérotées indépendamment, marquées par un filet latéral ou 
 simple retrait. Elles partagent la même fabrique interne~: en ajouter une
 quatrième tient en une ligne.
 
+\begin{lstlisting}
+\begin{assumption}
+    Une hypothese. Elles sont etiquetees H1, H2, \ldots
+\end{assumption}
+\end{lstlisting}
 \begin{assumption}
     Une hypothèse. Elles sont étiquetées H1, H2, \ldots
 \end{assumption}
 
+\begin{lstlisting}
+\begin{assumption}
+    Une deuxieme hypothese.
+\end{assumption}
+\end{lstlisting}
 \begin{assumption}
     Une deuxième hypothèse.
 \end{assumption}
 
+\begin{lstlisting}
+\begin{assumption*}
+    Une hypothese non etiquetee.
+\end{assumption*}
+\end{lstlisting}
 \begin{assumption*}
     Une hypothèse non étiquetée.
 \end{assumption*}
 
+\begin{lstlisting}
+\begin{openquestion}
+    Un questionnement a se poser. Etiquetage Q1, Q2, \ldots
+\end{openquestion}
+\end{lstlisting}
 \begin{openquestion}
     Un questionnement à se poser. Étiquetage Q1, Q2, \ldots
 \end{openquestion}
 
+\begin{lstlisting}
+\begin{difficulty}
+    Une difficulte attendue. Etiquetage D1, D2, \ldots
+\end{difficulty}
+\end{lstlisting}
 \begin{difficulty}
     Une difficulté attendue. Étiquetage D1, D2, \ldots
 \end{difficulty}
 
+\begin{lstlisting}
+\begin{web}[Documentation en ligne du cours]
+    Renvoi vers une ressource exterieure, precede de son pictogramme.
+\end{web}
+\end{lstlisting}
 \begin{web}[Documentation en ligne du cours]
     Renvoi vers une ressource extérieure, précédé de son pictogramme.
 \end{web}
@@ -82,11 +145,22 @@ exercices en v0.
 \reminder{Un rappel, en rouge.}
 
 Une équation mise en valeur par un surlignage, dont la couleur vient du thème~:
+\begin{lstlisting}
+\[
+    \tcbhighmath{\dot{x}(t) = A\, x(t) + b(t)}
+\]
+\end{lstlisting}
 \[
     \tcbhighmath{\dot{x}(t) = A\, x(t) + b(t)}
 \]
 
 Numérotation indépendante des problèmes~:
+\begin{lstlisting}
+\begin{equation}
+    \min_{u} \int_0^{t_f} \! \ell(x(t), u(t)) \dif t
+    \tagProblem
+\end{equation}
+\end{lstlisting}
 \begin{equation}
     \min_{u} \int_0^{t_f} \! \ell(x(t), u(t)) \dif t
     \tagProblem
@@ -100,10 +174,21 @@ Visibles seulement avec l'option \texttt{draft}, invisibles sinon. Elles
 remplacent le \verb|\ifVIEWALL| de la v0, qui n'était jamais défini et
 provoquait une erreur à l'usage.
 
+\begin{lstlisting}
+\notework{Une note personnelle.}
+\end{lstlisting}
 \notework{Une note personnelle.}
 
+\begin{lstlisting}
+\worktodo{Quelque chose a finir.}
+\end{lstlisting}
 \worktodo{Quelque chose à finir.}
 
+\begin{lstlisting}
+\begin{worknotes}
+    Un bloc entier de notes de travail, exclu de la compilation finale.
+\end{worknotes}
+\end{lstlisting}
 \begin{worknotes}
     Un bloc entier de notes de travail, exclu de la compilation finale.
 \end{worknotes}

@@ -1,0 +1,14 @@
+% Variante : theme=charter + boxform=bracket (voir la note affichée dans le PDF).
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=charter, boxform=bracket, solutions=inline, math=analysis]{ocots}
+
+\title{Variante d'option}
+\author{Prénom \textsc{Nom}}
+
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
+\begin{document}
+\maketitle
+\ocotsvariantnote{\texttt{boxform=bracket} (le th\`eme \texttt{charter} utilise par d\'efaut \texttt{sidebar}).}
+\input{../../../content/variant-body}
+\end{document}
