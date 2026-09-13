@@ -145,9 +145,31 @@
     {\@nameuse{ocots@sidereg@#2}{#1}}}
 
 % --- Titres, encadre de formule, listings ----------------------------------
-\newcommand{\ocotsusetitles}[1]{\ocots@loadpreset{title}{#1}}
-\newcommand{\ocotsusemathbox}[1]{\ocots@loadpreset{mathbox}{#1}}
-\newcommand{\ocotsuselisting}[1]{\ocots@loadpreset{listing}{#1}}
+% Meme mecanisme que les formes : le fichier preset ENREGISTRE une recette
+% (une macro sans argument) que le crochet \ocotsuse* REJOUE a chaque appel.
+% Indispensable pour les options titles=/mathbox=/listing= de ocots.sty :
+% elles s'appliquent APRES le theme — or un preset deja charge par le socle
+% n'est pas recharge (\ocots@loadpreset le saute, et \RequirePackage serait
+% de toute facon idempotent). Sans rejeu, `listing=framed' applique apres le
+% `card' d'un theme ne changerait rien : le fichier ne serait jamais relu.
+\newcommand{\ocotsregistertitles}[2]{\@namedef{ocots@titlesreg@#1}{#2}}
+\newcommand{\ocotsusetitles}[1]{%
+  \ocots@loadpreset{title}{#1}%
+  \@ifundefined{ocots@titlesreg@#1}%
+    {\PackageError{ocots}{Title preset `#1' did not register itself}{}}%
+    {\@nameuse{ocots@titlesreg@#1}}}
+\newcommand{\ocotsregistermathbox}[2]{\@namedef{ocots@mathboxreg@#1}{#2}}
+\newcommand{\ocotsusemathbox}[1]{%
+  \ocots@loadpreset{mathbox}{#1}%
+  \@ifundefined{ocots@mathboxreg@#1}%
+    {\PackageError{ocots}{Mathbox preset `#1' did not register itself}{}}%
+    {\@nameuse{ocots@mathboxreg@#1}}}
+\newcommand{\ocotsregisterlisting}[2]{\@namedef{ocots@listingreg@#1}{#2}}
+\newcommand{\ocotsuselisting}[1]{%
+  \ocots@loadpreset{listing}{#1}%
+  \@ifundefined{ocots@listingreg@#1}%
+    {\PackageError{ocots}{Listing preset `#1' did not register itself}{}}%
+    {\@nameuse{ocots@listingreg@#1}}}
 
 % --- Reglages communs aux formes -------------------------------------------
 % Espacement vertical avant/apres une boite, et fonte du titre (un theme a

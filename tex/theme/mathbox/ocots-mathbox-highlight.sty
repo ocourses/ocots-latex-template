@@ -10,8 +10,10 @@
 % donc a la meme file d'attente, mais APRES elle (le preset se charge apres le
 % paquet) : notre style est rejoue en dernier, et gagne toujours. Piege
 % documente dans 04-journal.md (defaut 5 des retours de rendu).
+\newcommand{\ocots@mathbox@highlight}{%
 \tcbset{initialize@reset={highlight math style={%
   enhanced, colback=\ocotscolor{mathhighlight}, arc=4pt, boxrule=0pt,
-  drop fuzzy shadow, size=minimal, boxsep=5pt}}}
+  drop fuzzy shadow, size=minimal, boxsep=5pt}}}}
+\ocotsregistermathbox{highlight}{\ocots@mathbox@highlight}
 
 \endinput

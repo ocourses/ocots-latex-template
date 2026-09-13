@@ -3,8 +3,10 @@
 %
 % Comme highlight, mais angles vifs et sans ombre : plus discret, mieux adapte
 % aux themes a typographie sobre (charter).
+\newcommand{\ocots@mathbox@flat}{%
 \tcbset{initialize@reset={highlight math style={%
   enhanced, colback=\ocotscolor{mathhighlight}, sharp corners, boxrule=0pt,
-  size=minimal, boxsep=4pt}}}
+  size=minimal, boxsep=4pt}}}}
+\ocotsregistermathbox{flat}{\ocots@mathbox@flat}
 
 \endinput

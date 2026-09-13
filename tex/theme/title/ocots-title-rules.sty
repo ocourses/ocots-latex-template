@@ -10,6 +10,7 @@
 % changer le dessin complet, pas seulement police et couleur.
 
 % --- police et couleur de chaque niveau -----------------------------------
+\newcommand{\ocots@titles@rules}{%
 \ocotssetheading{chapter-number}{%
   \color{\ocotscolor{chapter}}\Large\scshape}
 \ocotssetheading{chapter-title}{%
@@ -46,6 +47,7 @@
 \ocotssetheading{titles-article}{%
   \titleformat{\section}{\ocotsheading{section}}{\thesection}{1em}{}%
   \titleformat{\subsection}{\ocotsheading{subsection}}{\thesubsection}{1em}{}%
-  \titleformat{\subsubsection}{\ocotsheading{subsubsection}}{\thesubsubsection}{1em}{}}
+  \titleformat{\subsubsection}{\ocotsheading{subsubsection}}{\thesubsubsection}{1em}{}}}
+\ocotsregistertitles{rules}{\ocots@titles@rules}
 
 \endinput

@@ -9,6 +9,7 @@
 % Comme tous les presets de titre, il ne fait que deposer les crochets ; le
 % support charge titlesec et les execute.
 
+\newcommand{\ocots@titles@bignum}{%
 \ocotssetheading{chapter-number}{%
   \bfseries\fontsize{56}{56}\selectfont\color{\ocotscolor{chapter}}\ocotsboxtitlefont}
 \ocotssetheading{chapter-title}{%
@@ -48,6 +49,7 @@
     {\ocotsheading{subsubsection}}
     {\color{\ocotscolor{chapter}}\thesubsubsection}{0.7em}{}%
   \titlespacing*{\section}{0pt}{*3}{*1.5}%
-  \titlespacing*{\subsection}{0pt}{*2.5}{*1}}
+  \titlespacing*{\subsection}{0pt}{*2.5}{*1}}}
+\ocotsregistertitles{bignum}{\ocots@titles@bignum}
 
 \endinput
