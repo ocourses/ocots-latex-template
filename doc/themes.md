@@ -19,22 +19,14 @@ une option.
 ```
 
 `theme=` se résout en un fichier : `theme=ocots` charge `ocots-theme-ocots.sty`.
-Sans l'option, `ocots` est utilisé sur papier comme en diapositives ;
-`legacy-dark` reste disponible comme variante adaptée à la projection.
+Sans l'option, `ocots` est utilisé sur papier comme en diapositives.
 
 | thème | rendu | boîtes | titres | formule | code |
 |-------|-------|--------|--------|---------|------|
 | `ocots` | **le défaut** : aucun fond, liseré en équerre, palette à 7 couleurs | `bracket` | `plain` | `highlight` | `card` |
 | `legacy` | le rendu historique : cadres pastel, titres entre filets | `framed` | `rules` | `highlight` | `framed` |
-| `legacy-dark` | soutenu : cadres pleins, titres blancs — variante projection | `framed-solid` | `rules` | `highlight` | `framed` |
-| `legacy-light` | pastel, en-têtes de diapo claires | `framed` | `rules` | `highlight` | `framed` |
-| `mono` | niveaux de gris, pour l'impression sans couleur | `framed` | `rules` | `highlight` | `framed` |
 | `charter` | Charter/Fira, filet latéral, grand chiffre de chapitre | `sidebar` | `bignum` | `flat` | `card` |
 | `slate` | sobre : un seul accent (ardoise), aplats teintés | `shaded` | `plain` | `flat` | `framed` |
-
-Les anciens noms `classic`, `classic-dark`, `classic-light`, `n7`, `n7-dark`,
-`n7-light`, `bw`, `v2` restent acceptés comme **alias dépréciés** (→ `legacy*` /
-`charter`, avertissement à la compilation).
 
 ## Régler une seule facette
 
@@ -43,7 +35,7 @@ deux rendus sur un même document sans éditer de fichier :
 
 | option | valeurs | remplace |
 |--------|---------|----------|
-| `boxform=` | `bracket`, `framed`, `framed-solid`, `sidebar`, `shaded` | la forme des 7 boîtes à titre |
+| `boxform=` | `bracket`, `framed`, `sidebar`, `shaded` | la forme des 7 boîtes à titre |
 | `titles=` | `plain`, `rules`, `bignum` | le dessin des titres de chapitre / section |
 | `mathbox=` | `highlight`, `flat`, `rule`, `none` | le style de `\tcbhighmath` |
 | `listing=` | `card`, `framed` | l'habillage des blocs de code |
@@ -63,16 +55,28 @@ filet latéral des remarques / hypothèses. Pour combiner autrement, il faut un
 
 ## Comparer
 
-`examples/variants/` compile le même corps avec des options différentes :
+`examples/themes/<theme>/` compile les quatre supports (`poly.tex`,
+`slides.tex`, `td.tex`, `exam.tex`) avec un thème donné — c'est la vitrine
+complète de ce thème. `examples/themes/<theme>/variants/` isole ensuite une
+seule facette, appliquée par-dessus le thème du dossier (pas par-dessus le
+défaut `ocots`) :
 
 | fichier | montre |
 |---------|--------|
-| `theme-ocots.tex` / `theme-legacy.tex` / `theme-legacy-dark.tex` / `theme-legacy-light.tex` / `theme-charter.tex` / `theme-slate.tex` / `theme-mono.tex` | un thème chacun, contenu complet |
-| `form-sidebar.tex` / `form-shaded.tex` | `theme=ocots` + `boxform=` |
-| `titles-bignum.tex` | `theme=ocots` + `titles=bignum` |
+| `variants/fonts.tex` | `setfont=` / `calfont=` par-dessus le thème du dossier |
+| `variants/boxform-<alt>.tex` | `boxform=` par-dessus le thème du dossier (une forme qui n'est pas la sienne) |
+| `variants/titles-<alt>.tex` | `titles=` par-dessus le thème du dossier |
+
+Chaque PDF de `variants/` affiche en première page une note rappelant ce qui
+change par rapport au réglage par défaut du thème du dossier.
+`examples/variants/` (au niveau racine) garde en plus les variantes
+indépendantes du thème : langue, corrigés, syntaxe v0, etc.
 
 ```bash
-cd examples && make variants     # puis ouvrir les PDF côte à côte
+cd examples && make themes           # les quatre supports, quatre thèmes
+cd examples && make theme-variants   # les facettes isolées, par thème
+cd examples && make variants         # les variantes indépendantes du thème
+# puis ouvrir les PDF côte à côte
 ```
 
 ---

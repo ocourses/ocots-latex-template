@@ -2,12 +2,24 @@
 \documentclass[9pt,t]{beamer}
 \usepackage[lang=fr, theme=ocots, math=analysis,
             institution={n7}, author={Prénom Nom}]{ocots}
+\lstset{language=[LaTeX]TeX}
 
 \title{Le template \texttt{ocots}}
 \author{Prénom \textsc{Nom}}
 \date{2025--2026}
 
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
 \begin{document}
+
+\begin{frame}[fragile]{Variante~: page de titre avec hook}
+\begin{lstlisting}
+\slidetitlepage[{\fbox{\strut\scriptsize Contenu additionnel}}]
+\end{lstlisting}
+\ocotsvariantnote{\texttt{\textbackslash slidetitlepage} prend un argument
+optionnel (par défaut absent) : un contenu libre composé sous
+auteur/date/logos sur la page de titre — ici un encadré.}
+\end{frame}
 
 \slidechapter{1}{Page de titre avec hook}
 \slidetitlepage[{\fbox{\strut\scriptsize Contenu additionnel}}]

@@ -2,12 +2,24 @@
 % Même corps que les autres variantes ; seule la ligne \usepackage change.
 \documentclass[11pt]{ocots-book}
 \usepackage[lang=fr, theme=ocots, solutions=inline, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
 
 \title{Variante : français, corrigés en place}
 \author{Prénom \textsc{Nom}}
 \date{\today}
 
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
 \begin{document}
+
+\begin{lstlisting}
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=ocots, solutions=inline, math=analysis]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{solutions=inline} (le défaut du template est
+\texttt{solutions=end}) : chaque corrigé suit immédiatement son énoncé, au
+lieu d'être reporté en fin de partie.}
+
 \ocotscollectsolutions
 \input{body}
 \ocotsprintsolutions

@@ -2,12 +2,25 @@
 % Même corps que les autres variantes ; seule la ligne \usepackage change.
 \documentclass[11pt]{ocots-book}
 \usepackage[lang=en, theme=ocots, solutions=end, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
 
 \title{Variante : anglais, corrigés reportés}
 \author{Prénom \textsc{Nom}}
 \date{\today}
 
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
 \begin{document}
+
+\begin{lstlisting}
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=en, theme=ocots, solutions=end, math=analysis]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{lang=en} (le défaut du template est \texttt{lang=fr})
+: les intitulés (« Theorem » au lieu de « Théorème »...) et la typographie
+suivent l'anglais. \texttt{solutions=end} est ici la même valeur que le
+défaut — seule la langue change vraiment par rapport au réglage usuel.}
+
 \ocotscollectsolutions
 \input{body}
 \ocotsprintsolutions

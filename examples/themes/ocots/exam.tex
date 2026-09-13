@@ -1,0 +1,43 @@
+% =====================================================================
+% Exemple complet — EXAMEN — thème `ocots`
+%
+% L'option institution={n7} sélectionne le logo de la N7 pour ce sujet. Le
+% corps est dans ../../content/exam-body.tex, partagé par les 4 thèmes.
+%
+% Le même fichier produit le sujet et son corrigé : seule l'option
+% solutions= change.
+% =====================================================================
+\documentclass[11pt]{ocots-exam}
+\usepackage[lang=fr, theme=ocots, solutions=none, math=analysis,
+            institution={n7}]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Sujet d'examen --- Équations différentielles}
+\shorttitle{Examen --- 2025--2026 --- Session 1}
+\numero{Examen --- Session 1}
+\date{2025--2026}
+\discipline{Équations différentielles}
+\promotion{INSA / ENSEEIHT --- 1A ModIA}
+\duree{1h30}
+\documents{une feuille A4 recto-verso écrite à la main}
+\calculatrice{interdite}
+\examnote{Le barème est calculé automatiquement à partir des points des exercices.}
+
+\begin{document}
+
+\maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=ocots, ...]{ocots}
+\end{lstlisting}
+\begin{quote}\itshape
+Ce sujet illustre le th\`eme \texttt{ocots} : m\^eme sujet que pour les
+autres th\`emes (\texttt{examples/themes/}) ; seule cette ligne change.
+Le bar\`eme est calcul\'e automatiquement \`a partir des points de chaque
+exercice.
+\end{quote}
+
+\medskip
+\input{../../content/exam-body}
+
+\end{document}

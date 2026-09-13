@@ -4,7 +4,7 @@
 % Classe des polycopies.
 %
 %   \documentclass[11pt,twoside]{ocots-book}
-%   \usepackage[lang=fr, theme=n7, math=analysis]{ocots}
+%   \usepackage[lang=fr, theme=ocots, math=analysis]{ocots}
 %
 % La v0 embarquait un book.cls recopie et patche : 788 lignes pour une
 % cinquantaine de lignes utiles, en trois exemplaires (book.cls, polycopie.cls,

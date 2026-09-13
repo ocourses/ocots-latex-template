@@ -85,8 +85,7 @@ Un polycopié :
 ```
 
 `theme=` est facultatif : sans lui, le thème `ocots` est utilisé sur papier comme
-en diapositives. `legacy-dark` reste disponible comme variante adaptée à la
-projection.
+en diapositives.
 
 Des diapositives — le support est déduit de la classe, rien à déclarer :
 
@@ -122,8 +121,8 @@ Un TD ou un sujet d'examen :
 | Option | Valeurs | Défaut | Effet |
 |--------|---------|--------|-------|
 | `lang` | `fr`, `en` | `fr` | langue des intitulés et de la typographie |
-| `theme` | `ocots`, `legacy`, `legacy-dark`, `legacy-light`, `mono`, `charter`, `slate` | `ocots` | palette + formes + titres |
-| `boxform` | `bracket`, `framed`, `framed-solid`, `sidebar`, `shaded` | (le thème décide) | **surcharge** la forme des boîtes à titre |
+| `theme` | `ocots`, `legacy`, `charter`, `slate` | `ocots` | palette + formes + titres |
+| `boxform` | `bracket`, `framed`, `sidebar`, `shaded` | (le thème décide) | **surcharge** la forme des boîtes à titre |
 | `titles` | `plain`, `rules`, `bignum` | (le thème décide) | **surcharge** le dessin des titres |
 | `mathbox` | `highlight`, `flat`, `rule`, `none` | (le thème décide) | **surcharge** l'encadré de formule (`\tcbhighmath`) |
 | `listing` | `card`, `framed` | (le thème décide) | **surcharge** l'habillage des blocs de code |
@@ -146,9 +145,7 @@ Chaque valeur se résout en un nom de fichier : `theme=ocots` charge
 `tex/theme/ocots-theme-ocots.sty`, `boxform=sidebar` charge
 `tex/theme/form/ocots-form-sidebar.sty`. **Ajouter un thème, une forme, une
 langue ou un module de macros, c'est ajouter un fichier** — le noyau n'est pas
-touché. Les anciens noms de thème `classic`, `classic-dark`, `classic-light`,
-`n7`, `n7-dark`, `n7-light`, `bw`, `v2` restent acceptés (alias dépréciés vers
-`legacy*` / `charter`, avec un avertissement).
+touché.
 
 Le détail des commandes est dans [`doc/commandes.md`](doc/commandes.md), les
 notations mathématiques dans [`doc/notations.md`](doc/notations.md), et les
@@ -171,8 +168,8 @@ tex/
   ocots-compat.sty       alias des noms v0
   ocots-book.cls  ocots-td.cls  ocots-exam.cls
   carrier/               supports : book, slides, article, td, exam
-  theme/                 thèmes : ocots, legacy{,-dark,-light}, mono, charter, slate, + socle
-    theme/form/            formes de boîte : bracket, framed, framed-solid, sidebar, shaded
+  theme/                 thèmes : ocots, legacy, charter, slate, + socle
+    theme/form/            formes de boîte : bracket, framed, sidebar, shaded
     theme/siderule/        filets latéraux : bar, soft, none
     theme/title/           dessin des titres : plain, rules, bignum
     theme/mathbox/         encadré de formule : highlight, flat, rule, none

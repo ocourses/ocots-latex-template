@@ -1,0 +1,19 @@
+% Variante : theme=legacy + setfont=rm (voir la note affichée dans le PDF).
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=legacy, setfont=rm, calfont=cal, solutions=inline, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Variante d'option}
+\author{Prénom \textsc{Nom}}
+
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
+\begin{document}
+\maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=legacy, setfont=rm, calfont=cal]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{setfont=rm, calfont=cal} (r\'eglage global, ind\'ependant du th\`eme : par d\'efaut \texttt{setfont=bb, calfont=scr}).}
+\input{../../../content/variant-body}
+\end{document}

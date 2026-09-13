@@ -1,9 +1,15 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ocots-form-framed}[2026/09/06 v1.0 ocots -- forme : cadre pastel]
+\ProvidesPackage{ocots-form-framed}[2026/09/06 v1.1 ocots -- forme : cadre pastel]
 %
-% La forme historique du template (v0 / theme classic) : fond blanc, cadre
-% pastel de la couleur de la famille, titre en gras sur la meme ligne que le
-% texte, tiret separateur.
+% La forme historique du template (v0 / theme classic) : bandeau de titre
+% teinte pastel de la couleur de la famille, titre en noir, separe du corps
+% (toujours blanc) par un filet horizontal ; la boite est cerclee d'un
+% liseret de la meme teinte que le bandeau (colframe sert aux deux : au
+% bandeau de titre, faute de colbacktitle, et au liseret exterieur).
+%
+% Pas de "attach title to upper" ici, a la difference des autres formes
+% (bracket/sidebar/shaded) : le titre reste dans son propre compartiment
+% tcolorbox, ce qui est precisement ce qui dessine le bandeau et le filet.
 %
 % Une forme lit \ocotscolor{key-<famille>} (posee par le theme) et en derive
 % back-/frame-/title-<famille> si le theme ne les a pas verrouilles.

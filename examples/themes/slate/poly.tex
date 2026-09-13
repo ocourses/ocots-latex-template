@@ -1,0 +1,83 @@
+% =====================================================================
+% Exemple complet — POLYCOPIÉ — thème `slate`
+%
+% Même contenu que themes/ocots/poly.tex, thème `slate' seul change : c'est la
+% base de comparaison entre thèmes, voir ../ (les autres dossiers de
+% examples/themes/).
+%
+% Compilation : make themes/slate/poly (depuis examples/)
+% =====================================================================
+\documentclass[11pt,twoside]{ocots-book}
+\usepackage[lang=fr, theme=slate, solutions=end, math=analysis,
+            institution={n7}, author={Prénom Nom}]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Le template \texttt{ocots}}
+\subtitle{Tout ce qu'il sait faire, sur un support papier --- thème slate}
+\author{Prénom \textsc{Nom}}
+\date{\today}
+
+\makeindex
+
+\begin{document}
+
+\dominitoc%
+
+% ---------------------------------------------------------------- front
+\frontmatter%
+\maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=slate, ...]{ocots}
+\end{lstlisting}
+\begin{quote}\itshape
+Ce document illustre le th\`eme \texttt{slate} : les bo\^ites \`a titre
+(th\'eor\`eme, d\'efinition, proposition...), les blocs annexes (preuve,
+remarque, hypoth\`ese...), les exercices corrig\'es, les macros
+math\'ematiques et les dessins suivent ici sa palette et sa mise en forme.
+Le contenu est identique d'un th\`eme \`a l'autre --- seule cette ligne
+change (voir \texttt{examples/themes/}).
+\end{quote}
+
+\tableofcontents
+
+% ---------------------------------------------------------------- main
+\mainmatter%
+
+\part{Les environnements}%
+\label{part:env}
+
+\ocotscollectsolutions% début de la collecte des corrigés
+
+\input{../../content/boxes}
+\input{../../content/blocks}
+\input{../../content/exercises}
+
+\chapter{Corrections des exercices}%
+\label{chap:solutions}
+\ocotsprintsolutions% les corrigés collectés viennent ici
+
+% ------------------------------------------------------------------
+\part{Les macros}%
+\label{part:macros}
+
+\input{../../content/math}
+\input{../../content/text}
+
+% ------------------------------------------------------------------
+\part{Annexes}%
+\label{part:appendix}
+
+\begin{appendix}
+    \chapter{Une annexe}%
+    \label{chap:appendix}
+    \minitoc%
+
+    Les annexes sont numérotées en lettres.
+\end{appendix}
+
+% ---------------------------------------------------------------- back
+\backmatter%
+\printindex%
+
+\end{document}

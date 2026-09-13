@@ -1,0 +1,35 @@
+% =====================================================================
+% Exemple complet — DIAPOSITIVES — thème `slate`
+%
+% Même contenu que themes/ocots/slides.tex, thème seul change. Le support
+% est déduit de la classe (beamer) ; le corps est dans
+% ../../content/slides-body.tex, partagé par les 4 thèmes.
+% =====================================================================
+\documentclass[9pt,t]{beamer}
+\usepackage[lang=fr, theme=slate, math=analysis,
+            institution={n7}, author={Prénom Nom}]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Le template \texttt{ocots}}
+\subtitle{Th\`eme slate}
+\author{Prénom \textsc{Nom}}
+\date{\today}
+
+\begin{document}
+
+\slidechapter{1}{Tout ce qu'il sait faire, en diapositives}
+\slidetitlepage% remplace les 28 lignes recopiées dans chaque jeu de la v0
+
+\begin{frame}[fragile]{\`A propos de cet exemple}
+\begin{lstlisting}
+\usepackage[..., theme=slate, ...]{ocots}
+\end{lstlisting}
+Ce jeu de diapositives illustre le th\`eme \texttt{slate} : bandeau de
+titre, bo\^ites, couleurs d'alerte et de lien suivent sa palette. Contenu
+identique d'un th\`eme \`a l'autre (\texttt{examples/themes/}) ; seule
+cette ligne change.
+\end{frame}
+
+\input{../../content/slides-body}
+
+\end{document}
