@@ -67,7 +67,7 @@ filet latéral des remarques / hypothèses. Pour combiner autrement, il faut un
 
 | fichier | montre |
 |---------|--------|
-| `theme-ocots.tex` / `theme-legacy.tex` / `theme-charter.tex` / `theme-slate.tex` | un thème chacun, contenu complet |
+| `theme-ocots.tex` / `theme-legacy.tex` / `theme-legacy-dark.tex` / `theme-legacy-light.tex` / `theme-charter.tex` / `theme-slate.tex` / `theme-mono.tex` | un thème chacun, contenu complet |
 | `form-sidebar.tex` / `form-shaded.tex` | `theme=ocots` + `boxform=` |
 | `titles-bignum.tex` | `theme=ocots` + `titles=bignum` |
 

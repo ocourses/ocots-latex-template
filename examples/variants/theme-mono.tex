@@ -1,0 +1,31 @@
+% Variante : thème « mono » — niveaux de gris, pour l'impression sans couleur.
+%
+% Même corps que variants/theme-legacy.tex, chargé depuis ../content/ : seule
+% la ligne \usepackage change. C'est la preuve que `theme=' redessine sans
+% toucher aux documents.
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=mono, solutions=end, math=analysis,
+            institution={n7}, author={Prénom Nom}]{ocots}
+
+\title{Comparaison de thèmes}
+\subtitle{Thème \texttt{mono} — niveaux de gris, impression sans couleur}
+\author{Prénom \textsc{Nom}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\ocotscollectsolutions%
+
+\input{../content/boxes}
+\input{../content/blocks}
+\input{../content/exercises}
+
+\chapter{Corrections des exercices}
+\ocotsprintsolutions%
+
+\input{../content/math}
+\input{../content/text}
+
+\end{document}

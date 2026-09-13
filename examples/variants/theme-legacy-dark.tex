@@ -1,0 +1,32 @@
+% Variante : thème « legacy-dark » — cadres pleins, titres blancs, pensé pour
+% la projection.
+%
+% Même corps que variants/theme-legacy.tex, chargé depuis ../content/ : seule
+% la ligne \usepackage change. C'est la preuve que `theme=' redessine sans
+% toucher aux documents.
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=legacy-dark, solutions=end, math=analysis,
+            institution={n7}, author={Prénom Nom}]{ocots}
+
+\title{Comparaison de thèmes}
+\subtitle{Thème \texttt{legacy-dark} — cadres pleins, titres blancs}
+\author{Prénom \textsc{Nom}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\ocotscollectsolutions%
+
+\input{../content/boxes}
+\input{../content/blocks}
+\input{../content/exercises}
+
+\chapter{Corrections des exercices}
+\ocotsprintsolutions%
+
+\input{../content/math}
+\input{../content/text}
+
+\end{document}

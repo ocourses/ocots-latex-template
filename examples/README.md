@@ -39,14 +39,17 @@ ligne `\usepackage` change.
 | `fr-none.tex`   | corrigés absents — la version étudiante |
 | `fr-inline.tex` | corrigés en place |
 | `en-end.tex`    | même contenu en anglais, corrigés reportés |
-| `mono-end.tex`  | noir et blanc (`theme=mono`), pour l'impression |
+| `mono-end.tex`  | noir et blanc (`theme=mono`), corps minimal — test d'impression |
 | `fonts.tex`     | options `setfont=rm` et `calfont=cal` |
 | `compat.tex`    | un corps écrit **avec les noms de la v0**, compilé aujourd'hui |
 | `slides-hook.tex` | page de titre Beamer avec contenu optionnel sous auteur/date/logos |
 | `theme-ocots.tex`   | thème `ocots` — le défaut (liseré en équerre, sans fond) |
 | `theme-legacy.tex`  | thème `legacy` — le rendu historique (cadres pastel, titres entre filets) |
+| `theme-legacy-dark.tex`  | thème `legacy-dark` — cadres pleins, titres blancs, projection |
+| `theme-legacy-light.tex` | thème `legacy-light` — pastel, en-têtes claires |
 | `theme-charter.tex` | thème `charter` — Charter/Fira, filet latéral |
 | `theme-slate.tex`   | thème `slate` — un seul accent, aplats teintés |
+| `theme-mono.tex`    | thème `mono` — niveaux de gris, contenu complet |
 | `form-sidebar.tex` `form-shaded.tex` | `theme=ocots` + `boxform=` : même palette, boîtes redessinées |
 | `titles-bignum.tex` | `theme=ocots` + `titles=bignum` : même palette, titres redessinés |
 | `header-article.tex` | TD multi-établissement : logos `uftmp` et `n7` côte à côte dans l’en-tête |

@@ -30,7 +30,8 @@ EXAMPLES := poly slides td exam
 #   theme-* : un theme chacun, meme contenu complet.
 #   form-* / titles-* : palette `ocots', une seule facette redessinee par option.
 VARIANTS := fr-none fr-inline en-end mono-end compat header-article fonts slides-hook \
-            theme-ocots theme-legacy theme-charter theme-slate \
+            theme-ocots theme-legacy theme-legacy-dark theme-legacy-light \
+            theme-charter theme-slate theme-mono \
             form-sidebar form-shaded titles-bignum
 
 # Le template est trouvé par TEXINPUTS : les documents n'ont plus de chemin
