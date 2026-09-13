@@ -4,7 +4,9 @@
 % \tcbhighmath reste defini (les documents s'en servent) mais ne dessine rien :
 % ni fond, ni filet. Utile pour un thema volontairement plat, ou pour verifier
 % qu'une formule reste lisible sans mise en valeur.
+\newcommand{\ocots@mathbox@none}{%
 \tcbset{initialize@reset={highlight math style={%
-  enhanced, colback=white, boxrule=0pt, frame hidden, size=minimal, boxsep=0pt}}}
+  enhanced, colback=white, boxrule=0pt, frame hidden, size=minimal, boxsep=0pt}}}}
+\ocotsregistermathbox{none}{\ocots@mathbox@none}
 
 \endinput

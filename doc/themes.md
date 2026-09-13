@@ -234,10 +234,12 @@ aucun `colback`.
 
 ### Titres (`titles=`) — `tex/theme/title/ocots-title-<nom>.sty`
 
-Le preset ne fait que **déposer** des crochets ; le support (`carrier/`) charge
+Le preset enregistre une **recette** rejouée à chaque `\ocotsusetitles` :
+elle ne fait que **déposer** des crochets ; le support (`carrier/`) charge
 titlesec puis les exécute via `\ocotsheading{titles-book}`.
 
 ```latex
+\newcommand{\ocots@titles@ribbon}{%
 \ocotssetheading{chapter-number}{\color{\ocotscolor{chapter}}\Huge\bfseries}
 \ocotssetheading{chapter-title}{\color{\ocotscolor{chapter}}\Huge\bfseries}
 \ocotssetheading{section}{\color{\ocotscolor{section}}\Large\bfseries}
@@ -247,7 +249,8 @@ titlesec puis les exécute via `\ocotsheading{titles-book}`.
   \ocotsheading{titles-article}}
 \ocotssetheading{titles-article}{%
   \titleformat{\section}{\ocotsheading{section}}{\thesection}{1em}{}%
-  ...}
+  ...}}
+\ocotsregistertitles{ribbon}{\ocots@titles@ribbon}
 ```
 
 ### Encadré de formule (`mathbox=`) — `tex/theme/mathbox/ocots-mathbox-<nom>.sty`
@@ -255,8 +258,10 @@ titlesec puis les exécute via `\ocotsheading{titles-book}`.
 ```latex
 % initialize@reset, PAS un \tcbset simple : la bibliothèque theorems de
 % tcolorbox réécrit « highlight math style » à l'ouverture de chaque boîte.
+\newcommand{\ocots@mathbox@ribbon}{%
 \tcbset{initialize@reset={highlight math style={%
-  enhanced, colback=\ocotscolor{mathhighlight}, boxrule=0pt, size=minimal}}}
+  enhanced, colback=\ocotscolor{mathhighlight}, boxrule=0pt, size=minimal}}}}
+\ocotsregistermathbox{ribbon}{\ocots@mathbox@ribbon}
 ```
 
 ### Habillage du code (`listing=`) — `tex/theme/listing/ocots-listing-<nom>.sty`
@@ -266,14 +271,22 @@ syntaxique** (commentaires, mots-clés, chaînes) reste dans `ocots-text.sty` �
 elle suit la palette et n'a pas de variante.
 
 ```latex
+\newcommand{\ocots@listing@ribbon}{%
 \ocots@derivecolor{listing-rule}{ocots@emph-a}
 \lstset{
   backgroundcolor=\color{white},
   basicstyle=\footnotesize\ttfamily,
   frame=lb, framerule=1.4pt,
   rulecolor=\color{\ocotscolor{listing-rule}},
-  numbers=left, numberstyle=\scriptsize\ttfamily\color{\ocotscolor{grey}}}
+  numbers=left, numberstyle=\scriptsize\ttfamily\color{\ocotscolor{grey}}}}
+\ocotsregisterlisting{ribbon}{\ocots@listing@ribbon}
 ```
+
+**Pourquoi une recette et pas un effet au chargement** : `\ocots@loadpreset`
+ne recharge pas un preset déjà vu (et `\RequirePackage` serait de toute façon
+idempotent) — or les options `titles=`/`mathbox=`/`listing=` s'appliquent
+*après* le thème. Sans `\ocotsregister*` rejoué à chaque appel, un preset
+déjà chargé par le socle ne pourrait plus repasser par-dessus.
 
 ## Pièges (vus en écrivant cette couche)
 
@@ -302,5 +315,5 @@ elle suit la palette et n'a pas de variante.
 | `\ocotsusetitles{preset}` · `\ocotsusemathbox{preset}` · `\ocotsuselisting{preset}` | charge le preset |
 | `\ocotssetboxstyle{clef}{...}` · `\ocotsboxstyle{clef}` | style tcolorbox brut |
 | `\ocotssetheading{clef}{...}` · `\ocotsheading{clef}` | crochet de titre |
-| `\ocotsregisterform{nom}{\macro}` · `\ocotsregistersiderule{nom}{\macro}` | (dans un preset) s'enregistrer |
+| `\ocotsregisterform{nom}{\macro}` · `\ocotsregistersiderule{nom}{\macro}` · `\ocotsregistertitles{nom}{\macro}` · `\ocotsregistermathbox{nom}{\macro}` · `\ocotsregisterlisting{nom}{\macro}` | (dans un preset) s'enregistrer |
 | `\ocots@derivecolor{clef}{couleur}` | (dans un preset) dériver sans écraser un verrou |

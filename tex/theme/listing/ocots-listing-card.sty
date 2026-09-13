@@ -6,8 +6,8 @@
 % la forme « bracket » des boîtes. Couleur du liseré : listing-rule (le thème
 % la pose ; par défaut, la couleur d'accent principale).
 
+\newcommand{\ocots@listing@card}{%
 \ocots@derivecolor{listing-rule}{ocots@emph-a}
-
 \lstset{
   backgroundcolor=\color{white},
   basicstyle=\footnotesize\ttfamily,
@@ -19,6 +19,7 @@
   framexleftmargin=9mm,
   numbers=left, numbersep=4mm, stepnumber=1,
   numberstyle=\scriptsize\ttfamily\color{\ocotscolor{grey}!45!black},
-  aboveskip=\ocotsboxbeforeskip, belowskip=\ocotsboxafterskip}
+  aboveskip=\ocotsboxbeforeskip, belowskip=\ocotsboxafterskip}}
+\ocotsregisterlisting{card}{\ocots@listing@card}
 
 \endinput

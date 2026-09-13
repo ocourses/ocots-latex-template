@@ -4,14 +4,15 @@
 % Le code source dans un cadre complet, angles arrondis en haut — le rendu
 % historique du template. La coloration syntaxique vient de ocots-text.sty.
 
+\newcommand{\ocots@listing@framed}{%
 \ocots@derivecolor{listing-rule}{black}
-
 \lstset{
   backgroundcolor=\color{white},
   basicstyle=\small\ttfamily,
   frame=single, frameround=tttt,
   rulecolor=\color{\ocotscolor{listing-rule}},
   numbers=none, numbersep=5pt, stepnumber=2,
-  numberstyle=\tiny\ttfamily\color{\ocotscolor{grey}}}
+  numberstyle=\tiny\ttfamily\color{\ocotscolor{grey}}}}
+\ocotsregisterlisting{framed}{\ocots@listing@framed}
 
 \endinput

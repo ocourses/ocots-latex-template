@@ -5,6 +5,7 @@
 % recolore seulement. Aucun filet, aucun grand chiffre : la reference neutre a
 % laquelle comparer « rules » et « bignum ».
 
+\newcommand{\ocots@titles@plain}{%
 \ocotssetheading{chapter-number}{%
   \color{\ocotscolor{chapter}}\huge\bfseries\ocotsboxtitlefont}
 \ocotssetheading{chapter-title}{%
@@ -31,6 +32,7 @@
 \ocotssetheading{titles-article}{%
   \titleformat{\section}{\ocotsheading{section}}{\thesection}{1em}{}%
   \titleformat{\subsection}{\ocotsheading{subsection}}{\thesubsection}{1em}{}%
-  \titleformat{\subsubsection}{\ocotsheading{subsubsection}}{\thesubsubsection}{1em}{}}
+  \titleformat{\subsubsection}{\ocotsheading{subsubsection}}{\thesubsubsection}{1em}{}}}
+\ocotsregistertitles{plain}{\ocots@titles@plain}
 
 \endinput
