@@ -10,6 +10,7 @@
 \documentclass[11pt]{ocots-exam}
 \usepackage[lang=fr, theme=legacy, solutions=none, math=analysis,
             institution={n7}]{ocots}
+\lstset{language=[LaTeX]TeX}
 
 \title{Sujet d'examen --- Équations différentielles}
 \shorttitle{Examen --- 2025--2026 --- Session 1}
@@ -25,6 +26,16 @@
 \begin{document}
 
 \maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=legacy, ...]{ocots}
+\end{lstlisting}
+\begin{quote}\itshape
+Ce sujet illustre le th\`eme \texttt{legacy} : m\^eme sujet que pour les
+autres th\`emes (\texttt{examples/themes/}) ; seule cette ligne change.
+Le bar\`eme est calcul\'e automatiquement \`a partir des points de chaque
+exercice.
+\end{quote}
 
 \medskip
 \input{../../content/exam-body}

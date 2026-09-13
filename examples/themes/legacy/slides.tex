@@ -8,6 +8,7 @@
 \documentclass[9pt,t]{beamer}
 \usepackage[lang=fr, theme=legacy, math=analysis,
             institution={n7}, author={Prénom Nom}]{ocots}
+\lstset{language=[LaTeX]TeX}
 
 \title{Le template \texttt{ocots}}
 \subtitle{Th\`eme legacy}
@@ -18,6 +19,16 @@
 
 \slidechapter{1}{Tout ce qu'il sait faire, en diapositives}
 \slidetitlepage% remplace les 28 lignes recopiées dans chaque jeu de la v0
+
+\begin{frame}[fragile]{\`A propos de cet exemple}
+\begin{lstlisting}
+\usepackage[..., theme=legacy, ...]{ocots}
+\end{lstlisting}
+Ce jeu de diapositives illustre le th\`eme \texttt{legacy} : bandeau de
+titre, bo\^ites, couleurs d'alerte et de lien suivent sa palette. Contenu
+identique d'un th\`eme \`a l'autre (\texttt{examples/themes/}) ; seule
+cette ligne change.
+\end{frame}
 
 \input{../../content/slides-body}
 

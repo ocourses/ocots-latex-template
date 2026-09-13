@@ -10,6 +10,7 @@
 \documentclass[11pt,twoside]{ocots-book}
 \usepackage[lang=fr, theme=charter, solutions=end, math=analysis,
             institution={n7}, author={Prénom Nom}]{ocots}
+\lstset{language=[LaTeX]TeX}
 
 \title{Le template \texttt{ocots}}
 \subtitle{Tout ce qu'il sait faire, sur un support papier --- thème charter}
@@ -25,6 +26,19 @@
 % ---------------------------------------------------------------- front
 \frontmatter%
 \maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=charter, ...]{ocots}
+\end{lstlisting}
+\begin{quote}\itshape
+Ce document illustre le th\`eme \texttt{charter} : les bo\^ites \`a titre
+(th\'eor\`eme, d\'efinition, proposition...), les blocs annexes (preuve,
+remarque, hypoth\`ese...), les exercices corrig\'es, les macros
+math\'ematiques et les dessins suivent ici sa palette et sa mise en forme.
+Le contenu est identique d'un th\`eme \`a l'autre --- seule cette ligne
+change (voir \texttt{examples/themes/}).
+\end{quote}
+
 \tableofcontents
 
 % ---------------------------------------------------------------- main

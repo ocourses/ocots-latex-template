@@ -8,6 +8,7 @@
 \documentclass[11pt]{ocots-td}
 \usepackage[lang=fr, theme=legacy, solutions=none, math=analysis,
             institution={n7}]{ocots}
+\lstset{language=[LaTeX]TeX}
 
 \title{Équations différentielles linéaires}
 \shorttitle{TD 1 --- Équations linéaires}
@@ -19,6 +20,14 @@
 \begin{document}
 
 \maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=legacy, ...]{ocots}
+\end{lstlisting}
+\begin{quote}\itshape
+Ce TD illustre le th\`eme \texttt{legacy} : m\^eme \'enonc\'e que pour les
+autres th\`emes (\texttt{examples/themes/}) ; seule cette ligne change.
+\end{quote}
 
 \input{../../content/td-body}
 
