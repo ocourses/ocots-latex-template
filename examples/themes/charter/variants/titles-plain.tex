@@ -1,0 +1,19 @@
+% Variante : theme=charter + titles=plain (voir la note affichée dans le PDF).
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=charter, titles=plain, solutions=inline, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Variante d'option}
+\author{Prénom \textsc{Nom}}
+
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
+\begin{document}
+\maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=charter, titles=plain]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{titles=plain} (le th\`eme \texttt{charter} utilise par d\'efaut \texttt{bignum}).}
+\input{../../../content/variant-body}
+\end{document}

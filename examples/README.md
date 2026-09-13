@@ -35,7 +35,7 @@ l'autre** à l'exception de la ligne `theme=` : ouvrir
 
 `content/` porte le contenu de démonstration une seule fois — huit fichiers,
 `\input` par les 16 documents `themes/*/{poly,slides,td,exam}.tex` et par les
-12 variantes de facette `themes/*/variants/` :
+56 variantes de facette `themes/*/variants/` :
 
 | fichier | utilisé par |
 |---------|-------------|
@@ -43,7 +43,7 @@ l'autre** à l'exception de la ligne `theme=` : ouvrir
 | `slides-body.tex` | `slides.tex` |
 | `td-body.tex` | `td.tex` |
 | `exam-body.tex` | `exam.tex` |
-| `variant-body.tex` | les 12 variantes de facette (`themes/*/variants/`) |
+| `variant-body.tex` | les 56 variantes de facette (`themes/*/variants/`) |
 
 C'est la démonstration de l'étape 2 de la refonte : un énoncé ne dépend ni du
 support qui le compose, ni du thème qui l'affiche.
@@ -62,10 +62,16 @@ par défaut (`ocots`) — ce ne sont pas des comparaisons de thème, voir plus b
 | `compat.tex`    | un corps écrit **avec les noms de la v0**, compilé aujourd'hui |
 | `slides-hook.tex` | page de titre Beamer avec contenu optionnel sous auteur/date/logos |
 | `header-article.tex` | TD multi-établissement : logos `uftmp` et `n7` côte à côte dans l'en-tête |
+| `institution-inp.tex`, `institution-insa.tex` | en-tête TD à établissement unique, autres que le défaut `n7` |
+| `math-modules.tex` | `math={control,measure}` — syntaxe multi-valeurs entre accolades + corpus des deux modules |
+| `draft.tex`     | option `draft` : `\notework`, `\noteinmargin`, `\worktodo`, `worknotes` visibles |
+| `binding.tex`   | `binding=12mm` : décalage de reliure (`ocots-book` en `twoside`) |
 
-`fr-none`, `fr-inline`, `en-end` partagent `body.tex`, un corps minimal.
-`compat.tex` ne le partage pas : il prouve que l'ancienne syntaxe passe sans
-retouche.
+`fr-none`, `fr-inline`, `en-end`, `binding` partagent `body.tex`, un corps
+minimal ; `draft` le complète d'une section de notes de travail. `compat.tex`
+et `math-modules.tex` ont leur corps propre : le premier prouve que
+l'ancienne syntaxe passe sans retouche, le second exerce des macros qui
+n'existent que sous `math=control` / `math=measure`.
 
 ## Variantes par thème
 
@@ -76,30 +82,31 @@ Chaque PDF affiche en première page une note rappelant l'écart par rapport au
 réglage par défaut du thème (le détail des notes est dans
 [`doc/themes.md`](../doc/themes.md)).
 
+Chaque facette est présentée **en entier** — une variante par valeur, nommée
+`<facette>-<valeur>.tex` :
+
 | fichier | montre |
 |---------|--------|
 | `variants/fonts.tex` | `setfont=`/`calfont=` par-dessus le thème du dossier |
-| `variants/boxform-<alt>.tex` | `boxform=` par-dessus le thème du dossier (une forme qui n'est pas la sienne) |
-| `variants/titles-<alt>.tex` | `titles=` par-dessus le thème du dossier |
+| `variants/boxform-{bracket,framed,sidebar,shaded}.tex` | les 4 formes de boîtes à titre |
+| `variants/titles-{plain,rules,bignum}.tex` | les 3 dessins de titres |
+| `variants/mathbox-{highlight,flat,rule,none}.tex` | les 4 encadrés de formule |
+| `variants/listing-{card,framed}.tex` | les 2 habillages de code |
 
-`<alt>` diffère par thème (chaque thème emprunte la forme/le dessin de titres
-d'un autre thème, pour qu'on voie sa propre palette sous un autre habit) :
-
-| thème | `boxform-<alt>` | `titles-<alt>` |
-|-------|-----------------|-----------------|
-| `ocots`   | `boxform-sidebar` | `titles-bignum` |
-| `legacy`  | `boxform-shaded`  | `titles-plain`  |
-| `charter` | `boxform-bracket` | `titles-rules`  |
-| `slate`   | `boxform-framed`  | `titles-bignum` |
+Soit 14 variantes par thème (56 au total). La valeur propre du thème figure
+aussi (`listing-card` sous `ocots`, par exemple) : référence explicite, la
+note du PDF la signale comme réglage par défaut forcé — la matrice prouve en
+outre que chaque preset se charge sous chaque palette. Le filet latéral
+(`siderule`) n'a pas de variante : il n'est pas pilotable par option.
 
 ## Compilation
 
 ```bash
-make                        # tout : 16 supports, 12+6 variantes, verification
+make                        # tout : 16 supports, 56+11 variantes, verification
 make themes                 # les 16 supports (4 themes x 4 supports)
 make themes/legacy/poly     # un seul document
-make theme-variants         # les 12 variantes de facette (par theme)
-make variants                # les 6 variantes independantes du theme
+make theme-variants         # les 56 variantes de facette (par theme)
+make variants                # les 11 variantes independantes du theme
 make check                  # revérifie les journaux sans recompiler
 make clean                  # nettoie les auxiliaires
 make mrproper                # nettoie tout, PDF compris

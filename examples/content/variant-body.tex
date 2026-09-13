@@ -69,3 +69,23 @@
 \solution
     Corrigé.
 \end{exercise}
+
+\section{Formule encadrée et code}
+
+L'encadré de formule (\lstinline|\tcbhighmath|, facette \texttt{mathbox=}) et
+l'habillage des blocs de code (facette \texttt{listing=}) sont aussi réglés par
+le thème~:
+
+\[
+    \tcbhighmath{\dot{x}(t) = A\, x(t) + b(t)}
+\]
+
+\begin{lstlisting}[language=Python, caption={Une méthode d'Euler explicite}]
+def euler(f, t0, x0, tf, n):
+    h = (tf - t0) / n
+    t, x = t0, x0
+    for k in range(n):
+        x = x + h * f(t, x)
+        t = t + h
+    return t, x
+\end{lstlisting}

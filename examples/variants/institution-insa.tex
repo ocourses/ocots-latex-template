@@ -1,0 +1,37 @@
+% Variante de non-regression — en-tete article, etablissement insa seul.
+% Complement de header-article.tex (institution={uftmp,n7}) : le cas simple
+% d'une valeur unique autre que le defaut n7.
+\documentclass[11pt]{ocots-td}
+\usepackage[lang=fr, theme=ocots, solutions=none, math=analysis,
+            institution=insa]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{TD de démonstration — En-tête INSA}
+\shorttitle{TD — En-tête}
+\numero{TD~o 1}
+\date{2025--2026}
+\discipline{Calcul différentiel}
+\promotion{INSA Toulouse — 1A}
+
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
+\begin{document}
+
+\maketitle
+
+\begin{lstlisting}
+\usepackage[..., institution=insa]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{institution=insa} (le défaut est
+\texttt{institution=n7}) : une seule valeur — le logo INSA occupe seul le
+côté gauche de l'en-tête.}
+
+\begin{instructions}
+    Le logo de la première page est composé en mode en-tête.
+\end{instructions}
+
+\begin{exercise}[points=2]
+    Un exercice, pour vérifier que le contenu suit l'en-tête.
+\end{exercise}
+
+\end{document}

@@ -1,0 +1,19 @@
+% Variante : theme=legacy + titles=rules (voir la note affichée dans le PDF).
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=legacy, titles=rules, solutions=inline, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Variante d'option}
+\author{Prénom \textsc{Nom}}
+
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
+\begin{document}
+\maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=legacy, titles=rules]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{titles=rules} (r\'eglage par d\'efaut du th\`eme \texttt{legacy} : la variante force explicitement la valeur).}
+\input{../../../content/variant-body}
+\end{document}

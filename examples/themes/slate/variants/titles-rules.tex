@@ -1,0 +1,19 @@
+% Variante : theme=slate + titles=rules (voir la note affichée dans le PDF).
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=slate, titles=rules, solutions=inline, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Variante d'option}
+\author{Prénom \textsc{Nom}}
+
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
+\begin{document}
+\maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=slate, titles=rules]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{titles=rules} (le th\`eme \texttt{slate} utilise par d\'efaut \texttt{plain}).}
+\input{../../../content/variant-body}
+\end{document}

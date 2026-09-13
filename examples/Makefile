@@ -1,10 +1,10 @@
 # Compilation des exemples du template — harnais de non-régression.
 #
-#   make                     compile tout : 16 supports, 12+6 variantes, verification
+#   make                     compile tout : 16 supports, 56+11 variantes, verification
 #   make themes              les 16 supports (4 themes x 4 supports)
 #   make themes/legacy/poly  un seul document
-#   make theme-variants      les 12 variantes de facette (une par theme x fonts/boxform/titles)
-#   make variants            les 6 variantes independantes du theme (lang=, solutions=, compat...)
+#   make theme-variants      les 56 variantes de facette (matrice complete, par theme)
+#   make variants            les 11 variantes independantes du theme (lang=, solutions=, compat...)
 #   make check               revérifie les journaux sans recompiler
 #   make clean               efface les auxiliaires (garde les PDF)
 #   make mrproper             efface tout, PDF compris
@@ -32,17 +32,21 @@
 THEMES   := ocots legacy charter slate
 SUPPORTS := poly slides td exam
 
-# Variantes de facette, par theme : fonts (setfont=/calfont=), boxform-<alt>
-# (une forme qui n'est pas celle du theme), titles-<alt> (idem pour le dessin
-# des titres). L'alt differe par theme — voir doc/themes.md.
-THEME_VARIANTS := ocots/fonts ocots/boxform-sidebar ocots/titles-bignum \
-                   legacy/fonts legacy/boxform-shaded legacy/titles-plain \
-                   charter/fonts charter/boxform-bracket charter/titles-rules \
-                   slate/fonts slate/boxform-framed slate/titles-bignum
+# Variantes de facette, par theme : la matrice complete — une variante par
+# valeur de chaque facette, y compris la valeur propre du theme (reference
+# explicite, la note du PDF le precise). fonts (setfont=/calfont=) reste une
+# variante a part. Voir doc/themes.md.
+THEME_VARIANTS := $(foreach t,$(THEMES), \
+                   $t/fonts \
+                   $(foreach v,bracket framed sidebar shaded,$t/boxform-$v) \
+                   $(foreach v,plain rules bignum,$t/titles-$v) \
+                   $(foreach v,highlight flat rule none,$t/mathbox-$v) \
+                   $(foreach v,card framed,$t/listing-$v))
 
 # Variantes independantes du theme : meme corps, options lang=/solutions=/
 # compat/hooks differentes. Toutes utilisent le theme par defaut (`ocots`).
-VARIANTS := fr-none fr-inline en-end compat header-article slides-hook
+VARIANTS := fr-none fr-inline en-end compat header-article slides-hook \
+            math-modules draft binding institution-inp institution-insa
 
 # Le template est trouvé par TEXINPUTS : les documents n'ont plus de chemin
 # relatif à tenir à jour, contrairement au \relativePath de la v0 (défaut D12).

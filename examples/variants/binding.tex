@@ -1,0 +1,29 @@
+% Variante : décalage de reliure pour l'impression.
+% binding=12mm décale les marges intérieures (ocots-book en twoside
+% uniquement — cf. tex/carrier/ocots-carrier-book.sty). Même corps que les
+% autres variantes ; seule la ligne \usepackage change.
+\documentclass[11pt,twoside]{ocots-book}
+\usepackage[lang=fr, theme=ocots, binding=12mm, solutions=inline, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Variante : reliure}
+\author{Prénom \textsc{Nom}}
+\date{\today}
+
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
+\begin{document}
+
+\begin{lstlisting}
+\documentclass[11pt,twoside]{ocots-book}
+\usepackage[lang=fr, theme=ocots, binding=12mm, ...]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{binding=12mm} (le défaut est \texttt{binding=0mm}) :
+décalage de reliure — la marge intérieure augmente sur les pages impaires et
+diminue sur les paires, pour compenser ce que la reliure masque à
+l'impression. Sans effet hors \texttt{ocots-book} en \texttt{twoside}.}
+
+\ocotscollectsolutions
+\input{body}
+\ocotsprintsolutions
+\end{document}
