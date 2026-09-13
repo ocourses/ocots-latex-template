@@ -35,7 +35,7 @@ l'autre** à l'exception de la ligne `theme=` : ouvrir
 
 `content/` porte le contenu de démonstration une seule fois — huit fichiers,
 `\input` par les 16 documents `themes/*/{poly,slides,td,exam}.tex` et par les
-56 variantes de facette `themes/*/variants/` :
+64 variantes de facette `themes/*/variants/` :
 
 | fichier | utilisé par |
 |---------|-------------|
@@ -43,7 +43,7 @@ l'autre** à l'exception de la ligne `theme=` : ouvrir
 | `slides-body.tex` | `slides.tex` |
 | `td-body.tex` | `td.tex` |
 | `exam-body.tex` | `exam.tex` |
-| `variant-body.tex` | les 56 variantes de facette (`themes/*/variants/`) |
+| `variant-body.tex` | les 64 variantes de facette (`themes/*/variants/`) |
 
 C'est la démonstration de l'étape 2 de la refonte : un énoncé ne dépend ni du
 support qui le compose, ni du thème qui l'affiche.
@@ -91,9 +91,9 @@ Chaque facette est présentée **en entier** — une variante par valeur, nommé
 | `variants/boxform-{bracket,framed,sidebar,shaded}.tex` | les 4 formes de boîtes à titre |
 | `variants/titles-{plain,rules,bignum}.tex` | les 3 dessins de titres |
 | `variants/mathbox-{highlight,flat,rule,none}.tex` | les 4 encadrés de formule |
-| `variants/listing-{card,framed}.tex` | les 2 habillages de code |
+| `variants/listing-{card,framed,lines,shade}.tex` | les 4 habillages de code |
 
-Soit 14 variantes par thème (56 au total). La valeur propre du thème figure
+Soit 16 variantes par thème (64 au total). La valeur propre du thème figure
 aussi (`listing-card` sous `ocots`, par exemple) : référence explicite, la
 note du PDF la signale comme réglage par défaut forcé — la matrice prouve en
 outre que chaque preset se charge sous chaque palette. Le filet latéral
@@ -102,10 +102,10 @@ outre que chaque preset se charge sous chaque palette. Le filet latéral
 ## Compilation
 
 ```bash
-make                        # tout : 16 supports, 56+11 variantes, verification
+make                        # tout : 16 supports, 64+11 variantes, verification
 make themes                 # les 16 supports (4 themes x 4 supports)
 make themes/legacy/poly     # un seul document
-make theme-variants         # les 56 variantes de facette (par theme)
+make theme-variants         # les 64 variantes de facette (par theme)
 make variants                # les 11 variantes independantes du theme
 make check                  # revérifie les journaux sans recompiler
 make clean                  # nettoie les auxiliaires

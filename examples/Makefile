@@ -1,9 +1,9 @@
 # Compilation des exemples du template — harnais de non-régression.
 #
-#   make                     compile tout : 16 supports, 56+11 variantes, verification
+#   make                     compile tout : 16 supports, 64+11 variantes, verification
 #   make themes              les 16 supports (4 themes x 4 supports)
 #   make themes/legacy/poly  un seul document
-#   make theme-variants      les 56 variantes de facette (matrice complete, par theme)
+#   make theme-variants      les 64 variantes de facette (matrice complete, par theme)
 #   make variants            les 11 variantes independantes du theme (lang=, solutions=, compat...)
 #   make check               revérifie les journaux sans recompiler
 #   make clean               efface les auxiliaires (garde les PDF)
@@ -41,7 +41,7 @@ THEME_VARIANTS := $(foreach t,$(THEMES), \
                    $(foreach v,bracket framed sidebar shaded,$t/boxform-$v) \
                    $(foreach v,plain rules bignum,$t/titles-$v) \
                    $(foreach v,highlight flat rule none,$t/mathbox-$v) \
-                   $(foreach v,card framed,$t/listing-$v))
+                   $(foreach v,card framed lines shade,$t/listing-$v))
 
 # Variantes independantes du theme : meme corps, options lang=/solutions=/
 # compat/hooks differentes. Toutes utilisent le theme par defaut (`ocots`).

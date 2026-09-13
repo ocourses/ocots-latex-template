@@ -1,0 +1,24 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-listing-shade}[2026/09/13 v1.0 ocots -- listing : aplat pale]
+%
+% Un aplat tres pale de la couleur d'accent, un liseré épais a gauche : le
+% code se signale sans cadre complet — l'equivalent listing de la forme de
+% boite « sidebar ». Aucun numero de ligne. Couleurs : listing-rule pour le
+% liseré et (tres diluee) le fond ; le theme la pose, la couleur d'accent
+% principale sert de repli.
+
+\newcommand{\ocots@listing@shade}{%
+\ocots@derivecolor{listing-rule}{ocots@emph-a}
+\lstset{
+  backgroundcolor=\color{\ocotscolor{listing-rule}!7!white},
+  basicstyle=\footnotesize\ttfamily,
+  frame=l,
+  framerule=2.5pt,
+  rulecolor=\color{\ocotscolor{listing-rule}},
+  framesep=4mm,
+  xleftmargin=5mm,
+  numbers=none,
+  aboveskip=\ocotsboxbeforeskip, belowskip=\ocotsboxafterskip}}
+\ocotsregisterlisting{shade}{\ocots@listing@shade}
+
+\endinput

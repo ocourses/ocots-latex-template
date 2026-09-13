@@ -125,7 +125,7 @@ Un TD ou un sujet d'examen :
 | `boxform` | `bracket`, `framed`, `sidebar`, `shaded` | (le thème décide) | **surcharge** la forme des boîtes à titre |
 | `titles` | `plain`, `rules`, `bignum` | (le thème décide) | **surcharge** le dessin des titres |
 | `mathbox` | `highlight`, `flat`, `rule`, `none` | (le thème décide) | **surcharge** l'encadré de formule (`\tcbhighmath`) |
-| `listing` | `card`, `framed` | (le thème décide) | **surcharge** l'habillage des blocs de code |
+| `listing` | `card`, `framed`, `lines`, `shade` | (le thème décide) | **surcharge** l'habillage des blocs de code |
 | `solutions` | `none`, `inline`, `end` | `end` | sort des corrigés |
 | `math` | `base`, `analysis`, `control`, `measure` | `base` | modules de macros chargés |
 | `setfont` | `bb`, `rm` | `bb` | police des ensembles de nombres |
@@ -173,7 +173,7 @@ tex/
     theme/siderule/        filets latéraux : bar, soft, none
     theme/title/           dessin des titres : plain, rules, bignum
     theme/mathbox/         encadré de formule : highlight, flat, rule, none
-    theme/listing/         habillage du code : card, framed
+    theme/listing/         habillage du code : card, framed, lines, shade
   lang/                  chaînes : fr, en
   math/                  macros : base, analysis, control, measure
   third-party/           tikzgraphicx (B. Kellermann, GPL)

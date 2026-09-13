@@ -1,0 +1,19 @@
+% Variante : theme=ocots + listing=lines (voir la note affichée dans le PDF).
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr, theme=ocots, listing=lines, solutions=inline, math=analysis]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Variante d'option}
+\author{Prénom \textsc{Nom}}
+
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
+\begin{document}
+\maketitle
+
+\begin{lstlisting}
+\usepackage[..., theme=ocots, listing=lines]{ocots}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{listing=lines} (le th\`eme \texttt{ocots} utilise par d\'efaut \texttt{card}).}
+\input{../../../content/variant-body}
+\end{document}
