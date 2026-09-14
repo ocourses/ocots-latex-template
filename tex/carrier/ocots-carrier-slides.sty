@@ -107,7 +107,15 @@
     \begin{flushright}\slidecounter[\ocots@slidecolor]\end{flushright}
   \end{minipage}
   \vspace{-2pt}
-  {\color{\ocots@slidecolor}\noindent\rule{\textwidth}{0.1em}}}
+  {\color{\ocots@slidecolor}\noindent\rule{\textwidth}{0.1em}}%
+  % Espace apres le filet de titre. \addvspace (et non \medskip/\bigskip) :
+  % si le corps de la diapositive commence par une boite (definition,
+  % example...), celle-ci pose elle-meme \addvspace{\ocotsboxbeforeskip}
+  % avant elle (cf. ocots-env.sty) ; \addvspace prend le maximum des deux
+  % appels au lieu de les cumuler, donc l'espacement reste identique que la
+  % diapositive commence par du texte ou par une boite, sans qu'il soit
+  % necessaire d'ajouter un \bigskip/\medskip manuel en tete de texte.
+  \par\addvspace{\ocotsboxbeforeskip}}
 
 \newenvironment{slide}[1][]
   {\ifx\relax#1\relax\else\def\ocots@slidecolor{#1}\fi
