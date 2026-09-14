@@ -459,5 +459,7 @@ Ajouter une langue = copier `tex/lang/ocots-lang-fr.def`, traduire, `lang=<code>
 Les noms de la v0 (`mytheorem`, `myexercisecb<étiquette>`, `\solutioncb`,
 `\myemph`, `no solution`, `\cblue`, `\tagProblem`…) restent définis par
 `tex/ocots-compat.sty`
-— pour migrer au fil de l'eau, pas en bloc. **Rien de neuf ne doit les
-utiliser** ; chaque ligne supprimée de ce fichier est une migration terminée.
+— pour migrer au fil de l'eau, pas en bloc. Les anciens noms d'environnement
+produisent un avertissement de compilation, une seule fois par run, lorsqu'ils
+sont utilisés. **Rien de neuf ne doit les utiliser** ; chaque ligne supprimée
+de ce fichier est une migration terminée.

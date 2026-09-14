@@ -200,7 +200,7 @@
 % chargement ; sans effet si « nouveau » n'a aucun crochet enregistre.
 \newif\ifocots@deprecatedenvwarned
 \ocots@deprecatedenvwarnedfalse
-\newcommand{\ocots@deprecatedenv}[2]{%
+\DeclareRobustCommand{\ocots@deprecatedenv}[2]{%
   \ifocots@deprecatedenvwarned\else
     \PackageWarningNoLine{ocots}{Deprecated environment `#1' used; use `#2' instead}%
     \global\ocots@deprecatedenvwarnedtrue
@@ -208,7 +208,8 @@
 \newcommand{\ocotsaliasenv}[2]{%
   \expandafter\let\csname #1\expandafter\endcsname\csname #2\endcsname
   \expandafter\let\csname end#1\expandafter\endcsname\csname end#2\endcsname
-  \AddToHook{env/#1/before}{\ocots@deprecatedenv{#1}{#2}\UseHook{env/#2/before}}%
+  \AddToHook{env/#1/before}{\ocots@deprecatedenv{#1}{#2}}%
+  \AddToHook{env/#1/before}{\UseHook{env/#2/before}}%
   \AddToHook{env/#1/after}{\UseHook{env/#2/after}}}
 
 % Libere un nom d'environnement avant de le definir.
