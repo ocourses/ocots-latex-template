@@ -84,14 +84,14 @@ corollaire,theoreme,definitions,examples}
       {\def\ocots@result@label{#5}}%
       {\def\ocots@result@label{#6#5}}}}
   \refstepcounter{theorem}%
-  \ifx\ocots@result@label\@empty\else
-    \label{\ocots@result@label}%
-  \fi
   \begin{tcolorbox}[
     \ocotsboxstyle{#2}, breakable,
     title={#1~\thetheorem%
       \ifx\ocots@result@title\@empty\else~\ocots@result@title\fi
-      \ifx\ocots@result@note\@empty\else~(\ocots@result@note)\fi}]}
+      \ifx\ocots@result@note\@empty\else~(\ocots@result@note)\fi}]%
+  \ifx\ocots@result@label\@empty\else
+    \label{\ocots@result@label}%
+  \fi}
 \newcommand{\ocots@result@endbox}{\end{tcolorbox}}
 
 \NewDocumentEnvironment{theorem}{O{} g g}
@@ -165,10 +165,10 @@ corollaire,theoreme,definitions,examples}
   {\end{ocots@lemma*}}
 
 \newenvironment{example}[1][]
-  {\ocots@result@classical{ocots@example}{#1}\par\pushQED{\QEDB}}
+  {\ocots@result@classical{ocots@example}{#1}\pushQED{\QEDB}}
   {\popQED\endtrivlist\@endpefalse\end{ocots@example}}
 \newenvironment{example*}[1][]
-  {\ocots@result@classical{ocots@example*}{#1}\par\pushQED{\QEDB}}
+  {\ocots@result@classical{ocots@example*}{#1}\pushQED{\QEDB}}
   {\popQED\endtrivlist\@endpefalse\end{ocots@example*}}
 
 \newenvironment{remark}[1][]
