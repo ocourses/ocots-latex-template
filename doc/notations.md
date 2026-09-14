@@ -19,7 +19,7 @@ des accolades.
 | `setfont` | `bb`, `rm` | `bb` | police des ensembles de nombres : `\mathbb` ou `\mathrm` |
 | `calfont` | `custom`, `scr`, `cal` | `custom` | police des familles nommées : choix macro par macro, `\mathscr` ou `\mathcal` |
 
-Le mode `custom` est le défaut : `\Neighborhoods`, `\TimeInterval`, `\AllMaps`, `\GenericNorm`, `\FlowDomain` et `\MatrixSpace` sont
+Le mode `custom` est le défaut : `\Neighborhoods`, `\TimeInterval`, `\AllMaps`, `\GenericNorm`, `\FlowDomain`, `\Reachable` et `\MatrixSpace` sont
 composées en `\mathcal`, tandis que les autres familles
 conservent leur rendu historique. `calfont=cal` impose `\mathcal` partout et `calfont=scr` impose
 `\mathscr` partout. Par exemple, `\usepackage[setfont=rm, calfont=cal]{ocots}`
