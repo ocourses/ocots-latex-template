@@ -258,8 +258,12 @@ constructions (`\norm`, `\abs`, `\inner`, `\setst`, `\functiondef`), les
 intervalles (`\intervalcc`, `\intervaloo`), les opérateurs localisés (`\rank`,
 `\spanop`, `\graph`) et les modules `analysis`, `control` et `measure`.
 
-Les options `setfont=bb|rm` et `calfont=scr|cal` règlent respectivement la
-police des ensembles de nombres et des familles calligraphiques. Les anciens
+Les options `setfont=bb|rm` et `calfont=custom|scr|cal` règlent respectivement la
+police des ensembles de nombres et des familles calligraphiques. Le mode
+`custom` est le défaut : il compose `\Neighborhoods`, `\TimeInterval`,
+`\AllMaps`, `\GenericNorm`, `\FlowDomain` et `\MatrixSpace` en
+mathcaligraphique, tout en conservant le choix
+historique pour les autres familles. Les anciens
 noms sont conservés par `ocots-compat.sty` pour la migration, mais tout nouveau
 document doit utiliser les noms de [`notations.md`](notations.md).
 

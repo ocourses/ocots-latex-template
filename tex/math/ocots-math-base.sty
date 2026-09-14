@@ -42,6 +42,16 @@
 \fi
 \newcommand{\ocots@calSet}[1]{%
   \ifnum\pdfstrcmp{\ocots@calfont}{cal}=\z@\mathcal{#1}\else\mathscr{#1}\fi}
+\newcommand{\ocots@calSpecialSet}[2]{%
+  \ifnum\pdfstrcmp{\ocots@calfont}{cal}=\z@
+    \mathcal{#1}%
+  \else
+    \ifnum\pdfstrcmp{\ocots@calfont}{scr}=\z@
+      \mathscr{#1}%
+    \else
+      #2%
+    \fi
+  \fi}
 
 \newcommand{\N}{\nbSet{N}}
 \newcommand{\Z}{\nbSet{Z}}
@@ -83,18 +93,19 @@
 
 % ---------------------------------------------------------------------------
 % Familles calligraphiques : les noms disent le concept, la police est une option
-\newcommand{\Neighborhoods}{\ocots@calSet{V}}
-\newcommand{\TimeInterval}{\ocots@calSet{I}}
-\newcommand{\ContinuousLinear}[1]{\ocots@calSet{L}^{#1}}
+\newcommand{\Neighborhoods}{\ocots@calSpecialSet{V}{\mathcal{V}}}
+\newcommand{\TimeInterval}{\ocots@calSpecialSet{I}{\mathcal{I}}}
+\DeclareDocumentCommand\ContinuousLinear{g}{%
+  \IfNoValueTF{#1}{\ocots@calSet{L}}{\ocots@calSet{L}^{#1}}}
 \newcommand{\Cclass}[1]{\ocots@calSet{C}^{#1}}
-\newcommand{\AllMaps}{\ocots@calSet{F}}
+\newcommand{\AllMaps}{\ocots@calSpecialSet{F}{\mathcal{F}}}
 \newcommand{\MultilinearSpace}{\ocots@calSet{E}}
 \newcommand{\Reachable}{\ocots@calSet{A}}
-\newcommand{\FlowDomain}{\ocots@calSet{D}}
+\newcommand{\FlowDomain}{\ocots@calSpecialSet{D}{\mathcal{D}}}
 \newcommand{\Differentiable}{\ocots@calSet{D}}
 \newcommand{\SolutionSpace}{\ocots@calSet{S}}
-\newcommand{\GenericNorm}{\ocots@calSet{N}}
-\newcommand{\MatrixSpace}{\ocots@calSet{M}}
+\newcommand{\GenericNorm}{\ocots@calSpecialSet{N}{\mathcal{N}}}
+\newcommand{\MatrixSpace}{\ocots@calSpecialSet{M}{\mathcal{M}}}
 \newcommand{\calset}[1]{\ocots@calSet{#1}}
 \newcommand{\indicator}{\mathds{1}}
 
