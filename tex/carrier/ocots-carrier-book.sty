@@ -100,14 +100,20 @@
 % ---------------------------------------------------------------------------
 % Page de titre
 %
-% Utilise \title, \author, \date et l'option institution=.
+% Utilise \title, \subtitle, \department, \author, \date et l'option institution=.
 \newcommand{\ocots@subtitle}{}
 \newcommand{\subtitle}[1]{\renewcommand{\ocots@subtitle}{#1}}
+\newcommand{\ocots@department}{}
+\newcommand{\department}[1]{\renewcommand{\ocots@department}{#1}}
 
 \renewcommand{\maketitle}{%
   \begin{titlepage}
     \centering
     \vspace*{2cm}
+    \ifx\ocots@department\@empty\else
+      {\large\scshape\ocots@department\par}
+      \vspace{2em}
+    \fi
     {\Huge\bfseries\@title\par}
     \ifx\ocots@subtitle\@empty\else
       \vspace{1em}{\Large\ocots@subtitle\par}
