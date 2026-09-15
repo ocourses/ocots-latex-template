@@ -417,6 +417,7 @@ contribue pas au total calculé.
 ```latex
 \title{…}   \author{Prénom \textsc{Nom}}   \date{\today}
 \subtitle{…}                    % facultatif
+\department{…}                 % affiliation facultative
 \makeindex                      % si un index est voulu
 \begin{document}
 \maketitle
