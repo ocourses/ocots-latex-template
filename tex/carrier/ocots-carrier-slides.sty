@@ -47,6 +47,40 @@
    \inserttheorempunctuation~}}
 \setbeamertemplate{theorem end}{}
 
+% Babel-french rend `:' actif. Le patch de beamer pour \label fait un \xdef
+% de \@currentHref sans proteger les caracteres actifs : un label comme
+% `prop:nom' devient alors une destination contenant l'espace francais. La
+% protection doit entourer cette construction, et non desactiver la ponctuation
+% francaise dans le document.
+\def\beamer@label<#1>#2{%
+  \alt<#1>{%
+    \begingroup
+      \@safe@activestrue
+      \xdef\@currentHref{#2}%
+      \@safe@activesfalse
+    \endgroup
+    \beamer@origlabel{#2}%
+    \beamer@nameslide{#2}%
+  }{\beamer@dummynameslide}}
+\def\beamer@label@in@display<#1>#2{%
+  \alt<#1>{%
+    \begingroup
+      \@safe@activestrue
+      \xdef\@currentHref{#2}%
+      \@safe@activesfalse
+    \endgroup
+    \beamer@origlabel@in@display{#2}%
+  }{\beamer@dummynameslide}}
+
+% La reference d'un label passe ensuite par une autre expansion dans hyperref.
+% Babel protege deja \ref, mais pas le troisieme argument de \hyper@link@ ; on
+% reprend sa construction sous le meme drapeau pour les liens \hyperref.
+\patchcmd{\hyper@link@}
+  {\edef\Hy@tempb{#3}}
+  {\@safe@activestrue\edef\Hy@tempb{#3}\@safe@activesfalse}
+  {}
+  {\PackageWarning{ocots}{Impossible de proteger les labels actifs dans hyperref}}
+
 % ---------------------------------------------------------------------------
 % Chapitres
 %
