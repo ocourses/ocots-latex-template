@@ -61,6 +61,7 @@ $\Rpos \subset \R$, $\Nstar = \N \setminus \{0\}$.
 | `\SolutionSpace` | espace des solutions d'une équation différentielle (linéaire homogène) |
 | `\GenericNorm` | norme générique, sans rapport avec une notation déjà fixée |
 | `\MatrixSpace` | espace des matrices, p. ex. `\MatrixSpace_n(\R)`, `\MatrixSpace_{m,n}(\R)` |
+| `\Orbit` | orbite d'un point pour un système dynamique |
 | `\calset{A}` | lettre calligraphique générique, selon `calfont` |
 | `\indicator` | fonction indicatrice `\mathds{1}` |
 
