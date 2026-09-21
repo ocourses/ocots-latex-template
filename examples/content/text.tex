@@ -98,3 +98,18 @@ cité, avec \enquote{une citation imbriquée}}.
 
 Index~: le mot \index{flot}flot est indexé, ainsi que le
 mot \index{orbite}orbite.
+
+%---------------------------------------------------------------------------
+\section{Citations}%
+\label{sec:citations}
+
+Une clef bibliographique contenant un `:' littéral, comme dans les ouvrages
+cités ci-après~: \cite{Exemple:2020}. Sous \texttt{lang=fr}, babel-french
+rend `:' actif ; sans protection, la destination PDF de cette citation serait
+corrompue (issue \#36, régression pour l'équivalent \texttt{poly}).
+
+\begin{thebibliography}{9}
+\bibitem{Exemple:2020}
+\noindent Un·e Auteur·rice, \emph{Un titre d'exemple}, Éditeur, 2020.
+
+\end{thebibliography}

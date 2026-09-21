@@ -84,6 +84,37 @@
   \fi}
 
 % ---------------------------------------------------------------------------
+% Clefs bibliographiques et babel-french
+%
+% Babel-french rend `:' actif. Deux points independants, les deux cotes de
+% chaque destination "cite.<clef>" :
+%
+% 1. L'ANCRE. \@bibitem et \@lbibitem (redefinis par hyperref pour poser
+%    l'ancre au moment ou \bibitem s'affiche) ne protegent pas la clef.
+% 2. Le LIEN. \bibcite stocke, pour chaque clef, une macro non developpee au
+%    moment de l'ecriture dans le .aux (\@newl@bel fait un \def, pas un
+%    \edef) : le `:' actif de la clef n'est donc resolu que plus tard, quand
+%    \cite invoque cette macro — et cette resolution passe par
+%    \hyper@link@ (\edef\Hy@tempb{#3}), hors de toute protection babel.
+%    C'est exactement le patch beamer d'ocots-carrier-slides.sty (issue #36) :
+%    meme primitive hyperref, ici sollicitee par \cite plutot que par \ref.
+%
+% Sans le 1., l'ancre est corrompue ; sans le 2., c'est le lien. Il faut les
+% deux pour que « has been referenced but does not exist » disparaisse.
+\pretocmd{\@bibitem}{\@safe@activestrue}{}%
+  {\PackageWarning{ocots}{Impossible de proteger les clefs actives dans \string\@bibitem}}
+\apptocmd{\@bibitem}{\@safe@activesfalse}{}%
+  {\PackageWarning{ocots}{Impossible de proteger les clefs actives dans \string\@bibitem}}
+\pretocmd{\@lbibitem}{\@safe@activestrue}{}%
+  {\PackageWarning{ocots}{Impossible de proteger les clefs actives dans \string\@lbibitem}}
+\apptocmd{\@lbibitem}{\@safe@activesfalse}{}%
+  {\PackageWarning{ocots}{Impossible de proteger les clefs actives dans \string\@lbibitem}}
+\patchcmd{\hyper@link@}
+  {\edef\Hy@tempb{#3}}
+  {\@safe@activestrue\edef\Hy@tempb{#3}\@safe@activesfalse}
+  {}{\PackageWarning{ocots}{Impossible de proteger les clefs actives dans \string\hyper@link@}}
+
+% ---------------------------------------------------------------------------
 % Renvois de bibliographie : « ↩ p. N »
 \renewcommand*{\backref}[1]{}
 \renewcommand*{\backrefalt}[4]{\ifcase #1 \or$\hookleftarrow$~#2.\else$\hookleftarrow$~#2.\fi}
