@@ -17,13 +17,16 @@ des accolades.
 | Option | Valeurs | Défaut | Effet |
 |---|---|---|---|
 | `setfont` | `bb`, `rm` | `bb` | police des ensembles de nombres : `\mathbb` ou `\mathrm` |
-| `calfont` | `custom`, `scr`, `cal` | `custom` | police des familles nommées : choix macro par macro, `\mathscr` ou `\mathcal` |
+| `calfont` | `custom`, `scr`, `cal` | `custom` | police des familles nommées : `\mathscr` ou `\mathcal` |
 
-Le mode `custom` est le défaut : `\Neighborhoods`, `\TimeInterval`, `\AllMaps`, `\GenericNorm`, `\FlowDomain`, `\Reachable` et `\MatrixSpace` sont
-composées en `\mathcal`, tandis que les autres familles
-conservent leur rendu historique. `calfont=cal` impose `\mathcal` partout et `calfont=scr` impose
-`\mathscr` partout. Par exemple, `\usepackage[setfont=rm, calfont=cal]{ocots}`
-compose `\R` en `\mathrm{R}` et toutes les macros de familles en `\mathcal`.
+Le mode `custom` est le défaut : les macros de familles calligraphiques sont
+composées en `\mathcal`, à l'exception de `\ContinuousLinear` et `\Cclass`
+(espaces d'applications linéaires continues, classe `C^k`) qui conservent
+`\mathscr`, notation historique du domaine. `calfont=cal` impose `\mathcal`
+partout, y compris pour `\ContinuousLinear` et `\Cclass` ; `calfont=scr`
+impose `\mathscr` partout. Par exemple, `\usepackage[setfont=rm,
+calfont=cal]{ocots}` compose `\R` en `\mathrm{R}` et toutes les macros de
+familles, sans exception, en `\mathcal`.
 
 ## Module `base`
 
@@ -51,8 +54,8 @@ $\Rpos \subset \R$, $\Nstar = \N \setminus \{0\}$.
 |---|---|
 | `\Neighborhoods` | voisinages |
 | `\TimeInterval` | intervalle de temps |
-| `\ContinuousLinear` / `\ContinuousLinear{k}` | espaces `\mathscr{L}` / `\mathscr{L}^k` des applications linéaires / `k`-linéaires continues |
-| `\Cclass{k}` | applications de classe `C^k` |
+| `\ContinuousLinear` / `\ContinuousLinear{k}` | espaces `\mathscr{L}` / `\mathscr{L}^k` des applications linéaires / `k`-linéaires continues (`\mathcal` avec `calfont=cal`) |
+| `\Cclass{k}` | applications de classe `\mathscr{C}^k` (`\mathcal` avec `calfont=cal`) |
 | `\AllMaps` | ensemble des applications |
 | `\MultilinearSpace` | espace des applications multilinéaires |
 | `\Reachable` | ensemble atteignable |
