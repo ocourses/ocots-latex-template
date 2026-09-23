@@ -18,7 +18,7 @@ Sommaire : [environnements](#environnements) · [exercices et corrigés](#exerci
 
 ### Résultats — une signature et un compteur commun
 
-Les huit environnements de résultats acceptent une liste de clés optionnelle :
+Les environnements de résultats acceptent une liste de clés optionnelle :
 `title=`, `label=` et `note=`. Le label est posé **tel quel** : le template
 n'ajoute aucun préfixe.
 
@@ -50,6 +50,8 @@ n'ajoute aucun préfixe.
 | `lemma` | partagé, dans la section | `lemma*` | Lemme |
 | `example` | partagé, dans la section, carré blanc | `example*` | Exemple |
 | `remark` | partagé, dans la section | `remark*` | Remarque |
+| `citedtheorem` | partagé, dans la section | — | Théorème (cité) |
+| `hypothesis` | propre, H1, H2, … | — | Hypothèse |
 
 Les variantes étoilées sont non numérotées. La forme (cadre, filet, aplat…) vient
 du thème. Les familles `assumption`, `openquestion`, `difficulty` et `exercise`
@@ -216,14 +218,17 @@ La même source produit des guillemets français avec `lang=fr` et anglais avec
 
 ## Notes de travail
 
-Visibles **seulement avec l'option `draft`**, invisibles sinon.
+Avec `ocots-paper`, elles sont visibles en `mode=draft` et provoquent une erreur
+en `mode=preprint`. Le drapeau historique `draft` conserve son comportement sur
+les autres supports.
 
 | macro / env | rendu |
 |-------------|-------|
 | `\notework{…}` | *Note : …* au fil du texte |
 | `\noteinmargin{…}` | note en marge |
-| `\worktodo{…}` | *À FAIRE : …* |
-| `worknotes` (env) | bloc entier, exclu hors `draft` |
+| `\worktodo{…}` ou `\todo{…}` | *À FAIRE : …* |
+| `\workopen{…}` ou `\open{…}` | *OUVERT : …* |
+| `worknotes` (env) | bloc entier de travail |
 | `\marginnote[décalage]{l\|r}{texte}` | note encadrée en marge, avec pointeur (toujours affichée) |
 
 ### Code source
@@ -246,8 +251,10 @@ def euler(f, t0, x0, tf, n):
 ## Mathématiques
 
 Les modules mathématiques sont chargés **à la carte** par l'option `math=` ;
-`base` est toujours chargé. Les noms, signatures, rendus et exemples sont
-référencés dans la fiche dédiée [`doc/notations.md`](notations.md).
+`base` est chargé par défaut sur les supports pédagogiques. `math=none`, défaut
+de `ocots-paper`, ne définit aucune macro mathématique du template. Les noms,
+signatures, rendus et exemples sont référencés dans la fiche dédiée
+[`doc/notations.md`](notations.md).
 
 ```latex
 \usepackage[lang=fr, math={analysis,measure}]{ocots}
@@ -352,6 +359,31 @@ table des matières. Le thème `ocots` est le défaut, mais les autres thèmes
 
 Les preuves fractionnées (`proofbegin`/`proofmiddle`/`proofend`) et la remise à
 zéro des compteurs entre deux `\pause` sont gérées par le support.
+
+---
+
+## Articles de recherche
+
+La classe `ocots-paper` repose sur `amsart` et conserve son API de métadonnées :
+
+```latex
+\documentclass[11pt]{ocots-paper}
+\usepackage[mode=draft]{ocots}
+
+\title[Titre court]{Titre long}
+\author{Ada Author}
+\address{Department of Mathematics, Example University}
+\email{ada@example.org}
+```
+
+Ses défauts sont `mode=preprint`, `lang=en` et `math=none`. Le mode est un
+profil, pas un thème : `draft` choisit `theme=ocots` et montre les marques de
+travail; `preprint` choisit `theme=paper` et refuse toute marque. Une option
+`theme=` explicite remplace uniquement le choix visuel du mode.
+
+Les environnements `hypothesis` (compteur H1, H2, …) et `citedtheorem`
+(compteur partagé des résultats) complètent l'API commune pour les manuscrits.
+Le même corps passe d'un rendu à l'autre en changeant seulement `mode=`.
 
 ---
 

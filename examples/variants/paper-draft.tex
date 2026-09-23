@@ -1,0 +1,50 @@
+\documentclass[11pt]{ocots-paper}
+\usepackage[mode=draft]{ocots}
+
+\newcommand{\R}{\mathbb{R}}
+\title[Draft example]{A research paper draft}
+\author{Ada Author}
+\address{Department of Mathematics, Example University}
+\email{ada@example.org}
+
+\begin{document}
+\begin{abstract}
+A draft exercising the visual hierarchy and work marks.
+\end{abstract}
+\maketitle
+
+\section{Results}
+
+\todo{Check the assumptions before circulation.}
+
+\begin{hypothesis}[Regularity]
+\label{hyp:regularity}
+The data are smooth on $\R$.
+\end{hypothesis}
+
+\begin{definition}[Admissible point]
+An admissible point satisfies Hypothesis~\ref{hyp:regularity}.
+\end{definition}
+
+\begin{lemma}[Compactness]
+\label{lem:compactness}
+Every admissible sequence has a convergent subsequence.
+\end{lemma}
+
+\begin{theorem}[Main result]
+Every admissible point satisfies the conclusion.
+\end{theorem}
+
+\begin{proof}
+Apply Lemma~\ref{lem:compactness}.
+\end{proof}
+
+\begin{example}
+The origin is admissible.
+\end{example}
+
+\begin{remark}
+Lemmas use a lighter visual marker than major results.
+\end{remark}
+
+\end{document}

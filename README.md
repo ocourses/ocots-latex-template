@@ -1,9 +1,10 @@
 # Template `ocots`
 
-Template LaTeX pour **polycopiés, diapositives, TD et sujets d'examen**, avec
-une seule API : un énoncé se colle tel quel du TD au polycopié. L'apparence est
-pilotée par des **thèmes** interchangeables (`legacy` reproduit le rendu
-historique, `charter` est une refonte visuelle, `slate` un thème sobre).
+Template LaTeX pour **articles de recherche, polycopiés, diapositives, TD et
+sujets d'examen**, avec une seule API : un énoncé se colle tel quel d'un support
+à l'autre. L'apparence est pilotée par des **thèmes** interchangeables
+(`paper` est sobre pour les préprints, `ocots` privilégie le travail visuel,
+`legacy`, `charter` et `slate` fournissent d'autres rendus).
 
 - **[`doc/commandes.md`](doc/commandes.md)** — toutes les commandes et
   environnements, par thème.
@@ -114,20 +115,39 @@ Un TD ou un sujet d'examen :
 \usepackage[lang=fr, solutions=none, institution={n7}]{ocots}
 ```
 
+Un article de recherche :
+
+```latex
+\documentclass[11pt]{ocots-paper}
+\usepackage[mode=draft]{ocots}
+
+\title{A research paper}
+\author{Ada Author}
+\address{Department of Mathematics, Example University}
+\email{ada@example.org}
+```
+
+`ocots-paper` repose sur `amsart`. Ses défauts sont `mode=preprint`, `lang=en`
+et `math=none`. Le mode `draft` sélectionne le thème `ocots` et affiche les
+marques de travail; `preprint` sélectionne le thème sobre `paper` et refuse de
+compiler si une marque subsiste. Un `theme=` explicite surcharge le thème choisi
+par le mode sans modifier le contenu.
+
 ---
 
 ## Options
 
 | Option | Valeurs | Défaut | Effet |
 |--------|---------|--------|-------|
-| `lang` | `fr`, `en` | `fr` | langue des intitulés et de la typographie |
-| `theme` | `ocots`, `legacy`, `charter`, `slate` | `ocots` | palette + formes + titres |
-| `boxform` | `bracket`, `framed`, `sidebar`, `shaded` | (le thème décide) | **surcharge** la forme des boîtes à titre |
+| `lang` | `fr`, `en` | `fr` (`en` pour `ocots-paper`) | langue des intitulés et de la typographie |
+| `mode` | `draft`, `preprint` | `preprint` pour `ocots-paper` | profil de travail ou de diffusion |
+| `theme` | `paper`, `ocots`, `legacy`, `charter`, `slate` | selon le mode pour `ocots-paper`, sinon `ocots` | palette + formes + titres |
+| `boxform` | `plain`, `bracket`, `framed`, `sidebar`, `shaded` | (le thème décide) | **surcharge** la forme des boîtes à titre |
 | `titles` | `plain`, `rules`, `bignum` | (le thème décide) | **surcharge** le dessin des titres |
 | `mathbox` | `highlight`, `flat`, `rule`, `none` | (le thème décide) | **surcharge** l'encadré de formule (`\tcbhighmath`) |
 | `listing` | `card`, `framed`, `lines`, `shade` | (le thème décide) | **surcharge** l'habillage des blocs de code |
 | `solutions` | `none`, `inline`, `end` | `end` | sort des corrigés |
-| `math` | `base`, `analysis`, `control`, `measure` | `base` | modules de macros chargés |
+| `math` | `none`, `base`, `analysis`, `control`, `measure` | `base` (`none` pour `ocots-paper`) | modules de macros chargés |
 | `setfont` | `bb`, `rm` | `bb` | police des ensembles de nombres |
 | `calfont` | `custom`, `scr`, `cal` | `custom` | police des familles calligraphiques |
 | `institution` | `n7`, `inp`, `insa`, `uftmp` | `n7` | logos de la page de titre et des en-têtes TD/examen |
@@ -166,10 +186,10 @@ tex/
   ocots-graphics.sty     aides TikZ, tableaux
   ocots-institution.sty  logos
   ocots-compat.sty       alias des noms v0
-  ocots-book.cls  ocots-td.cls  ocots-exam.cls
-  carrier/               supports : book, slides, article, td, exam
-  theme/                 thèmes : ocots, legacy, charter, slate, + socle
-    theme/form/            formes de boîte : bracket, framed, sidebar, shaded
+  ocots-book.cls  ocots-paper.cls  ocots-td.cls  ocots-exam.cls
+  carrier/               supports : book, paper, slides, article, td, exam
+  theme/                 thèmes : paper, ocots, legacy, charter, slate, + socle
+    theme/form/            formes de boîte : plain, bracket, framed, sidebar, shaded
     theme/siderule/        filets latéraux : bar, soft, none
     theme/title/           dessin des titres : plain, rules, bignum
     theme/mathbox/         encadré de formule : highlight, flat, rule, none
