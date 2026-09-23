@@ -335,4 +335,89 @@ question,fact,problem,corollaire,theoreme,definitions,examples}
     \ocots@result@crefname{citedtheorem}{cited-theorem}}{}%
 }
 
+% ---------------------------------------------------------------------------
+% cleveref + babel-french : les etiquettes contiennent « : »
+%
+% babel-french rend « : » actif, pour poser l'espace fine insecable de la
+% typographie francaise. Or les etiquettes du template en contiennent toutes
+% une -- ce sont les prefixes que \ocots@result@beginbox ajoute lui-meme :
+% def:, thm:, prop:, cor:. cleveref construit ses recherches par
+% \csname r@<etiquette>@cref\endcsname, sans neutraliser les caracteres
+% actifs : le « : » s'y developpe, et la compilation part en « Missing
+% \endcsname inserted » -- 534 erreurs sur un document de quinze enonces,
+% avec des renvois rendus « :admissible@cref ».
+%
+% Le defaut est du cote LECTURE seulement : le .aux est correct, les
+% etiquettes y sont ecrites telles qu'attendues. C'est \cref qui ne les
+% retrouve pas.
+%
+% babel prevoit exactement ce cas : sous \@safe@activestrue, un caractere
+% actif se developpe en lui-meme. C'est ainsi que babel protege \ref, \label
+% et \cite. cleveref, lui, n'est pas connu de babel, et sa propre
+% redefinition de \label arrive apres celle de babel. On enveloppe donc ses
+% commandes publiques.
+%
+% Le crochet est `begindocument/end' et non \AtBeginDocument : cleveref
+% redefinit \cref, \Cref et les intervalles dans son PROPRE \AtBeginDocument
+% quand hyperref est charge (pour y ajouter la variante etoilee). Un crochet
+% pose au chargement de `ocots' passerait avant, et envelopperait des
+% definitions aussitot ecrasees.
+%
+% Meme cause que 6c92c45 (`fix(slides): securise les labels avec
+% babel-french'), autre chemin : la, c'etait \beamer@label ; ici, la lecture
+% des etiquettes par cleveref hors beamer.
+\newcommand{\ocots@cref@safe@i}[2]{%
+  \begingroup\@safe@activestrue\@nameuse{ocots@cref@orig@#1}{#2}\endgroup}
+\newcommand{\ocots@cref@safe@istar}[2]{%
+  \begingroup\@safe@activestrue\@nameuse{ocots@cref@orig@#1}*{#2}\endgroup}
+\newcommand{\ocots@cref@safe@ii}[3]{%
+  \begingroup\@safe@activestrue\@nameuse{ocots@cref@orig@#1}{#2}{#3}\endgroup}
+\newcommand{\ocots@cref@safe@iistar}[3]{%
+  \begingroup\@safe@activestrue\@nameuse{ocots@cref@orig@#1}*{#2}{#3}\endgroup}
+
+% #1 : arite, `i' ou `ii'. #2 : nom de la commande, sans contre-oblique.
+% La variante etoilee est relayee telle quelle : \cref* supprime l'hyperlien,
+% et l'avaler silencieusement serait une regression.
+%
+% \DeclareCommandCopy et non \let : \cref est une commande ROBUSTE, donc
+% \cref se developpe en \protect\cref␣ et c'est \cref␣ qui porte le corps.
+% Un \let ne copierait que l'enveloppe, qui pointerait ensuite vers la
+% NOUVELLE definition -- recursion infinie, « TeX capacity exceeded
+% [grouping levels=255] ». \DeclareCommandCopy copie les deux.
+\newcommand{\ocots@cref@protect}[2]{%
+  \@ifundefined{#2}{}{%
+    \expandafter\DeclareCommandCopy
+      \csname ocots@cref@orig@#2\expandafter\endcsname\csname #2\endcsname
+    \expandafter\DeclareRobustCommand\csname #2\endcsname{%
+      \@ifstar{\@nameuse{ocots@cref@safe@#1star}{#2}}%
+              {\@nameuse{ocots@cref@safe@#1}{#2}}}}}
+
+% \AddToHook et \DeclareCommandCopy : noyau LaTeX 2020+ / 2022+. Absents,
+% on ne fait rien -- le defaut reste, mais rien ne casse.
+\@ifundefined{AddToHook}{}{\@ifundefined{DeclareCommandCopy}{}{%
+  \AddToHook{begindocument/end}{%
+    \@ifpackageloaded{cleveref}{%
+      % \@safe@activestrue n'existe que sous babel ; sans lui, rien a faire.
+      % Avec babel mais sans raccourci actif (anglais), l'enveloppe est un
+      % no-op : on peut donc la poser sans tester la langue.
+      \@ifundefined{@safe@activestrue}{}{%
+        \ocots@cref@protect{i}{cref}%
+        \ocots@cref@protect{i}{Cref}%
+        \ocots@cref@protect{i}{labelcref}%
+        \ocots@cref@protect{i}{cpageref}%
+        \ocots@cref@protect{i}{Cpageref}%
+        \ocots@cref@protect{i}{labelcpageref}%
+        \ocots@cref@protect{i}{namecref}%
+        \ocots@cref@protect{i}{nameCref}%
+        \ocots@cref@protect{i}{lcnamecref}%
+        \ocots@cref@protect{i}{namecrefs}%
+        \ocots@cref@protect{i}{nameCrefs}%
+        \ocots@cref@protect{i}{lcnamecrefs}%
+        \ocots@cref@protect{ii}{crefrange}%
+        \ocots@cref@protect{ii}{Crefrange}%
+        \ocots@cref@protect{ii}{cpagerefrange}%
+        \ocots@cref@protect{ii}{Cpagerefrange}%
+      }}{}%
+  }}}
+
 \endinput

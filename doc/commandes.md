@@ -385,6 +385,46 @@ Les environnements `hypothesis` (compteur H1, H2, …) et `citedtheorem`
 (compteur partagé des résultats) complètent l'API commune pour les manuscrits.
 Le même corps passe d'un rendu à l'autre en changeant seulement `mode=`.
 
+### Renvois `cleveref`
+
+`cleveref` n'est pas chargé par le template : c'est au document de le faire, et
+**après** `ocots`.
+
+```latex
+\usepackage[mode=preprint, lang=fr]{ocots}
+\usepackage{cleveref}          % nu : la langue est déjà passée par lang=
+```
+
+Trois choses en découlent.
+
+**La langue suit `lang=`.** Le fichier de langue fait un
+`\PassOptionsToPackage{french}{cleveref}`, si bien que `\cref{lem:a,lem:b}`
+compose « Lemmes 1.2 et 1.3 » et non « … and … ». Inutile de répéter la langue
+dans les options de `cleveref` ; c'est même le seul ordre qui marche, puisque
+l'option doit être posée avant le chargement.
+
+**Les intitulés viennent de la table des chaînes**, pas de ceux que `cleveref`
+déduit tout seul — sa déduction a lieu au chargement du paquet, avant que la
+langue ne soit fixée. Ce sont des *défauts* : un `\crefname` posé par le
+document gagne. C'est ce qu'il faut pour `citedtheorem`, dont la boîte
+s'intitule « Théorème (cité) » là où un article veut y renvoyer par « d'après
+le Théorème 2.8 » :
+
+```latex
+\crefname{citedtheorem}{Théorème}{Théorèmes}
+\Crefname{citedtheorem}{Théorème}{Théorèmes}
+```
+
+Ce `\crefname` se pose **en clair dans le préambule**, jamais dans un
+`\AtBeginDocument` : `cleveref` fige ses formats dans son propre crochet de
+`\begin{document}`, et tout `\crefname` exécuté après est ignoré en silence —
+on obtient un `??` dans le PDF pour seul diagnostic.
+
+**Les étiquettes peuvent contenir « : »** même en français, où `babel` rend ce
+caractère actif. Le template neutralise les caractères actifs le temps de la
+lecture des étiquettes par `cleveref` ; sans cela, `\cref{def:a}` part en
+« Missing `\endcsname` inserted ».
+
 ---
 
 ## TD et examens

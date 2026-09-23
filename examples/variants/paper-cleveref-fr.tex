@@ -1,0 +1,101 @@
+% Contrepartie francaise de paper-cleveref.tex. Elle garde honnetes deux
+% choses que rien d'autre ne surveille :
+%
+%   1. babel-french rend « : » actif, et toutes les etiquettes du template en
+%      contiennent un (def:, thm:, prop:, cor:). Sans le garde-fou de
+%      ocots-env.sty, cleveref n'arrive plus a les relire : « Missing
+%      \endcsname inserted » en rafale, et des renvois rendus
+%      « :admissible@cref ». Voir l'issue #44.
+%   2. la table des chaines : les intitules de renvoi viennent de
+%      \ocotsstring, donc une traduction manquante se verrait ici, et nulle
+%      part ailleurs (check-crefnames.sh detecte le marqueur « ?clef? »).
+%
+% Noter que cleveref est charge NU, sans option de langue : c'est le fichier
+% lang/ qui la lui passe par \PassOptionsToPackage. C'est ce qui fait que la
+% conjonction est « et » et non « and » ci-dessous -- comportement teste ici.
+%
+% Renvois cleveref : chaque famille d'enonce doit se citer sous SON intitule.
+%
+% Les cinq familles de boites (theorem, definition, proposition, corollary,
+% conjecture) partagent le compteur `theorem'. Rien dans « make check » ne
+% pouvait voir qu'elles se citaient toutes comme « Theorem » : le document
+% compile sans le moindre avertissement. D'ou ce fichier et son garde-fou
+% check-crefnames.sh -- meme dispositif que check-numbering.sh pour le
+% partage de compteur.
+%
+% Convention lue par check-crefnames.sh : une ligne
+%   CREFCHECK <Intitule attendu> = \cref{...}
+% doit se rendre en « CREFCHECK <Intitule attendu> = <Intitule attendu> N.M ».
+\documentclass[11pt]{ocots-paper}
+\usepackage[lang=fr]{ocots}
+\usepackage{cleveref}
+
+\newcommand{\R}{\mathbb{R}}
+\title[Exemple cleveref]{Renvois cleveref et familles d'\'enonc\'es}
+\author{Ada Auteur}
+\address{D\'epartement de math\'ematiques, Universit\'e Exemple}
+\email{ada@example.org}
+
+\begin{document}
+\maketitle
+
+\section{\'Enonc\'es}
+
+\begin{definition}[Admissible point]
+\label{def:admissible}
+A point is admissible when it is smooth on $\R$.
+\end{definition}
+
+\begin{proposition}[Stability]
+\label{prop:stability}
+Admissible points form an open set.
+\end{proposition}
+
+\begin{lemma}[Compactness]
+\label{lem:compactness}
+Every admissible sequence has a convergent subsequence.
+\end{lemma}
+
+\begin{lemma}[Closedness]
+\label{lem:closedness}
+The limit of an admissible sequence is admissible.
+\end{lemma}
+
+\begin{theorem}[Main result]
+\label{thm:main}
+Every admissible point satisfies the conclusion.
+\end{theorem}
+
+\begin{corollary}[Consequence]
+\label{cor:consequence}
+The conclusion holds almost everywhere.
+\end{corollary}
+
+\begin{conjecture}[Open problem]
+\label{conj:open}
+The converse holds as well.
+\end{conjecture}
+
+\begin{hypothesis}[Regularity]
+\label{hyp:regularity}
+The data are smooth on $\R$.
+\end{hypothesis}
+
+\begin{hypothesis}[Boundedness]
+\label{hyp:bounded}
+The data are bounded on $\R$.
+\end{hypothesis}
+
+\section{Renvois}
+
+\noindent CREFCHECK Définition = \cref{def:admissible}\par
+\noindent CREFCHECK Proposition = \cref{prop:stability}\par
+\noindent CREFCHECK Lemme = \cref{lem:compactness}\par
+\noindent CREFCHECK Théorème = \cref{thm:main}\par
+\noindent CREFCHECK Corollaire = \cref{cor:consequence}\par
+\noindent CREFCHECK Conjecture = \cref{conj:open}\par
+\noindent CREFCHECK Hypothèse = \cref{hyp:regularity}\par
+\noindent CREFCHECK Lemmes = \cref{lem:compactness,lem:closedness}\par
+\noindent CREFCHECK Hypothèses = \cref{hyp:regularity,hyp:bounded}\par
+
+\end{document}

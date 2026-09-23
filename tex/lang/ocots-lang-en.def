@@ -10,6 +10,11 @@
 \def\ocots@babellang{english}
 \RequirePackage[english]{babel}
 
+% cleveref est charge par le document, donc apres ce fichier : on lui passe la
+% langue d'avance, pour que « et »/« and » et les intitules par defaut suivent
+% lang= sans que l'auteur ait a le redire dans ses options de paquet.
+\PassOptionsToPackage{english}{cleveref}
+
 % Convention pour les intervalles ouverts : (a,b) en anglais.
 \def\ocots@intervalopenleft{(}
 \def\ocots@intervalopenright{)}
