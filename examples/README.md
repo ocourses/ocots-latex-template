@@ -35,7 +35,7 @@ l'autre** à l'exception de la ligne `theme=` : ouvrir
 
 `content/` porte le contenu de démonstration une seule fois — huit fichiers,
 `\input` par les 16 documents `themes/*/{poly,slides,td,exam}.tex` et par les
-64 variantes de facette `themes/*/variants/` :
+68 variantes de facette `themes/*/variants/` :
 
 | fichier | utilisé par |
 |---------|-------------|
@@ -43,7 +43,7 @@ l'autre** à l'exception de la ligne `theme=` : ouvrir
 | `slides-body.tex` | `slides.tex` |
 | `td-body.tex` | `td.tex` |
 | `exam-body.tex` | `exam.tex` |
-| `variant-body.tex` | les 64 variantes de facette (`themes/*/variants/`) |
+| `variant-body.tex` | les 68 variantes de facette (`themes/*/variants/`) |
 
 C'est la démonstration de l'étape 2 de la refonte : un énoncé ne dépend ni du
 support qui le compose, ni du thème qui l'affiche.
@@ -66,6 +66,10 @@ par défaut (`ocots`) — ce ne sont pas des comparaisons de thème, voir plus b
 | `math-modules.tex` | `math={control,measure}` — syntaxe multi-valeurs entre accolades + corpus des deux modules |
 | `draft.tex`     | option `draft` : `\notework`, `\noteinmargin`, `\worktodo`, `worknotes` visibles |
 | `binding.tex`   | `binding=12mm` : décalage de reliure (`ocots-book` en `twoside`) |
+| `paper-preprint.tex` | défauts de `ocots-paper` : anglais, thème `paper`, `math=none` |
+| `paper-draft.tex` | `mode=draft` : thème `ocots` et marques visibles |
+| `paper-fr.tex` | préprint avec `lang=fr` |
+| `paper-preprint-workmark.tex` | test négatif : une marque fait échouer le preprint |
 
 `fr-none`, `fr-inline`, `en-end`, `binding` partagent `body.tex`, un corps
 minimal ; `draft` le complète d'une section de notes de travail. `compat.tex`
@@ -88,12 +92,12 @@ Chaque facette est présentée **en entier** — une variante par valeur, nommé
 | fichier | montre |
 |---------|--------|
 | `variants/fonts.tex` | `setfont=`/`calfont=` par-dessus le thème du dossier |
-| `variants/boxform-{bracket,framed,sidebar,shaded}.tex` | les 4 formes de boîtes à titre |
+| `variants/boxform-{plain,bracket,framed,sidebar,shaded}.tex` | les 5 formes de boîtes à titre |
 | `variants/titles-{plain,rules,bignum}.tex` | les 3 dessins de titres |
 | `variants/mathbox-{highlight,flat,rule,none}.tex` | les 4 encadrés de formule |
 | `variants/listing-{card,framed,lines,shade}.tex` | les 4 habillages de code |
 
-Soit 16 variantes par thème (64 au total). La valeur propre du thème figure
+Soit 17 variantes par thème (68 au total). La valeur propre du thème figure
 aussi (`listing-card` sous `ocots`, par exemple) : référence explicite, la
 note du PDF la signale comme réglage par défaut forcé — la matrice prouve en
 outre que chaque preset se charge sous chaque palette. Le filet latéral
@@ -102,11 +106,11 @@ outre que chaque preset se charge sous chaque palette. Le filet latéral
 ## Compilation
 
 ```bash
-make                        # tout : 16 supports, 64+11 variantes, verification
+make                        # tout : 16 supports, 68+14 variantes, verification
 make themes                 # les 16 supports (4 themes x 4 supports)
 make themes/legacy/poly     # un seul document
-make theme-variants         # les 64 variantes de facette (par theme)
-make variants                # les 11 variantes independantes du theme
+make theme-variants         # les 68 variantes de facette (par theme)
+make variants               # les 14 variantes independantes du theme
 make check                  # revérifie les journaux sans recompiler
 make clean                  # nettoie les auxiliaires
 make mrproper                # nettoie tout, PDF compris

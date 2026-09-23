@@ -1,10 +1,10 @@
 # Compilation des exemples du template — harnais de non-régression.
 #
-#   make                     compile tout : 16 supports, 64+11 variantes, verification
+#   make                     compile tout : 16 supports, 68+14 variantes, verification
 #   make themes              les 16 supports (4 themes x 4 supports)
 #   make themes/legacy/poly  un seul document
-#   make theme-variants      les 64 variantes de facette (matrice complete, par theme)
-#   make variants            les 11 variantes independantes du theme (lang=, solutions=, compat...)
+#   make theme-variants      les 68 variantes de facette (matrice complete, par theme)
+#   make variants            les 14 variantes independantes du theme (lang=, solutions=, compat...)
 #   make check               revérifie les journaux sans recompiler
 #   make clean               efface les auxiliaires (garde les PDF)
 #   make mrproper             efface tout, PDF compris
@@ -38,7 +38,7 @@ SUPPORTS := poly slides td exam
 # variante a part. Voir doc/themes.md.
 THEME_VARIANTS := $(foreach t,$(THEMES), \
                    $t/fonts \
-                   $(foreach v,bracket framed sidebar shaded,$t/boxform-$v) \
+                   $(foreach v,plain bracket framed sidebar shaded,$t/boxform-$v) \
                    $(foreach v,plain rules bignum,$t/titles-$v) \
                    $(foreach v,highlight flat rule none,$t/mathbox-$v) \
                    $(foreach v,card framed lines shade,$t/listing-$v))
@@ -46,7 +46,8 @@ THEME_VARIANTS := $(foreach t,$(THEMES), \
 # Variantes independantes du theme : meme corps, options lang=/solutions=/
 # compat/hooks differentes. Toutes utilisent le theme par defaut (`ocots`).
 VARIANTS := fr-none fr-inline en-end compat header-article slides-hook \
-            math-modules draft binding institution-inp institution-insa
+            math-modules draft binding institution-inp institution-insa \
+            paper-preprint paper-draft paper-fr
 
 # Le template est trouvé par TEXINPUTS : les documents n'ont plus de chemin
 # relatif à tenir à jour, contrairement au \relativePath de la v0 (défaut D12).
@@ -140,6 +141,15 @@ check:
 	    echo "  variants/$$v : ok"; \
 	  fi; \
 	done; \
+	if (cd variants && latexmk -g -pdf -interaction=nonstopmode -file-line-error \
+	    -emulate-aux-dir -auxdir=build -jobname=paper-preprint-workmark \
+	    paper-preprint-workmark.tex >/dev/null 2>&1); then \
+	  echo "  variants/paper-preprint-workmark : ERREUR (succès inattendu)"; status=1; \
+	elif grep -aq "Work mark.*todo" variants/build/paper-preprint-workmark.log; then \
+	  echo "  variants/paper-preprint-workmark : rejet attendu"; \
+	else \
+	  echo "  variants/paper-preprint-workmark : ERREUR (mauvais diagnostic)"; status=1; \
+	fi; \
 	if [ -f themes/ocots/poly.pdf ]; then \
 	  dups=$$(./check-numbering.sh themes/ocots/poly.pdf 2>&1) || { \
 	    echo "  themes/ocots/poly : DOUBLON DE NUMEROTATION (chantier 1)"; echo "$$dups" | sed 's/^/      /'; status=1; }; \

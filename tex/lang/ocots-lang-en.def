@@ -22,8 +22,12 @@
 \ocotssetstring{corollary}{Corollary}
 \ocotssetstring{conjecture}{Conjecture}
 \ocotssetstring{lemma}{Lemma}
+\ocotssetstring{lemma-plural}{Lemmas}
 \ocotssetstring{example}{Example}
 \ocotssetstring{remark}{Remark}
+\ocotssetstring{proof}{Proof}
+\ocotssetstring{hypothesis}{Hypothesis}
+\ocotssetstring{cited-theorem}{Theorem (cited)}
 \ocotssetstring{chapter-label}{Chapter}
 \ocotssetstring{assumption}{Assumption}
 
@@ -58,6 +62,7 @@
 \ocotssetstring{reminder}{Reminder}
 \ocotssetstring{note}{Note}
 \ocotssetstring{todo}{TODO}
+\ocotssetstring{open}{OPEN}
 
 % --------------------------------------------------------------------------
 % Operateurs mathematiques dont le nom depend de la langue

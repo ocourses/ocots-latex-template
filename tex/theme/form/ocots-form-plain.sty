@@ -1,0 +1,13 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-form-plain}[2026/09/23 v1.0 ocots -- forme academique]
+
+\newcommand{\ocots@form@plain}[1]{%
+  \ocotssetboxstyle{#1}{%
+    enhanced jigsaw, breakable, blanker,
+    left=0pt, right=0pt, top=0pt, bottom=0pt,
+    fonttitle=\bfseries\upshape,
+    attach title to upper={.\quad},
+    before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip}}
+\ocotsregisterform{plain}{\ocots@form@plain}
+
+\endinput

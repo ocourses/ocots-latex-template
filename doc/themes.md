@@ -19,11 +19,13 @@ une option.
 ```
 
 `theme=` se résout en un fichier : `theme=ocots` charge `ocots-theme-ocots.sty`.
-Sans l'option, `ocots` est utilisé sur papier comme en diapositives.
+Sans l'option, `ocots` est utilisé sur les supports pédagogiques. `ocots-paper`
+choisit `paper` en `mode=preprint` et `ocots` en `mode=draft`.
 
 | thème | rendu | boîtes | titres | formule | code |
 |-------|-------|--------|--------|---------|------|
-| `ocots` | **le défaut** : aucun fond, liseré en équerre, palette à 7 couleurs | `bracket` | `plain` | `highlight` | `card` |
+| `paper` | préprint académique sobre, sans encadrés ni couleurs structurelles | `plain` | `plain` | `none` | `lines` |
+| `ocots` | **défaut pédagogique et draft** : aucun fond, liseré en équerre, palette à 7 couleurs | `bracket` | `plain` | `highlight` | `card` |
 | `legacy` | le rendu historique : cadres pastel, titres entre filets | `framed` | `rules` | `highlight` | `framed` |
 | `charter` | Charter/Fira, filet latéral, grand chiffre de chapitre | `sidebar` | `bignum` | `flat` | `card` |
 | `slate` | sobre : un seul accent (ardoise), aplats teintés | `shaded` | `plain` | `flat` | `framed` |
@@ -35,7 +37,7 @@ deux rendus sur un même document sans éditer de fichier :
 
 | option | valeurs | remplace |
 |--------|---------|----------|
-| `boxform=` | `bracket`, `framed`, `sidebar`, `shaded` | la forme des 7 boîtes à titre |
+| `boxform=` | `plain`, `bracket`, `framed`, `sidebar`, `shaded` | la forme des 7 boîtes à titre |
 | `titles=` | `plain`, `rules`, `bignum` | le dessin des titres de chapitre / section |
 | `mathbox=` | `highlight`, `flat`, `rule`, `none` | le style de `\tcbhighmath` |
 | `listing=` | `card`, `framed`, `lines`, `shade` | l'habillage des blocs de code |
@@ -65,12 +67,12 @@ défaut `ocots`) — **toutes les valeurs** de chaque facette, nommées
 | fichier | montre |
 |---------|--------|
 | `variants/fonts.tex` | `setfont=` / `calfont=` par-dessus le thème du dossier |
-| `variants/boxform-{bracket,framed,sidebar,shaded}.tex` | les 4 formes de boîtes à titre |
+| `variants/boxform-{plain,bracket,framed,sidebar,shaded}.tex` | les 5 formes de boîtes à titre |
 | `variants/titles-{plain,rules,bignum}.tex` | les 3 dessins de titres |
 | `variants/mathbox-{highlight,flat,rule,none}.tex` | les 4 encadrés de formule |
 | `variants/listing-{card,framed,lines,shade}.tex` | les 4 habillages de code |
 
-Soit 16 variantes par thème. La valeur propre du thème y figure aussi : la
+Soit 17 variantes par thème. La valeur propre du thème y figure aussi : la
 note de première page la signale alors comme réglage par défaut forcé
 explicitement. Le filet latéral (`siderule`) n'a pas de variante, n'étant pas
 pilotable par option.
@@ -78,8 +80,8 @@ pilotable par option.
 Chaque PDF de `variants/` affiche en première page une note rappelant ce qui
 change par rapport au réglage par défaut du thème du dossier.
 `examples/variants/` (au niveau racine) garde en plus les variantes
-indépendantes du thème : langue, corrigés, modules `math=`, `draft`,
-`binding=`, établissements, syntaxe v0, etc.
+indépendantes du thème : langue, corrigés, modules `math=`, `draft`, profils
+`paper`, `binding=`, établissements, syntaxe v0, etc.
 
 ```bash
 cd examples && make themes           # les quatre supports, quatre thèmes
@@ -165,7 +167,7 @@ veut.
 `exercise`, `solution`.
 
 **Blocs à filet** (via `\ocotssiderule`) :
-`remark`, `assumption`, `openquestion`, `difficulty`.
+`lemma`, `remark`, `assumption`, `openquestion`, `difficulty`.
 
 **Couleurs attendues** — clé de famille : `key-<famille>` (les 7 ci-dessus).
 Sémantiques : `link`, `url`, `cite`, `proof`, `emph-a`…`emph-d`, `grey`,

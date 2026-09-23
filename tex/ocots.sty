@@ -27,7 +27,7 @@
 % ---------------------------------------------------------------------------
 
 % lang=fr|en          -> lang/ocots-lang-<valeur>.def
-\def\ocots@lang{fr}
+\def\ocots@lang{}
 \DeclareOptionX{lang}{\def\ocots@lang{#1}}
 
 % theme=ocots|legacy|charter|slate
@@ -56,10 +56,9 @@
 \def\ocots@solutions{end}
 \DeclareOptionX{solutions}{\def\ocots@solutions{#1}}
 
-% math=base,analysis,control,measure  -> math/ocots-math-<valeur>.sty
-% « base » est toujours charge, meme s'il n'est pas cite. Plusieurs valeurs :
-% entourer d'accolades (math={analysis,control}), sinon \usepackage[...]
-% coupe sur la virgule avant que la clef ne la voie (cf. institution ci-dessous).
+% math=none|base,analysis,control,measure  -> math/ocots-math-<valeur>.sty
+% Plusieurs valeurs : entourer d'accolades (math={analysis,control}), sinon
+% \usepackage[...] coupe sur la virgule avant que la clef ne la voie.
 \def\ocots@math{}
 \DeclareOptionX{math}{\def\ocots@math{#1}}
 
@@ -86,8 +85,12 @@
 
 % draft  -> affiche les notes de travail : \notework, \noteinmargin, \worktodo
 \newif\ifocots@draft \ocots@draftfalse
-\DeclareOptionX{draft}{\ocots@drafttrue}
-\DeclareOptionX{final}{\ocots@draftfalse}
+\newif\ifocots@strictwork \ocots@strictworkfalse
+\newif\ifocots@mathenabled \ocots@mathenabledtrue
+\def\ocots@mode{}
+\DeclareOptionX{mode}{\def\ocots@mode{#1}}
+\DeclareOptionX{draft}{\def\ocots@mode{draft}}
+\DeclareOptionX{final}{\def\ocots@mode{preprint}}
 
 % binding=<longueur>  -> decalage de reliure pour l'impression
 \def\ocots@binding{0mm}
@@ -102,11 +105,38 @@
 
 \ocots@detectcarrier
 
-% Defaut de theme dependant du support. C'est un defaut, pas un test : une fois
-% le theme choisi, plus personne ne sait quel support est actif.
-\ifx\ocots@theme\@empty
-  \ocots@ifcarrier{slides}%
-    {\def\ocots@theme{ocots}}{\def\ocots@theme{ocots}}%
+\ocots@ifcarrier{paper}{%
+  \ifx\ocots@lang\@empty\def\ocots@lang{en}\fi
+  \ifx\ocots@math\@empty\def\ocots@math{none}\fi
+  \ifx\ocots@mode\@empty\def\ocots@mode{preprint}\fi
+  \ifnum\pdfstrcmp{\ocots@mode}{draft}=\z@
+    \ocots@drafttrue
+    \ocots@strictworkfalse
+    \ifx\ocots@theme\@empty\def\ocots@theme{ocots}\fi
+  \else\ifnum\pdfstrcmp{\ocots@mode}{preprint}=\z@
+    \ocots@draftfalse
+    \ocots@strictworktrue
+    \ifx\ocots@theme\@empty\def\ocots@theme{paper}\fi
+  \else
+    \PackageError{ocots}{Unknown paper mode `\ocots@mode'}{Use mode=draft or mode=preprint.}%
+  \fi\fi
+}{%
+  \ifx\ocots@lang\@empty\def\ocots@lang{fr}\fi
+  \ifx\ocots@math\@empty\def\ocots@math{base}\fi
+  \ifx\ocots@mode\@empty\else
+    \ifnum\pdfstrcmp{\ocots@mode}{draft}=\z@
+      \ocots@drafttrue
+    \else\ifnum\pdfstrcmp{\ocots@mode}{preprint}=\z@
+      \ocots@draftfalse
+    \else
+      \PackageError{ocots}{Unknown mode `\ocots@mode'}{Use mode=draft or mode=preprint.}%
+    \fi\fi
+  \fi
+  \ifx\ocots@theme\@empty\def\ocots@theme{ocots}\fi
+}
+
+\ifnum\pdfstrcmp{\ocots@math}{none}=\z@
+  \ocots@mathenabledfalse
 \fi
 
 % Charge un composant, avec un message clair s'il n'existe pas.
@@ -123,9 +153,9 @@
 \RequirePackage{ocots-text}
 \RequirePackage{ocots-graphics}
 
-% 3. Macros mathematiques, a la carte. « base » d'abord et toujours.
-\RequirePackage{ocots-math-base}
-\ifx\ocots@math\@empty\else
+% 3. Macros mathematiques, a la carte. « base » d'abord si elles sont actives.
+\ifocots@mathenabled
+  \RequirePackage{ocots-math-base}
   \@for\ocots@tempc:=\ocots@math\do{%
     \ifx\ocots@tempc\@empty\else
       \edef\ocots@tempd{\ocots@tempc}%
@@ -153,7 +183,12 @@
 \expandafter\ocots@require\expandafter{\detokenize{ocots-carrier-}}{\ocots@carrier}{sty}
 
 % 7. Alias des noms v0, pour que les documents existants compilent sans retouche.
-\RequirePackage{ocots-compat}
+\ifocots@mathenabled
+  \RequirePackage{ocots-compat}
+\else
+  \newcommand{\todo}[1]{\worktodo{#1}}
+  \newcommand{\open}[1]{\workopen{#1}}
+\fi
 
 % ---------------------------------------------------------------------------
 % Metadonnees PDF

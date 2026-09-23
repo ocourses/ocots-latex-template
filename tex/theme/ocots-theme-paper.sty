@@ -1,0 +1,68 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ocots-theme-paper}[2026/09/23 v1.0 ocots -- theme article sobre]
+
+\definecolor{ocots@raw@paperink}{HTML}{202124}
+\definecolor{ocots@raw@paperlink}{HTML}{243B53}
+\definecolor{ocots@raw@papergrey}{HTML}{6B7280}
+
+\ocotssetcolor{emph-a}{ocots@raw@paperink}
+\ocotssetcolor{emph-b}{ocots@raw@paperink}
+\ocotssetcolor{emph-c}{ocots@raw@paperink}
+\ocotssetcolor{emph-d}{ocots@raw@paperink}
+\ocotssetcolor{grey}{ocots@raw@papergrey}
+\ocotssetcolor{link}{ocots@raw@paperlink}
+\ocotssetcolor{cite}{ocots@raw@paperlink}
+\ocotssetcolor{url}{ocots@raw@paperlink}
+\ocotssetcolor{proof}{ocots@raw@paperink}
+\ocotssetcolor{chapter}{ocots@raw@paperink}
+\ocotssetcolor{section}{ocots@raw@paperink}
+\ocotssetcolor{subsection}{ocots@raw@paperink}
+\ocotssetcolor{subsubsection}{ocots@raw@paperink}
+\ocotssetcolor{key-definition}{ocots@raw@paperink}
+\ocotssetcolor{key-theorem}{ocots@raw@paperink}
+\ocotssetcolor{key-proposition}{ocots@raw@paperink}
+\ocotssetcolor{key-corollary}{ocots@raw@paperink}
+\ocotssetcolor{key-conjecture}{ocots@raw@paperink}
+\ocotssetcolor{key-exercise}{ocots@raw@paperink}
+\ocotssetcolor{key-solution}{ocots@raw@paperink}
+\ocotssetcolor{rule-remark}{ocots@raw@paperink}
+\ocotssetcolor{rule-assumption}{ocots@raw@paperink}
+\ocotssetcolor{mathhighlight}{white}
+\ocotssetcolor{listing-rule}{ocots@raw@papergrey}
+\ocotssetcolor{slide0}{ocots@raw@paperink}
+\ocotssetcolor{slide1}{ocots@raw@paperink}
+\ocotssetcolor{slide2}{ocots@raw@paperink}
+\ocotssetcolor{slide3}{ocots@raw@paperink}
+\ocotssetcolor{slide4}{ocots@raw@paperink}
+\ocotssetcolor{slidetitle}{ocots@raw@paperink}
+\ocotssetcolor{titlebox-back}{white}
+\ocotssetcolor{titlebox-frame}{ocots@raw@paperink}
+\ocotssetcolor{titlebox-text}{ocots@raw@paperink}
+
+\RequirePackage{ocots-theme-base}
+\ocotsformall{plain}
+\newcommand{\ocots@paperstatement}[1]{%
+  \ocotssetboxstyle{#1}{enhanced jigsaw, breakable, blanker,
+    left=0pt, right=0pt, top=0pt, bottom=0pt,
+    fonttitle=\bfseries\upshape, fontupper=\itshape,
+    attach title to upper={.\quad},
+    before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip}}
+\ocots@paperstatement{theorem}
+\ocots@paperstatement{proposition}
+\ocots@paperstatement{corollary}
+\ocots@paperstatement{conjecture}
+\ocotssiderule{remark}{none}
+\ocotssiderule{assumption}{none}
+\ocotssetboxstyle{lemma}{enhanced jigsaw, breakable, blanker,
+  left=0pt, right=0pt, before skip=\ocotsboxbeforeskip,
+  after skip=\ocotsboxafterskip, fontupper=\itshape}
+\ocotsusetitles{plain}
+\ocotsusemathbox{none}
+\ocotsuselisting{lines}
+\renewcommand{\ocotsproofname}{\ocotsstring{proof}}
+\renewcommand{\ocotsproofqed}{\QEDB}
+\ocotssetboxstyle{proof}{blanker, breakable, left=0pt, right=0pt,
+  before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip,
+  coltext=\ocotscolor{proof}}
+
+\endinput

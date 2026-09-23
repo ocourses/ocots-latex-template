@@ -24,6 +24,7 @@
 % --- Blocs a filet lateral ----------------------------------------------
 \ocotssiderule{remark}{bar}
 \ocotssiderule{assumption}{bar}
+\ocotssiderule{lemma}{none}
 \ocotssiderule{openquestion}{none}
 \ocotssiderule{difficulty}{none}
 
@@ -33,6 +34,8 @@
   before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip}
 
 % --- Preuves : retrait plus faible, texte colore, pas de cadre ----------
+\providecommand{\ocotsproofname}{{\color{\ocotscolor{proof}}$\RHD$}}
+\providecommand{\ocotsproofqed}{\QEDA}
 \ocotssetboxstyle{proof}{%
   blanker, breakable, left=1.5em,
   before skip=\ocotsboxbeforeskip, after skip=\ocotsboxafterskip,
