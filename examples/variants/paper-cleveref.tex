@@ -1,0 +1,85 @@
+% Renvois cleveref : chaque famille d'enonce doit se citer sous SON intitule.
+%
+% Les cinq familles de boites (theorem, definition, proposition, corollary,
+% conjecture) partagent le compteur `theorem'. Rien dans « make check » ne
+% pouvait voir qu'elles se citaient toutes comme « Theorem » : le document
+% compile sans le moindre avertissement. D'ou ce fichier et son garde-fou
+% check-crefnames.sh -- meme dispositif que check-numbering.sh pour le
+% partage de compteur.
+%
+% Convention lue par check-crefnames.sh : une ligne
+%   CREFCHECK <Intitule attendu> = \cref{...}
+% doit se rendre en « CREFCHECK <Intitule attendu> = <Intitule attendu> N.M ».
+\documentclass[11pt]{ocots-paper}
+\usepackage{ocots}
+\usepackage{cleveref}
+
+\newcommand{\R}{\mathbb{R}}
+\title[Cleveref example]{Clever references across statement families}
+\author{Ada Author}
+\address{Department of Mathematics, Example University}
+\email{ada@example.org}
+
+\begin{document}
+\maketitle
+
+\section{Statements}
+
+\begin{definition}[Admissible point]
+\label{def:admissible}
+A point is admissible when it is smooth on $\R$.
+\end{definition}
+
+\begin{proposition}[Stability]
+\label{prop:stability}
+Admissible points form an open set.
+\end{proposition}
+
+\begin{lemma}[Compactness]
+\label{lem:compactness}
+Every admissible sequence has a convergent subsequence.
+\end{lemma}
+
+\begin{lemma}[Closedness]
+\label{lem:closedness}
+The limit of an admissible sequence is admissible.
+\end{lemma}
+
+\begin{theorem}[Main result]
+\label{thm:main}
+Every admissible point satisfies the conclusion.
+\end{theorem}
+
+\begin{corollary}[Consequence]
+\label{cor:consequence}
+The conclusion holds almost everywhere.
+\end{corollary}
+
+\begin{conjecture}[Open problem]
+\label{conj:open}
+The converse holds as well.
+\end{conjecture}
+
+\begin{hypothesis}[Regularity]
+\label{hyp:regularity}
+The data are smooth on $\R$.
+\end{hypothesis}
+
+\begin{hypothesis}[Boundedness]
+\label{hyp:bounded}
+The data are bounded on $\R$.
+\end{hypothesis}
+
+\section{References}
+
+\noindent CREFCHECK Definition = \cref{def:admissible}\par
+\noindent CREFCHECK Proposition = \cref{prop:stability}\par
+\noindent CREFCHECK Lemma = \cref{lem:compactness}\par
+\noindent CREFCHECK Theorem = \cref{thm:main}\par
+\noindent CREFCHECK Corollary = \cref{cor:consequence}\par
+\noindent CREFCHECK Conjecture = \cref{conj:open}\par
+\noindent CREFCHECK Hypothesis = \cref{hyp:regularity}\par
+\noindent CREFCHECK Lemmas = \cref{lem:compactness,lem:closedness}\par
+\noindent CREFCHECK Hypotheses = \cref{hyp:regularity,hyp:bounded}\par
+
+\end{document}

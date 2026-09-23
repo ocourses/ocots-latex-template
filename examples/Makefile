@@ -19,6 +19,11 @@
 # juste silence. Le harnais annoncerait alors VERT sur un document qui ne
 # compile pas. Piege decouvert en verifiant poly/ a la main, cf. 04-journal.md.
 #
+# `check` relit aussi variants/paper-cleveref.pdf avec check-crefnames.sh :
+# les cinq familles de boites partagent un compteur, et cleveref en deduit le
+# type d'une etiquette — une definition se citait « Theorem 2.7 ». Le defaut est
+# silencieux, donc invisible pour une relecture de journaux.
+#
 # `check` relit aussi themes/ocots/poly.pdf avec check-numbering.sh : le
 # chantier 1 promet qu'un numero ne designe qu'un seul objet (compteur
 # partage), une propriete que « pas d'erreur LaTeX » ne peut pas verifier —
@@ -47,7 +52,7 @@ THEME_VARIANTS := $(foreach t,$(THEMES), \
 # compat/hooks differentes. Toutes utilisent le theme par defaut (`ocots`).
 VARIANTS := fr-none fr-inline en-end compat header-article slides-hook \
             math-modules draft binding institution-inp institution-insa \
-            paper-preprint paper-draft paper-fr
+            paper-preprint paper-draft paper-fr paper-cleveref
 
 # Le template est trouvé par TEXINPUTS : les documents n'ont plus de chemin
 # relatif à tenir à jour, contrairement au \relativePath de la v0 (défaut D12).
@@ -149,6 +154,12 @@ check:
 	  echo "  variants/paper-preprint-workmark : rejet attendu"; \
 	else \
 	  echo "  variants/paper-preprint-workmark : ERREUR (mauvais diagnostic)"; status=1; \
+	fi; \
+	if [ -f variants/paper-cleveref.pdf ]; then \
+	  wrong=$$(./check-crefnames.sh variants/paper-cleveref.pdf 2>&1) || { \
+	    echo "  variants/paper-cleveref : INTITULE DE RENVOI ERRONE"; echo "$$wrong" | sed 's/^/      /'; status=1; }; \
+	else \
+	  echo "  variants/paper-cleveref : PDF non produit"; status=1; \
 	fi; \
 	if [ -f themes/ocots/poly.pdf ]; then \
 	  dups=$$(./check-numbering.sh themes/ocots/poly.pdf 2>&1) || { \
