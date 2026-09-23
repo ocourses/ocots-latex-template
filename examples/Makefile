@@ -19,7 +19,7 @@
 # juste silence. Le harnais annoncerait alors VERT sur un document qui ne
 # compile pas. Piege decouvert en verifiant poly/ a la main, cf. 04-journal.md.
 #
-# `check` relit aussi variants/paper-cleveref.pdf avec check-crefnames.sh :
+# `check` relit aussi variants/paper-cleveref{,-fr}.pdf avec check-crefnames.sh :
 # les cinq familles de boites partagent un compteur, et cleveref en deduit le
 # type d'une etiquette — une definition se citait « Theorem 2.7 ». Le defaut est
 # silencieux, donc invisible pour une relecture de journaux.
@@ -52,7 +52,8 @@ THEME_VARIANTS := $(foreach t,$(THEMES), \
 # compat/hooks differentes. Toutes utilisent le theme par defaut (`ocots`).
 VARIANTS := fr-none fr-inline en-end compat header-article slides-hook \
             math-modules draft binding institution-inp institution-insa \
-            paper-preprint paper-draft paper-fr paper-cleveref
+            paper-preprint paper-draft paper-fr \
+            paper-cleveref paper-cleveref-fr
 
 # Le template est trouvé par TEXINPUTS : les documents n'ont plus de chemin
 # relatif à tenir à jour, contrairement au \relativePath de la v0 (défaut D12).
@@ -155,12 +156,14 @@ check:
 	else \
 	  echo "  variants/paper-preprint-workmark : ERREUR (mauvais diagnostic)"; status=1; \
 	fi; \
-	if [ -f variants/paper-cleveref.pdf ]; then \
-	  wrong=$$(./check-crefnames.sh variants/paper-cleveref.pdf 2>&1) || { \
-	    echo "  variants/paper-cleveref : INTITULE DE RENVOI ERRONE"; echo "$$wrong" | sed 's/^/      /'; status=1; }; \
-	else \
-	  echo "  variants/paper-cleveref : PDF non produit"; status=1; \
-	fi; \
+	for v in paper-cleveref paper-cleveref-fr; do \
+	  if [ -f variants/$$v.pdf ]; then \
+	    wrong=$$(./check-crefnames.sh variants/$$v.pdf 2>&1) || { \
+	      echo "  variants/$$v : INTITULE DE RENVOI ERRONE"; echo "$$wrong" | sed 's/^/      /'; status=1; }; \
+	  else \
+	    echo "  variants/$$v : PDF non produit"; status=1; \
+	  fi; \
+	done; \
 	if [ -f themes/ocots/poly.pdf ]; then \
 	  dups=$$(./check-numbering.sh themes/ocots/poly.pdf 2>&1) || { \
 	    echo "  themes/ocots/poly : DOUBLON DE NUMEROTATION (chantier 1)"; echo "$$dups" | sed 's/^/      /'; status=1; }; \

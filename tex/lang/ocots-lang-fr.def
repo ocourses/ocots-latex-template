@@ -18,6 +18,11 @@
 % Typographie
 \def\ocots@babellang{french}
 \RequirePackage[french]{babel}
+
+% cleveref est charge par le document, donc apres ce fichier : on lui passe la
+% langue d'avance, pour que « et »/« and » et les intitules par defaut suivent
+% lang= sans que l'auteur ait a le redire dans ses options de paquet.
+\PassOptionsToPackage{french}{cleveref}
 \@ifundefined{frenchsetup}%
   {\frenchbsetup{StandardLists=true}}%
   {\frenchsetup{StandardLists=true}}
