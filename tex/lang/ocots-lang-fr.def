@@ -34,6 +34,7 @@
 \ocotssetstring{corollary}{Corollaire}
 \ocotssetstring{conjecture}{Conjecture}
 \ocotssetstring{lemma}{Lemme}
+\ocotssetstring{lemma-plural}{Lemmes}
 \ocotssetstring{example}{Exemple}
 \ocotssetstring{remark}{Remarque}
 \ocotssetstring{proof}{Démonstration}

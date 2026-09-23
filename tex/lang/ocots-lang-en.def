@@ -22,6 +22,7 @@
 \ocotssetstring{corollary}{Corollary}
 \ocotssetstring{conjecture}{Conjecture}
 \ocotssetstring{lemma}{Lemma}
+\ocotssetstring{lemma-plural}{Lemmas}
 \ocotssetstring{example}{Example}
 \ocotssetstring{remark}{Remark}
 \ocotssetstring{proof}{Proof}

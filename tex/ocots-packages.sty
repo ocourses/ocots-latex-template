@@ -62,8 +62,11 @@
 % modifiables apres coup par \hypersetup — seul le booleen colorlinks est
 % fige au chargement.
 \@ifclassloaded{beamer}{}{%
-  \RequirePackage[pagebackref,hyperindex=true,linktoc=all,%
-    colorlinks=true,pdfstartview={XYZ null null 1}]{hyperref}}
+  \ocots@ifcarrier{paper}
+    {\RequirePackage[hyperindex=true,linktoc=all,colorlinks=true,%
+       pdfstartview={XYZ null null 1}]{hyperref}}
+    {\RequirePackage[pagebackref,hyperindex=true,linktoc=all,%
+       colorlinks=true,pdfstartview={XYZ null null 1}]{hyperref}}}
 
 % ---------------------------------------------------------------------------
 % Boites

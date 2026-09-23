@@ -275,4 +275,10 @@ question,fact,problem,corollaire,theoreme,definitions,examples}
   {\newpage\vspace*{\fill}\thispagestyle{empty}\renewcommand{\headrulewidth}{0pt}}
   {\vspace*{\fill}}
 
+\AtBeginDocument{%
+  \@ifpackageloaded{cleveref}{%
+    \crefname{ocots@lemma}{\ocotsstring{lemma}}{\ocotsstring{lemma-plural}}%
+    \Crefname{ocots@lemma}{\ocotsstring{lemma}}{\ocotsstring{lemma-plural}}}{}%
+}
+
 \endinput
