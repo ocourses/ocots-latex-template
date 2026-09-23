@@ -29,17 +29,24 @@
 % --------------------------------------------------------------------------
 % Environnements
 \ocotssetstring{theorem}{Théorème}
+\ocotssetstring{theorem-plural}{Théorèmes}
 \ocotssetstring{definition}{Définition}
+\ocotssetstring{definition-plural}{Définitions}
 \ocotssetstring{proposition}{Proposition}
+\ocotssetstring{proposition-plural}{Propositions}
 \ocotssetstring{corollary}{Corollaire}
+\ocotssetstring{corollary-plural}{Corollaires}
 \ocotssetstring{conjecture}{Conjecture}
+\ocotssetstring{conjecture-plural}{Conjectures}
 \ocotssetstring{lemma}{Lemme}
 \ocotssetstring{lemma-plural}{Lemmes}
 \ocotssetstring{example}{Exemple}
 \ocotssetstring{remark}{Remarque}
 \ocotssetstring{proof}{Démonstration}
 \ocotssetstring{hypothesis}{Hypothèse}
+\ocotssetstring{hypothesis-plural}{Hypothèses}
 \ocotssetstring{cited-theorem}{Théorème (cité)}
+\ocotssetstring{cited-theorem-plural}{Théorèmes (cités)}
 \ocotssetstring{chapter-label}{Chapitre}
 \ocotssetstring{assumption}{Hypothèse}
 

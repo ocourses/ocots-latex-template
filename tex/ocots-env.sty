@@ -72,6 +72,35 @@ question,fact,problem,corollaire,theoreme,definitions,examples}
     \tl_if_in:nnTF{#1}{=}{\pgfkeys{/ocots/result,#1}}{\def\ocots@result@title{#1}}}}
 \ExplSyntaxOff
 
+% Increment du compteur partage, et type de renvoi cleveref.
+%
+% Les cinq familles de boites partagent le compteur `theorem' (ci-dessus), ce
+% qui est voulu : un numero ne designe qu'un seul objet. Mais cleveref lit le
+% TYPE d'une etiquette dans le nom du compteur incremente -- il rendait donc
+% \cref{def:x} par « Theoreme 2.7 » sur une definition. Les lemmes y
+% echappaient : ils passent par \newtheorem{ocots@lemma}[theorem], qui laisse
+% \@currentcounter au nom d'ENVIRONNEMENT et non a celui du compteur.
+%
+% cleveref dissocie les deux par \refstepcounter[<type>]{<compteur>} ; #2 est
+% deja le nom de la famille (« definition », « corollary »...). Cela ne suffit
+% pas seul : depuis LaTeX 2023, le noyau charge
+% latex2e-first-aid-for-external-files.ltx, qui greffe sur le crochet `label'
+% un correctif cleveref recalculant le type a partir de \@currentcounter --
+% donc du compteur -- et ecrasant celui qu'on vient de poser. Ce recalcul se
+% saute quand \@currentcounter est vide : on le vide donc juste apres.
+% L'affectation est locale au groupe d'environnement.
+%
+% Sans cleveref, \refstepcounter n'a pas d'argument optionnel. Les deux
+% variantes sont donc definies ici, la nue servant de defaut, et le crochet de
+% \begin{document} ne fait que basculer de l'une a l'autre si le paquet est la.
+% Basculer plutot que \renewcommand sur place : un \renewcommand a parametre
+% ecrit DANS \AtBeginDocument passe par un \xdef qui bute sur le #
+% (« Illegal parameter number »).
+\newcommand{\ocots@result@refstep@plain}[1]{\refstepcounter{theorem}}
+\newcommand{\ocots@result@refstep@cref}[1]{%
+  \refstepcounter[#1]{theorem}\def\@currentcounter{}}
+\newcommand{\ocots@result@refstep}{\ocots@result@refstep@plain}
+
 \newcommand{\ocots@result@beginbox}[6]{%
   \ocots@result@parseopt{#3}%
   \IfNoValueF{#4}{\def\ocots@result@title{#4}}
@@ -83,7 +112,7 @@ question,fact,problem,corollaire,theoreme,definitions,examples}
     \IfBeginWith{#5}{#6}
       {\def\ocots@result@label{#5}}%
       {\def\ocots@result@label{#6#5}}}}
-  \refstepcounter{theorem}%
+  \ocots@result@refstep{#2}%
   \begin{tcolorbox}[
     \ocotsboxstyle{#2}, breakable,
     title={#1~\thetheorem%
@@ -271,10 +300,39 @@ question,fact,problem,corollaire,theoreme,definitions,examples}
   {\newpage\vspace*{\fill}\thispagestyle{empty}\renewcommand{\headrulewidth}{0pt}}
   {\vspace*{\fill}}
 
+% Les intitules de renvoi sont ceux de la table des chaines, pas ceux que
+% cleveref deduit tout seul : la deduction a lieu au chargement du paquet,
+% avant que la langue ne soit fixee.
+%
+% Ce sont des DEFAUTS : un \crefname pose par le document dans son preambule
+% gagne. Sans le garde \@ifundefined, ce crochet -- enregistre au chargement
+% de `ocots', donc avant que le document n'ait rien pu dire -- s'executerait
+% au \begin{document} et ecraserait le choix du document. Le cas concret est
+% `citedtheorem' : la boite s'intitule « Theoreme (cite) », mais un article
+% veut y renvoyer par « d'apres le Theoreme 2.8 ». Le document ne peut pas
+% simplement poser son \crefname plus tard : cleveref fige ses formats dans
+% son propre \AtBeginDocument, et tout \crefname execute apres est ignore en
+% silence. D'ou l'inversion : c'est au template de ceder.
+\newcommand{\ocots@result@crefname}[2]{%
+  \@ifundefined{cref@#1@name}{%
+    \crefname{#1}{\ocotsstring{#2}}{\ocotsstring{#2-plural}}}{}%
+  \@ifundefined{Cref@#1@name}{%
+    \Crefname{#1}{\ocotsstring{#2}}{\ocotsstring{#2-plural}}}{}}
+
 \AtBeginDocument{%
   \@ifpackageloaded{cleveref}{%
-    \crefname{ocots@lemma}{\ocotsstring{lemma}}{\ocotsstring{lemma-plural}}%
-    \Crefname{ocots@lemma}{\ocotsstring{lemma}}{\ocotsstring{lemma-plural}}}{}%
+    \let\ocots@result@refstep\ocots@result@refstep@cref
+    \ocots@result@crefname{theorem}{theorem}%
+    \ocots@result@crefname{definition}{definition}%
+    \ocots@result@crefname{proposition}{proposition}%
+    \ocots@result@crefname{corollary}{corollary}%
+    \ocots@result@crefname{conjecture}{conjecture}%
+    \ocots@result@crefname{ocots@lemma}{lemma}%
+    % Ces deux-la passent par \newtheorem, donc leur TYPE etait deja correct ;
+    % seul leur intitule manquait, cleveref le deduisant au chargement du
+    % paquet, avant que la langue ne soit fixee.
+    \ocots@result@crefname{hypothesis}{hypothesis}%
+    \ocots@result@crefname{citedtheorem}{cited-theorem}}{}%
 }
 
 \endinput
