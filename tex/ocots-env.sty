@@ -21,8 +21,8 @@
 % On les remplace deliberement par les notres, identiques d'un support a
 % l'autre. C'est ce que la v0 contournait en prefixant tout par « my ».
 \ocotsfreeenvs{theorem,definition,proposition,corollary,conjecture,lemma,%
-example,remark,proof,assumption,solution,exercise,question,fact,problem,%
-corollaire,theoreme,definitions,examples}
+example,remark,proof,assumption,hypothesis,citedtheorem,solution,exercise,%
+question,fact,problem,corollaire,theoreme,definitions,examples}
 
 % ---------------------------------------------------------------------------
 % Marqueurs de preuve
@@ -116,7 +116,7 @@ corollaire,theoreme,definitions,examples}
 % Intitule en gras, numero, note entre parentheses, texte sur la meme ligne.
 \newtheoremstyle{ocots}%
   {}{}{}{}{}{.}{ }%
-  {\noindent\textbf{\thmname{#1}\thmnumber{~#2}}\thmnote{\normalfont~(#3)}}
+  {\noindent\textbf{\upshape\thmname{#1}\thmnumber{~#2}}\thmnote{\normalfont~(#3)}}
 \theoremstyle{ocots}
 
 % Les trois familles classiques reutilisent le compteur des boites a titre.
@@ -126,6 +126,9 @@ corollaire,theoreme,definitions,examples}
 \newtheorem*{ocots@example*}{\ocotsstring{example}}
 \newtheorem{ocots@remark}[theorem]{\ocotsstring{remark}}
 \newtheorem*{ocots@remark*}{\ocotsstring{remark}}
+\newtheorem{citedtheorem}[theorem]{\ocotsstring{cited-theorem}}
+\newtheorem{hypothesis}{\ocotsstring{hypothesis}}
+\renewcommand{\thehypothesis}{H\arabic{hypothesis}}
 
 % `\begin{env}[]' (crochets vides) bascule inconditionnellement amsthm dans sa
 % forme « avec note », qui imprime une parenthese vide : `Exemple 2.1.2 ().'
@@ -163,6 +166,10 @@ corollaire,theoreme,definitions,examples}
 \newenvironment{lemma*}[1][]
   {\ocots@result@classical{ocots@lemma*}{#1}}
   {\end{ocots@lemma*}}
+\tcolorboxenvironment{lemma}{\ocotsboxstyle{lemma}}
+\tcolorboxenvironment{lemma*}{\ocotsboxstyle{lemma}}
+\tcolorboxenvironment{citedtheorem}{\ocotsboxstyle{theorem}}
+\tcolorboxenvironment{hypothesis}{\ocotsboxstyle{assumption}}
 
 \newenvironment{example}[1][]
   {\ocots@result@classical{ocots@example}{#1}\pushQED{\QEDB}}
@@ -220,8 +227,8 @@ corollaire,theoreme,definitions,examples}
 %
 % Marqueur triangulaire en tete, carre noir en fin, retrait et couleur donnes
 % par le theme.
-\newenvironment{proof}[1][{\color{\ocotscolor{proof}}$\RHD$}]
-  {\par\pushQED{{\color{\ocotscolor{proof}}\QEDA}}%
+\newenvironment{proof}[1][\ocotsproofname]
+  {\par\pushQED{{\color{\ocotscolor{proof}}\ocotsproofqed}}%
    \normalsize\normalfont\topsep6\p@\@plus6\p@\relax
    \trivlist\item[\hskip\labelsep\itshape#1\@addpunct{}]\ignorespaces}
   {\popQED\endtrivlist\@endpefalse}
@@ -230,15 +237,15 @@ corollaire,theoreme,definitions,examples}
 % Preuve etalee sur plusieurs diapositives : debut, milieu, fin. Seule la fin
 % pose le carre final.
 \newenvironment{proofbegin}[1][{\color{\ocotscolor{proof}}$\RHD$}]
-  {\par\pushQED{{\color{\ocotscolor{proof}}\QEDA}}%
+  {\par\pushQED{{\color{\ocotscolor{proof}}\ocotsproofqed}}%
    \normalsize\normalfont\topsep6\p@\@plus6\p@\relax
    \trivlist\item[\hskip\labelsep\itshape#1\@addpunct{}]\ignorespaces}
   {\endtrivlist\@endpefalse}
 \newenvironment{proofmiddle}[1][]
-  {\par\pushQED{{\color{\ocotscolor{proof}}\QEDA}}\normalsize\normalfont}
+  {\par\pushQED{{\color{\ocotscolor{proof}}\ocotsproofqed}}\normalsize\normalfont}
   {\endtrivlist\@endpefalse}
 \newenvironment{proofend}[1][]
-  {\par\pushQED{{\color{\ocotscolor{proof}}\QEDA}}\normalsize\normalfont}
+  {\par\pushQED{{\color{\ocotscolor{proof}}\ocotsproofqed}}\normalsize\normalfont}
   {\popQED\endtrivlist\@endpefalse}
 \tcolorboxenvironment{proofbegin}{\ocotsboxstyle{proof}}
 \tcolorboxenvironment{proofmiddle}{\ocotsboxstyle{proof}}

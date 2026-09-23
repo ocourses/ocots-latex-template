@@ -36,6 +36,9 @@
 \ocotssetstring{lemma}{Lemme}
 \ocotssetstring{example}{Exemple}
 \ocotssetstring{remark}{Remarque}
+\ocotssetstring{proof}{Démonstration}
+\ocotssetstring{hypothesis}{Hypothèse}
+\ocotssetstring{cited-theorem}{Théorème (cité)}
 \ocotssetstring{chapter-label}{Chapitre}
 \ocotssetstring{assumption}{Hypothèse}
 
@@ -73,6 +76,7 @@
 \ocotssetstring{reminder}{Rappels}
 \ocotssetstring{note}{Note}
 \ocotssetstring{todo}{À FAIRE}
+\ocotssetstring{open}{OUVERT}
 
 % --------------------------------------------------------------------------
 % Operateurs mathematiques dont le nom depend de la langue

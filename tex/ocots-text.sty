@@ -59,16 +59,29 @@
 % Visibles seulement avec l'option `draft'. Remplace le \ifVIEWALL de la v0,
 % qui n'etait jamais defini : \notePerso, \noteInMarge et \todo y provoquaient
 % une erreur « Undefined control sequence » (defaut D10).
+\newcommand{\ocots@workerror}[1]{%
+  \PackageError{ocots}{Work mark `#1' forbidden in preprint mode}%
+    {Remove the work mark or compile with mode=draft.}}
 \newcommand{\notework}[1]{%
-  \ifocots@draft{\color{\ocotscolor{emph-c}}\ocotsstring{note}~:~#1}\fi}
+  \ifocots@strictwork\ocots@workerror{notework}\else
+    \ifocots@draft{\color{\ocotscolor{emph-c}}\ocotsstring{note}~:~#1}\fi
+  \fi}
 \newcommand{\noteinmargin}[1]{%
-  \ifocots@draft\marginpar{\color{\ocotscolor{emph-b}}#1}\fi}
+  \ifocots@strictwork\ocots@workerror{noteinmargin}\else
+    \ifocots@draft\marginpar{\color{\ocotscolor{emph-b}}#1}\fi
+  \fi}
 \newcommand{\worktodo}[1]{%
-  \ifocots@draft\noindent{\color{\ocotscolor{emph-b}}\itshape\ocotsstring{todo}~: #1}\par\fi}
+  \ifocots@strictwork\ocots@workerror{todo}\else
+    \ifocots@draft\noindent{\color{\ocotscolor{emph-b}}\itshape\ocotsstring{todo}~: #1}\par\fi
+  \fi}
+\newcommand{\workopen}[1]{%
+  \ifocots@strictwork\ocots@workerror{open}\else
+    \ifocots@draft\noindent{\color{\ocotscolor{emph-b}}\itshape\ocotsstring{open}~: #1}\par\fi
+  \fi}
 
 % Bloc de notes de travail, exclu hors mode draft.
-\newenvironment{worknotes}{}{}
-\ifocots@draft\else\excludeversion{worknotes}\fi
+\newenvironment{worknotes}{\ifocots@strictwork\ocots@workerror{worknotes}\fi}{}
+\ifocots@draft\else\ifocots@strictwork\else\excludeversion{worknotes}\fi\fi
 
 % ---------------------------------------------------------------------------
 % Note encadree dans la marge : \marginnote[decalage]{l|r}{texte}
