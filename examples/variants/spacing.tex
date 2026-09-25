@@ -1,0 +1,69 @@
+% =====================================================================
+% Test d'espacement vertical entre boites — lu par check-spacing.sh
+%
+% Chaque cas mesure, avec \pdfsavepos, l'ecart vertical entre la derniere
+% ligne d'une boite et la premiere ligne de la boite qui la suit, et l'ecrit
+% dans le journal sous la forme « OCOTS-GAP <cas> <ecart en sp> ». Le cas
+% `ref' (rien entre les deux boites) sert d'etalon : tout autre cas doit
+% donner le meme ecart. Le defaut est silencieux (pas d'erreur LaTeX), d'ou
+% ce test.
+%
+% Un cas par page, en \raggedbottom : une note de bas de page ou l'etirement
+% d'une page justifiee ne doivent pas deplacer ce qu'on mesure.
+% =====================================================================
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr]{ocots}
+\raggedbottom
+
+\makeatletter
+% Position verticale de la ligne courante, relue a l'expedition de la page.
+\newcommand{\gapmark}[1]{\pdfsavepos\write-1{OCOTS-POS #1 \the\pdflastypos}}
+\makeatother
+
+\begin{document}
+\mainmatter
+\chapter{Espacement}
+
+% ---------------------------------------------------------------------
+% ref : boite puis preuve, rien entre les deux.
+\begin{proposition}
+    Enonce.\gapmark{ref-a}
+\end{proposition}
+\begin{proof}
+    \gapmark{ref-b}Preuve.
+\end{proof}
+\clearpage
+
+% ---------------------------------------------------------------------
+% footnotetext : un \footnotetext entre la boite et la preuve
+% (ocots-latex-template#51).
+\begin{proposition}
+    Enonce\footnotemark{}.\gapmark{footnotetext-a}
+\end{proposition}
+\footnotetext{La note de l'enonce.}
+\begin{proof}
+    \gapmark{footnotetext-b}Preuve.
+\end{proof}
+\clearpage
+
+% ---------------------------------------------------------------------
+% footnotetext-box : meme chose entre deux boites de resultat.
+\begin{proposition}
+    Enonce\footnotemark{}.\gapmark{footnotetext-box-a}
+\end{proposition}
+\footnotetext{La note de l'enonce.}
+\begin{proposition}
+    \gapmark{footnotetext-box-b}Enonce.
+\end{proposition}
+\clearpage
+
+% ---------------------------------------------------------------------
+% ref-box : etalon pour deux boites de resultat consecutives.
+\begin{proposition}
+    Enonce.\gapmark{ref-box-a}
+\end{proposition}
+\begin{proposition}
+    \gapmark{ref-box-b}Enonce.
+\end{proposition}
+
+\end{document}

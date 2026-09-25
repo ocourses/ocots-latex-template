@@ -1,10 +1,10 @@
 # Compilation des exemples du template — harnais de non-régression.
 #
-#   make                     compile tout : 16 supports, 68+14 variantes, verification
+#   make                     compile tout : 16 supports, 68+17 variantes, verification
 #   make themes              les 16 supports (4 themes x 4 supports)
 #   make themes/legacy/poly  un seul document
 #   make theme-variants      les 68 variantes de facette (matrice complete, par theme)
-#   make variants            les 14 variantes independantes du theme (lang=, solutions=, compat...)
+#   make variants            les 17 variantes independantes du theme (lang=, solutions=, compat...)
 #   make check               revérifie les journaux sans recompiler
 #   make clean               efface les auxiliaires (garde les PDF)
 #   make mrproper             efface tout, PDF compris
@@ -23,6 +23,11 @@
 # les cinq familles de boites partagent un compteur, et cleveref en deduit le
 # type d'une etiquette — une definition se citait « Theorem 2.7 ». Le defaut est
 # silencieux, donc invisible pour une relecture de journaux.
+#
+# `check` relit aussi variants/build/spacing.log avec check-spacing.sh : un
+# \footnotetext pose entre deux boites ne doit pas doubler l'espace qui les
+# separe (ocots-latex-template#51). Defaut silencieux lui aussi : l'ecart est
+# mesure par \pdfsavepos et compare a celui de deux boites consecutives.
 #
 # `check` relit aussi themes/ocots/poly.pdf avec check-numbering.sh : un
 # numero ne designe qu'un seul objet au sein de sa famille (resultats, qui
@@ -54,7 +59,7 @@ THEME_VARIANTS := $(foreach t,$(THEMES), \
 VARIANTS := fr-none fr-inline en-end compat header-article slides-hook \
             math-modules draft binding institution-inp institution-insa \
             paper-preprint paper-draft paper-fr \
-            paper-cleveref paper-cleveref-fr
+            paper-cleveref paper-cleveref-fr spacing
 
 # Le template est trouvé par TEXINPUTS : les documents n'ont plus de chemin
 # relatif à tenir à jour, contrairement au \relativePath de la v0 (défaut D12).
@@ -165,6 +170,12 @@ check:
 	    echo "  variants/$$v : PDF non produit"; status=1; \
 	  fi; \
 	done; \
+	if [ -f variants/build/spacing.log ]; then \
+	  gaps=$$(./check-spacing.sh variants/build/spacing.log 2>&1) || { \
+	    echo "  variants/spacing : ESPACEMENT ENTRE BOITES ERRONE"; echo "$$gaps" | sed 's/^/      /'; status=1; }; \
+	else \
+	  echo "  variants/spacing : pas de journal"; status=1; \
+	fi; \
 	if [ -f themes/ocots/poly.pdf ]; then \
 	  dups=$$(./check-numbering.sh themes/ocots/poly.pdf 2>&1) || { \
 	    echo "  themes/ocots/poly : DOUBLON DE NUMEROTATION"; echo "$$dups" | sed 's/^/      /'; status=1; }; \
