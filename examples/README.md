@@ -70,6 +70,7 @@ par défaut (`ocots`) — ce ne sont pas des comparaisons de thème, voir plus b
 | `paper-draft.tex` | `mode=draft` : thème `ocots` et marques visibles |
 | `paper-fr.tex` | préprint avec `lang=fr` |
 | `paper-preprint-workmark.tex` | test négatif : une marque fait échouer le preprint |
+| `spacing.tex` | test d'espacement : un `\footnotetext` entre deux boîtes ne double pas l'espace (lu par `check-spacing.sh`) |
 
 `fr-none`, `fr-inline`, `en-end`, `binding` partagent `body.tex`, un corps
 minimal ; `draft` le complète d'une section de notes de travail. `compat.tex`
@@ -106,11 +107,11 @@ outre que chaque preset se charge sous chaque palette. Le filet latéral
 ## Compilation
 
 ```bash
-make                        # tout : 16 supports, 68+14 variantes, verification
+make                        # tout : 16 supports, 68+17 variantes, verification
 make themes                 # les 16 supports (4 themes x 4 supports)
 make themes/legacy/poly     # un seul document
 make theme-variants         # les 68 variantes de facette (par theme)
-make variants               # les 14 variantes independantes du theme
+make variants               # les 17 variantes independantes du theme
 make check                  # revérifie les journaux sans recompiler
 make clean                  # nettoie les auxiliaires
 make mrproper                # nettoie tout, PDF compris
@@ -127,6 +128,13 @@ contient aujourd'hui l'avertissement bénin de `newtxmath` (thème `charter`,
 famille `symbolsC` désactivée pour rester sous la limite des 16 familles
 mathématiques de TeX) : `\nplus` garde la définition de `stmaryrd`, sans effet
 visible.
+
+Trois défauts silencieux (le document compile sans erreur) sont en plus
+vérifiés par des scripts qui lisent le rendu : `check-crefnames.sh` (intitulés
+de renvoi `cleveref`), `check-numbering.sh` (un numéro ne désigne qu'un objet
+de sa famille) et `check-spacing.sh` (l'écart entre deux boîtes, mesuré par
+`\pdfsavepos` dans `variants/spacing.tex`, ne change pas quand un
+`\footnotetext` les sépare).
 
 Le template est trouvé par `TEXINPUTS`, positionné par le `Makefile` : les
 documents n'ont aucun chemin relatif à tenir à jour.

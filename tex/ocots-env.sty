@@ -367,6 +367,40 @@ theorem*,definition*,proposition*,corollary*,conjecture*,citedtheorem*}
 \tcolorboxenvironment{proofend}{\ocotsboxstyle{proof}}
 
 % ---------------------------------------------------------------------------
+% \footnotetext entre deux boites
+%
+% Un \footnotemark dans une boite tcolorbox se complete par un \footnotetext
+% pose HORS de la boite, donc souvent entre la boite et la preuve qui la suit.
+% Or la fin de boite pose \addvspace{\ocotsboxafterskip}, le debut de la
+% suivante \addvspace{\ocotsboxbeforeskip}, et \addvspace ne fusionne les deux
+% (en gardant le plus grand) qu'en lisant \lastskip. En mode vertical,
+% \footnotetext insere un noeud \insert\footins entre elles : la seconde lit
+% \lastskip = 0pt et ajoute son espace en entier -- 20pt au lieu de 10pt.
+% Les cours compensaient a la main par \vspace*{-0.5em}.
+%
+% En mode vertical, apres un espace, on retire cet espace, on pose la note, puis
+% on remet l'espace : le \addvspace suivant le retrouve et le fusionne. En mode
+% paragraphe, rien ne change.
+%
+% Crochet `begindocument/end' : hyperref redefinit \@footnotetext pour ses
+% liens de note ; on enveloppe sa version, pas celle qu'il remplacerait.
+% Test : examples/check-spacing.sh.
+\newskip\ocots@fnt@skip
+\newif\ifocots@fnt@
+\AddToHook{begindocument/end}{%
+  \let\ocots@fnt@orig\@footnotetext
+  \long\def\@footnotetext#1{%
+    \ifvmode\ifdim\lastskip=\z@\else\ocots@fnt@true\fi\fi
+    \ifocots@fnt@
+      \ocots@fnt@false
+      \ocots@fnt@skip\lastskip\unskip
+      \ocots@fnt@orig{#1}%
+      \vskip\ocots@fnt@skip
+    \else
+      \ocots@fnt@orig{#1}%
+    \fi}}
+
+% ---------------------------------------------------------------------------
 % Numerotation des problemes : (P_1), (P_2)...
 % Le compteur est prefixe « ocots@ » : beamer cree \c@problem au \documentclass
 % sur ses versions recentes, et \ocotsfreeenvs ne libere que les noms

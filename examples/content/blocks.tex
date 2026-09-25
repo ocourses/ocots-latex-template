@@ -109,6 +109,27 @@ seul sur une nouvelle ligne.
     L'argument facultatif remplace le marqueur d'ouverture.
 \end{proof}
 
+Une note appelée dans une boîte se compose en deux temps : \verb|\footnotemark|
+dans la boîte, \verb|\footnotetext| juste après. Placé entre l'énoncé et sa
+preuve, le \verb|\footnotetext| ne change pas l'espace qui les sépare.
+
+\begin{lstlisting}
+\begin{proposition}
+    Pour tout $x \in \R$, $\lvert x\rvert^2 = x^2$\footnotemark{}.
+\end{proposition}
+\footnotetext{Ou $\lvert x\rvert = \max(x, -x)$.}
+\begin{proof}
+    Distinguer les cas $x \ge 0$ et $x < 0$.
+\end{proof}
+\end{lstlisting}
+\begin{proposition}
+    Pour tout $x \in \R$, $\lvert x\rvert^2 = x^2$\footnotemark{}.
+\end{proposition}
+\footnotetext{Où $\lvert x\rvert = \max(x, -x)$.}
+\begin{proof}
+    Distinguer les cas $x \ge 0$ et $x < 0$.
+\end{proof}
+
 Une preuve peut être étalée sur plusieurs diapositives. Sur papier, les trois
 morceaux se suivent~; en diapositives, seul le dernier pose le carré final.
 

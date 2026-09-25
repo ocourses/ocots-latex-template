@@ -176,6 +176,22 @@ dans la marge, comme une étiquette. **Ne pas compenser par un `\vspace` négati
 \end{proof}
 ```
 
+**Note de bas de page dans un énoncé.** Dans une boîte, on appelle la note par
+`\footnotemark` et on pose son texte par `\footnotetext` juste après la boîte,
+même si une preuve suit : l'espace entre l'énoncé et la preuve n'en est pas
+modifié. **Ne pas compenser par un `\vspace` négatif**, ni repousser le
+`\footnotetext` après la preuve.
+
+```latex
+\begin{proposition}
+    Les applications $\limsup_n f_n$\footnotemark{} ... sont mesurables.
+\end{proposition}
+\footnotetext{Rappelons que ...}
+\begin{proof}
+    ...
+\end{proof}
+```
+
 ### Renvoi vers une ressource en ligne
 
 ```latex
