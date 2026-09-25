@@ -1,10 +1,10 @@
 # Compilation des exemples du template — harnais de non-régression.
 #
-#   make                     compile tout : 16 supports, 68+17 variantes, verification
+#   make                     compile tout : 16 supports, 68+18 variantes, verification
 #   make themes              les 16 supports (4 themes x 4 supports)
 #   make themes/legacy/poly  un seul document
 #   make theme-variants      les 68 variantes de facette (matrice complete, par theme)
-#   make variants            les 17 variantes independantes du theme (lang=, solutions=, compat...)
+#   make variants            les 18 variantes independantes du theme (lang=, solutions=, compat...)
 #   make check               revérifie les journaux sans recompiler
 #   make clean               efface les auxiliaires (garde les PDF)
 #   make mrproper             efface tout, PDF compris
@@ -28,6 +28,12 @@
 # \footnotetext pose entre deux boites ne doit pas doubler l'espace qui les
 # separe (ocots-latex-template#51). Defaut silencieux lui aussi : l'ecart est
 # mesure par \pdfsavepos et compare a celui de deux boites consecutives.
+#
+# `check` relit aussi themes/ocots/poly.pdf avec check-qed.sh : aucun symbole
+# de fin (■, □) rejete seul sur sa ligne -- ce que \qedhere evite a la fin
+# d'une liste ou d'une equation (ocots-latex-template#48). variants/qed-lone.pdf
+# est le temoin negatif : check-qed.sh DOIT l'y signaler, sinon le detecteur
+# est casse et le test positif ne prouve plus rien.
 #
 # `check` relit aussi themes/ocots/poly.pdf avec check-numbering.sh : un
 # numero ne designe qu'un seul objet au sein de sa famille (resultats, qui
@@ -59,7 +65,7 @@ THEME_VARIANTS := $(foreach t,$(THEMES), \
 VARIANTS := fr-none fr-inline en-end compat header-article slides-hook \
             math-modules draft binding institution-inp institution-insa \
             paper-preprint paper-draft paper-fr \
-            paper-cleveref paper-cleveref-fr spacing
+            paper-cleveref paper-cleveref-fr spacing qed-lone
 
 # Le template est trouvé par TEXINPUTS : les documents n'ont plus de chemin
 # relatif à tenir à jour, contrairement au \relativePath de la v0 (défaut D12).
@@ -175,6 +181,19 @@ check:
 	    echo "  variants/spacing : ESPACEMENT ENTRE BOITES ERRONE"; echo "$$gaps" | sed 's/^/      /'; status=1; }; \
 	else \
 	  echo "  variants/spacing : pas de journal"; status=1; \
+	fi; \
+	if [ -f themes/ocots/poly.pdf ]; then \
+	  lone=$$(./check-qed.sh themes/ocots/poly.pdf 2>&1) || { \
+	    echo "  themes/ocots/poly : SYMBOLE DE FIN ISOLE"; echo "$$lone" | sed 's/^/      /'; status=1; }; \
+	fi; \
+	if [ -f variants/qed-lone.pdf ]; then \
+	  if ./check-qed.sh variants/qed-lone.pdf >/dev/null 2>&1; then \
+	    echo "  variants/qed-lone : ERREUR (symbole isole non detecte)"; status=1; \
+	  else \
+	    echo "  variants/qed-lone : rejet attendu"; \
+	  fi; \
+	else \
+	  echo "  variants/qed-lone : PDF non produit"; status=1; \
 	fi; \
 	if [ -f themes/ocots/poly.pdf ]; then \
 	  dups=$$(./check-numbering.sh themes/ocots/poly.pdf 2>&1) || { \

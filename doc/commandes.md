@@ -162,6 +162,10 @@ termine par une liste, il se retrouve donc seul sur une nouvelle ligne. On
 `\item`, il se place en fin de ligne ; dans une équation hors texte, il se place
 dans la marge, comme une étiquette. **Ne pas compenser par un `\vspace` négatif.**
 
+Pour repérer les symboles isolés dans un document déjà compilé :
+`template/examples/check-qed.sh main.pdf` liste chaque ■ ou □ seul sur sa ligne,
+avec sa page (numéro physique dans le PDF) et la ligne qui le précède.
+
 ```latex
 \begin{proof}
     \begin{enumerate}

@@ -70,6 +70,7 @@ par défaut (`ocots`) — ce ne sont pas des comparaisons de thème, voir plus b
 | `paper-draft.tex` | `mode=draft` : thème `ocots` et marques visibles |
 | `paper-fr.tex` | préprint avec `lang=fr` |
 | `paper-preprint-workmark.tex` | test négatif : une marque fait échouer le preprint |
+| `qed-lone.tex` | test négatif : une preuve et un exemple finis par une liste sans `\qedhere`, que `check-qed.sh` doit signaler |
 | `spacing.tex` | test d'espacement : un `\footnotetext` entre deux boîtes ne double pas l'espace (lu par `check-spacing.sh`) |
 
 `fr-none`, `fr-inline`, `en-end`, `binding` partagent `body.tex`, un corps
@@ -107,11 +108,11 @@ outre que chaque preset se charge sous chaque palette. Le filet latéral
 ## Compilation
 
 ```bash
-make                        # tout : 16 supports, 68+17 variantes, verification
+make                        # tout : 16 supports, 68+18 variantes, verification
 make themes                 # les 16 supports (4 themes x 4 supports)
 make themes/legacy/poly     # un seul document
 make theme-variants         # les 68 variantes de facette (par theme)
-make variants               # les 17 variantes independantes du theme
+make variants               # les 18 variantes independantes du theme
 make check                  # revérifie les journaux sans recompiler
 make clean                  # nettoie les auxiliaires
 make mrproper                # nettoie tout, PDF compris
@@ -129,10 +130,11 @@ famille `symbolsC` désactivée pour rester sous la limite des 16 familles
 mathématiques de TeX) : `\nplus` garde la définition de `stmaryrd`, sans effet
 visible.
 
-Trois défauts silencieux (le document compile sans erreur) sont en plus
+Quatre défauts silencieux (le document compile sans erreur) sont en plus
 vérifiés par des scripts qui lisent le rendu : `check-crefnames.sh` (intitulés
 de renvoi `cleveref`), `check-numbering.sh` (un numéro ne désigne qu'un objet
-de sa famille) et `check-spacing.sh` (l'écart entre deux boîtes, mesuré par
+de sa famille), `check-qed.sh` (aucun symbole de fin ■ ou □ seul sur sa ligne,
+avec `variants/qed-lone.tex` comme témoin négatif) et `check-spacing.sh` (l'écart entre deux boîtes, mesuré par
 `\pdfsavepos` dans `variants/spacing.tex`, ne change pas quand un
 `\footnotetext` les sépare).
 
