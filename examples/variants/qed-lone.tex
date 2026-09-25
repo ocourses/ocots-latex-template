@@ -1,0 +1,33 @@
+% =====================================================================
+% Test NEGATIF de check-qed.sh : ce document DOIT etre rejete.
+%
+% Une preuve et un exemple se terminent par une liste SANS \qedhere : leur
+% symbole de fin passe seul sur une nouvelle ligne. `make check' exige que
+% check-qed.sh le signale ; sinon, c'est le detecteur qui est casse (glyphe
+% extrait autrement par pdftotext, par exemple), et le test positif sur
+% themes/ocots/poly.pdf ne prouverait plus rien.
+% =====================================================================
+\documentclass[11pt]{ocots-book}
+\usepackage[lang=fr]{ocots}
+
+\begin{document}
+\mainmatter
+\chapter{Symboles de fin}
+
+\begin{proof}
+    La preuve se termine par une liste :
+    \begin{enumerate}
+        \item premier point ;
+        \item second point.
+    \end{enumerate}
+\end{proof}
+
+\begin{example}
+    Un exemple qui se termine par une liste :
+    \begin{itemize}
+        \item premier cas ;
+        \item second cas.
+    \end{itemize}
+\end{example}
+
+\end{document}
