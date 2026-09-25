@@ -134,9 +134,26 @@ Preuve étalée sur plusieurs diapositives — seul `proofend` pose le carré fi
 
 | macro | effet |
 |-------|-------|
-| `\newstep` | astérisque centré, sépare deux étapes d'une preuve |
+| `\newstep[titre]` | ouvre une nouvelle étape de preuve : nouveau paragraphe espacé, titre facultatif en italique suivi d'un point (voir ci-dessous) |
 | `\QEDA` | `\hfill∎` (carré noir) |
 | `\QEDB` | `\hfill□` (carré blanc) |
+
+`\newstep` est une commande de **structure** : elle termine le paragraphe en
+cours et en ouvre un nouveau, légèrement espacé. Son argument facultatif est le
+titre de l'étape, composé en italique et suivi d'un point, qu'il ne faut donc
+pas taper. Il n'y a ni numérotation automatique ni symbole. En tout début de
+preuve, elle ne coupe pas le paragraphe, pour que le titre suive directement le
+marqueur ▶.
+
+```latex
+\begin{proof}
+    \newstep[Existence] Soit $x_0 \in \R$...
+    \newstep[Unicité] Supposons qu'il existe deux solutions...
+\end{proof}
+```
+
+Sans titre, `\newstep` marque seulement un nouveau paragraphe d'étape : on
+l'écrit seul sur sa ligne ou en tête du paragraphe, le rendu est le même.
 
 ### Renvoi vers une ressource en ligne
 
