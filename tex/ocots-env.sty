@@ -27,7 +27,28 @@ theorem*,definition*,proposition*,corollary*,conjecture*,citedtheorem*}
 
 % ---------------------------------------------------------------------------
 % Marqueurs de preuve
-\newcommand{\newstep}{\textasteriskcentered}
+%
+% \newstep[titre] : ouvre une nouvelle etape de preuve. C'est une commande de
+% STRUCTURE, pas un symbole : elle termine le paragraphe en cours, laisse un
+% petit espace, puis compose le titre facultatif en italique suivi d'un point.
+%
+%   \newstep[Existence] Soit ...      ->  « Existence. Soit ... »
+%   \newstep Soit ...                 ->  nouveau paragraphe espace, sans titre
+%
+% Pas de numerotation automatique, pas d'asterisque. Elle etait autrefois un
+% simple \textasteriskcentered, ce qui a produit deux usages incompatibles dans
+% les cours (seule sur sa ligne comme separateur, ou en tete de paragraphe
+% suivie d'un titre) et un « ▶ ∗ Titre » charge en tete de preuve ; la version
+% structurelle donne le meme rendu dans les deux cas.
+%
+% En tout debut de preuve (juste apres le marqueur ▶, donc dans l'etiquette de
+% l'\item de la trivlist), on ne coupe pas le paragraphe : sinon le marqueur
+% resterait seul sur sa ligne. Le point final est pose par \@addpunct, qui
+% n'en ajoute pas si le titre se termine deja par une ponctuation forte.
+\NewDocumentCommand{\newstep}{o}{%
+  \if@inlabel\else\par\addvspace{\smallskipamount}\fi
+  \IfValueT{#1}{\textit{#1\@addpunct{.}}\ }%
+  \ignorespaces}
 \newcommand*{\QEDA}{\hfill\ensuremath{\blacksquare}}
 \newcommand*{\QEDB}{\hfill\ensuremath{\square}}
 

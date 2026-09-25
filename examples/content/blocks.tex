@@ -22,12 +22,33 @@
 \begin{lstlisting}
 \begin{proof}
     Le marqueur d'ouverture et le carre de fin viennent du theme, comme la
-    couleur du texte. \newstep{} Un asterisque separe deux etapes.
+    couleur du texte.
+    \newstep Sans titre, \verb|\newstep| ouvre seulement un nouveau paragraphe.
 \end{proof}
 \end{lstlisting}
 \begin{proof}
     Le marqueur d'ouverture et le carré de fin viennent du thème, comme la
-    couleur du texte. \newstep{} Un astérisque sépare deux étapes.
+    couleur du texte.
+    \newstep Sans titre, \verb|\newstep| ouvre seulement un nouveau paragraphe.
+\end{proof}
+
+\begin{lstlisting}
+\begin{proof}
+    \newstep[Existence] En tete de preuve, le titre suit directement le
+    marqueur.
+    \newstep[Unicite] Chaque etape s'ouvre sur un nouveau paragraphe, son titre
+    en italique, suivi d'un point ajoute automatiquement.
+    \newstep[Point ii)] Un titre qui finit par une parenthese recoit aussi son
+    point.
+\end{proof}
+\end{lstlisting}
+\begin{proof}
+    \newstep[Existence] En tête de preuve, le titre suit directement le
+    marqueur.
+    \newstep[Unicité] Chaque étape s'ouvre sur un nouveau paragraphe, son titre
+    en italique, suivi d'un point ajouté automatiquement.
+    \newstep[Point ii)] Un titre qui finit par une parenthèse reçoit aussi son
+    point.
 \end{proof}
 
 \begin{lstlisting}
