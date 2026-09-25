@@ -52,6 +52,19 @@ theorem*,definition*,proposition*,corollary*,conjecture*,citedtheorem*}
 \newcommand*{\QEDA}{\hfill\ensuremath{\blacksquare}}
 \newcommand*{\QEDB}{\hfill\ensuremath{\square}}
 
+% Symbole de fin d'un environnement (preuve, exemple).
+%
+% On pousse le \qed d'amsthm avec un \qedsymbol local, plutot que le symbole
+% brut. C'est ce qui permet a \qedhere de fonctionner partout : dans le dernier
+% \item d'une liste, le symbole se place en fin de ligne au lieu d'etre rejete
+% seul sur une nouvelle ligne (ocots-latex-template#48) ; dans une equation
+% hors texte, il se place dans la marge comme une etiquette. \QEDA et \QEDB
+% contiennent leur propre \hfill (ils servent aussi a la main, au fil du
+% texte) : on le neutralise dans le symbole, puisque \qed pose deja le sien.
+\newcommand{\ocots@pushqed}[1]{%
+  \renewcommand{\qedsymbol}{{\let\hfill\relax#1}}%
+  \pushQED{\qed}}
+
 % ---------------------------------------------------------------------------
 % Signature commune : titre, etiquette et note sont des clefs optionnelles.
 %
@@ -274,10 +287,10 @@ theorem*,definition*,proposition*,corollary*,conjecture*,citedtheorem*}
   {\end{ocots@lemma*}}
 
 \newenvironment{example}[1][]
-  {\ocots@result@classical{ocots@example}{#1}\pushQED{\QEDB}}
+  {\ocots@result@classical{ocots@example}{#1}\ocots@pushqed{\QEDB}}
   {\popQED\endtrivlist\@endpefalse\end{ocots@example}}
 \newenvironment{example*}[1][]
-  {\ocots@result@classical{ocots@example*}{#1}\pushQED{\QEDB}}
+  {\ocots@result@classical{ocots@example*}{#1}\ocots@pushqed{\QEDB}}
   {\popQED\endtrivlist\@endpefalse\end{ocots@example*}}
 
 \newenvironment{remark}[1][]
@@ -330,7 +343,7 @@ theorem*,definition*,proposition*,corollary*,conjecture*,citedtheorem*}
 % Marqueur triangulaire en tete, carre noir en fin, retrait et couleur donnes
 % par le theme.
 \newenvironment{proof}[1][\ocotsproofname]
-  {\par\pushQED{{\color{\ocotscolor{proof}}\ocotsproofqed}}%
+  {\par\ocots@pushqed{\color{\ocotscolor{proof}}\ocotsproofqed}%
    \normalsize\normalfont\topsep6\p@\@plus6\p@\relax
    \trivlist\item[\hskip\labelsep\itshape#1\@addpunct{}]\ignorespaces}
   {\popQED\endtrivlist\@endpefalse}
@@ -339,15 +352,15 @@ theorem*,definition*,proposition*,corollary*,conjecture*,citedtheorem*}
 % Preuve etalee sur plusieurs diapositives : debut, milieu, fin. Seule la fin
 % pose le carre final.
 \newenvironment{proofbegin}[1][{\color{\ocotscolor{proof}}$\RHD$}]
-  {\par\pushQED{{\color{\ocotscolor{proof}}\ocotsproofqed}}%
+  {\par\ocots@pushqed{\color{\ocotscolor{proof}}\ocotsproofqed}%
    \normalsize\normalfont\topsep6\p@\@plus6\p@\relax
    \trivlist\item[\hskip\labelsep\itshape#1\@addpunct{}]\ignorespaces}
   {\endtrivlist\@endpefalse}
 \newenvironment{proofmiddle}[1][]
-  {\par\pushQED{{\color{\ocotscolor{proof}}\ocotsproofqed}}\normalsize\normalfont}
+  {\par\ocots@pushqed{\color{\ocotscolor{proof}}\ocotsproofqed}\normalsize\normalfont}
   {\endtrivlist\@endpefalse}
 \newenvironment{proofend}[1][]
-  {\par\pushQED{{\color{\ocotscolor{proof}}\ocotsproofqed}}\normalsize\normalfont}
+  {\par\ocots@pushqed{\color{\ocotscolor{proof}}\ocotsproofqed}\normalsize\normalfont}
   {\popQED\endtrivlist\@endpefalse}
 \tcolorboxenvironment{proofbegin}{\ocotsboxstyle{proof}}
 \tcolorboxenvironment{proofmiddle}{\ocotsboxstyle{proof}}
