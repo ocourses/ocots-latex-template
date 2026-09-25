@@ -193,7 +193,15 @@
 % Sans cela les numeros de theoreme changent entre deux \pause d'une meme
 % diapositive. C'est exactement le genre de correctif qui a sa place ici, et
 % pas dans ocots-env.sty : le noyau n'a pas a savoir qu'il existe des overlays.
-\resetcounteronoverlays{tcb@cnt@theorem}
+% Les noms sont ceux des compteurs REELLEMENT incrementes : `theorem' (le
+% compteur des resultats n'est plus un compteur tcolorbox, tcb@cnt@theorem
+% ne designait plus rien), `example', `remark', et ceux des exercices.
+\resetcounteronoverlays{theorem}
+\resetcounteronoverlays{example}
+\resetcounteronoverlays{remark}
+\resetcounteronoverlays{tcb@cnt@exercise}
+\resetcounteronoverlays{ocots@exinner}
+\resetcounteronoverlays{ocots@exouter}
 \resetcounteronoverlays{assumption}
 \resetcounteronoverlays{openquestion}
 \resetcounteronoverlays{difficulty}

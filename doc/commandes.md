@@ -16,7 +16,7 @@ Sommaire : [environnements](#environnements) · [exercices et corrigés](#exerci
 
 ## Environnements
 
-### Résultats — une signature et un compteur commun
+### Résultats — une signature, trois compteurs
 
 Les environnements de résultats acceptent une liste de clés optionnelle :
 `title=`, `label=` et `note=`. Le label est posé **tel quel** : le template
@@ -42,20 +42,50 @@ n'ajoute aucun préfixe.
 
 | environnement | compteur | variante étoilée | intitulé (fr) |
 |---------------|----------|------------------|---------------|
-| `theorem` | partagé, dans la section | — | Théorème |
-| `definition` | partagé, dans la section | — | Définition |
-| `proposition` | partagé, dans la section | — | Proposition |
-| `corollary` | partagé, dans la section | — | Corollaire |
-| `conjecture` | partagé, dans la section | — | Conjecture |
-| `lemma` | partagé, dans la section | `lemma*` | Lemme |
-| `example` | partagé, dans la section, carré blanc | `example*` | Exemple |
-| `remark` | partagé, dans la section | `remark*` | Remarque |
-| `citedtheorem` | partagé, dans la section | — | Théorème (cité) |
+| `theorem` | `theorem`, partagé, dans la section | `theorem*` | Théorème |
+| `definition` | `theorem`, partagé, dans la section | `definition*` | Définition |
+| `proposition` | `theorem`, partagé, dans la section | `proposition*` | Proposition |
+| `corollary` | `theorem`, partagé, dans la section | `corollary*` | Corollaire |
+| `conjecture` | `theorem`, partagé, dans la section | `conjecture*` | Conjecture |
+| `lemma` | `theorem`, partagé, dans la section | `lemma*` | Lemme |
+| `citedtheorem` | `theorem`, partagé, dans la section | `citedtheorem*` | Théorème (cité) |
+| `example` | `example`, propre, dans la section, carré blanc | `example*` | Exemple |
+| `remark` | `remark`, propre, dans la section | `remark*` | Remarque |
+| `exercise` | propre, dans la section (voir [Exercices](#exercices-et-corrigés)) | `exercise*` | Exercice |
 | `hypothesis` | propre, H1, H2, … | — | Hypothèse |
 
-Les variantes étoilées sont non numérotées. La forme (cadre, filet, aplat…) vient
-du thème. Les familles `assumption`, `openquestion`, `difficulty` et `exercise`
-conservent leurs compteurs propres.
+Les **variantes étoilées** gardent l'habillage, le titre et la note, mais
+n'affichent aucun numéro et **n'incrémentent aucun compteur** : les énoncés
+numérotés qui suivent gardent leur numéro. Une clé `label=` posée sur une
+variante étoilée n'aurait rien à désigner : elle est ignorée, avec un
+avertissement. La forme (cadre, filet, aplat…) vient du thème. Les familles
+`assumption`, `openquestion` et `difficulty` conservent leurs compteurs propres.
+
+#### Pourquoi trois compteurs — ne pas revenir à un compteur unique
+
+Des diapositives reprennent un polycopié et **doivent numéroter ses sections
+et ses résultats exactement comme lui**, mais elles n'en reprennent pas tous
+les exemples ni toutes les remarques. Avec un compteur unique pour tous les
+énoncés, chaque exemple ou remarque omis décale tous les résultats qui
+suivent :
+
+| polycopié (compteur unique) | diapositives (compteur unique) |
+|-----------------------------|--------------------------------|
+| Définition 2.1.1 | Définition 2.1.1 |
+| Remarque 2.1.2 | *(omise)* |
+| Proposition 2.1.3 | Proposition 2.1.**2** ✗ |
+
+Avec des compteurs séparés, les résultats ne dépendent que des résultats : la
+proposition reste 2.1.2 dans les deux documents, que la remarque soit reprise
+ou non. Pour reprendre une seule remarque (ou un seul exemple, un seul
+exercice) sans les autres, on utilise sa variante étoilée : `remark*` affiche
+la remarque sans numéro, ce qui évite un numéro qui ne correspondrait pas à
+celui du polycopié.
+
+Le compteur partagé `theorem` reste, lui, indispensable : entre deux résultats
+d'une même section, un numéro ne doit désigner qu'un seul objet.
+`examples/check-numbering.sh` vérifie cette propriété famille par famille sur
+le PDF rendu (`make check`).
 
 ### Introduction de chapitre — retrait configurable par le thème
 
@@ -152,6 +182,11 @@ Preuve étalée sur plusieurs diapositives — seul `proofend` pose le carré fi
 - L'option `solutions=none|inline|end` du paquet décide du reste. En `none` et
   `inline`, `\ocotscollectsolutions` / `\ocotsprintsolutions` sont des
   instructions vides : **le document ne change pas d'un mode à l'autre**.
+- **`exercise*`** : même habillage, sans numéro et sans incrément du compteur
+  des exercices (utile pour reprendre un seul exercice du polycopié dans des
+  diapositives). Accepte `points=`. Sans numéro, son corrigé ne peut pas être
+  reporté en fin de partie : il n'est composé qu'en mode `inline`, et ignoré
+  en `none` et `end`.
 
 ### Questions
 

@@ -11,11 +11,13 @@
 \minitoc%
 
 \begin{chapterintro}
-    Les huit familles de résultats partagent un compteur : un théorème, une
-    définition, un lemme, un exemple et une remarque portent donc des numéros
-    distincts dans une même section. Toutes prennent une liste de clés
-    optionnelle : `title=', `label=' et `note='. Une étiquette est posée telle
-    quelle, sans préfixe ajouté par le template.
+    Les résultats (théorème, définition, proposition, corollaire, conjecture,
+    lemme, théorème cité) partagent un compteur : deux résultats d'une même
+    section portent donc des numéros distincts. Les exemples, les remarques et
+    les exercices ont chacun leur propre compteur. Chaque famille a une variante
+    étoilée, non numérotée. Toutes prennent une liste de clés optionnelle :
+    `title=', `label=' et `note='. Une étiquette est posée telle quelle, sans
+    préfixe ajouté par le template.
 \end{chapterintro}
 
 %---------------------------------------------------------------------------
@@ -170,6 +172,84 @@ gras suivi du texte sur la même ligne.
     encore en usage dans le corpus (par exemple \texttt{td/td3.tex}) : elle
     doit continuer à fonctionner, pas seulement la forme \texttt{title=}.
 \end{remark*}
+
+%---------------------------------------------------------------------------
+\section{Compteurs séparés et variantes étoilées}%
+\label{sec:counters}
+
+Les résultats partagent un compteur, les exemples et les remarques ont chacun
+le leur. Dans la suite ci-dessous, la définition et la proposition sont donc
+numérotées 1 et 2, quel que soit le nombre d'exemples ou de remarques placés
+entre elles : des diapositives qui reprennent ce polycopié sans la remarque
+gardent exactement les mêmes numéros de résultats.
+
+\begin{lstlisting}
+\begin{definition}[title={Ensemble negligeable}]
+    Un enonce.
+\end{definition}
+\begin{remark}
+    Une remarque : son numero vient de son propre compteur.
+\end{remark}
+\begin{proposition}
+    Un enonce, numerote juste apres la definition.
+\end{proposition}
+\end{lstlisting}
+\begin{definition}[title={Ensemble négligeable}]
+    Un énoncé.
+\end{definition}
+\begin{remark}
+    Une remarque : son numéro vient de son propre compteur.
+\end{remark}
+\begin{proposition}
+    Un énoncé, numéroté juste après la définition.
+\end{proposition}
+
+Chaque famille a une variante étoilée : même habillage, même titre, mais ni
+numéro ni incrément de compteur. Elle sert à reprendre, dans des diapositives,
+une remarque ou un exemple sans perturber les numéros du polycopié, ou à
+rappeler un résultat d'un autre cours. Une étiquette posée sur une variante
+étoilée n'aurait rien à désigner : elle est ignorée, avec un avertissement.
+
+\begin{lstlisting}
+\begin{theorem*}[title={Pythagore}]
+    Un enonce rappele, non numerote.
+\end{theorem*}
+\end{lstlisting}
+\begin{theorem*}[title={Pythagore}]
+    Un énoncé rappelé, non numéroté.
+\end{theorem*}
+
+\begin{lstlisting}
+\begin{definition*}
+    Une definition non numerotee.
+\end{definition*}
+\end{lstlisting}
+\begin{definition*}
+    Une définition non numérotée.
+\end{definition*}
+
+\begin{proposition*}[note={rappel}]
+    Une proposition non numérotée, avec une note.
+\end{proposition*}
+
+\begin{corollary*}
+    Un corollaire non numéroté.
+\end{corollary*}
+
+\begin{conjecture*}
+    Une conjecture non numérotée.
+\end{conjecture*}
+
+\begin{citedtheorem*}
+    Un théorème cité, non numéroté.
+\end{citedtheorem*}
+
+Les numéros reprennent ensuite là où ils en étaient : la proposition suivante
+suit directement celle du début de la section.
+
+\begin{proposition}
+    Un énoncé numéroté, qui suit la proposition précédente.
+\end{proposition}
 
 %---------------------------------------------------------------------------
 \section{Un même énoncé, deux supports}%

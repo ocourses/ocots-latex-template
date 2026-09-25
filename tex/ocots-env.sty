@@ -22,7 +22,8 @@
 % l'autre. C'est ce que la v0 contournait en prefixant tout par « my ».
 \ocotsfreeenvs{theorem,definition,proposition,corollary,conjecture,lemma,%
 example,remark,proof,assumption,hypothesis,citedtheorem,solution,exercise,%
-question,fact,problem,corollaire,theoreme,definitions,examples}
+question,fact,problem,corollaire,theoreme,definitions,examples,%
+theorem*,definition*,proposition*,corollary*,conjecture*,citedtheorem*}
 
 % ---------------------------------------------------------------------------
 % Marqueurs de preuve
@@ -33,11 +34,30 @@ question,fact,problem,corollaire,theoreme,definitions,examples}
 % ---------------------------------------------------------------------------
 % Signature commune : titre, etiquette et note sont des clefs optionnelles.
 %
-% Les environnements de resultat partagent explicitement le compteur `theorem'.
+% Trois compteurs, tous remis a zero a chaque section :
+%   - `theorem'  : les RESULTATS (theoreme, definition, proposition, corollaire,
+%                  conjecture, lemme, theoreme cite), qui le partagent ;
+%   - `example'  : les exemples ;
+%   - `remark'   : les remarques.
+% Les exercices ont deja le leur (ocots-exercise.sty).
+%
+% Pourquoi separer : des diapositives reprennent un polycopie et doivent
+% numeroter ses resultats a l'identique, mais n'en reprennent pas tous les
+% exemples ni toutes les remarques. Avec un compteur unique, chaque exemple
+% omis decalait tous les resultats qui suivent (Definition, Remarque,
+% Proposition devenait Definition, Proposition avec un numero de moins). Avec
+% des compteurs separes, les resultats ne dependent plus que des resultats ;
+% un exemple ou une remarque repris sans les autres se met en variante etoilee.
+%
 % On n'utilise pas \newtcbtheorem ici : son dernier argument impose un prefixe
 % de label et rend impossible une etiquette brute (par exemple `thm:cauchy').
+% beamer cree deja `theorem' ; `example' et `remark' sont gardes de meme.
 \@ifundefined{c@theorem}{\newcounter{theorem}[section]}{\@addtoreset{theorem}{section}}
 \renewcommand{\thetheorem}{\thesection.\arabic{theorem}}
+\@ifundefined{c@example}{\newcounter{example}[section]}{\@addtoreset{example}{section}}
+\renewcommand{\theexample}{\thesection.\arabic{example}}
+\@ifundefined{c@remark}{\newcounter{remark}[section]}{\@addtoreset{remark}{section}}
+\renewcommand{\theremark}{\thesection.\arabic{remark}}
 
 \pgfkeys{/ocots/result/.is family,
   /ocots/result,
@@ -123,6 +143,24 @@ question,fact,problem,corollaire,theoreme,definitions,examples}
   \fi}
 \newcommand{\ocots@result@endbox}{\end{tcolorbox}}
 
+% Variante etoilee des boites : meme habillage, meme titre et meme note, mais
+% ni numero ni increment du compteur -- c'est tout son interet, puisqu'elle
+% laisse intacte la numerotation des boites numerotees qui suivent. Une
+% etiquette n'aurait rien a designer : on l'ignore, avec un avertissement.
+\newcommand{\ocots@result@beginbox@star}[6]{%
+  \ocots@result@parseopt{#3}%
+  \IfNoValueF{#4}{\def\ocots@result@title{#4}}%
+  \IfNoValueF{#5}{\IfBlankTF{#5}{}{\def\ocots@result@label{#5}}}%
+  \ifx\ocots@result@label\@empty\else
+    \PackageWarning{ocots}{Label `\ocots@result@label' ignored on unnumbered
+      environment `#2*'}%
+  \fi
+  \begin{tcolorbox}[
+    \ocotsboxstyle{#2}, breakable,
+    title={#1%
+      \ifx\ocots@result@title\@empty\else~\ocots@result@title\fi
+      \ifx\ocots@result@note\@empty\else~(\ocots@result@note)\fi}]}
+
 \NewDocumentEnvironment{theorem}{O{} g g}
   {\ocots@result@beginbox{\ocotsstring{theorem}}{theorem}{#1}{#2}{#3}{thm:}}
   {\ocots@result@endbox}
@@ -139,6 +177,22 @@ question,fact,problem,corollaire,theoreme,definitions,examples}
   {\ocots@result@beginbox{\ocotsstring{conjecture}}{conjecture}{#1}{#2}{#3}{conj:}}
   {\ocots@result@endbox}
 
+\NewDocumentEnvironment{theorem*}{O{} g g}
+  {\ocots@result@beginbox@star{\ocotsstring{theorem}}{theorem}{#1}{#2}{#3}{thm:}}
+  {\ocots@result@endbox}
+\NewDocumentEnvironment{definition*}{O{} g g}
+  {\ocots@result@beginbox@star{\ocotsstring{definition}}{definition}{#1}{#2}{#3}{def:}}
+  {\ocots@result@endbox}
+\NewDocumentEnvironment{proposition*}{O{} g g}
+  {\ocots@result@beginbox@star{\ocotsstring{proposition}}{proposition}{#1}{#2}{#3}{prop:}}
+  {\ocots@result@endbox}
+\NewDocumentEnvironment{corollary*}{O{} g g}
+  {\ocots@result@beginbox@star{\ocotsstring{corollary}}{corollary}{#1}{#2}{#3}{cor:}}
+  {\ocots@result@endbox}
+\NewDocumentEnvironment{conjecture*}{O{} g g}
+  {\ocots@result@beginbox@star{\ocotsstring{conjecture}}{conjecture}{#1}{#2}{#3}{conj:}}
+  {\ocots@result@endbox}
+
 % ---------------------------------------------------------------------------
 % Style des environnements de type theoreme classique
 %
@@ -148,14 +202,16 @@ question,fact,problem,corollaire,theoreme,definitions,examples}
   {\noindent\textbf{\upshape\thmname{#1}\thmnumber{~#2}}\thmnote{\normalfont~(#3)}}
 \theoremstyle{ocots}
 
-% Les trois familles classiques reutilisent le compteur des boites a titre.
+% Le lemme et le theoreme cite sont des resultats : ils partagent le compteur
+% des boites a titre. Exemples et remarques ont chacun le leur (voir plus haut).
 \newtheorem{ocots@lemma}[theorem]{\ocotsstring{lemma}}
 \newtheorem*{ocots@lemma*}{\ocotsstring{lemma}}
-\newtheorem{ocots@example}[theorem]{\ocotsstring{example}}
+\newtheorem{ocots@example}[example]{\ocotsstring{example}}
 \newtheorem*{ocots@example*}{\ocotsstring{example}}
-\newtheorem{ocots@remark}[theorem]{\ocotsstring{remark}}
+\newtheorem{ocots@remark}[remark]{\ocotsstring{remark}}
 \newtheorem*{ocots@remark*}{\ocotsstring{remark}}
 \newtheorem{citedtheorem}[theorem]{\ocotsstring{cited-theorem}}
+\newtheorem*{citedtheorem*}{\ocotsstring{cited-theorem}}
 \newtheorem{hypothesis}{\ocotsstring{hypothesis}}
 \renewcommand{\thehypothesis}{H\arabic{hypothesis}}
 

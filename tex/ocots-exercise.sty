@@ -152,20 +152,21 @@
 % macro contenant des virgules est prise pour une clef unique.
 \ifocots@exam
   \def\ocots@ex@mark{$\rhd$\hspace{1ex}}
-  \tcbset{ocots@ex@common/.style={%
+  \tcbset{ocots@ex@base/.style={%
     enhanced jigsaw, blanker, breakable, lower separated=false,
     left=0pt, right=0pt, top=2mm, bottom=2mm,
     attach title to upper=~,
-    before title={\ocots@exstep},
     fonttitle=\bfseries\upshape,
     coltitle=black}}
 \else
   \def\ocots@ex@mark{}
-  \tcbset{ocots@ex@common/.style={%
+  \tcbset{ocots@ex@base/.style={%
     \ocotsboxstyle{exercise}, breakable, lower separated=false,
-    attach title to upper=~,
-    before title={\ocots@exstep}}}
+    attach title to upper=~}}
 \fi
+% L'habillage (ocots@ex@base) est separe de l'increment du compteur : la
+% variante etoilee exercise* reprend le premier sans le second.
+\tcbset{ocots@ex@common/.style={ocots@ex@base, before title={\ocots@exstep}}}
 
 \def\ocots@sol@none{none}
 \def\ocots@sol@inline{inline}
@@ -202,6 +203,32 @@
     phantomlabel={ocots@sol@#1},
     attach title to upper=~}{\input{#2}}
 \fi\fi
+
+% ---------------------------------------------------------------------------
+% Exercice non numerote
+%
+%   \begin{exercise*}[points=2]
+%     ...
+%   \solution
+%     ...
+%   \end{exercise*}
+%
+% Meme habillage que exercise, mais aucun compteur n'est incremente : la
+% numerotation des exercices numerotes qui suivent reste celle du polycopie,
+% ce qui permet a des diapositives de n'en reprendre qu'une partie. Sans
+% numero, le corrige ne peut pas etre reporte en fin de partie (il n'aurait
+% rien pour y renvoyer) : il n'est compose qu'en mode `inline', et ignore
+% dans les deux autres.
+\ifx\ocots@solutions\ocots@sol@inline
+  \tcbset{ocots@ex@starlower/.style={}}
+\else
+  \tcbset{ocots@ex@starlower/.style={lowerbox=ignored}}
+\fi
+\NewTColorBox{exercise*}{ O{} }{%
+  ocots@ex@base,
+  before title={\setcounter{question}{0}},
+  title={\ocots@ex@mark\ocotsstring{exercise}\ocots@ex@pointstext~:},
+  ocots@ex@starlower, #1}
 
 % Debut du corrige. En mode `none' ce qui suit est ignore par tcolorbox.
 %
