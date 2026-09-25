@@ -155,6 +155,27 @@ marqueur ▶.
 Sans titre, `\newstep` marque seulement un nouveau paragraphe d'étape : on
 l'écrit seul sur sa ligne ou en tête du paragraphe, le rendu est le même.
 
+**Terminer une preuve ou un exemple sur une liste ou une équation.** Le symbole
+de fin (■ pour `proof`, □ pour `example`) est posé à `\end{…}`. Si la boîte se
+termine par une liste, il se retrouve donc seul sur une nouvelle ligne. On
+écrit alors `\qedhere` à l'endroit où il doit apparaître : dans le dernier
+`\item`, il se place en fin de ligne ; dans une équation hors texte, il se place
+dans la marge, comme une étiquette. **Ne pas compenser par un `\vspace` négatif.**
+
+```latex
+\begin{proof}
+    \begin{enumerate}
+        \item premier point ;
+        \item second point. \qedhere
+    \end{enumerate}
+\end{proof}
+
+\begin{proof}
+    On conclut par
+    \[ x = 1. \qedhere \]
+\end{proof}
+```
+
 ### Renvoi vers une ressource en ligne
 
 ```latex

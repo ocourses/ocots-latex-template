@@ -51,6 +51,55 @@
     point.
 \end{proof}
 
+Une preuve ou un exemple qui se termine par une liste ou par une équation hors
+texte place son symbole de fin avec \verb|\qedhere|, sans quoi il passerait
+seul sur une nouvelle ligne.
+
+\begin{lstlisting}
+\begin{proof}
+    La preuve se termine par une liste :
+    \begin{enumerate}
+        \item premier point ;
+        \item second point. \qedhere
+    \end{enumerate}
+\end{proof}
+\end{lstlisting}
+\begin{proof}
+    La preuve se termine par une liste :
+    \begin{enumerate}
+        \item premier point ;
+        \item second point. \qedhere
+    \end{enumerate}
+\end{proof}
+
+\begin{lstlisting}
+\begin{proof}
+    La preuve se termine par une equation :
+    \[ x^2 \ge 0. \qedhere \]
+\end{proof}
+\end{lstlisting}
+\begin{proof}
+    La preuve se termine par une équation :
+    \[ x^2 \ge 0. \qedhere \]
+\end{proof}
+
+\begin{lstlisting}
+\begin{example}
+    Un exemple qui se termine par une liste :
+    \begin{itemize}
+        \item premier cas ;
+        \item second cas. \qedhere
+    \end{itemize}
+\end{example}
+\end{lstlisting}
+\begin{example}
+    Un exemple qui se termine par une liste :
+    \begin{itemize}
+        \item premier cas ;
+        \item second cas. \qedhere
+    \end{itemize}
+\end{example}
+
 \begin{lstlisting}
 \begin{proof}[Demonstration de la proposition~\ref{prop:ademontrer}]
     L'argument facultatif remplace le marqueur d'ouverture.
