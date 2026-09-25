@@ -24,9 +24,10 @@
 # type d'une etiquette — une definition se citait « Theorem 2.7 ». Le defaut est
 # silencieux, donc invisible pour une relecture de journaux.
 #
-# `check` relit aussi themes/ocots/poly.pdf avec check-numbering.sh : le
-# chantier 1 promet qu'un numero ne designe qu'un seul objet (compteur
-# partage), une propriete que « pas d'erreur LaTeX » ne peut pas verifier —
+# `check` relit aussi themes/ocots/poly.pdf avec check-numbering.sh : un
+# numero ne designe qu'un seul objet au sein de sa famille (resultats, qui
+# partagent un compteur ; exemples ; remarques), une propriete que « pas
+# d'erreur LaTeX » ne peut pas verifier —
 # elle echoue en silence. Necessite pdftotext ; sans lui cette verification
 # est ignoree, pas bloquante. Fait une seule fois (pas pour les 4 themes) :
 # c'est une invariante du noyau/compteurs, independante du theme — un theme
@@ -166,7 +167,7 @@ check:
 	done; \
 	if [ -f themes/ocots/poly.pdf ]; then \
 	  dups=$$(./check-numbering.sh themes/ocots/poly.pdf 2>&1) || { \
-	    echo "  themes/ocots/poly : DOUBLON DE NUMEROTATION (chantier 1)"; echo "$$dups" | sed 's/^/      /'; status=1; }; \
+	    echo "  themes/ocots/poly : DOUBLON DE NUMEROTATION"; echo "$$dups" | sed 's/^/      /'; status=1; }; \
 	fi; \
 	[ $$status -eq 0 ] && echo "==> harnais VERT" || { echo "==> harnais ROUGE"; exit 1; }
 
