@@ -164,3 +164,23 @@ Dans un TD ou un sujet d'examen, l'énoncé n'est pas toujours encadré. Le bloc
 \begin{correction}
     Une correction brève, au fil du texte.
 \end{correction}
+
+Une correction peut commencer par une liste : sa première ligne se place sur
+celle du marqueur, sans \verb|\vspace| de compensation.
+
+\begin{lstlisting}
+\begin{correction}
+\begin{itemize}
+    \item premier point ;
+    \item second point.
+\end{itemize}
+Conclusion.
+\end{correction}
+\end{lstlisting}
+\begin{correction}
+\begin{itemize}
+    \item premier point ;
+    \item second point.
+\end{itemize}
+Conclusion.
+\end{correction}

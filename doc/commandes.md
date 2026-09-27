@@ -262,6 +262,11 @@ modifié. **Ne pas compenser par un `\vspace` négatif**, ni repousser le
 \end{correction}
 ```
 
+Une correction peut commencer par une liste (`itemize`, `enumerate`) : sa
+première ligne se place sur celle du marqueur, la première puce alignée sur
+les suivantes, comme pour une `proof`. **Ne pas compenser par un `\vspace`
+négatif.**
+
 ---
 
 ## Mise en valeur
