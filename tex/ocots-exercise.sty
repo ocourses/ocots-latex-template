@@ -241,9 +241,37 @@
 
 % Correction breve, hors boite d'exercice : sert dans les TD et les sujets
 % d'examen, ou l'enonce n'est pas encadre.
+%
+% Le marqueur est l'etiquette d'une trivlist, comme celui de `proof' : une
+% liste qui ouvre la correction commence ainsi sur la ligne du marqueur, au
+% lieu de le laisser seul au-dessus d'elle (ocots-latex-template#54).
+%   - \topsep et \partopsep sont nuls le temps d'ouvrir la trivlist, pour
+%     garder l'espacement d'un simple paragraphe, puis retablis : une liste
+%     interieure doit retrouver le sien ;
+%   - la trivlist encadre l'etiquette de -\labelsep et +\labelsep : on les
+%     neutralise, le marqueur occupe exactement sa largeur ;
+%   - l'espace qui suit le marqueur est pose hors de l'etiquette, pour rester
+%     etirable comme avant dans une correction qui commence par du texte. Il
+%     est omis devant un \begin, sans quoi il ouvrirait le paragraphe et la
+%     liste repartirait a la ligne ;
+%   - devant un \begin, le marqueur est de largeur nulle : la premiere puce
+%     reste alignee sur les suivantes au lieu d'etre repoussee par lui ;
+%   - une liste ouverte sur l'etiquette est marquee @noparlist par LaTeX, qui
+%     omet alors l'espace apres elle : le texte qui la suit dans la correction
+%     s'y collerait. \ocots@corr@list leve ce drapeau pour cette seule liste.
 \newenvironment{correction}
-  {\par\noindent{\color{\ocotscolor{emph-a}}$\RHD$}~\color{\ocotscolor{emph-a}}}
-  {\par}
+  {\par\color{\ocotscolor{emph-a}}%
+   \edef\ocots@corr@skips{\topsep\the\topsep\relax\partopsep\the\partopsep\relax}%
+   \topsep\z@skip\partopsep\z@skip
+   \trivlist\ocots@corr@skips
+   \@ifnextchar\begin
+     {\item[\hskip\labelsep\rlap{$\RHD$}\hskip-\labelsep]\ocots@corr@list}
+     {\item[\hskip\labelsep$\RHD$\hskip-\labelsep]~}}
+  {\endtrivlist\@endpefalse}
+\def\ocots@corr@list{%
+  \let\ocots@corr@trivlist\@trivlist
+  \def\@trivlist{\global\let\@trivlist\ocots@corr@trivlist
+    \ocots@corr@trivlist\@noparlistfalse}}
 \ifx\ocots@solutions\ocots@sol@none\excludeversion{correction}\fi
 
 % Exercice sans corrige, quel que soit le mode :
