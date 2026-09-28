@@ -446,6 +446,13 @@ LaTeX signale une erreur « Paragraph ended before \ocots@slidetitle was
 complete »). Dans ce cas précis, remplacer le groupe accolade par
 `\begingroup … \endgroup`, qui ne déclenche pas la détection.
 
+`\slidetitlepage` coupe la diapositive en deux : un bandeau pleine largeur,
+sans cadre, collé au bord supérieur, porte le titre (`\title`) et, si
+`\slidechapter` a été appelé, « Chapitre N » puis le titre du chapitre, en
+couleurs `titlebox-back` et `titlebox-text` du thème ; auteur, date et logos
+sont centrés dans la partie blanche en dessous. Le bandeau occupe la moitié de
+la hauteur et s'agrandit si le titre du chapitre est long.
+
 L'argument optionnel de `\slidetitlepage` est vide par défaut. Lorsqu'il est
 renseigné, son contenu est placé sous le bloc auteur/date/logos, dans le même
 centrage. Les appels existants sans argument restent donc inchangés. Lorsque le
