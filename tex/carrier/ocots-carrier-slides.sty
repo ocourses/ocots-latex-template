@@ -157,7 +157,8 @@
    \@ifnextchar\bgroup\ocots@slidetitle\relax}
   {\end{frame}}
 
-% Bandeau de titre, utilise par \slidetitlepage.
+% Boite de titre encadree. \slidetitlepage ne s'en sert plus (bandeau
+% ci-dessous) ; elle reste definie pour les documents qui l'emploient.
 \newtcolorbox{titlebox}{\ocotsboxstyle{titlebox}}
 
 % ---------------------------------------------------------------------------
@@ -166,26 +167,64 @@
 % Utilise \title, \author, \date, l'option institution= et \slidechapter.
 % Sous beamer, le titre et l'auteur se lisent avec \inserttitle et
 % \insertauthor : \@title y declenche « No \title given ».
+%
+% La page est coupee en deux : un bandeau pleine largeur, sans cadre, colle
+% au bord superieur (fond `titlebox-back', texte `titlebox-text'), puis
+% auteur, date, logos et contenu optionnel centres dans ce qui reste. Les
+% logos restent sur fond blanc : ils sont dessines pour lui.
+%
+% Tout est dessine dans le gabarit `background' de beamer, local a la
+% diapositive : il est pose a l'origine de la page, sans les marges du texte,
+% et ne demande pas de seconde compilation (contrairement a un overlay
+% `remember picture'). Le bandeau grandit si le titre du chapitre est long.
+%
+% Le fond du bandeau deborde de la page (fond perdu) : pose exactement au
+% bord, il laissait un liseré blanc d'environ 0,25 pt en haut et a gauche,
+% visible a l'ecran selon le zoom. La page rogne ce qui depasse.
+\def\ocots@titlebandheight{0.5\paperheight}
+\def\ocots@titlebleed{2pt}
+
+\def\ocots@titleband{%
+  \ifx\ocots@chaptername\@empty
+    {\LARGE\bfseries\inserttitle\par}%
+  \else
+    {\large\color{\ocotscolor{titlebox-text}!75!\ocotscolor{titlebox-back}}%
+     \inserttitle\par}%
+    \vspace{0.8em}%
+    {\Large\bfseries\ocotsstring{chapter-label}~\thechapter\par}%
+    \vspace{0.4em}%
+    {\LARGE\ocots@chaptername\par}%
+  \fi}
+
+\def\ocots@titlepage{%
+  \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle (\the\paperwidth,\the\paperheight);
+    \node[anchor=north west, inner xsep=0pt, inner ysep=1.5em,
+          minimum width=\paperwidth, minimum height=\ocots@titlebandheight,
+          text width=0.84\paperwidth, align=center,
+          text=\ocotscolor{titlebox-text}]
+      (ocots@band) at (0,\the\paperheight) {\ocots@titleband};
+    \begin{scope}[on background layer]
+      \fill[\ocotscolor{titlebox-back}]
+        ([xshift=-\ocots@titlebleed]ocots@band.south west) rectangle
+        ([xshift=\ocots@titlebleed, yshift=\ocots@titlebleed]ocots@band.north east);
+    \end{scope}
+    \node[anchor=center, text width=0.84\paperwidth, align=center]
+      at ($(ocots@band.south)!0.5!(0.5\paperwidth,0)$) {%
+        {\large\insertauthor\par}%
+        \vspace{0.8em}\insertdate\par
+        \vspace{1.6em}\ocotslogos[2.5em]%
+        \ifx\ocots@titlepage@extra\@empty\else
+          \par\vspace{1em}\ocots@titlepage@extra
+        \fi};
+  \end{tikzpicture}}
+
 \newcommand{\slidetitlepage}[1][]{%
-  \begin{frame}
-    \vspace{2em}
-    \begin{titlebox}
-      \begin{center}
-        {\Large\inserttitle}%
-        \ifx\ocots@chaptername\@empty\else
-          \par\vspace{1em}
-          {\Large\ocotsstring{chapter-label}~\thechapter~: \ocots@chaptername}%
-        \fi
-      \end{center}
-    \end{titlebox}
-    \vspace{1em}
-    \begin{center}
-      {\large\insertauthor}\par
-      \vspace{1em}\insertdate\par
-      \vspace{2em}\ocotslogos[2.5em]%
-      \IfBlankTF{#1}{}{\par\vspace{1em}#1}%
-    \end{center}
-  \end{frame}}
+  \begingroup
+    \IfBlankTF{#1}{\def\ocots@titlepage@extra{}}{\def\ocots@titlepage@extra{#1}}%
+    \setbeamertemplate{background}{\ocots@titlepage}%
+    \begin{frame}\end{frame}%
+  \endgroup}
 
 % ---------------------------------------------------------------------------
 % Retouches propres au medium

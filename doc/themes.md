@@ -180,6 +180,12 @@ socle la dérive en `black!7` si le thème ne la pose pas.
 `proof` et `titlebox` ont un style de boîte fixe posé par le socle ; un thème
 peut le redéfinir avec `\ocotssetboxstyle{proof}{...}` après le socle.
 
+Le bandeau de `\slidetitlepage` prend `titlebox-back` pour fond et
+`titlebox-text` pour texte : `titlebox-back` doit donc être une couleur
+sombre, sur laquelle `titlebox-text` (blanc dans les thèmes fournis) reste
+lisible en projection. `titlebox-frame` ne sert plus qu'à l'environnement
+`titlebox`, que la page de titre n'emploie plus.
+
 ## Le modèle de couleurs : dérivation vs verrou
 
 - `\ocotssetcolor{<clef>}{<couleur>}` — appelé par un **thème**. La couleur est

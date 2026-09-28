@@ -10,6 +10,17 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Changé
+
+- **Page de titre des diapositives** (`\slidetitlepage`) : un bandeau pleine
+  largeur, sans cadre, collé au bord supérieur, remplace la boîte encadrée
+  centrée. Il porte le titre, puis « Chapitre N » et le titre du chapitre ;
+  auteur, date, logos et contenu optionnel sont centrés dans la moitié
+  blanche en dessous. Aucune source de document à modifier.
+- **Couleurs `titlebox-*`** des thèmes `ocots`, `legacy` et `paper` : fond
+  sombre (indigo, midnight, encre) et texte blanc, pour un bandeau lisible en
+  projection. `charter` et `slate` l'étaient déjà.
+
 ---
 
 ## v1.0.0 — 2026-09-28
