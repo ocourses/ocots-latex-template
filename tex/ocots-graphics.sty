@@ -57,4 +57,26 @@
 \newcommand{\medhrule}{\specialrule{0.05em}{0.3em}{0.3em}}
 \newcommand{\bighrule}{\specialrule{0.1em}{0.3em}{0.5em}}
 
+% Lignes alternees, couleur de theme `table-stripe'.
+%   \striperow               colore la ligne qui suit (debut de ligne)
+%   \stripedrows[<n>]        colore une ligne sur deux a partir de la ligne n
+%                            (2 par defaut : l'en-tete reste blanc), jusqu'a la
+%                            fin du groupe courant -- le placer dans le
+%                            `center' ou le `table' du tableau.
+\newcommand{\striperow}{\rowcolor{\ocotscolor{table-stripe}}}
+% \rowcolors vient de xcolor, qui le definit des que colortbl est charge
+% (xcolor >= 3.0, sans option `table', y compris sous beamer). Une
+% distribution plus ancienne ne l'a pas : erreur explicite plutot qu'une
+% commande inconnue.
+\@ifundefined{rowcolors}
+  {\newcommand{\stripedrows}[1][2]{%
+     \PackageError{ocots}{\string\stripedrows\space needs \string\rowcolors\space
+       (xcolor >= 3.0)}{Update TeX Live, or use \string\striperow\space on
+       each row.}}}
+  {\newcommand{\stripedrows}[1][2]{%
+     % \rowcolors choisit la couleur selon la parite du numero de ligne : la
+     % ligne n doit etre coloree, quelle que soit sa parite.
+     \ifodd#1\relax\rowcolors{#1}{\ocotscolor{table-stripe}}{}%
+     \else\rowcolors{#1}{}{\ocotscolor{table-stripe}}\fi}}
+
 \endinput

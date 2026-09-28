@@ -60,6 +60,34 @@ graduées, cales verticales.
 \end{tabular}
 \end{center}
 
+Lignes alternées, fond \texttt{table-stripe} du thème : ligne par ligne avec
+\verb|\striperow|,
+
+\begin{center}
+\begin{tabular}{L{3cm} C{4cm}}
+    \bighrule
+    Intégrale & Fonctions \Tstrut\Bstrut \\
+    \medhrule
+    \striperow Riemann  & réglées \\
+    Lebesgue            & mesurables \\
+    \striperow Stieltjes & à variation bornée \\
+    \bighrule
+\end{tabular}
+\end{center}
+
+\noindent ou une ligne sur deux après l'en-tête avec \verb|\stripedrows|.
+
+\begin{center}
+\stripedrows
+\begin{tabular}{C{3cm} C{3cm}}
+    $n$ & $n^2$ \\
+    1 & 1 \\
+    2 & 4 \\
+    3 & 9 \\
+    4 & 16 \\
+\end{tabular}
+\end{center}
+
 %---------------------------------------------------------------------------
 \section{Code source}%
 \label{sec:listings}
