@@ -403,6 +403,13 @@ Options sur `tikzpicture` : `xmin`, `xmax`, `ymin`, `ymax` (défaut ±3).
 | `C{3cm}` `L{3cm}` | colonnes `p{}` centrée / alignée à gauche, largeur fixe |
 | `\Tstrut` `\Bstrut` | cales verticales haut / bas de cellule |
 | `\smallhrule` `\medhrule` `\bighrule` | filets d'épaisseurs graduées (`specialrule`) |
+| `\striperow` | en début de ligne : fond `table-stripe` du thème pour cette ligne |
+| `\stripedrows[n]` | une ligne sur deux colorée à partir de la ligne `n` (défaut `2`, l'en-tête reste blanc), jusqu'à la fin du groupe |
+
+Les deux marchent sur tous les supports, diapositives comprises.
+`\stripedrows` repose sur `\rowcolors`, que `xcolor` (≥ 3.0) fournit dès que
+`colortbl` est chargé — le template le charge. Le fond suit le thème ; pour le
+réutiliser ailleurs : `\ocotscolor{table-stripe}`.
 
 ---
 

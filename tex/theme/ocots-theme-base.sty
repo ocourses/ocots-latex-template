@@ -47,6 +47,10 @@
   colframe=\ocotscolor{titlebox-frame},
   coltext=\ocotscolor{titlebox-text}}
 
+% --- Lignes alternees des tableaux : gris neutre, sauf si le theme a pose
+% `table-stripe' (derivation, donc le verrou du theme est respecte).
+\ocots@derivecolor{table-stripe}{black!7}
+
 % --- Titres, encadre de formule, listings ------------------------------
 \ocotsusetitles{rules}
 \ocotsusemathbox{highlight}

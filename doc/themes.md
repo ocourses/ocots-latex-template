@@ -174,6 +174,8 @@ Sémantiques : `link`, `url`, `cite`, `proof`, `emph-a`…`emph-d`, `grey`,
 `chapter`, `section`, `subsection`, `subsubsection`, `rule-remark`,
 `rule-assumption`, `mathhighlight`, `listing-rule`, `slide0`…`slide4`,
 `slidetitle`, `titlebox-back`, `titlebox-frame`, `titlebox-text`.
+Facultative : `table-stripe` (fond des lignes alternées des tableaux) ; le
+socle la dérive en `black!7` si le thème ne la pose pas.
 
 `proof` et `titlebox` ont un style de boîte fixe posé par le socle ; un thème
 peut le redéfinir avec `\ocotssetboxstyle{proof}{...}` après le socle.
