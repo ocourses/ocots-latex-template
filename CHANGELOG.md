@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.1.0 — 2026-09-28
+
 ### Changé
 
 - **Page de titre des diapositives** (`\slidetitlepage`) : un bandeau pleine
