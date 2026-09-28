@@ -218,6 +218,31 @@ support, après coup.
 
 ---
 
+## Versions
+
+Le template suit [SemVer](https://semver.org/lang/fr/). L'interface publique,
+c'est **ce qu'un document écrit** : classes, options, environnements,
+commandes et macros mathématiques documentés dans [`doc/`](doc/).
+
+| | Ce qui la fait monter |
+|---|---|
+| **majeur** | un document qui compilait ne compile plus, ou doit changer ses sources : environnement, commande, macro ou option retiré ou renommé sans alias ; retrait des alias v0 de `ocots-compat.sty` |
+| **mineur** | ajout (environnement, commande, option, thème, module) ; renommage qui garde l'ancien nom en alias déprécié ; changement de rendu voulu |
+| **correctif** | rendu corrigé sans toucher aux sources des documents |
+
+Un cours épingle un **tag** plutôt qu'un commit :
+`git -C template checkout v1.2.0`, puis un commit du pointeur.
+
+Publier une version :
+
+1. la section « Non publié » de [`CHANGELOG.md`](CHANGELOG.md) devient
+   `## vX.Y.Z — date` ;
+2. `git tag -a vX.Y.Z -m "…"` puis `git push origin vX.Y.Z` ;
+3. la release GitHub est créée par la CI, avec la section du CHANGELOG pour
+   notes. Elle échoue si la section manque.
+
+---
+
 ## Migrer un document v0
 
 Deux lignes de préambule :
