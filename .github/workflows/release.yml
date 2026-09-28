@@ -1,0 +1,21 @@
+name: Release
+
+# Un tag vX.Y.Z poussé crée la release GitHub, avec pour notes la section
+# « ## vX.Y.Z » du CHANGELOG. Échoue si la section manque.
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: .github/scripts/notes-de-version "$GITHUB_REF_NAME" > notes.md
+      - run: gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes-file notes.md
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+"""Extrait de CHANGELOG.md la section d'une version, pour la release GitHub.
+
+    .github/scripts/notes-de-version v1.0.0 > notes.md
+
+Sortie 1 si la section `## v0.1.0` est absente : on ne publie pas une version
+que le CHANGELOG ne décrit pas.
+"""
+
+import re
+import sys
+
+
+def section(changelog, version):
+    m = re.search(rf"^## {re.escape(version)}\b.*?\n(.*?)(?=^## |\Z)",
+                  changelog, re.M | re.S)
+    return m.group(1).strip().rstrip("-").strip() if m else None
+
+
+def main(argv):
+    version = argv[0]
+    with open("CHANGELOG.md", encoding="utf-8") as fh:
+        notes = section(fh.read(), version)
+    if not notes:
+        print(f"CHANGELOG.md : aucune section « ## {version} »", file=sys.stderr)
+        return 1
+    print(notes)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
