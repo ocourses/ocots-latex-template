@@ -88,6 +88,11 @@ theorem*,definition*,proposition*,corollary*,conjecture*,citedtheorem*}
 % beamer cree deja `theorem' ; `example' et `remark' sont gardes de meme.
 \@ifundefined{c@theorem}{\newcounter{theorem}[section]}{\@addtoreset{theorem}{section}}
 \renewcommand{\thetheorem}{\thesection.\arabic{theorem}}
+% Sans l'option notheorems, beamer declare `example' sur le compteur de
+% `theorem', dont amsthm fait un alias (\c@example = \c@theorem) : les
+% exemples partageaient alors la numerotation des resultats. On repart d'un
+% compteur propre dans ce cas.
+\@ifundefined{c@example}{}{\ifx\c@example\c@theorem\let\c@example\relax\fi}
 \@ifundefined{c@example}{\newcounter{example}[section]}{\@addtoreset{example}{section}}
 \renewcommand{\theexample}{\thesection.\arabic{example}}
 \@ifundefined{c@remark}{\newcounter{remark}[section]}{\@addtoreset{remark}{section}}
