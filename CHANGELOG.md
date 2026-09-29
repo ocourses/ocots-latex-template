@@ -10,6 +10,22 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Ajouté
+
+- **Annexes dans les diapositives** : `\slideappendix{n}{Titre}`, pendant de
+  `\slidechapter` pour une annexe du polycopié. Le numéro s'affiche en lettre
+  (« Annexe B » dans le bandeau, sections B.1, boîtes B.1.1). Nouvelle chaîne
+  `appendix-label` (« Annexe », « Appendix »).
+
+### Corrigé
+
+- **Numérotation des exemples dans les diapositives** : sans l'option
+  `notheorems` de beamer, `example` partageait le compteur des résultats
+  (beamer le déclare sur `theorem`, amsthm en fait un alias) — « Exemple 1.1.2 »
+  après « Théorème 1.1.1 » au lieu de « Exemple 1.1.1 ». Il reprend son
+  compteur propre, comme dans le polycopié. Vérifié par
+  `examples/check-appendix.sh`.
+
 ---
 
 ## v1.1.0 — 2026-09-28

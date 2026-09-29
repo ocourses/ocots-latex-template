@@ -1,0 +1,55 @@
+% Variante de non-regression : diapositives d'une annexe (\slideappendix).
+% Lue par check-appendix.sh : les lignes APPCHECK doivent se rendre avec des
+% numeros en lettre (B.1, B.1.1), et le bandeau doit porter « Annexe B ».
+\documentclass[9pt,t]{beamer}
+\usepackage[lang=fr, theme=ocots, math=analysis,
+            institution={n7}, author={Prénom Nom}]{ocots}
+\lstset{language=[LaTeX]TeX}
+
+\title{Le template \texttt{ocots}}
+\author{Prénom \textsc{Nom}}
+\date{2025--2026}
+
+\newcommand{\ocotsvariantnote}[1]{\begin{quote}\itshape Variante : #1\end{quote}}
+
+\begin{document}
+
+\begin{frame}[fragile]{Variante~: diapositives d'une annexe}
+\begin{lstlisting}
+\slideappendix{2}{Titre de l'annexe}
+\end{lstlisting}
+\ocotsvariantnote{\texttt{\textbackslash slideappendix} remplace
+\texttt{\textbackslash slidechapter} pour une annexe du polycopié : le rang
+\texttt{2} s'affiche en lettre (B) dans le bandeau, les sections et les
+numéros des boîtes, qui reprennent ainsi ceux du polycopié.}
+\end{frame}
+
+\slideappendix{2}{Titre de l'annexe}
+\slidetitlepage
+
+\section{Dérivée d'une intégrale}
+
+\begin{slide}{Numérotation d'une annexe}
+
+\begin{theorem}[title={de dérivation de Lebesgue}, label=thm:app]
+    Soit $f$ intégrable sur $\intervalcc{a}{b}$. Alors $x \mapsto \int_a^x f$ est dérivable presque partout, de
+    dérivée $f$.
+\end{theorem}
+
+\begin{example}[label=exa:app]
+    $f = \mathbb{1}_{\intervalcc{0}{1}}$ sur $\intervalcc{0}{2}$.
+\end{example}
+
+APPCHECK Section = \thesection
+
+APPCHECK Théorème = Théorème~\ref{thm:app}
+
+APPCHECK Exemple = Exemple~\ref{exa:app}
+
+\end{slide}
+
+\begin{frame}{Sommaire}
+\tableofcontents
+\end{frame}
+
+\end{document}

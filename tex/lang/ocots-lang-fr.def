@@ -53,6 +53,7 @@
 \ocotssetstring{cited-theorem}{Théorème (cité)}
 \ocotssetstring{cited-theorem-plural}{Théorèmes (cités)}
 \ocotssetstring{chapter-label}{Chapitre}
+\ocotssetstring{appendix-label}{Annexe}
 \ocotssetstring{assumption}{Hypothèse}
 
 % --------------------------------------------------------------------------

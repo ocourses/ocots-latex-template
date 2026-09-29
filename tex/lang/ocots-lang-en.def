@@ -41,6 +41,7 @@
 \ocotssetstring{cited-theorem}{Theorem (cited)}
 \ocotssetstring{cited-theorem-plural}{Theorems (cited)}
 \ocotssetstring{chapter-label}{Chapter}
+\ocotssetstring{appendix-label}{Appendix}
 \ocotssetstring{assumption}{Assumption}
 
 % --------------------------------------------------------------------------

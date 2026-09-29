@@ -101,8 +101,18 @@
 % \def et non \newcommand : une macro \long ne serait jamais \ifx-egale a
 % \@empty, et le test « y a-t-il un chapitre ? » serait toujours faux.
 \def\ocots@chaptername{}
+\def\ocots@chapterlabel{\ocotsstring{chapter-label}}
 \newcommand{\slidechapter}[2]{%
   \setcounter{chapter}{#1}\def\ocots@chaptername{#2}}
+
+% \slideappendix{2}{Integrale et derivee}
+% Annexe du polycopie : numero en lettre (ici B), qui se propage aux
+% sections (B.1) et aux boites (B.1.1), et « Annexe » au lieu de « Chapitre »
+% sur la page de titre. L'argument numerique est le rang de l'annexe.
+\newcommand{\slideappendix}[2]{%
+  \slidechapter{#1}{#2}%
+  \renewcommand\thechapter{\Alph{chapter}}%
+  \def\ocots@chapterlabel{\ocotsstring{appendix-label}}}
 
 % ---------------------------------------------------------------------------
 % Compteur de diapositive : le numero cercle en haut a droite
@@ -191,7 +201,7 @@
     {\large\color{\ocotscolor{titlebox-text}!75!\ocotscolor{titlebox-back}}%
      \inserttitle\par}%
     \vspace{0.8em}%
-    {\Large\bfseries\ocotsstring{chapter-label}~\thechapter\par}%
+    {\Large\bfseries\ocots@chapterlabel~\thechapter\par}%
     \vspace{0.4em}%
     {\LARGE\ocots@chaptername\par}%
   \fi}
