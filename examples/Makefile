@@ -1,10 +1,10 @@
 # Compilation des exemples du template — harnais de non-régression.
 #
-#   make                     compile tout : 16 supports, 68+19 variantes, verification
+#   make                     compile tout : 16 supports, 68+20 variantes, verification
 #   make themes              les 16 supports (4 themes x 4 supports)
 #   make themes/legacy/poly  un seul document
 #   make theme-variants      les 68 variantes de facette (matrice complete, par theme)
-#   make variants            les 19 variantes independantes du theme (lang=, solutions=, compat...)
+#   make variants            les 20 variantes independantes du theme (lang=, solutions=, compat...)
 #   make check               revérifie les journaux sans recompiler
 #   make clean               efface les auxiliaires (garde les PDF)
 #   make mrproper             efface tout, PDF compris
@@ -40,6 +40,12 @@
 # boites et les renvois (B.1, B.1.1), et le bandeau porte « Annexe B ». Defaut
 # silencieux lui aussi.
 #
+# `check` relit aussi variants/td-numbering.pdf avec check-td-numbering.sh : dans
+# un TD sans section, les boites ne portent pas de numero de section
+# (« Remarque 1 », pas « Remarque 0.1 »), et une question ou une sous-question
+# se cite par \ref avec le numero affiche (2.2, 2.2.2) -- ocots-latex-template#67.
+# Defauts silencieux eux aussi.
+#
 # `check` relit aussi themes/ocots/poly.pdf avec check-numbering.sh : un
 # numero ne designe qu'un seul objet au sein de sa famille (resultats, qui
 # partagent un compteur ; exemples ; remarques), une propriete que « pas
@@ -70,7 +76,7 @@ THEME_VARIANTS := $(foreach t,$(THEMES), \
 VARIANTS := fr-none fr-inline en-end compat header-article slides-hook slides-appendix \
             math-modules draft binding institution-inp institution-insa \
             paper-preprint paper-draft paper-fr \
-            paper-cleveref paper-cleveref-fr spacing qed-lone
+            paper-cleveref paper-cleveref-fr spacing qed-lone td-numbering
 
 # Le template est trouvé par TEXINPUTS : les documents n'ont plus de chemin
 # relatif à tenir à jour, contrairement au \relativePath de la v0 (défaut D12).
@@ -205,6 +211,12 @@ check:
 	    echo "  variants/slides-appendix : NUMEROTATION D'ANNEXE ERRONEE"; echo "$$bad" | sed 's/^/      /'; status=1; }; \
 	else \
 	  echo "  variants/slides-appendix : PDF non produit"; status=1; \
+	fi; \
+	if [ -f variants/td-numbering.pdf ]; then \
+	  bad=$$(./check-td-numbering.sh variants/td-numbering.pdf 2>&1) || { \
+	    echo "  variants/td-numbering : NUMEROTATION DE TD ERRONEE"; echo "$$bad" | sed 's/^/      /'; status=1; }; \
+	else \
+	  echo "  variants/td-numbering : PDF non produit"; status=1; \
 	fi; \
 	if [ -f themes/ocots/poly.pdf ]; then \
 	  dups=$$(./check-numbering.sh themes/ocots/poly.pdf 2>&1) || { \

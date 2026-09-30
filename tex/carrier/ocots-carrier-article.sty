@@ -106,6 +106,17 @@
   \fancyfoot[C]{\textrm{\thepage}}}
 
 % ---------------------------------------------------------------------------
+% Numerotation des boites
+% Comme les exercices (\ifocots@exam, ocots-exercise.sty), les resultats, les
+% exemples et les remarques d'un TD ou d'un sujet ne portent pas le numero de
+% section : un TD n'a en general pas de \section, et un sujet n'en numerote
+% aucune (secnumdepth=0) -- d'ou « Remarque 0.1 » (ocots-latex-template#67).
+% Les compteurs restent remis a zero a chaque section.
+\renewcommand{\thetheorem}{\arabic{theorem}}
+\renewcommand{\theexample}{\arabic{example}}
+\renewcommand{\theremark}{\arabic{remark}}
+
+% ---------------------------------------------------------------------------
 % Titres de section : la mise en forme vient du theme (cf. carrier book).
 \ocotsifheading{titles-article}{\ocotsheading{titles-article}}{}
 
