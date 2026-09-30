@@ -61,6 +61,7 @@ par défaut (`ocots`) — ce ne sont pas des comparaisons de thème, voir plus b
 | `en-end.tex`    | même contenu en anglais, corrigés reportés |
 | `compat.tex`    | un corps écrit **avec les noms de la v0**, compilé aujourd'hui |
 | `slides-hook.tex` | page de titre Beamer avec contenu optionnel sous auteur/date/logos |
+| `slides-appendix.tex` | diapositives d'une annexe (`\slideappendix`) : « Annexe B », sections B.1, boîtes B.1.1 (lu par `check-appendix.sh`) |
 | `header-article.tex` | TD multi-établissement : logos `uftmp` et `n7` côte à côte dans l'en-tête |
 | `institution-inp.tex`, `institution-insa.tex` | en-tête TD à établissement unique, autres que le défaut `n7` |
 | `math-modules.tex` | `math={control,measure}` — syntaxe multi-valeurs entre accolades + corpus des deux modules |
@@ -108,11 +109,11 @@ outre que chaque preset se charge sous chaque palette. Le filet latéral
 ## Compilation
 
 ```bash
-make                        # tout : 16 supports, 68+18 variantes, verification
+make                        # tout : 16 supports, 68+19 variantes, verification
 make themes                 # les 16 supports (4 themes x 4 supports)
 make themes/legacy/poly     # un seul document
 make theme-variants         # les 68 variantes de facette (par theme)
-make variants               # les 18 variantes independantes du theme
+make variants               # les 19 variantes independantes du theme
 make check                  # revérifie les journaux sans recompiler
 make clean                  # nettoie les auxiliaires
 make mrproper                # nettoie tout, PDF compris

@@ -419,6 +419,7 @@ Support déduit de la classe `beamer`, rien à déclarer.
 
 ```latex
 \slidechapter{5}{Équations différentielles linéaires}   % pose le n° de chapitre
+\slideappendix{2}{Intégrale et dérivée}                  % ou : annexe B
 \slidetitlepage                                         % page de titre standard
 % ou, avec un contenu additionnel sous auteur/date/logos :
 \slidetitlepage[{\includegraphics[height=5em]{qr-code-cours.pdf}}]
@@ -452,6 +453,11 @@ sans cadre, collé au bord supérieur, porte le titre (`\title`) et, si
 couleurs `titlebox-back` et `titlebox-text` du thème ; auteur, date et logos
 sont centrés dans la partie blanche en dessous. Le bandeau occupe la moitié de
 la hauteur et s'agrandit si le titre du chapitre est long.
+
+`\slideappendix{n}{Titre}` remplace `\slidechapter` pour les transparents d'une
+annexe du polycopié : le rang `n` est affiché en lettre (`2` donne B), dans le
+bandeau (« Annexe B »), les sections (B.1) et les numéros des boîtes (B.1.1), qui
+reprennent ainsi ceux du polycopié.
 
 L'argument optionnel de `\slidetitlepage` est vide par défaut. Lorsqu'il est
 renseigné, son contenu est placé sous le bloc auteur/date/logos, dans le même
