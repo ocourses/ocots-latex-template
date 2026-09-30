@@ -1,0 +1,147 @@
+#!/usr/bin/env python3
+"""Vérifie `vocabulaire.json` contre les sources du template (`tex/`).
+
+    .github/scripts/verifier-vocabulaire
+
+Les outils (ocots-lint) lisent ce fichier au lieu de coder en dur les noms
+d'environnements. Il ne vaut que s'il dit vrai ; ce script le confronte aux
+`.sty`, `.cls` et `.def` :
+
+- tout environnement public défini dans `tex/` est listé, et tout
+  environnement listé y est défini (les noms en `@` sont internes) ;
+- un alias (`alias_de`) désigne un environnement listé qui n'est pas un
+  alias ; les `\\ocotsaliasenv{a}{b}` concordent ;
+- un environnement non alias appartient à une famille déclarée ;
+- `symbole_de_fin` est vrai exactement pour les environnements dont la
+  définition referme un symbole de fin (`\\popQED`) ;
+- chaque classe `ocots-*.cls` déclare le support que le fichier lui donne,
+  et `beamer` mène aux diapositives.
+
+Sortie 1 à la première incohérence de chaque sorte, avec ce qu'il faut
+corriger ; 0 sinon.
+"""
+
+import json
+import pathlib
+import re
+import sys
+
+RACINE = pathlib.Path(__file__).resolve().parents[2]
+SCHEMA = 1
+
+DEFINITIONS = re.compile(
+    r"\\(?:expandafter\\)?(NewDocumentEnvironment|newenvironment|newtheorem\*?"
+    r"|NewTColorBox|newtcolorbox|ocots@taggedenv|ocotsaliasenv)"
+    r"(?:\\expandafter\[[^\]]*\])?\{([^}#\\]+)\}(?:\{([^}#\\]+)\})?")
+
+
+def sources():
+    for p in sorted((RACINE / "tex").rglob("*")):
+        if p.suffix in (".sty", ".cls", ".def"):
+            yield p, p.read_text(encoding="utf-8", errors="replace")
+
+
+def sans_commentaire(ligne):
+    return re.sub(r"(?<!\\)%.*", "", ligne)
+
+
+def definis():
+    """{nom: (mécanisme, cible d'alias ou None, bloc de définition)}."""
+    trouves = {}
+    for chemin, texte in sources():
+        lignes = texte.splitlines()
+        for i, ligne in enumerate(lignes):
+            for m in DEFINITIONS.finditer(sans_commentaire(ligne)):
+                mecanisme, nom, cible = m.groups()
+                if "@" in nom:
+                    continue
+                # le bloc : la ligne, puis les lignes indentées qui suivent
+                bloc = [ligne]
+                for suite in lignes[i + 1:]:
+                    if not suite[:1].isspace():
+                        break
+                    bloc.append(suite)
+                bloc = "\n".join(sans_commentaire(b) for b in bloc)
+                alias = cible if mecanisme == "ocotsaliasenv" else None
+                trouves[nom] = (mecanisme, alias, bloc)
+                if mecanisme == "ocots@taggedenv":        # définit aussi nom*
+                    trouves[nom + "*"] = (mecanisme, None, "")
+    return trouves
+
+
+def supports_des_classes():
+    classes = {}
+    for chemin, texte in sources():
+        if chemin.suffix == ".cls":
+            m = re.search(r"\\def\\ocots@carrier\{([^}]+)\}", texte)
+            classes[chemin.stem] = m.group(1) if m else None
+        m = re.search(r"\\@ifclassloaded\{beamer\}%?\s*\{\\def\\ocots@carrier\{([^}]+)\}\}"
+                      r"%?\s*\{\\def\\ocots@carrier\{([^}]+)\}\}", texte)
+        if m:
+            classes["beamer"], classes[None] = m.groups()
+    return classes
+
+
+def verifier(vocab):
+    erreurs = []
+    if vocab.get("schema") != SCHEMA:
+        return [f"schéma {vocab.get('schema')!r} : ce script lit le schéma {SCHEMA}"]
+    familles, envs = vocab["familles"], vocab["environnements"]
+    trouves = definis()
+
+    for nom in sorted(trouves.keys() - envs.keys()):
+        erreurs.append(f"{nom} : défini dans tex/, absent de vocabulaire.json")
+    for nom in sorted(envs.keys() - trouves.keys()):
+        erreurs.append(f"{nom} : listé, mais défini nulle part dans tex/")
+
+    for nom, e in sorted(envs.items()):
+        if "alias_de" in e:
+            cible = e["alias_de"]
+            if cible not in envs or "alias_de" in envs[cible]:
+                erreurs.append(f"{nom} : alias de {cible}, qui n'est pas un environnement listé")
+            if "famille" in e:
+                erreurs.append(f"{nom} : un alias hérite de la famille de sa cible")
+            declare = trouves.get(nom, (None, None, ""))[1]
+            if declare is not None and declare != cible:
+                erreurs.append(f"{nom} : \\ocotsaliasenv le relie à {declare}, "
+                               f"vocabulaire.json à {cible}")
+        elif e.get("famille") not in familles:
+            erreurs.append(f"{nom} : famille {e.get('famille')!r} non déclarée")
+        elif nom in trouves:
+            pose = "\\popQED" in trouves[nom][2]
+            if pose != bool(e.get("symbole_de_fin")):
+                erreurs.append(f"{nom} : symbole_de_fin={bool(e.get('symbole_de_fin'))}, "
+                               f"mais sa définition {'pose' if pose else 'ne pose pas'} "
+                               f"de symbole de fin (\\popQED)")
+
+    attendus = dict(vocab["supports"]["classes"])
+    attendus[None] = vocab["supports"]["defaut"]
+    vues = supports_des_classes()
+    if "beamer" not in vues:
+        erreurs.append("détection des diapositives (\\@ifclassloaded{beamer}) introuvable "
+                       "dans tex/ : adapter supports_des_classes()")
+    for classe, support in sorted(vues.items(), key=str):
+        if attendus.get(classe) != support:
+            erreurs.append(f"classe {classe or '(autre)'} : support {support!r} dans tex/, "
+                           f"{attendus.get(classe)!r} dans vocabulaire.json")
+    return erreurs
+
+
+def main():
+    chemin = RACINE / "vocabulaire.json"
+    try:
+        vocab = json.loads(chemin.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as e:
+        print(f"vocabulaire.json illisible : {e}", file=sys.stderr)
+        return 1
+    erreurs = verifier(vocab)
+    for e in erreurs:
+        print(f"vocabulaire.json — {e}", file=sys.stderr)
+    if not erreurs:
+        n = len(vocab["environnements"])
+        print(f"vocabulaire.json : {n} environnements, conforme à tex/")
+    return 1 if erreurs else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
