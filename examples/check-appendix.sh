@@ -2,7 +2,8 @@
 # Verifie la numerotation des diapositives d'une annexe (\slideappendix).
 #
 # \slideappendix passe \thechapter en lettre : la section, les boites et les
-# renvois doivent en heriter (B.1, B.1.1), et le bandeau de la page de titre
+# renvois doivent en heriter (B.1, B.1.1), les exemples repartir a 1 a chaque
+# section (B.2.1), et le bandeau de la page de titre
 # doit porter « Annexe B ». Un oubli (compteur ou intitule) compile sans
 # avertissement : « make check », qui ne lit que les journaux, ne le verrait pas.
 #
@@ -37,5 +38,6 @@ expect "Annexe B"
 expect "APPCHECK Section = B.1"
 expect "APPCHECK Théorème = Théorème B.1.1"
 expect "APPCHECK Exemple = Exemple B.1.1"
+expect "APPCHECK Exemple2 = Exemple B.2.1"
 
 exit $status

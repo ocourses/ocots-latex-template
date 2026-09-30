@@ -29,8 +29,10 @@ tag. Politique de version : [README](README.md#versions).
   `notheorems` de beamer, `example` partageait le compteur des résultats
   (beamer le déclare sur `theorem`, amsthm en fait un alias) — « Exemple 1.1.2 »
   après « Théorème 1.1.1 » au lieu de « Exemple 1.1.1 ». Il reprend son
-  compteur propre, comme dans le polycopié. Vérifié par
-  `examples/check-appendix.sh`.
+  compteur propre, comme dans le polycopié, remis à zéro à chaque section (la
+  marque d'alias du noyau est effacée avec lui, ce qui supprime aussi
+  l'avertissement « Alias counters can not be used in a counter reset »).
+  Vérifié par `examples/check-appendix.sh`.
 
 ---
 
