@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.3.0 — 2026-09-30
+
 ### Changé
 
 - **Bas de page du polycopié** (`ocots-carrier-book.sty`) : `\raggedbottom`
