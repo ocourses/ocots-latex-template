@@ -15,23 +15,31 @@
 % syntaxe encore plus ancienne), on ne le rajoute pas par-dessus. Le calcul se
 % fait AVANT le `label=', pas dedans : `\IfBeginWith' est fragile dans un
 % argument que `\label' finit par ecrire tel quel dans le .aux.
+% Une clef vide (`{titre}{}') ne pose pas d'etiquette, comme dans le noyau :
+% sinon chaque boite poserait le prefixe seul (`def:'), multiplement defini.
+% Pas de `label=' du tout dans ce cas : meme vide, il poserait un label `'.
 \newcommand{\ocots@compat@prefixlabel}[2]{%
   \IfBeginWith{#2}{#1}{\def\ocots@compat@label{#2}}{\def\ocots@compat@label{#1#2}}}
 \NewDocumentEnvironment{mytheorem}{m m}
-  {\ocots@compat@prefixlabel{thm:}{#2}%
-   \begin{theorem}[title={#1},label=\ocots@compat@label]}{\end{theorem}}
+  {\IfBlankTF{#2}{\begin{theorem}[title={#1}]}{%
+     \ocots@compat@prefixlabel{thm:}{#2}%
+     \begin{theorem}[title={#1},label=\ocots@compat@label]}}{\end{theorem}}
 \NewDocumentEnvironment{mydefinition}{m m}
-  {\ocots@compat@prefixlabel{def:}{#2}%
-   \begin{definition}[title={#1},label=\ocots@compat@label]}{\end{definition}}
+  {\IfBlankTF{#2}{\begin{definition}[title={#1}]}{%
+     \ocots@compat@prefixlabel{def:}{#2}%
+     \begin{definition}[title={#1},label=\ocots@compat@label]}}{\end{definition}}
 \NewDocumentEnvironment{myproposition}{m m}
-  {\ocots@compat@prefixlabel{prop:}{#2}%
-   \begin{proposition}[title={#1},label=\ocots@compat@label]}{\end{proposition}}
+  {\IfBlankTF{#2}{\begin{proposition}[title={#1}]}{%
+     \ocots@compat@prefixlabel{prop:}{#2}%
+     \begin{proposition}[title={#1},label=\ocots@compat@label]}}{\end{proposition}}
 \NewDocumentEnvironment{mycorollary}{m m}
-  {\ocots@compat@prefixlabel{cor:}{#2}%
-   \begin{corollary}[title={#1},label=\ocots@compat@label]}{\end{corollary}}
+  {\IfBlankTF{#2}{\begin{corollary}[title={#1}]}{%
+     \ocots@compat@prefixlabel{cor:}{#2}%
+     \begin{corollary}[title={#1},label=\ocots@compat@label]}}{\end{corollary}}
 \NewDocumentEnvironment{myconjecture}{m m}
-  {\ocots@compat@prefixlabel{conj:}{#2}%
-   \begin{conjecture}[title={#1},label=\ocots@compat@label]}{\end{conjecture}}
+  {\IfBlankTF{#2}{\begin{conjecture}[title={#1}]}{%
+     \ocots@compat@prefixlabel{conj:}{#2}%
+     \begin{conjecture}[title={#1},label=\ocots@compat@label]}}{\end{conjecture}}
 
 % ---------------------------------------------------------------------------
 % Environnements de type theoreme
@@ -71,7 +79,8 @@
 % Ancienne syntaxe d'etiquette : \begin{myexercisecb}<etiquette>
 % La nouvelle passe par une clef : \begin{exercise}[label=ex:etiquette]
 \NewDocumentEnvironment{myexercisecb}{O{} d<>}
-  {\IfValueTF{#2}{\exercise[#1,label={ex:#2}]}{\exercise[#1]}}
+  {\IfValueTF{#2}{\IfBlankTF{#2}{\exercise[#1]}{\exercise[#1,label={ex:#2}]}}%
+    {\exercise[#1]}}
   {\endexercise}
 \tcbset{no solution/.style={nosolution}}
 \let\solutioncb\solution

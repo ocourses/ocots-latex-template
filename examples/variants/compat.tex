@@ -42,6 +42,16 @@ Du texte avec \myemph{une mise en valeur} et \cblue{de la couleur}.
     Énoncé.
 \end{mytheorem}
 
+\begin{mydefinition}{Clé vide}{}
+    L'ancienne syntaxe avec une clé vide ne pose pas d'étiquette : sinon
+    chaque boîte poserait « def: » et le label serait multiplement défini.
+\end{mydefinition}
+
+\begin{mydefinition}{Clé vide, bis}{}
+    Seconde boîte à clé vide : \texttt{make check} refuse un label
+    multiplement défini dans ce journal.
+\end{mydefinition}
+
 \begin{myremark}
     Une remarque.
 \end{myremark}
@@ -62,6 +72,14 @@ Du texte avec \myemph{une mise en valeur} et \cblue{de la couleur}.
     Énoncé de l'exercice, avec l'ancienne syntaxe d'étiquette.
 \solutioncb
     Corrigé.
+\end{myexercisecb}
+
+\begin{myexercisecb}[no solution]<>
+    Exercice à étiquette vide : aucune étiquette « ex: ».
+\end{myexercisecb}
+
+\begin{myexercisecb}[no solution]<>
+    Second exercice à étiquette vide.
 \end{myexercisecb}
 
 \begin{myexercisecb}[no solution]
