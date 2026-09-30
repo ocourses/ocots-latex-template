@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.5.0 — 2026-09-30
+
 ### Ajouté
 
 - **`vocabulaire.json` : `ancienne_syntaxe`** (ajout compatible au schéma
