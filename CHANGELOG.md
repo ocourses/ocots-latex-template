@@ -10,6 +10,22 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Corrigé
+
+- **Numérotation des boîtes dans un TD ou un sujet** : les résultats, exemples
+  et remarques étaient numérotés « section.numéro ». Un TD n'a en général pas
+  de `\section`, et un sujet n'en numérote aucune (`secnumdepth=0`) : ils
+  s'affichaient « Remarque 0.1 ». Le support commun TD/examen les numérote
+  désormais sans préfixe de section, comme les exercices (« Remarque 1 »).
+  Vérifié par `examples/check-td-numbering.sh` (#67).
+- **Questions citables** : `question` et `subquestion` incrémentaient leur
+  compteur par `\stepcounter`, si bien qu'un `\label` posé dedans renvoyait le
+  numéro de l'exercice. Elles passent à `\refstepcounter` : le renvoi rend le
+  numéro affiché (« 2.2 », « 2.2.1 » en TD et en examen ; « 2 », « 2.1 » dans le
+  polycopié), avec des ancres hyperref uniques. Le compteur `subquestion` est
+  désormais remis à zéro par `question` (`\newcounter{subquestion}[question]`)
+  (#67).
+
 ---
 
 ## v1.3.0 — 2026-09-30

@@ -1,0 +1,71 @@
+% Variante de non-regression : numerotation dans un TD sans section
+% (ocots-latex-template#67). Lue par check-td-numbering.sh :
+%   - les boites ne portent pas de numero de section (« Remarque 1 », pas
+%     « Remarque 0.1 ») ;
+%   - une question et une sous-question se citent par \ref, avec le numero
+%     affiche (2.2, 2.2.2).
+\documentclass[11pt]{ocots-td}
+\usepackage[lang=fr, theme=ocots, solutions=inline, math=analysis, institution={n7}]{ocots}
+
+\title{Variante : numérotation dans un TD}
+\shorttitle{Variante : numérotation dans un TD}
+\numero{TD 0}
+\date{\today}
+\discipline{Template ocots}
+\promotion{Harnais de non-régression}
+
+\begin{document}
+
+\maketitle
+
+\begin{exercise}[label=ex:un]
+    Premier exercice.
+    \begin{question}
+        Une question.
+    \end{question}
+\end{exercise}
+
+\begin{exercise}[label=ex:deux]
+    Second exercice.
+    \begin{question}
+        Première question.
+    \end{question}
+    \begin{question}\label{q:deux-deux}
+        Seconde question.
+        \begin{subquestion}\label{sq:un}
+            Première sous-question.
+        \end{subquestion}
+        \begin{subquestion}\label{sq:deux}
+            Seconde sous-question.
+        \end{subquestion}
+    \end{question}
+    \begin{correction}
+        La question~\ref{q:deux-deux} se cite depuis le corrigé.
+    \end{correction}
+\end{exercise}
+
+\begin{theorem}[label=thm:td]
+    Un résultat.
+\end{theorem}
+
+\begin{example}[label=exa:td]
+    Un exemple.
+\end{example}
+
+\begin{remark}[label=rem:td]
+    Une remarque.
+\end{remark}
+
+NUMCHECK Exercice = \ref{ex:deux}
+
+NUMCHECK Question = \ref{q:deux-deux}
+
+NUMCHECK Sous-question = \ref{sq:deux}
+
+NUMCHECK Théorème = \ref{thm:td}
+
+NUMCHECK Exemple = \ref{exa:td}
+
+NUMCHECK Remarque = \ref{rem:td}
+
+\end{document}

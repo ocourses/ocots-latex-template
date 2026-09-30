@@ -44,23 +44,38 @@
 
 % ---------------------------------------------------------------------------
 % Questions et sous-questions
+% Questions et sous-questions se citent par \label/\ref : \refstepcounter, et
+% un \ref rend le numero tel qu'il est affiche -- « 2.2 » en TD et en examen
+% (prefixe du numero d'exercice, \p@question), « 2 » dans le polycopie et les
+% diapositives, ou la question se lit dans son exercice. Le compteur de
+% question repart a zero a chaque exercice : les ancres hyperref (\theH...)
+% portent donc la section et l'exercice pour rester uniques.
 \newcounter{question}
-\newcounter{subquestion}
+\newcounter{subquestion}[question]
+\ifocots@exam
+  \def\p@question{\theocots@exinner.}
+\else
+  \def\p@question{}
+\fi
+\def\p@subquestion{\p@question\thequestion.}
+\def\theHquestion{\theHsection.\theocots@exinner.\arabic{question}}
+\def\theHsubquestion{\theHquestion.\arabic{subquestion}}
 
 \newenvironment{question}
   {\normalsize\normalfont\topsep6\p@\@plus6\p@\relax\trivlist
+   \refstepcounter{question}%
    \ifocots@exam
-     \item[\stepcounter{question}\bfseries\hspace{0.5em}\hskip\labelsep
+     \item[\bfseries\hspace{0.5em}\hskip\labelsep
            \theocots@exinner.\thequestion\@addpunct{.}]\ignorespaces
    \else
-     \item[\stepcounter{question}\bfseries\hspace{0.5em}\hskip\labelsep
+     \item[\bfseries\hspace{0.5em}\hskip\labelsep
            \thequestion\@addpunct{.}]\ignorespaces
-   \fi
-   \setcounter{subquestion}{1}}
+   \fi}
   {\endtrivlist}
 
 \newenvironment{subquestion}
   {\normalsize\normalfont\topsep6\p@\@plus6\p@\relax\trivlist
+   \refstepcounter{subquestion}%
    \ifocots@exam
      \item[\bfseries\hspace{1.5em}\hskip\labelsep
            \theocots@exinner.\thequestion.\thesubquestion\@addpunct{.}]\ignorespaces
@@ -68,10 +83,10 @@
      \item[\bfseries\hspace{1.5em}\hskip\labelsep
            \thequestion\@addpunct{.}\thesubquestion\@addpunct{.}]\ignorespaces
    \fi}
-  {\stepcounter{subquestion}\endtrivlist}
+  {\endtrivlist}
 
 % Force le passage a la question suivante (utile dans un corrige redige a part).
-\newcommand{\newquestion}{\stepcounter{question}\setcounter{subquestion}{1}}
+\newcommand{\newquestion}{\stepcounter{question}}
 
 % Utile avant une liste, quand l'enonce n'a pas de texte d'introduction.
 \newcommand{\exercisenotext}{~\\ \vspace{-\baselineskip}}

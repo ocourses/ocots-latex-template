@@ -72,6 +72,7 @@ par défaut (`ocots`) — ce ne sont pas des comparaisons de thème, voir plus b
 | `paper-fr.tex` | préprint avec `lang=fr` |
 | `paper-preprint-workmark.tex` | test négatif : une marque fait échouer le preprint |
 | `qed-lone.tex` | test négatif : une preuve et un exemple finis par une liste sans `\qedhere`, que `check-qed.sh` doit signaler |
+| `td-numbering.tex` | TD sans section : boîtes sans numéro de section (« Remarque 1 »), questions et sous-questions citées par `\ref` (2.2, 2.2.2) (lu par `check-td-numbering.sh`) |
 | `spacing.tex` | test d'espacement : un `\footnotetext` entre deux boîtes ne double pas l'espace (lu par `check-spacing.sh`) |
 
 `fr-none`, `fr-inline`, `en-end`, `binding` partagent `body.tex`, un corps
@@ -109,11 +110,11 @@ outre que chaque preset se charge sous chaque palette. Le filet latéral
 ## Compilation
 
 ```bash
-make                        # tout : 16 supports, 68+19 variantes, verification
+make                        # tout : 16 supports, 68+20 variantes, verification
 make themes                 # les 16 supports (4 themes x 4 supports)
 make themes/legacy/poly     # un seul document
 make theme-variants         # les 68 variantes de facette (par theme)
-make variants               # les 19 variantes independantes du theme
+make variants               # les 20 variantes independantes du theme
 make check                  # revérifie les journaux sans recompiler
 make clean                  # nettoie les auxiliaires
 make mrproper                # nettoie tout, PDF compris
@@ -137,7 +138,8 @@ de renvoi `cleveref`), `check-numbering.sh` (un numéro ne désigne qu'un objet
 de sa famille), `check-qed.sh` (aucun symbole de fin ■ ou □ seul sur sa ligne,
 avec `variants/qed-lone.tex` comme témoin négatif) et `check-spacing.sh` (l'écart entre deux boîtes, mesuré par
 `\pdfsavepos` dans `variants/spacing.tex`, ne change pas quand un
-`\footnotetext` les sépare).
+`\footnotetext` les sépare). `check-td-numbering.sh` vérifie de même la
+numérotation d'un TD sans section (`variants/td-numbering.tex`).
 
 Le template est trouvé par `TEXINPUTS`, positionné par le `Makefile` : les
 documents n'ont aucun chemin relatif à tenir à jour.

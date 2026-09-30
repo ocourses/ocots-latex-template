@@ -61,6 +61,11 @@ variante étoilée n'aurait rien à désigner : elle est ignorée, avec un
 avertissement. La forme (cadre, filet, aplat…) vient du thème. Les familles
 `assumption`, `openquestion` et `difficulty` conservent leurs compteurs propres.
 
+Dans un **TD ou un sujet d'examen**, ces numéros ne portent pas le préfixe de
+section (« Remarque 1 », « Théorème 2 »), comme les exercices : un TD n'a en
+général pas de `\section`, et un sujet n'en numérote aucune. Les compteurs
+restent remis à zéro à chaque section.
+
 #### Pourquoi trois compteurs — ne pas revenir à un compteur unique
 
 Des diapositives reprennent un polycopié et **doivent numéroter ses sections
@@ -254,6 +259,20 @@ modifié. **Ne pas compenser par un `\vspace` négatif**, ni repousser le
 | `subquestion` | 2.1., 2.2., … |
 | `\newquestion` | force le passage à la question suivante (corrigé rédigé à part) |
 | `\exercisenotext` | avale la ligne vide quand l'énoncé n'a pas de texte d'intro |
+
+Une question ou une sous-question se cite par `\label`/`\ref`. Le renvoi rend
+le numéro tel qu'il est affiché : « 2.2 » et « 2.2.1 » dans un TD ou un sujet,
+où le numéro d'exercice préfixe celui de la question ; « 2 » et « 2.1 » dans le
+polycopié, où la question se lit dans son exercice (« question~\ref{q:x} de
+l'Exercice~\ref{ex:y} »).
+
+```latex
+\begin{question}\label{q:borne}
+    Montrer que $(f_n)$ est bornée.
+\end{question}
+…
+D'après la question~\ref{q:borne}, …
+```
 
 ### Correction hors boîte (TD, examen)
 
