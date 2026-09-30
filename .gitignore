@@ -65,3 +65,4 @@ _minted-*/
 # Fichiers écrits par le mécanisme solutions=end via \openout
 *.records
 ocots-solution-*.tex
+__pycache__/

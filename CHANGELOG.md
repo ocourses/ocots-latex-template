@@ -12,6 +12,12 @@ tag. Politique de version : [README](README.md#versions).
 
 ### Ajouté
 
+- **`vocabulaire.json`** (schéma 1) : chaque environnement public avec sa
+  famille (boîte ou non), son symbole de fin, ou l'environnement dont il est
+  un alias déprécié ; le support que choisit chaque classe. Lu par
+  `ocots-lint` au lieu de noms codés en dur. Vérifié contre `tex/` à chaque
+  PR (workflow `vocabulaire.yml`) : tout environnement défini est listé, et
+  inversement.
 - **Annexes dans les diapositives** : `\slideappendix{n}{Titre}`, pendant de
   `\slidechapter` pour une annexe du polycopié. Le numéro s'affiche en lettre
   (« Annexe B » dans le bandeau, sections B.1, boîtes B.1.1). Nouvelle chaîne

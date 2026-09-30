@@ -1,0 +1,318 @@
+{
+  "schema": 1,
+  "description": "Environnements publics du template, par famille, pour les outils (ocots-lint). Vérifié contre tex/ par .github/scripts/verifier-vocabulaire.",
+  "familles": {
+    "resultat": {
+      "boite": true,
+      "description": "énoncé mathématique : théorème, proposition, corollaire, lemme, conjecture, théorème cité"
+    },
+    "definition": {
+      "boite": true,
+      "description": "définition"
+    },
+    "hypothese": {
+      "boite": true,
+      "description": "hypothèse, dont le bloc étiqueté H1, H2…"
+    },
+    "encadre": {
+      "boite": true,
+      "description": "bloc étiqueté mis en avant : question ouverte (Q1…), difficulté (D1…)"
+    },
+    "exemple": {
+      "boite": true,
+      "description": "exemple"
+    },
+    "remarque": {
+      "boite": true,
+      "description": "remarque, aparté optionnel"
+    },
+    "exercice": {
+      "boite": true,
+      "description": "exercice (TD, examen, polycopié)"
+    },
+    "ressource": {
+      "boite": false,
+      "description": "renvoi vers une ressource en ligne"
+    },
+    "preuve": {
+      "boite": false,
+      "description": "preuve, ou preuve étalée sur plusieurs diapositives"
+    },
+    "question": {
+      "boite": false,
+      "description": "partie d'un exercice : question, sous-question, correction"
+    },
+    "consigne": {
+      "boite": false,
+      "description": "consignes d'un TD ou d'un examen"
+    },
+    "structure": {
+      "boite": false,
+      "description": "découpage ou mise en page : diapositive, partie, introduction de chapitre…"
+    },
+    "travail": {
+      "boite": false,
+      "description": "notes de travail, absentes de la version finale"
+    }
+  },
+  "environnements": {
+    "assumption": {
+      "famille": "hypothese"
+    },
+    "assumption*": {
+      "famille": "hypothese"
+    },
+    "chapterintro": {
+      "famille": "structure"
+    },
+    "citedtheorem": {
+      "famille": "resultat"
+    },
+    "citedtheorem*": {
+      "famille": "resultat"
+    },
+    "conjecture": {
+      "famille": "resultat"
+    },
+    "conjecture*": {
+      "famille": "resultat"
+    },
+    "corollary": {
+      "famille": "resultat"
+    },
+    "corollary*": {
+      "famille": "resultat"
+    },
+    "correction": {
+      "famille": "question"
+    },
+    "definition": {
+      "famille": "definition"
+    },
+    "definition*": {
+      "famille": "definition"
+    },
+    "difficulty": {
+      "famille": "encadre"
+    },
+    "difficulty*": {
+      "famille": "encadre"
+    },
+    "docpart": {
+      "famille": "structure"
+    },
+    "example": {
+      "famille": "exemple",
+      "symbole_de_fin": true
+    },
+    "example*": {
+      "famille": "exemple",
+      "symbole_de_fin": true
+    },
+    "exercise": {
+      "famille": "exercice"
+    },
+    "exercise*": {
+      "famille": "exercice"
+    },
+    "hypothesis": {
+      "famille": "hypothese"
+    },
+    "instruction": {
+      "famille": "consigne"
+    },
+    "instructions": {
+      "famille": "consigne"
+    },
+    "lemma": {
+      "famille": "resultat"
+    },
+    "lemma*": {
+      "famille": "resultat"
+    },
+    "myassumption": {
+      "alias_de": "assumption",
+      "deprecie": true
+    },
+    "myassumption*": {
+      "alias_de": "assumption*",
+      "deprecie": true
+    },
+    "myconjecture": {
+      "alias_de": "conjecture",
+      "deprecie": true
+    },
+    "mycorollary": {
+      "alias_de": "corollary",
+      "deprecie": true
+    },
+    "mycorr": {
+      "alias_de": "correction",
+      "deprecie": true
+    },
+    "mycorrection": {
+      "alias_de": "correction",
+      "deprecie": true
+    },
+    "mydefinition": {
+      "alias_de": "definition",
+      "deprecie": true
+    },
+    "mydifficulty": {
+      "alias_de": "difficulty",
+      "deprecie": true
+    },
+    "myexample": {
+      "alias_de": "example",
+      "deprecie": true
+    },
+    "myexample*": {
+      "alias_de": "example*",
+      "deprecie": true
+    },
+    "myexercise": {
+      "alias_de": "exercise",
+      "deprecie": true
+    },
+    "myexercisecb": {
+      "alias_de": "exercise",
+      "deprecie": true
+    },
+    "myframe": {
+      "alias_de": "slide",
+      "deprecie": true
+    },
+    "myinstructions": {
+      "alias_de": "instructions",
+      "deprecie": true
+    },
+    "myinstructions*": {
+      "alias_de": "instructions",
+      "deprecie": true
+    },
+    "mylemma": {
+      "alias_de": "lemma",
+      "deprecie": true
+    },
+    "mylemma*": {
+      "alias_de": "lemma*",
+      "deprecie": true
+    },
+    "myproposition": {
+      "alias_de": "proposition",
+      "deprecie": true
+    },
+    "myquestion": {
+      "alias_de": "question",
+      "deprecie": true
+    },
+    "myquestionnement": {
+      "alias_de": "openquestion",
+      "deprecie": true
+    },
+    "myremark": {
+      "alias_de": "remark",
+      "deprecie": true
+    },
+    "myremark*": {
+      "alias_de": "remark*",
+      "deprecie": true
+    },
+    "mysubquestion": {
+      "alias_de": "subquestion",
+      "deprecie": true
+    },
+    "mytheorem": {
+      "alias_de": "theorem",
+      "deprecie": true
+    },
+    "myweb": {
+      "alias_de": "web",
+      "deprecie": true
+    },
+    "openquestion": {
+      "famille": "encadre"
+    },
+    "openquestion*": {
+      "famille": "encadre"
+    },
+    "proof": {
+      "famille": "preuve",
+      "symbole_de_fin": true
+    },
+    "proofbegin": {
+      "famille": "preuve"
+    },
+    "proofdeb": {
+      "alias_de": "proofbegin",
+      "deprecie": true
+    },
+    "proofend": {
+      "famille": "preuve",
+      "symbole_de_fin": true
+    },
+    "prooffin": {
+      "alias_de": "proofend",
+      "deprecie": true
+    },
+    "proofmiddle": {
+      "famille": "preuve"
+    },
+    "proofmil": {
+      "alias_de": "proofmiddle",
+      "deprecie": true
+    },
+    "proposition": {
+      "famille": "resultat"
+    },
+    "proposition*": {
+      "famille": "resultat"
+    },
+    "question": {
+      "famille": "question"
+    },
+    "remark": {
+      "famille": "remarque"
+    },
+    "remark*": {
+      "famille": "remarque"
+    },
+    "slide": {
+      "famille": "structure"
+    },
+    "subquestion": {
+      "famille": "question"
+    },
+    "theorem": {
+      "famille": "resultat"
+    },
+    "theorem*": {
+      "famille": "resultat"
+    },
+    "titlebox": {
+      "famille": "structure"
+    },
+    "todolist": {
+      "famille": "travail"
+    },
+    "vcenterpage": {
+      "famille": "structure"
+    },
+    "web": {
+      "famille": "ressource"
+    },
+    "worknotes": {
+      "famille": "travail"
+    }
+  },
+  "supports": {
+    "classes": {
+      "ocots-book": "book",
+      "ocots-td": "td",
+      "ocots-exam": "exam",
+      "ocots-paper": "paper",
+      "beamer": "slides"
+    },
+    "defaut": "book"
+  }
+}

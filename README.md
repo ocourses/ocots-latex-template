@@ -200,6 +200,7 @@ tex/
 assets/logos/
 doc/                     commandes.md, themes.md
 examples/                un document par support, plus les variantes d'options
+vocabulaire.json         les environnements publics, par famille, pour les outils
 ```
 
 **Trois couches, une règle** : le noyau définit les environnements, le support
@@ -214,7 +215,21 @@ support, après coup.
   chargé par `math=<nom>` ;
 - un **thème** ou un **preset** — voir [`doc/themes.md`](doc/themes.md) ;
 - un **établissement** — image dans `assets/logos/` + une ligne dans
-  `tex/ocots-institution.sty`.
+  `tex/ocots-institution.sty` ;
+- un **environnement** — le déclarer aussi dans
+  [`vocabulaire.json`](vocabulaire.json), avec sa famille (voir ci-dessous).
+
+**Vocabulaire pour les outils.** [`vocabulaire.json`](vocabulaire.json) liste
+chaque environnement public : sa **famille** (`resultat`, `definition`,
+`exemple`, `remarque`, `preuve`, `question`…, chacune marquée boîte ou non),
+s'il pose un symbole de fin, ou l'environnement dont il est un **alias
+déprécié** (noms v0). Il dit aussi quel support chaque classe choisit.
+[`ocots-lint`](https://github.com/ocourses/ocots-lint) le lit dans le
+`template/` du cours au lieu de coder les noms en dur : un environnement
+ajouté ici est vu par ses règles dès que le cours monte de version. La CI
+(`.github/scripts/verifier-vocabulaire`) le confronte à `tex/` dans les deux
+sens : tout environnement défini est listé, tout environnement listé est
+défini, et les symboles de fin, alias et supports concordent.
 
 ---
 
@@ -229,6 +244,10 @@ commandes et macros mathématiques documentés dans [`doc/`](doc/).
 | **majeur** | un document qui compilait ne compile plus, ou doit changer ses sources : environnement, commande, macro ou option retiré ou renommé sans alias ; retrait des alias v0 de `ocots-compat.sty` |
 | **mineur** | ajout (environnement, commande, option, thème, module) ; renommage qui garde l'ancien nom en alias déprécié ; changement de rendu voulu |
 | **correctif** | rendu corrigé sans toucher aux sources des documents |
+
+`vocabulaire.json` suit la même règle (ajouter un environnement, c'est un
+mineur) ; son format a en plus son propre numéro, `schema`, qui ne monte que
+si un outil qui le lit doit changer.
 
 Un cours épingle un **tag** plutôt qu'un commit :
 `git -C template checkout v1.2.0`, puis un commit du pointeur.

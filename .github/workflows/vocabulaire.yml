@@ -1,0 +1,20 @@
+name: Vocabulaire
+
+# vocabulaire.json est lu par les outils (ocots-lint) à la place de noms
+# d'environnements codés en dur : il doit dire vrai. Confronté à tex/ à
+# chaque PR et sur main.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  vocabulaire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: .github/scripts/verifier-vocabulaire
