@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.4.0 — 2026-09-30
+
 ### Corrigé
 
 - **Numérotation des boîtes dans un TD ou un sujet** : les résultats, exemples
