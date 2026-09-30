@@ -80,8 +80,13 @@
   \fi}
 
 % Bloc de notes de travail, exclu hors mode draft.
+% \excludeversion redefinit l'environnement : on le libere d'abord, sans quoi
+% versions avertit « Redefining environment `worknotes' ».
 \newenvironment{worknotes}{\ifocots@strictwork\ocots@workerror{worknotes}\fi}{}
-\ifocots@draft\else\ifocots@strictwork\else\excludeversion{worknotes}\fi\fi
+\ifocots@draft\else\ifocots@strictwork\else
+  \let\worknotes\relax\let\endworknotes\relax
+  \excludeversion{worknotes}
+\fi\fi
 
 % ---------------------------------------------------------------------------
 % Note encadree dans la marge : \marginnote[decalage]{l|r}{texte}

@@ -272,7 +272,12 @@
   \let\ocots@corr@trivlist\@trivlist
   \def\@trivlist{\global\let\@trivlist\ocots@corr@trivlist
     \ocots@corr@trivlist\@noparlistfalse}}
-\ifx\ocots@solutions\ocots@sol@none\excludeversion{correction}\fi
+% \excludeversion redefinit l'environnement : on le libere d'abord, sans quoi
+% versions avertit « Redefining environment `correction' ».
+\ifx\ocots@solutions\ocots@sol@none
+  \let\correction\relax\let\endcorrection\relax
+  \excludeversion{correction}
+\fi
 
 % Exercice sans corrige, quel que soit le mode :
 %   \begin{exercise}[nosolution]

@@ -10,6 +10,25 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Changé
+
+- **Bas de page du polycopié** (`ocots-carrier-book.sty`) : `\raggedbottom`
+  remplace le `\flushbottom` du recto-verso. Aligner tous les bas de page
+  étirait l'espace vertical jusqu'à la limite sur les pages difficiles à
+  remplir (`Underfull \vbox`, 23 pages sur le poly de mesure et intégration).
+  Ces pages se terminent désormais un peu plus haut.
+
+### Corrigé
+
+- **Avertissements à la compilation** d'un document sans `draft`, sans effet
+  sur le rendu :
+  - `versions` n'avertit plus qu'il redéfinit `comment` (déjà défini par
+    `verbatim`), `worknotes` hors `draft`, et `correction` avec
+    `solutions=none` : l'environnement est libéré avant `\excludeversion` ;
+  - `minitoc` : `caption` et `subcaption` sont chargés avant lui (W0033), et
+    l'option `nohints` tait le conseil W0099 sur `titlesec`, sans objet ici
+    (les mini-sommaires sont corrects), et le W0024 qui l'accompagne.
+
 ---
 
 ## v1.2.0 — 2026-09-30
