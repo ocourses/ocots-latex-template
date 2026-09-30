@@ -1,6 +1,7 @@
 % Variante de non-regression : diapositives d'une annexe (\slideappendix).
 % Lue par check-appendix.sh : les lignes APPCHECK doivent se rendre avec des
-% numeros en lettre (B.1, B.1.1), et le bandeau doit porter « Annexe B ».
+% numeros en lettre (B.1, B.1.1), et le bandeau doit porter « Annexe B ». La
+% seconde section verifie que les exemples repartent a 1 (B.2.1).
 \documentclass[9pt,t]{beamer}
 \usepackage[lang=fr, theme=ocots, math=analysis,
             institution={n7}, author={Prénom Nom}]{ocots}
@@ -45,6 +46,18 @@ APPCHECK Section = \thesection
 APPCHECK Théorème = Théorème~\ref{thm:app}
 
 APPCHECK Exemple = Exemple~\ref{exa:app}
+
+\end{slide}
+
+\section{Fonctions absolument continues}
+
+\begin{slide}{Remise à zéro par section}
+
+\begin{example}[label=exa:app2]
+    L'escalier de Cantor.
+\end{example}
+
+APPCHECK Exemple2 = Exemple~\ref{exa:app2}
 
 \end{slide}
 
