@@ -72,6 +72,9 @@
 % Boites
 \RequirePackage[many,skins,breakable]{tcolorbox}
 \RequirePackage{totcount}
+% verbatim definit deja `comment', que versions exclut a nouveau : on le
+% libere pour eviter l'avertissement « Redefining environment `comment' ».
+\let\comment\relax\let\endcomment\relax
 \RequirePackage{versions}
 
 % ---------------------------------------------------------------------------
