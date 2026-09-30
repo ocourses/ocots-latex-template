@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.2.0 — 2026-09-30
+
 ### Ajouté
 
 - **`vocabulaire.json`** (schéma 1) : chaque environnement public avec sa
