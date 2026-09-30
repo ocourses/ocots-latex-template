@@ -10,6 +10,16 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Ajouté
+
+- **`vocabulaire.json` : `ancienne_syntaxe`** (ajout compatible au schéma
+  1) — pour les environnements qui acceptent l'ancienne syntaxe
+  d'étiquette, sa forme (`{titre}{clé}` ou `<clé>`), le préfixe que le
+  template ajoute au label (`thm:`, `def:`, `prop:`, `cor:`, `conj:`,
+  `ex:`), et s'il le saute quand la clé le porte déjà. Lu par `ocots-lint`
+  pour retrouver le vrai label. Vérifié contre `tex/` (les boîtes étoilées,
+  qui ignorent le label, n'en déclarent pas).
+
 ---
 
 ## v1.4.0 — 2026-09-30

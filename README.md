@@ -223,7 +223,8 @@ support, après coup.
 chaque environnement public : sa **famille** (`resultat`, `definition`,
 `exemple`, `remarque`, `preuve`, `question`…, chacune marquée boîte ou non),
 s'il pose un symbole de fin, ou l'environnement dont il est un **alias
-déprécié** (noms v0). Il dit aussi quel support chaque classe choisit.
+déprécié** (noms v0), et, pour l'ancienne syntaxe d'étiquette
+(`{titre}{clé}`, `<clé>`), le **préfixe** que le template ajoute au label. Il dit aussi quel support chaque classe choisit.
 [`ocots-lint`](https://github.com/ocourses/ocots-lint) le lit dans le
 `template/` du cours au lieu de coder les noms en dur : un environnement
 ajouté ici est vu par ses règles dès que le cours monte de version. La CI

@@ -15,7 +15,11 @@ d'environnements. Il ne vaut que s'il dit vrai ; ce script le confronte aux
 - `symbole_de_fin` est vrai exactement pour les environnements dont la
   définition referme un symbole de fin (`\\popQED`) ;
 - chaque classe `ocots-*.cls` déclare le support que le fichier lui donne,
-  et `beamer` mène aux diapositives.
+  et `beamer` mène aux diapositives ;
+- `ancienne_syntaxe.prefixe` est exactement le préfixe que la définition de
+  l'environnement ajoute au label (`{thm:}` passé à la boîte,
+  `\\ocots@compat@prefixlabel{thm:}`, `label={ex:#2}`), et tout environnement
+  dont la définition en ajoute un le déclare, avec `sans_doublon` exact.
 
 Sortie 1 à la première incohérence de chaque sorte, avec ce qu'il faut
 corriger ; 0 sinon.
@@ -33,6 +37,11 @@ DEFINITIONS = re.compile(
     r"\\(?:expandafter\\)?(NewDocumentEnvironment|newenvironment|newtheorem\*?"
     r"|NewTColorBox|newtcolorbox|ocots@taggedenv|ocotsaliasenv)"
     r"(?:\\expandafter\[[^\]]*\])?\{([^}#\\]+)\}(?:\{([^}#\\]+)\})?")
+
+
+# Le préfixe qu'une définition ajoute au label : dernier argument d'une boîte
+# de résultat, argument de \ocots@compat@prefixlabel, ou `label={ex:#2}`.
+RE_PREFIXE = re.compile(r"\{#3\}\{([a-z]+:)\}|prefixlabel\{([a-z]+:)\}|label=\{([a-z]+:)#\d\}")
 
 
 def sources():
@@ -113,6 +122,26 @@ def verifier(vocab):
                 erreurs.append(f"{nom} : symbole_de_fin={bool(e.get('symbole_de_fin'))}, "
                                f"mais sa définition {'pose' if pose else 'ne pose pas'} "
                                f"de symbole de fin (\\popQED)")
+
+    for nom, (_, _, bloc) in sorted(trouves.items()):
+        m = RE_PREFIXE.search(bloc)
+        # une boîte étoilée (…@beginbox@star) ignore le label : rien d'ajouté
+        ajoute = None
+        if m and "beginbox@star" not in bloc:
+            ajoute = m.group(1) or m.group(2) or m.group(3)
+        declare = envs.get(nom, {}).get("ancienne_syntaxe", {}).get("prefixe")
+        if ajoute != declare:
+            erreurs.append(f"{nom} : sa définition ajoute le préfixe {ajoute!r} au label, "
+                           f"vocabulaire.json déclare {declare!r} (ancienne_syntaxe.prefixe)")
+        # sans doublon : la boîte de résultat et \ocots@compat@prefixlabel
+        # testent le début de la clé (\IfBeginWith) ; `label={ex:#2}` non.
+        if ajoute:
+            sans_doublon = not m.group(3)
+            declare = envs[nom]["ancienne_syntaxe"].get("sans_doublon")
+            if declare is not sans_doublon:
+                fait = "saute" if sans_doublon else "ne saute pas"
+                erreurs.append(f"{nom} : sans_doublon={declare!r}, mais sa définition "
+                               f"{fait} le préfixe déjà présent")
 
     attendus = dict(vocab["supports"]["classes"])
     attendus[None] = vocab["supports"]["defaut"]

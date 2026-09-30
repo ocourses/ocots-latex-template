@@ -72,13 +72,23 @@
       "famille": "resultat"
     },
     "conjecture": {
-      "famille": "resultat"
+      "famille": "resultat",
+      "ancienne_syntaxe": {
+        "forme": "{titre}{clé}",
+        "prefixe": "conj:",
+        "sans_doublon": true
+      }
     },
     "conjecture*": {
       "famille": "resultat"
     },
     "corollary": {
-      "famille": "resultat"
+      "famille": "resultat",
+      "ancienne_syntaxe": {
+        "forme": "{titre}{clé}",
+        "prefixe": "cor:",
+        "sans_doublon": true
+      }
     },
     "corollary*": {
       "famille": "resultat"
@@ -87,7 +97,12 @@
       "famille": "question"
     },
     "definition": {
-      "famille": "definition"
+      "famille": "definition",
+      "ancienne_syntaxe": {
+        "forme": "{titre}{clé}",
+        "prefixe": "def:",
+        "sans_doublon": true
+      }
     },
     "definition*": {
       "famille": "definition"
@@ -140,11 +155,21 @@
     },
     "myconjecture": {
       "alias_de": "conjecture",
-      "deprecie": true
+      "deprecie": true,
+      "ancienne_syntaxe": {
+        "forme": "{titre}{clé}",
+        "prefixe": "conj:",
+        "sans_doublon": true
+      }
     },
     "mycorollary": {
       "alias_de": "corollary",
-      "deprecie": true
+      "deprecie": true,
+      "ancienne_syntaxe": {
+        "forme": "{titre}{clé}",
+        "prefixe": "cor:",
+        "sans_doublon": true
+      }
     },
     "mycorr": {
       "alias_de": "correction",
@@ -156,7 +181,12 @@
     },
     "mydefinition": {
       "alias_de": "definition",
-      "deprecie": true
+      "deprecie": true,
+      "ancienne_syntaxe": {
+        "forme": "{titre}{clé}",
+        "prefixe": "def:",
+        "sans_doublon": true
+      }
     },
     "mydifficulty": {
       "alias_de": "difficulty",
@@ -176,7 +206,12 @@
     },
     "myexercisecb": {
       "alias_de": "exercise",
-      "deprecie": true
+      "deprecie": true,
+      "ancienne_syntaxe": {
+        "forme": "<clé>",
+        "prefixe": "ex:",
+        "sans_doublon": false
+      }
     },
     "myframe": {
       "alias_de": "slide",
@@ -200,7 +235,12 @@
     },
     "myproposition": {
       "alias_de": "proposition",
-      "deprecie": true
+      "deprecie": true,
+      "ancienne_syntaxe": {
+        "forme": "{titre}{clé}",
+        "prefixe": "prop:",
+        "sans_doublon": true
+      }
     },
     "myquestion": {
       "alias_de": "question",
@@ -224,7 +264,12 @@
     },
     "mytheorem": {
       "alias_de": "theorem",
-      "deprecie": true
+      "deprecie": true,
+      "ancienne_syntaxe": {
+        "forme": "{titre}{clé}",
+        "prefixe": "thm:",
+        "sans_doublon": true
+      }
     },
     "myweb": {
       "alias_de": "web",
@@ -263,7 +308,12 @@
       "deprecie": true
     },
     "proposition": {
-      "famille": "resultat"
+      "famille": "resultat",
+      "ancienne_syntaxe": {
+        "forme": "{titre}{clé}",
+        "prefixe": "prop:",
+        "sans_doublon": true
+      }
     },
     "proposition*": {
       "famille": "resultat"
@@ -284,7 +334,12 @@
       "famille": "question"
     },
     "theorem": {
-      "famille": "resultat"
+      "famille": "resultat",
+      "ancienne_syntaxe": {
+        "forme": "{titre}{clé}",
+        "prefixe": "thm:",
+        "sans_doublon": true
+      }
     },
     "theorem*": {
       "famille": "resultat"
