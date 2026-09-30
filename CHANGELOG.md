@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.5.1 — 2026-09-30
+
 ### Corrigé
 
 - **Ancienne syntaxe à clé vide** : `\begin{mydefinition}{Titre}{}` (et
