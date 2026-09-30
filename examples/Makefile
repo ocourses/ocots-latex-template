@@ -46,6 +46,12 @@
 # se cite par \ref avec le numero affiche (2.2, 2.2.2) -- ocots-latex-template#67.
 # Defauts silencieux eux aussi.
 #
+# `check` refuse aussi un label multiplement defini dans variants/compat : une
+# boite de l'ancienne syntaxe a clef vide (`\begin{mydefinition}{Titre}{}',
+# `myexercisecb<>') ne pose pas d'etiquette -- elle posait le prefixe seul,
+# `def:' ou `ex:', une fois par boite. Avertissement seulement pour LaTeX ;
+# erreur pour la CI des cours (ocourses/agents, latex-pr.yml).
+#
 # `check` relit aussi themes/ocots/poly.pdf avec check-numbering.sh : un
 # numero ne designe qu'un seul objet au sein de sa famille (resultats, qui
 # partagent un compteur ; exemples ; remarques), une propriete que « pas
@@ -170,6 +176,10 @@ check:
 	    echo "  variants/$$v : ok"; \
 	  fi; \
 	done; \
+	if grep -aq "multiply defined" variants/build/compat.log 2>/dev/null; then \
+	  echo "  variants/compat : LABEL MULTIPLEMENT DEFINI"; \
+	  grep -a "multiply defined" variants/build/compat.log | sed 's/^/      /'; status=1; \
+	fi; \
 	if (cd variants && latexmk -g -pdf -interaction=nonstopmode -file-line-error \
 	    -emulate-aux-dir -auxdir=build -jobname=paper-preprint-workmark \
 	    paper-preprint-workmark.tex >/dev/null 2>&1); then \

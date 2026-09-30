@@ -10,6 +10,17 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Corrigé
+
+- **Ancienne syntaxe à clé vide** : `\begin{mydefinition}{Titre}{}` (et
+  `mytheorem`, `myproposition`, `mycorollary`, `myconjecture`,
+  `myexercisecb<>`) ne pose plus d'étiquette. Elle posait le préfixe seul
+  (`def:`, `ex:`…) à chaque boîte : label multiplement défini, que la CI
+  des cours refuse désormais (ocourses/agents#41). Le noyau
+  (`\begin{theorem}{Titre}{}`) faisait déjà ainsi. Vérifié par
+  `make check` sur `variants/compat` (témoin négatif : rouge avec
+  l'ancien code).
+
 ---
 
 ## v1.5.0 — 2026-09-30
