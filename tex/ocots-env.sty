@@ -450,11 +450,26 @@ theorem*,definition*,proposition*,corollary*,conjecture*,citedtheorem*}
 % simplement poser son \crefname plus tard : cleveref fige ses formats dans
 % son propre \AtBeginDocument, et tout \crefname execute apres est ignore en
 % silence. D'ou l'inversion : c'est au template de ceder.
+%
+% Les DEUX gardes sont evalues AVANT tout appel. \crefname a un effet de bord
+% (cleveref.sty, \@crefname) : si la variante majuscule n'existe pas encore, il
+% la FABRIQUE en capitalisant le premier lexeme du nom. Ce lexeme est ici
+% \ocotsstring seul, sans son argument : le nom fabrique est casse (« Argument
+% of \ocotsstring has an extra } » au premier \Cref). Evalue apres coup, le
+% garde de \Crefname trouvait ce nom fabrique, le prenait pour un choix du
+% document et sautait le bon \Crefname : jusqu'a v1.5.2, TOUT \Cref cassait la
+% compilation. Un nom pose par le document (texte simple, que cleveref
+% capitalise sans dommage) reste prioritaire, comme avant.
 \newcommand{\ocots@result@crefname}[2]{%
-  \@ifundefined{cref@#1@name}{%
-    \crefname{#1}{\ocotsstring{#2}}{\ocotsstring{#2-plural}}}{}%
-  \@ifundefined{Cref@#1@name}{%
-    \Crefname{#1}{\ocotsstring{#2}}{\ocotsstring{#2-plural}}}{}}
+  \@ifundefined{cref@#1@name}{\@tempswatrue}{\@tempswafalse}%
+  \@ifundefined{Cref@#1@name}%
+    {\let\ocots@result@Crefname\@firstofone}%
+    {\let\ocots@result@Crefname\@gobble}%
+  \if@tempswa
+    \crefname{#1}{\ocotsstring{#2}}{\ocotsstring{#2-plural}}%
+  \fi
+  \ocots@result@Crefname{%
+    \Crefname{#1}{\ocotsstring{#2}}{\ocotsstring{#2-plural}}}}
 
 \AtBeginDocument{%
   \@ifpackageloaded{cleveref}{%

@@ -98,4 +98,12 @@ The data are bounded on $\R$.
 \noindent CREFCHECK Lemmes = \cref{lem:compactness,lem:closedness}\par
 \noindent CREFCHECK Hypothèses = \cref{hyp:regularity,hyp:bounded}\par
 
+% \Cref (forme majuscule) : un, plusieurs, et deux familles melangees.
+% Jusqu'a v1.5.2, TOUT \Cref cassait la compilation : voir
+% \ocots@result@crefname dans ocots-env.sty.
+\noindent CREFCHECK Théorème = \Cref{thm:main}\par
+\noindent CREFCHECK Hypothèse = \Cref{hyp:regularity}\par
+\noindent CREFCHECK Lemmes = \Cref{lem:compactness,lem:closedness}\par
+\noindent CREFCHECK Lemme = \Cref{lem:compactness,thm:main}\par
+
 \end{document}

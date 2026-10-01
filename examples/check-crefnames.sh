@@ -11,8 +11,10 @@
 # qu'un renvoi porte le mauvais nom.
 #
 # Convention, posee par variants/paper-cleveref.tex : une ligne
-#   CREFCHECK <Intitule attendu> = \cref{...}
+#   CREFCHECK <Intitule attendu> = \cref{...}     (ou \Cref{...})
 # doit se rendre en « CREFCHECK <Intitule attendu> = <Intitule attendu> N.M ».
+# Les lignes \Cref existent depuis v1.5.3 : jusque-la, tout \Cref cassait la
+# compilation et rien ne le testait.
 #
 # Usage : check-crefnames.sh <fichier.pdf>
 # Sortie : 0 si tous les renvois portent l'intitule attendu ; 1 sinon.
