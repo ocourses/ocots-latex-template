@@ -10,6 +10,17 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Modifié
+
+- **Compatibilité mathématique** : les redirections de `\Acal`, `\Vcal`,
+  `\Ical`, `\Ecal`, `\Fcal` dans `ocots-compat.sty` pointent désormais vers
+  la macro générique `\calset{}` correspondante (`\calset{A}`, etc.) au lieu
+  d'une macro de concept spécifique (`\Reachable`, `\Neighborhoods`,
+  `\TimeInterval`, `\MultilinearSpace`, `\AllMaps`). Les alias de tribus
+  `\AT`…`\FT` suggèrent également `\calset{}`. Le rendu visuel reste
+  identique, mais l'avertissement de dépréciation ne suggère plus un concept
+  faux (#72).
+
 ---
 
 ## v1.5.1 — 2026-09-30
