@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.5.2 — 2026-10-01
+
 ### Modifié
 
 - **Compatibilité mathématique** : les redirections de `\Acal`, `\Vcal`,
