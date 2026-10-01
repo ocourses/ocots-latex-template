@@ -10,6 +10,20 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Corrigé
+
+- **`\Cref` cassait la compilation**, quel que soit le nombre d'étiquettes
+  (`Argument of \ocotsstring has an extra }`). Dans
+  `\ocots@result@crefname` (`ocots-env.sty`), l'appel à `\crefname` a un
+  effet de bord : cleveref fabrique la variante majuscule en capitalisant le
+  premier lexème du nom, ici `\ocotsstring` privé de son argument. Le garde
+  de `\Crefname`, évalué après coup, prenait ce nom fabriqué pour un choix du
+  document et sautait le bon `\Crefname`. Les deux gardes sont désormais
+  évalués avant tout appel ; un `\crefname` ou un `\Crefname` posé par le
+  document reste prioritaire. `examples/variants/paper-cleveref{,-fr}.tex`
+  testent désormais `\Cref` (une étiquette, plusieurs, familles mêlées),
+  vérifiés par `check-crefnames.sh`.
+
 ---
 
 ## v1.5.2 — 2026-10-01
