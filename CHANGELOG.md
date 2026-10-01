@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.5.3 — 2026-10-01
+
 ### Corrigé
 
 - **`\Cref` cassait la compilation**, quel que soit le nombre d'étiquettes
