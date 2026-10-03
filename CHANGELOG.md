@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.5.4 — 2026-10-03
+
 ### Corrigé
 
 - **Couleur perdue après un saut de page dans une boîte sécable** : une
