@@ -10,6 +10,18 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Corrigé
+
+- **Couleur perdue après un saut de page dans une boîte sécable** : une
+  `correction` placée dans un `exercise` repassait en noir sur la page
+  suivante quand la boîte se coupait. tcolorbox remet la couleur de texte de
+  la boîte au début de chaque morceau et écrase le `\color` posé à
+  l'intérieur. `ocots-packages.sty` active désormais `use color stack` pour
+  toutes les boîtes : la pile de couleurs dédiée de tcolorbox conserve la
+  couleur d'une page à l'autre. Vérifié par compilation d'un `exercise` dont la
+  correction franchit une page (témoin négatif : noir après la coupure avec
+  l'ancien code) ; `make all` vert.
+
 ---
 
 ## v1.5.3 — 2026-10-01

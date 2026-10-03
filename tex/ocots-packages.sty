@@ -71,6 +71,11 @@
 % ---------------------------------------------------------------------------
 % Boites
 \RequirePackage[many,skins,breakable]{tcolorbox}
+% Une boite coupee par un saut de page reprend, sur la page suivante, la
+% couleur de texte de la boite : un \color pose a l'interieur (le bleu de
+% `correction' dans un `exercise') est perdu apres la coupure. La pile de
+% couleurs dediee de tcolorbox (paquet pdfcol) le conserve.
+\tcbset{use color stack}
 \RequirePackage{totcount}
 % verbatim definit deja `comment', que versions exclut a nouveau : on le
 % libere pour eviter l'avertissement « Redefining environment `comment' ».
