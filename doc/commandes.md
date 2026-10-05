@@ -306,8 +306,11 @@ sous-questions.
 \setanswerspace{0pt}
 ```
 
-La place est une boîte vide liée à la fin de l'énoncé : elle ne disparaît pas
-à une coupure de page, et la question n'est pas séparée de sa place.
+Une question qui a une place forme, énoncé et place ensemble, un **bloc
+insécable** : si le tout ne tient pas en bas de page, la question entière passe
+à la page suivante — l'énoncé n'est jamais coupé, la place ne disparaît pas à
+une coupure. Une telle question doit donc tenir sur une page. La place d'une
+question découpée en sous-questions vient après tout son contenu.
 **Ne pas la remplacer par un `\vspace`**, qui s'appliquerait aussi au corrigé.
 L'option `[space=…]` se lit collée à `\begin{question}` : un énoncé qui
 commence par un crochet, à la ligne, reste du texte.

@@ -25,8 +25,9 @@
     \begin{question}[space=5cm]
         [E] Question avec sa propre valeur, 5cm.
     \end{question}
-    \begin{question}
-        [F] Question découpée :
+    \begin{question}[space=0pt]
+        [F] Question découpée, sans place propre (elle viendrait après ses
+        sous-questions) :
         \begin{subquestion}
             [G] sous-question sans espace (pas de défaut pour les sous-questions) ;
         \end{subquestion}
@@ -46,5 +47,67 @@
     \end{question}
     \answerspace[2cm]
     [K] Après un espace isolé de 2cm.
+\end{exercise}
+
+% Coupures de page : chaque question et sa place forment un bloc insécable.
+% check-answerspace.sh vérifie que [X] et @X restent sur la même page.
+\begin{exercise}[answerspace=4cm]
+    Questions à 4cm : la série franchit plusieurs pages.
+    \begin{question}
+        [L] Énoncé coupé par une formule centrée, endroit où une page se coupe volontiers :
+        \[
+            \int_0^1 f(x) \, \mathrm{d}x = 0,
+        \]
+        et suite de l'énoncé, qui ne doit pas être séparée de sa place. @L
+    \end{question}
+    \begin{question}
+        [M] Énoncé coupé par une formule centrée, endroit où une page se coupe volontiers :
+        \[
+            \int_0^1 f(x) \, \mathrm{d}x = 0,
+        \]
+        et suite de l'énoncé, qui ne doit pas être séparée de sa place. @M
+    \end{question}
+    \begin{question}
+        [N] Énoncé coupé par une formule centrée, endroit où une page se coupe volontiers :
+        \[
+            \int_0^1 f(x) \, \mathrm{d}x = 0,
+        \]
+        et suite de l'énoncé, qui ne doit pas être séparée de sa place. @N
+    \end{question}
+    \begin{question}
+        [O] Énoncé coupé par une formule centrée, endroit où une page se coupe volontiers :
+        \[
+            \int_0^1 f(x) \, \mathrm{d}x = 0,
+        \]
+        et suite de l'énoncé, qui ne doit pas être séparée de sa place. @O
+    \end{question}
+    \begin{question}
+        [P] Énoncé coupé par une formule centrée, endroit où une page se coupe volontiers :
+        \[
+            \int_0^1 f(x) \, \mathrm{d}x = 0,
+        \]
+        et suite de l'énoncé, qui ne doit pas être séparée de sa place. @P
+    \end{question}
+    \begin{question}
+        [Q] Énoncé coupé par une formule centrée, endroit où une page se coupe volontiers :
+        \[
+            \int_0^1 f(x) \, \mathrm{d}x = 0,
+        \]
+        et suite de l'énoncé, qui ne doit pas être séparée de sa place. @Q
+    \end{question}
+    \begin{question}
+        [R] Énoncé coupé par une formule centrée, endroit où une page se coupe volontiers :
+        \[
+            \int_0^1 f(x) \, \mathrm{d}x = 0,
+        \]
+        et suite de l'énoncé, qui ne doit pas être séparée de sa place. @R
+    \end{question}
+    \begin{question}
+        [S] Énoncé coupé par une formule centrée, endroit où une page se coupe volontiers :
+        \[
+            \int_0^1 f(x) \, \mathrm{d}x = 0,
+        \]
+        et suite de l'énoncé, qui ne doit pas être séparée de sa place. @S
+    \end{question}
 \end{exercise}
 \setanswerspace{0pt}

@@ -12,6 +12,9 @@
 # consecutifs sur la meme page, et on le compare a l'attendu (cm, a 0,3 pres,
 # hors ecart de base d'une ligne de question).
 #
+# Les questions [L]..[S] verifient en plus qu une question a place n est
+# jamais coupee par un saut de page.
+#
 # Usage : check-answerspace.sh <none.pdf> <inline.pdf>
 # Sortie : 0 si tout est conforme ; 1 sinon.
 #
@@ -61,5 +64,26 @@ for mode, pdf in (('none', sys.argv[1]), ('inline', sys.argv[2])):
         mesure = g[k] - base[k]
         if abs(mesure - extra) > 0.3:
             print(f"{mode} : {k[0]}->{k[1]} laisse {mesure:.2f} cm de plus que l'ecart de base, attendu {extra} cm"); ok = False
+# Coupures : en solutions=none, l'enonce d'une question a place n'est jamais
+# coupe -- son debut [X] et sa fin @X sont sur la meme page.
+out = subprocess.run(['pdftotext', '-bbox', sys.argv[1], '-'], capture_output=True, text=True).stdout
+debut, fin, page = {}, {}, 0
+for l in out.splitlines():
+    if '<page' in l:
+        page += 1
+    m = re.search(r'>\[([L-S])\]<', l)
+    if m:
+        debut[m.group(1)] = page
+    m = re.search(r'>@([L-S])<', l)
+    if m:
+        fin[m.group(1)] = page
+pages = set(debut.values())
+for c in "LMNOPQRS":
+    if c not in debut or c not in fin:
+        print(f"none : marqueurs [{c}]/@{c} introuvables"); ok = False
+    elif debut[c] != fin[c]:
+        print(f"none : la question [{c}] est coupee entre les pages {debut[c]} et {fin[c]}"); ok = False
+if len(pages) < 2:
+    print("none : la serie de questions ne franchit aucune page, le test ne prouve rien"); ok = False
 sys.exit(0 if ok else 1)
 PY

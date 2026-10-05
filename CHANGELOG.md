@@ -10,6 +10,19 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Corrigé
+
+- **Énoncé coupé de sa place de réponse** (v1.7.0) : la place était liée à
+  la seule dernière ligne de l'énoncé (`\nobreak`). Quand une question
+  tombait en bas de page, sa dernière ligne partait avec la place sur la page
+  suivante, le reste de l'énoncé restant au-dessus — cas d'un énoncé coupé
+  après une formule centrée, dans une boîte d'exercice sécable. Une question
+  qui a une place est désormais composée, énoncé et place ensemble, dans un
+  bloc insécable ; son espacement de liste est posé hors du bloc, où il se
+  fusionne avec celui des questions voisines. `check-answerspace.sh` vérifie
+  en plus qu'aucun énoncé n'est coupé (témoin négatif : sans le bloc, deux
+  questions coupées).
+
 ---
 
 ## v1.7.0 — 2026-10-05
