@@ -83,8 +83,13 @@
 % et ses sous-questions.
 %
 % L'espace est une boite vide, pas un \vspace : un \vspace tombe a la coupure
-% de page et disparait, la boite garantit la place. Le \nobreak la lie a la
-% fin de l'enonce, pour que la question ne soit pas separee de sa place.
+% de page et disparait, la boite garantit la place. Une question qui a une
+% place est composee, enonce et place ensemble, dans une seule boite
+% insecable : si le tout ne tient pas en bas de page, la question entiere
+% passe a la page suivante (y compris dans une boite d'exercice secable, que
+% tcolorbox coupe par \vsplit). Lier la place a la seule derniere ligne
+% (\nobreak) coupait l'enonce en deux. Revers : une telle question doit tenir
+% sur une page.
 % L'option ne se lit que collee a \begin{question} (argument `!O' de
 % xparse) : un enonce qui commence par un crochet, a la ligne, reste du texte.
 % \setanswerspace est global : une partie n'est pas un groupe, et la valeur
@@ -95,13 +100,33 @@
 \newcommand{\setanswerspace}[1]{\xdef\ocots@as@default{#1}}
 \tcbset{answerspace/.code={\def\ocots@as@exercise{#1}}}
 \pgfqkeys{/ocots/question}{space/.store in=\ocots@as@local}
+\newbox\ocots@as@box
+\newif\ifocots@as@boxed
 \ifx\ocots@solutions\ocots@sol@none
   \newcommand{\ocots@as@put}[1]{%
     \ifdim\dimexpr#1\relax>\z@
       \par\nobreak\vbox to\dimexpr#1\relax{}\par
     \fi}
+  % Ouverture et fermeture du bloc insecable d'une question qui a une place.
+  % L'espacement de la question (\topsep) est pose hors de la boite, ou il se
+  % fusionne avec celui des questions voisines ; dans la boite, la liste n'en a
+  % pas -- sinon il s'ajouterait a la place.
+  \newcommand{\ocots@as@flat}{%
+    \ifocots@as@boxed\topsep\z@skip\partopsep\z@skip\fi}
+  \newcommand{\ocots@as@open}{%
+    \ifdim\dimexpr\ocots@as@local\relax>\z@
+      \ocots@as@boxedtrue\par\addvspace{6\p@\@plus6\p@}%
+      \setbox\ocots@as@box\vbox\bgroup
+    \else
+      \ocots@as@boxedfalse
+    \fi}
+  \newcommand{\ocots@as@close}{%
+    \ifocots@as@boxed\par\egroup\box\ocots@as@box\addvspace{6\p@\@plus6\p@}\fi}
 \else
   \newcommand{\ocots@as@put}[1]{}
+  \newcommand{\ocots@as@open}{}
+  \newcommand{\ocots@as@close}{}
+  \newcommand{\ocots@as@flat}{}
 \fi
 % Valeur en vigueur hors space= : celle de l'exercice, sinon celle du document.
 \newcommand{\ocots@as@current}{%
@@ -110,7 +135,8 @@
 
 \NewDocumentEnvironment{question}{!O{}}
   {\def\ocots@as@local{\ocots@as@current}\pgfqkeys{/ocots/question}{#1}%
-   \normalsize\normalfont\topsep6\p@\@plus6\p@\relax\trivlist
+   \ocots@as@open
+   \normalsize\normalfont\topsep6\p@\@plus6\p@\relax\ocots@as@flat\trivlist
    \refstepcounter{question}%
    \ifocots@exam
      \item[\bfseries\hspace{0.5em}\hskip\labelsep
@@ -119,11 +145,12 @@
      \item[\bfseries\hspace{0.5em}\hskip\labelsep
            \thequestion\@addpunct{.}]\ignorespaces
    \fi}
-  {\ocots@as@put{\ocots@as@local}\endtrivlist}
+  {\ocots@as@put{\ocots@as@local}\endtrivlist\ocots@as@close}
 
 \NewDocumentEnvironment{subquestion}{!O{}}
   {\def\ocots@as@local{0pt}\pgfqkeys{/ocots/question}{#1}%
-   \normalsize\normalfont\topsep6\p@\@plus6\p@\relax\trivlist
+   \ocots@as@open
+   \normalsize\normalfont\topsep6\p@\@plus6\p@\relax\ocots@as@flat\trivlist
    \refstepcounter{subquestion}%
    \ifocots@exam
      \item[\bfseries\hspace{1.5em}\hskip\labelsep
@@ -132,7 +159,7 @@
      \item[\bfseries\hspace{1.5em}\hskip\labelsep
            \thequestion\@addpunct{.}\thesubquestion\@addpunct{.}]\ignorespaces
    \fi}
-  {\ocots@as@put{\ocots@as@local}\endtrivlist}
+  {\ocots@as@put{\ocots@as@local}\endtrivlist\ocots@as@close}
 
 % Force le passage a la question suivante (utile dans un corrige redige a part).
 \newcommand{\newquestion}{\stepcounter{question}}
