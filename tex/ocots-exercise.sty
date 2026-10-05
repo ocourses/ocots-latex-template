@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ocots-exercise}[2026/09/03 v1.0 ocots -- exercices et corriges]
+\ProvidesPackage{ocots-exercise}[2026/10/05 v1.1 ocots -- exercices et corriges]
 %
 % Un seul mecanisme d'exercice, avec un interrupteur qui marche.
 %
@@ -61,8 +61,56 @@
 \def\theHquestion{\theHsection.\theocots@exinner.\arabic{question}}
 \def\theHsubquestion{\theHquestion.\arabic{subquestion}}
 
-\newenvironment{question}
-  {\normalsize\normalfont\topsep6\p@\@plus6\p@\relax\trivlist
+% ---------------------------------------------------------------------------
+% Espace de reponse
+%
+% Dans un sujet ou l'etudiant repond sur la feuille, chaque question laisse
+% sous elle la place d'ecrire. Cette place n'a de sens que dans le sujet
+% distribue (solutions=none) : des que les corriges sont composes (inline,
+% end), le document n'est plus celui que l'etudiant remplit, et aucun espace
+% n'est pose -- qu'il y ait une correction ou non.
+%
+%   \setanswerspace{3cm}             valeur par defaut des questions qui suivent
+%   \setanswerspace{0pt}             ... et on l'arrete (defaut : 0, aucun espace)
+%   \begin{exercise}[answerspace=4cm]  valeur par defaut dans cet exercice
+%   \begin{question}[space=6cm]      valeur propre a une question
+%   \begin{subquestion}[space=2cm]   une sous-question n'a d'espace qu'explicite
+%   \answerspace[5cm]                espace isole, hors question
+%
+% Priorite : space= de la question, puis answerspace= de l'exercice, puis
+% \setanswerspace. La valeur par defaut ne vaut que pour `question' : une
+% question decoupee en sous-questions aurait sinon un blanc entre son enonce
+% et ses sous-questions.
+%
+% L'espace est une boite vide, pas un \vspace : un \vspace tombe a la coupure
+% de page et disparait, la boite garantit la place. Le \nobreak la lie a la
+% fin de l'enonce, pour que la question ne soit pas separee de sa place.
+% L'option ne se lit que collee a \begin{question} (argument `!O' de
+% xparse) : un enonce qui commence par un crochet, a la ligne, reste du texte.
+% \setanswerspace est global : une partie n'est pas un groupe, et la valeur
+% doit traverser les exercices qui la composent.
+\def\ocots@sol@none{none}
+\def\ocots@as@default{0pt}
+\def\ocots@as@exercise{}
+\newcommand{\setanswerspace}[1]{\xdef\ocots@as@default{#1}}
+\tcbset{answerspace/.code={\def\ocots@as@exercise{#1}}}
+\pgfqkeys{/ocots/question}{space/.store in=\ocots@as@local}
+\ifx\ocots@solutions\ocots@sol@none
+  \newcommand{\ocots@as@put}[1]{%
+    \ifdim\dimexpr#1\relax>\z@
+      \par\nobreak\vbox to\dimexpr#1\relax{}\par
+    \fi}
+\else
+  \newcommand{\ocots@as@put}[1]{}
+\fi
+% Valeur en vigueur hors space= : celle de l'exercice, sinon celle du document.
+\newcommand{\ocots@as@current}{%
+  \ifx\ocots@as@exercise\@empty\ocots@as@default\else\ocots@as@exercise\fi}
+\newcommand{\answerspace}[1][\ocots@as@current]{\ocots@as@put{#1}}
+
+\NewDocumentEnvironment{question}{!O{}}
+  {\def\ocots@as@local{\ocots@as@current}\pgfqkeys{/ocots/question}{#1}%
+   \normalsize\normalfont\topsep6\p@\@plus6\p@\relax\trivlist
    \refstepcounter{question}%
    \ifocots@exam
      \item[\bfseries\hspace{0.5em}\hskip\labelsep
@@ -71,10 +119,11 @@
      \item[\bfseries\hspace{0.5em}\hskip\labelsep
            \thequestion\@addpunct{.}]\ignorespaces
    \fi}
-  {\endtrivlist}
+  {\ocots@as@put{\ocots@as@local}\endtrivlist}
 
-\newenvironment{subquestion}
-  {\normalsize\normalfont\topsep6\p@\@plus6\p@\relax\trivlist
+\NewDocumentEnvironment{subquestion}{!O{}}
+  {\def\ocots@as@local{0pt}\pgfqkeys{/ocots/question}{#1}%
+   \normalsize\normalfont\topsep6\p@\@plus6\p@\relax\trivlist
    \refstepcounter{subquestion}%
    \ifocots@exam
      \item[\bfseries\hspace{1.5em}\hskip\labelsep
@@ -83,7 +132,7 @@
      \item[\bfseries\hspace{1.5em}\hskip\labelsep
            \thequestion\@addpunct{.}\thesubquestion\@addpunct{.}]\ignorespaces
    \fi}
-  {\endtrivlist}
+  {\ocots@as@put{\ocots@as@local}\endtrivlist}
 
 % Force le passage a la question suivante (utile dans un corrige redige a part).
 \newcommand{\newquestion}{\stepcounter{question}}
@@ -183,7 +232,6 @@
 % variante etoilee exercise* reprend le premier sans le second.
 \tcbset{ocots@ex@common/.style={ocots@ex@base, before title={\ocots@exstep}}}
 
-\def\ocots@sol@none{none}
 \def\ocots@sol@inline{inline}
 \ifx\ocots@solutions\ocots@sol@none
   % ----- solutions=none : la partie basse est ignoree, rien n'est ecrit.

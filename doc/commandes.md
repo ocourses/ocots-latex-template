@@ -274,6 +274,44 @@ l'Exercice~\ref{ex:y} »).
 D'après la question~\ref{q:borne}, …
 ```
 
+### Espace de réponse (sujet à compléter)
+
+Quand l'étudiant répond **sur le sujet**, une question laisse sous elle la
+place d'écrire. Cette place n'existe que dans le sujet distribué
+(`solutions=none`) : dès que les corrigés sont composés (`inline`, `end`), le
+document n'est plus celui que l'étudiant remplit, et aucun espace n'est
+posé, qu'il y ait une correction ou non.
+
+| réglage | portée |
+|---------|--------|
+| `\setanswerspace{3cm}` | valeur par défaut des `question` qui suivent (`0pt` pour l'arrêter ; défaut : `0pt`) |
+| `\begin{exercise}[answerspace=4cm]` | valeur par défaut dans cet exercice |
+| `\begin{question}[space=6cm]` | valeur propre à une question (`space=0pt` : aucune place) |
+| `\begin{subquestion}[space=2cm]` | une sous-question n'a d'espace qu'explicite |
+| `\answerspace`, `\answerspace[5cm]` | espace isolé, hors question (valeur en vigueur par défaut) |
+
+Priorité : `space=` de la question, puis `answerspace=` de l'exercice, puis
+`\setanswerspace`. La valeur par défaut ne s'applique pas aux sous-questions :
+une question découpée aurait sinon un blanc entre son énoncé et ses
+sous-questions.
+
+```latex
+\begin{docpart}Cette partie est à répondre sur le sujet\end{docpart}
+\setanswerspace{3cm}
+\begin{exercise}
+    \begin{question} … \end{question}             % 3cm dans le sujet
+    \begin{correction} … \end{correction}         % le corrigé, lui, n'a pas de blanc
+    \begin{question}[space=6cm] … \end{question}
+\end{exercise}
+\setanswerspace{0pt}
+```
+
+La place est une boîte vide liée à la fin de l'énoncé : elle ne disparaît pas
+à une coupure de page, et la question n'est pas séparée de sa place.
+**Ne pas la remplacer par un `\vspace`**, qui s'appliquerait aussi au corrigé.
+L'option `[space=…]` se lit collée à `\begin{question}` : un énoncé qui
+commence par un crochet, à la ligne, reste du texte.
+
 ### Correction hors boîte (TD, examen)
 
 ```latex
