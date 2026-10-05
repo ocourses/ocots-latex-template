@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.7.0 — 2026-10-05
+
 ### Ajouté
 
 - **Espace de réponse dans un sujet à compléter** (#85) : `\setanswerspace`,
