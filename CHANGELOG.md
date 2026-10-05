@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.6.1 — 2026-10-05
+
 ### Corrigé
 
 - **En-tête de partie collé au texte qui précède** : `docpart` (« Partie 1. … »
