@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.7.1 — 2026-10-05
+
 ### Corrigé
 
 - **Énoncé coupé de sa place de réponse** (v1.7.0) : la place était liée à
