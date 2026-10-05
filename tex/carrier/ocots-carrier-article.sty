@@ -136,8 +136,11 @@
 \newtheorem*{instruction}{\ocotsstring{instruction}}
 \newtheorem*{instructions}{\ocotsstring{instructions}}
 \newtheorem{ocots@docpart}{\ocotsstring{part}}
+% Une partie ouvre un nouveau bloc du sujet : un grand saut la detache de ce
+% qui precede (consignes, exercice). \addvspace ne s'ajoute pas a un espace
+% deja pose, il le complete.
 \newenvironment{docpart}[1][]
-  {\ocots@startpart\begin{ocots@docpart}[#1]}
+  {\ocots@startpart\par\addvspace{1.5\bigskipamount}\begin{ocots@docpart}[#1]}
   {\end{ocots@docpart}}
 
 \endinput
