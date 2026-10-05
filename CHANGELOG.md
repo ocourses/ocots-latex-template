@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.6.0 — 2026-10-05
+
 ### Ajouté
 
 - **Module `measure` : espaces ℒᵖ et bornes essentielles**
