@@ -10,6 +10,18 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Ajouté
+
+- **Espace de réponse dans un sujet à compléter** (#85) : `\setanswerspace`,
+  l'option `answerspace=` d'un `exercise`, l'option `space=` d'une `question`
+  ou d'une `subquestion`, et `\answerspace[…]` pour un espace isolé. La place
+  n'est posée qu'en `solutions=none`, le sujet distribué ; en `inline` et
+  `end`, aucune. Défaut `0pt` : un document qui ne s'en sert pas ne change
+  pas. La place est une boîte vide liée à l'énoncé, qui ne tombe pas à une
+  coupure de page. Les sujets réglaient jusqu'ici cette place par un
+  `\vspace` à la main, posé aussi dans le corrigé. Vérifié par
+  `variants/answerspace-{none,inline}` et `check-answerspace.sh`.
+
 ---
 
 ## v1.6.1 — 2026-10-05

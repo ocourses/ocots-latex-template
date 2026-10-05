@@ -1,0 +1,50 @@
+% Corps partagé par variants/answerspace-{none,inline}.tex : espace de réponse.
+% Les marqueurs [A]…[I] permettent à check-answerspace.sh de mesurer les écarts.
+\begin{exercise}
+    Sans réglage, aucune question ne laisse de place.
+    \begin{question}
+        [A] Question sans espace.
+    \end{question}
+    \begin{question}
+        [B] Question suivante.
+    \end{question}
+\end{exercise}
+
+\setanswerspace{3cm}
+\begin{exercise}
+    Valeur par défaut du document : 3cm.
+    \begin{question}
+        [C] Question avec la valeur par défaut.
+    \end{question}
+    \begin{correction}
+        Correction de C : elle remplace la place laissée dans le sujet.
+    \end{correction}
+    \begin{question}[space=0pt]
+        [D] Question sans espace malgré la valeur par défaut.
+    \end{question}
+    \begin{question}[space=5cm]
+        [E] Question avec sa propre valeur, 5cm.
+    \end{question}
+    \begin{question}
+        [F] Question découpée :
+        \begin{subquestion}
+            [G] sous-question sans espace (pas de défaut pour les sous-questions) ;
+        \end{subquestion}
+        \begin{subquestion}[space=2cm]
+            [H] sous-question avec 2cm.
+        \end{subquestion}
+    \end{question}
+\end{exercise}
+
+\begin{exercise}[answerspace=1cm]
+    Valeur de l'exercice : 1cm.
+    \begin{question}
+        [I] Question avec la valeur de l'exercice.
+    \end{question}
+    \begin{question}
+        [J] Dernière question.
+    \end{question}
+    \answerspace[2cm]
+    [K] Après un espace isolé de 2cm.
+\end{exercise}
+\setanswerspace{0pt}

@@ -46,6 +46,11 @@
 # se cite par \ref avec le numero affiche (2.2, 2.2.2) -- ocots-latex-template#67.
 # Defauts silencieux eux aussi.
 #
+# `check` relit aussi variants/answerspace-{none,inline}.pdf avec
+# check-answerspace.sh : une question laisse la place de reponse demandee dans
+# le sujet (solutions=none) et aucune dans le corrige -- ocots-latex-template#85.
+# Defaut silencieux lui aussi.
+#
 # `check` refuse aussi un label multiplement defini dans variants/compat : une
 # boite de l'ancienne syntaxe a clef vide (`\begin{mydefinition}{Titre}{}',
 # `myexercisecb<>') ne pose pas d'etiquette -- elle posait le prefixe seul,
@@ -82,7 +87,8 @@ THEME_VARIANTS := $(foreach t,$(THEMES), \
 VARIANTS := fr-none fr-inline en-end compat header-article slides-hook slides-appendix \
             math-modules draft binding institution-inp institution-insa \
             paper-preprint paper-draft paper-fr \
-            paper-cleveref paper-cleveref-fr spacing qed-lone td-numbering
+            paper-cleveref paper-cleveref-fr spacing qed-lone td-numbering \
+            answerspace-none answerspace-inline
 
 # Le template est trouvé par TEXINPUTS : les documents n'ont plus de chemin
 # relatif à tenir à jour, contrairement au \relativePath de la v0 (défaut D12).
@@ -227,6 +233,12 @@ check:
 	    echo "  variants/td-numbering : NUMEROTATION DE TD ERRONEE"; echo "$$bad" | sed 's/^/      /'; status=1; }; \
 	else \
 	  echo "  variants/td-numbering : PDF non produit"; status=1; \
+	fi; \
+	if [ -f variants/answerspace-none.pdf ] && [ -f variants/answerspace-inline.pdf ]; then \
+	  bad=$$(./check-answerspace.sh variants/answerspace-none.pdf variants/answerspace-inline.pdf 2>&1) || { \
+	    echo "  variants/answerspace : ESPACE DE REPONSE ERRONE"; echo "$$bad" | sed 's/^/      /'; status=1; }; \
+	else \
+	  echo "  variants/answerspace : PDF non produit"; status=1; \
 	fi; \
 	if [ -f themes/ocots/poly.pdf ]; then \
 	  dups=$$(./check-numbering.sh themes/ocots/poly.pdf 2>&1) || { \
