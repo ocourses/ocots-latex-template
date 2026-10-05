@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ocots-math-measure}[2026/09/11 v1.1 ocots -- mesure et integration]
+\ProvidesPackage{ocots-math-measure}[2026/10/05 v1.2 ocots -- mesure et integration]
 %
 % Notations du cours de mesure et integration. Charge par math=measure.
 
@@ -11,6 +11,16 @@
 % Fonctions mesurables et etagees
 \newcommand{\Measurable}{\ocots@calSpecialSet{M}{\mathcal{M}}}
 \newcommand{\Simple}{\ocots@calSpecialSet{E}{\mathcal{E}}}
+
+% Espaces de fonctions integrables : \Integrable, \Integrable{p}. Meme
+% lettre que \ContinuousLinear, qui designe les applications lineaires
+% continues : le nom dit le concept, la police suit l'option calfont.
+\DeclareDocumentCommand\Integrable{g}{%
+  \IfNoValueTF{#1}{\ocots@calSet{L}}{\ocots@calSet{L}^{#1}}}
+
+% Bornes essentielles, nommees selon la langue (sup ess / ess sup)
+\DeclareMathOperator{\esssup}{\ocotsstring{op-esssup}}
+\DeclareMathOperator{\essinf}{\ocotsstring{op-essinf}}
 
 % Classes d'equivalence et convergences
 \newcommand{\eqclass}[1]{[#1]}
