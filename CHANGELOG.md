@@ -10,6 +10,16 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Corrigé
+
+- **En-tête de partie collé au texte qui précède** : `docpart` (« Partie 1. … »
+  dans un sujet d'examen) n'avait que l'espacement d'un théorème et se collait
+  à une liste de consignes ou à la fin d'un exercice ; les sujets
+  compensaient par un `\bigskip` à la main, contraire à la convention C6.
+  `docpart` pose désormais `\addvspace{1.5\bigskipamount}` avant l'en-tête :
+  l'espace complète celui qui est déjà posé sans s'y ajouter, donc un sujet
+  qui garde son `\bigskip` ne change pas.
+
 ---
 
 ## v1.6.0 — 2026-10-05
