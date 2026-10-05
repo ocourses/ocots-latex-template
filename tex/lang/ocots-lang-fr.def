@@ -83,6 +83,7 @@
 % Abréviations textuelles
 \ocotssetstring{ie}{i.e.}
 \ocotssetstring{cf}{cf.}
+\ocotssetstring{resp}{resp.}
 
 % --------------------------------------------------------------------------
 % Blocs annexes
@@ -101,5 +102,7 @@
 \ocotssetstring{op-argsinh}{argsh}
 \ocotssetstring{op-minimize}{minimiser}
 \ocotssetstring{op-graph}{graphe}
+\ocotssetstring{op-esssup}{sup\,ess}
+\ocotssetstring{op-essinf}{inf\,ess}
 
 \endinput

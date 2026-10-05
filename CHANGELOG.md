@@ -10,6 +10,19 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Ajouté
+
+- **Module `measure` : espaces ℒᵖ et bornes essentielles**
+  (ocourses/ocots-latex-template#70). `\Integrable` / `\Integrable{p}`
+  compose ℒ / ℒᵖ, avec la même lettre et la même option `calfont` que
+  `\ContinuousLinear`, réservé aux applications linéaires continues.
+  `\esssup` et `\essinf` sont des opérateurs nommés selon la langue :
+  sup ess, inf ess en français, ess sup, ess inf en anglais. Un document qui
+  les définissait lui-même par `\DeclareMathOperator` doit retirer sa
+  définition.
+- **`\resp`**, abréviation localisée « resp. », sur le modèle de `\ie` et
+  `\cf` ; la convention C1 d'ocots-conventions la citait déjà.
+
 ---
 
 ## v1.5.4 — 2026-10-03

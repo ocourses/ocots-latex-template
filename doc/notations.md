@@ -20,10 +20,11 @@ des accolades.
 | `calfont` | `custom`, `scr`, `cal` | `custom` | police des familles nommées : `\mathscr` ou `\mathcal` |
 
 Le mode `custom` est le défaut : les macros de familles calligraphiques sont
-composées en `\mathcal`, à l'exception de `\ContinuousLinear` et `\Cclass`
-(espaces d'applications linéaires continues, classe `C^k`) qui conservent
+composées en `\mathcal`, à l'exception de `\ContinuousLinear`, `\Integrable` et `\Cclass`
+(espaces d'applications linéaires continues, de fonctions intégrables, classe
+`C^k`) qui conservent
 `\mathscr`, notation historique du domaine. `calfont=cal` impose `\mathcal`
-partout, y compris pour `\ContinuousLinear` et `\Cclass` ; `calfont=scr`
+partout, y compris pour `\ContinuousLinear`, `\Integrable` et `\Cclass` ; `calfont=scr`
 impose `\mathscr` partout. Par exemple, `\usepackage[setfont=rm,
 calfont=cal]{ocots}` compose `\R` en `\mathrm{R}` et toutes les macros de
 familles, sans exception, en `\mathcal`.
@@ -152,6 +153,8 @@ l’homotopie :
 | `\PowerSet` | ensemble des parties |
 | `\Measurable` | fonctions mesurables |
 | `\Simple` | fonctions étagées |
+| `\Integrable` / `\Integrable{p}` | espaces `\mathscr{L}` / `\mathscr{L}^p` des fonctions intégrables / de puissance `p`-ième intégrable (`\mathcal` avec `calfont=cal`) ; les quotients `L^p` s'écrivent en lettre droite |
+| `\esssup`, `\essinf` | bornes supérieure et inférieure essentielles : sup ess, inf ess (`lang=fr`), ess sup, ess inf (`lang=en`) |
 | `\eqclass{x}` | classe d’équivalence de `x` |
 | `\convae` | convergence presque partout |
 

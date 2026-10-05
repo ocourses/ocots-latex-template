@@ -301,7 +301,7 @@ négatif.**
 | `\breakline` | saut de ligne sans alinéa (`~\\ \vspace{-\baselineskip}`) |
 | `\HRule` | filet pleine largeur, fin |
 | `\myurl{…}` | `\href{url}{url}` |
-| `\ie` `\cf` | abréviations localisées, avec espacement automatique |
+| `\ie` `\cf` `\resp` | abréviations localisées (i.e., cf., resp.), avec espacement automatique |
 
 ### Guillemets
 
