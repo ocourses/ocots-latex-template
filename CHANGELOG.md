@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.8.0 — 2026-10-06
+
 ### Ajouté
 
 - **Espacement des points de texte** : `\pointsetup{top=...}` règle l'espace
