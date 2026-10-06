@@ -10,6 +10,12 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Ajouté
+
+- **Espacement des points de texte** : `\pointsetup{top=...}` règle l'espace
+  supérieur par défaut de `\point`, et l'option ponctuelle `[top=...]` le
+  surcharge ; `\newpoint` reste disponible comme alias de compatibilité.
+
 ---
 
 ## v1.7.1 — 2026-10-05

@@ -32,7 +32,28 @@
 % Divers
 \newcommand{\noi}{\noindent}
 \newcommand{\HRule}{\noindent\rule{\linewidth}{0.3mm}}
-\newcommand{\newpoint}{\emphA{\raisebox{0pt}{\textbullet}~}}
+
+% Une suite de points reste une suite de paragraphes, pas une liste LaTeX :
+% l'espace avant chaque point peut donc se régler sans toucher au document.
+\def\ocots@point@top{0pt}
+\pgfqkeys{/ocots/point/setup}{%
+  top/.store in=\ocots@point@top,
+}
+\newcommand{\pointsetup}[1]{\pgfqkeys{/ocots/point/setup}{#1}}
+\NewDocumentCommand{\point}{O{}}{%
+  \begingroup
+  \let\ocots@point@localtop\ocots@point@top
+  \pgfqkeys{/ocots/point/local}{%
+    top/.store in=\ocots@point@localtop,
+    #1,
+  }%
+  \par\addvspace{\ocots@point@localtop}%
+  \noindent\emphA{\raisebox{0pt}{\textbullet}~}%
+  \endgroup
+  \ignorespaces
+}
+\NewDocumentCommand{\newpoint}{O{}}{\point[#1]}
+
 \newcommand{\breakline}{~\\ \vspace{-\baselineskip}}
 \newcommand*\myurl[1]{\url{#1}}
 \newcommand\ie{\textit{\ocotsstring{ie}}\xspace}
