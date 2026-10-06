@@ -355,19 +355,36 @@ theorem*,definition*,proposition*,corollary*,conjecture*,citedtheorem*}
 %
 % Marqueur triangulaire en tete, carre noir en fin, retrait et couleur donnes
 % par le theme.
+%
+% Un titre donne en argument (\begin{proof}[Idee]) est suivi d'un point, comme
+% le titre de \newstep ; \@addpunct n'en ajoute pas si le titre se termine deja
+% par une ponctuation forte. Le titre par defaut (\ocotsproofname, marqueur ou
+% nom selon le theme) reste compose tel quel.
+\def\ocots@proof@default{\ocotsproofname}
+\def\ocots@proofbegin@default{\ocots@proofbeginmarker}
+\newcommand{\ocots@proofbeginmarker}{{\color{\ocotscolor{proof}}$\RHD$}}
+\newcommand{\ocots@prooflabel}[1]{%
+  \def\ocots@proof@title{#1}%
+  \ifx\ocots@proof@title\ocots@proof@default
+    #1%
+  \else\ifx\ocots@proof@title\ocots@proofbegin@default
+    #1%
+  \else
+    #1\@addpunct{.}%
+  \fi\fi}
 \newenvironment{proof}[1][\ocotsproofname]
   {\par\ocots@pushqed{\color{\ocotscolor{proof}}\ocotsproofqed}%
    \normalsize\normalfont\topsep6\p@\@plus6\p@\relax
-   \trivlist\item[\hskip\labelsep\itshape#1\@addpunct{}]\ignorespaces}
+   \trivlist\item[\hskip\labelsep\itshape\ocots@prooflabel{#1}]\ignorespaces}
   {\popQED\endtrivlist\@endpefalse}
 \tcolorboxenvironment{proof}{\ocotsboxstyle{proof}}
 
 % Preuve etalee sur plusieurs diapositives : debut, milieu, fin. Seule la fin
 % pose le carre final.
-\newenvironment{proofbegin}[1][{\color{\ocotscolor{proof}}$\RHD$}]
+\newenvironment{proofbegin}[1][\ocots@proofbeginmarker]
   {\par\ocots@pushqed{\color{\ocotscolor{proof}}\ocotsproofqed}%
    \normalsize\normalfont\topsep6\p@\@plus6\p@\relax
-   \trivlist\item[\hskip\labelsep\itshape#1\@addpunct{}]\ignorespaces}
+   \trivlist\item[\hskip\labelsep\itshape\ocots@prooflabel{#1}]\ignorespaces}
   {\endtrivlist\@endpefalse}
 \newenvironment{proofmiddle}[1][]
   {\par\ocots@pushqed{\color{\ocotscolor{proof}}\ocotsproofqed}\normalsize\normalfont}
