@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.9.0 — 2026-10-06
+
 ### Changé
 
 - **Titre de preuve ponctué** : un titre passé à `proof` ou `proofbegin`
