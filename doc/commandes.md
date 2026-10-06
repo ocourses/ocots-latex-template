@@ -129,6 +129,12 @@ ligne (`\ocots@taggedenv` dans `ocots-env.sty`).
 \end{proof}
 ```
 
+Un titre donné en argument est suivi d'un point, comme le titre de `\newstep` :
+`\begin{proof}[Idée]` affiche « *Idée.* ». Le point n'est pas ajouté si le
+titre se termine déjà par une ponctuation forte (`[Idée.]`, `[Idée :]`). Le
+titre par défaut (marqueur ▷, ou nom de la preuve dans le thème `paper`) reste
+sans point. Même règle pour `proofbegin`.
+
 Preuve étalée sur plusieurs diapositives — seul `proofend` pose le carré final :
 
 ```latex
