@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.10.0 — 2026-10-07
+
 ### Changé
 
 - **Espace autour des exemples sur les diapositives** : sous beamer, un
