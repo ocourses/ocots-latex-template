@@ -338,11 +338,34 @@ négatif.**
 | `\emphLink{…}` | couleur des liens |
 | `\cmark` `\xmark` | ✓ ✗ |
 | `\handwrite` | ✍ (main, couleur d'accent) — précédait les exercices en v0 |
-| `\newpoint` | puce colorée |
+| `\point` | puce colorée, avec espacement supérieur réglable |
+| `\newpoint` | alias de compatibilité de `\point` |
 | `\breakline` | saut de ligne sans alinéa (`~\\ \vspace{-\baselineskip}`) |
 | `\HRule` | filet pleine largeur, fin |
 | `\myurl{…}` | `\href{url}{url}` |
 | `\ie` `\cf` `\resp` | abréviations localisées (i.e., cf., resp.), avec espacement automatique |
+
+### Points de texte
+
+`\point` pose une puce colorée et termine le paragraphe précédent. L'espace
+supérieur vaut `0pt` par défaut et se règle globalement avec `\pointsetup` :
+
+```latex
+\pointsetup{top=0.5em}
+\point Un premier point.
+\point Un deuxième point.
+```
+
+Un réglage ponctuel surcharge la valeur globale :
+
+```latex
+\point[top=1em] Un point davantage séparé du précédent.
+```
+
+La commande conserve la syntaxe historique sans argument obligatoire : le texte
+qui suit la commande appartient au point jusqu'à la fin du paragraphe. `\newpoint`
+reste un alias de compatibilité ; les nouveaux documents doivent utiliser
+`\point`.
 
 ### Guillemets
 
