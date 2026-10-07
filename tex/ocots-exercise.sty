@@ -251,9 +251,14 @@
     coltitle=black}}
 \else
   \def\ocots@ex@mark{}
+  % Le titre est attache au corps : il recoit la marge haute du corps (top),
+  % alors qu'un titre separe (definition, theoreme) recoit celle du titre
+  % (toptitle). Avec la forme bracket (top=3mm, toptitle=0), le titre de
+  % l'exercice tombait ainsi 3mm sous le bord de la boite. On lui donne la
+  % marge d'un titre separe, quelle que soit la forme.
   \tcbset{ocots@ex@base/.style={%
     \ocotsboxstyle{exercise}, breakable, lower separated=false,
-    attach title to upper=~}}
+    attach title to upper=~, top=\kvtcb@toptitle}}
 \fi
 % L'habillage (ocots@ex@base) est separe de l'increment du compteur : la
 % variante etoilee exercise* reprend le premier sans le second.

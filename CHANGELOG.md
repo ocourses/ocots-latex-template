@@ -10,6 +10,17 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Corrigé
+
+- **Titre d'exercice décollé du haut de sa boîte** : le titre d'un exercice
+  est attaché au corps (`attach title to upper`) et recevait donc la marge
+  haute du corps (`top`), au lieu de celle d'un titre séparé (`toptitle`).
+  Avec la forme `bracket` (thème `ocots`), « Exercice : » tombait 3 mm sous
+  le bord, alors que « Définition » est au ras. La boîte d'exercice prend
+  maintenant `top=toptitle`, quelle que soit la forme : polycopié et
+  diapositives. Les définitions, théorèmes, etc. ne changent pas ; les
+  exercices de TD et d'examen (style propre) non plus.
+
 ---
 
 ## v1.10.0 — 2026-10-07
