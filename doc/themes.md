@@ -229,6 +229,14 @@ par le noyau (`\providecommand`) : un thème à police linéale pose
 `ocots`) montre le motif à deux `borderline` : `west` + `south`, `blanker`,
 aucun `colback`.
 
+Un exemple (`example`, `example*`) n'est pas une boîte et ne reçoit pas ces
+espaces. `\ocotsexampleskip` règle l'espace posé avant et après lui par
+`\addvspace` : vide par défaut (le polycopié, les TD et les examens gardent
+l'espacement d'amsthm), il vaut `\bigskipamount` sur les diapositives, où
+beamer colle sinon l'exemple au texte qui précède. Sur une diapositive, ne pas
+poser de `\bigskip` à la main avant un exemple : `\vspace` n'est pas fusionné
+par `\addvspace`, les deux espaces s'additionneraient.
+
 ### Filet latéral — `tex/theme/siderule/ocots-siderule-<nom>.sty`
 
 ```latex

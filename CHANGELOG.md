@@ -10,6 +10,16 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Changé
+
+- **Espace autour des exemples sur les diapositives** : sous beamer, un
+  exemple était composé sans aucun espace, collé au texte qui précède ou à
+  l'exemple voisin. Le support diapositives pose désormais `\bigskipamount`
+  avant et après (`\ocotsexampleskip`, par `\addvspace` : pas de cumul entre
+  deux exemples). Polycopié, TD et examens inchangés (`\ocotsexampleskip`
+  vide). Un `\bigskip` posé à la main avant un exemple s'ajoute désormais à
+  cet espace : le retirer.
+
 ---
 
 ## v1.9.0 — 2026-10-06

@@ -299,12 +299,23 @@ theorem*,definition*,proposition*,corollary*,conjecture*,citedtheorem*}
   {\ocots@result@classical{ocots@lemma*}{#1}}
   {\end{ocots@lemma*}}
 
+% Espace autour d'un exemple. Un exemple n'est pas une boite : il ne recoit pas
+% \ocotsboxbeforeskip/\ocotsboxafterskip. Dans le polycopie, amsthm l'espace
+% avec \topsep ; sous beamer, le gabarit `theorem begin' du support le compose
+% sans aucun espace, colle au texte qui precede ou a l'exemple voisin.
+% \ocotsexampleskip, vide par defaut (polycopie, TD, examen inchanges), est
+% fixe par le support diapositives. Il passe par \addvspace, avant et apres :
+% il fusionne avec un \bigskip deja pose et, entre deux exemples, l'espace de
+% fin du premier et celui de debut du second ne s'additionnent pas.
+\newcommand{\ocotsexampleskip}{}
+\newcommand{\ocots@exampleskip}{%
+  \ifx\ocotsexampleskip\@empty\else\par\addvspace{\ocotsexampleskip}\fi}
 \newenvironment{example}[1][]
-  {\ocots@result@classical{ocots@example}{#1}\ocots@pushqed{\QEDB}}
-  {\popQED\endtrivlist\@endpefalse\end{ocots@example}}
+  {\ocots@exampleskip\ocots@result@classical{ocots@example}{#1}\ocots@pushqed{\QEDB}}
+  {\popQED\endtrivlist\@endpefalse\end{ocots@example}\ocots@exampleskip}
 \newenvironment{example*}[1][]
-  {\ocots@result@classical{ocots@example*}{#1}\ocots@pushqed{\QEDB}}
-  {\popQED\endtrivlist\@endpefalse\end{ocots@example*}}
+  {\ocots@exampleskip\ocots@result@classical{ocots@example*}{#1}\ocots@pushqed{\QEDB}}
+  {\popQED\endtrivlist\@endpefalse\end{ocots@example*}\ocots@exampleskip}
 
 \newenvironment{remark}[1][]
   {\ocots@result@classical{ocots@remark}{#1}}
