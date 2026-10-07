@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.11.0 — 2026-10-07
+
 ### Corrigé
 
 - **Titre d'exercice décollé du haut de sa boîte** : le titre d'un exercice
@@ -20,6 +24,13 @@ tag. Politique de version : [README](README.md#versions).
   maintenant `top=toptitle`, quelle que soit la forme : polycopié et
   diapositives. Les définitions, théorèmes, etc. ne changent pas ; les
   exercices de TD et d'examen (style propre) non plus.
+- **Exemple en haut de diapositive** (v1.10.0) : un exemple qui ouvre une
+  diapositive tombait 6,7 pt plus bas qu'une définition, et l'espace autour
+  d'un exemple (`\bigskipamount`) différait de celui des boîtes. Sur les
+  diapositives, l'exemple est désormais habillé d'une boîte invisible avec
+  les espaces d'une boîte (`\ocotsexampleskip`, par défaut
+  `\ocotsboxbeforeskip`) : il se place comme une définition, partout.
+  Polycopié, TD et examens inchangés.
 
 ---
 
