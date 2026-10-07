@@ -48,8 +48,15 @@
 \setbeamertemplate{theorem end}{}
 
 % Espace avant et apres un exemple (voir ocots-env.sty) : sans lui, l'exemple
-% est colle au texte qui precede.
-\renewcommand{\ocotsexampleskip}{\bigskipamount}
+% est colle au texte qui precede. L'exemple est habille d'une boite invisible,
+% comme une remarque, avec les espaces d'une boite : il se place comme une
+% definition, entre deux paragraphes, entre deux boites et en haut d'une
+% diapositive.
+\renewcommand{\ocotsexampleskip}{\ocotsboxbeforeskip}
+\tcolorboxenvironment{example}{blanker,
+  before skip=\ocotsexampleskip, after skip=\ocotsexampleskip}
+\tcolorboxenvironment{example*}{blanker,
+  before skip=\ocotsexampleskip, after skip=\ocotsexampleskip}
 
 % Babel-french rend `:' actif. Le patch de beamer pour \label fait un \xdef
 % de \@currentHref sans proteger les caracteres actifs : un label comme
