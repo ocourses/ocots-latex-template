@@ -230,12 +230,13 @@ par le noyau (`\providecommand`) : un thème à police linéale pose
 aucun `colback`.
 
 Un exemple (`example`, `example*`) n'est pas une boîte et ne reçoit pas ces
-espaces. `\ocotsexampleskip` règle l'espace posé avant et après lui par
-`\addvspace` : vide par défaut (le polycopié, les TD et les examens gardent
-l'espacement d'amsthm), il vaut `\bigskipamount` sur les diapositives, où
-beamer colle sinon l'exemple au texte qui précède. Sur une diapositive, ne pas
-poser de `\bigskip` à la main avant un exemple : `\vspace` n'est pas fusionné
-par `\addvspace`, les deux espaces s'additionneraient.
+espaces dans le polycopié, les TD et les examens (`\ocotsexampleskip` vide :
+l'espacement d'amsthm). Sur les diapositives, où beamer le collerait au texte,
+le support l'habille d'une boîte invisible dont `\ocotsexampleskip`
+(par défaut `\ocotsboxbeforeskip`) donne l'espace avant et après : un exemple
+se place alors exactement comme une définition, entre deux paragraphes, entre
+deux boîtes et en haut d'une diapositive. Ne pas poser de `\bigskip` à la main
+avant un exemple : `\vspace` s'additionnerait à cet espace.
 
 ### Filet latéral — `tex/theme/siderule/ocots-siderule-<nom>.sty`
 
