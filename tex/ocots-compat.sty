@@ -168,6 +168,8 @@
 \DeclareRobustCommand{\Ccal}{\ocots@deprecatedmath{\Ccal}{\Cclass}\Cclass{}}
 \DeclareRobustCommand{\Ecal}{\ocots@deprecatedmath{\Ecal}{\calset{E}}\calset{E}}
 \DeclareRobustCommand{\Fcal}{\ocots@deprecatedmath{\Fcal}{\calset{F}}\calset{F}}
+% These old names are generic decorated letters, not concepts. In particular,
+% \Acal must not point to \Reachable: measure courses use it for a sigma-algebra.
 \DeclareRobustCommand{\Acal}{\ocots@deprecatedmath{\Acal}{\calset{A}}\calset{A}}
 \DeclareRobustCommand{\GLcal}{\ocots@deprecatedmath{\GLcal}{\GL}\GL}
 \DeclareRobustCommand{\ind}{\ocots@deprecatedmath{\ind}{\indicator}\indicator}
