@@ -10,6 +10,9 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+- `\Acal` keeps its generic meaning in the compatibility layer and points to
+  `\calset{A}`, not the concept-specific `\Reachable` (#72).
+
 ---
 
 ## v1.11.0 — 2026-10-07
