@@ -10,8 +10,17 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
-- `\Acal` keeps its generic meaning in the compatibility layer and points to
-  `\calset{A}`, not the concept-specific `\Reachable` (#72).
+---
+
+## v1.11.1 — 2026-10-27
+
+Correctif sans effet sur les documents : seul un commentaire change.
+
+### Documentation
+
+- `ocots-compat.sty` dit que `\Acal` garde son sens générique et renvoie à
+  `\calset{A}`, pas à `\Reachable`, propre à un concept : les cours de mesure
+  l'emploient pour une tribu (#72).
 
 ---
 
