@@ -10,6 +10,15 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Corrigé
+
+- **Avertissement `already defined` de `\theexample` sous beamer** : le
+  compteur `example`, libéré de son alias sur `theorem`, était recréé alors
+  que `\theexample` restait défini par beamer — `\@definecounter` avertissait
+  « already defined -- not changed » dans le journal des diapositives avant
+  que le `\renewcommand` reprenne la main. `\theexample` est libéré avec le
+  compteur ; numérotation inchangée.
+
 ---
 
 ## v1.13.0 — 2026-11-03
