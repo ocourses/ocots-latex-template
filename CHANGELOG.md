@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.13.1 — 2026-11-03
+
 ### Corrigé
 
 - **Avertissement `already defined` de `\theexample` sous beamer** : le
