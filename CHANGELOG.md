@@ -10,6 +10,10 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+---
+
+## v1.12.0 — 2026-11-03
+
 ### Ajouté
 
 - **Sourcil de section au-dessus du titre de diapositive** : un second groupe
