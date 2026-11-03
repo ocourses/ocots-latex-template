@@ -12,6 +12,18 @@ tag. Politique de version : [README](README.md#versions).
 
 ---
 
+## v1.13.0 — 2026-11-03
+
+### Ajouté
+
+- **Anneau d'avancement autour du numéro de diapositive** : `\slidecounter`
+  dessine un arc coloré par-dessus l'anneau gris, de la fraction écoulée du
+  document (`\insertpagenumber / \insertdocumentendpage`). Le calcul est
+  borné : dernière page inconnue au premier passage, pas de division par
+  zéro, progression plafonnée à un tour.
+
+---
+
 ## v1.12.0 — 2026-11-03
 
 ### Ajouté
