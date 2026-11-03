@@ -139,6 +139,20 @@
       \textcolor{#1}{\insertframenumber}};
     \draw[\ocotscolor{grey},line width=\ocots@thick,rotate=90]
       (A) arc (0:360:\ocots@radius);
+    % Avancement : arc coloré de la fraction écoulée du document.
+    % \beamer@endpageofdocument (derrière \insertdocumentendpage) n'est écrite
+    % qu'en fin d'exécution : encore inconnue au premier passage, elle vaut 1
+    % par défaut ; max() écarte toute division par zéro et min() borne la
+    % progression à un tour complet (pages de réserve incluses).
+    \ifdefined\beamer@endpageofdocument
+      \pgfmathtruncatemacro{\ocots@lastpage}{\beamer@endpageofdocument}%
+    \else
+      \def\ocots@lastpage{1}%
+    \fi
+    \pgfmathsetmacro{\ocots@progress}{%
+      min(1,max(0,\insertpagenumber/\ocots@lastpage))}%
+    \draw[#1,line width=\ocots@thick,rotate=90]
+      (A) arc (0:{-360*\ocots@progress}:\ocots@radius);
     \node (base) at (0,-.25ex) {};
   \end{tikzpicture}}
 
