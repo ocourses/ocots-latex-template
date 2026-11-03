@@ -94,12 +94,16 @@ theorem*,definition*,proposition*,corollary*,conjecture*,citedtheorem*}
 % compteur propre dans ce cas. Le noyau marque aussi l'alias
 % (\alias@ctr@example, et \cl@example = \cl@theorem) ; tant que cette marque
 % reste, \@addtoreset refuse la remise a zero par section (« Alias counters can
-% not be used in a counter reset ») : on l'efface avec le compteur.
+% not be used in a counter reset ») : on l'efface avec le compteur. \theexample
+% reste defini par beamer : on le libere aussi, sinon \@definecounter le laisse
+% intact en avertissant « already defined -- not changed » (le \renewcommand du
+% dessous l'ecrase de toute facon, mais l'avertissement encombre le journal).
 \@ifundefined{c@example}{}{%
   \ifx\c@example\c@theorem
     \let\c@example\relax
     \let\alias@ctr@example\relax
     \let\cl@example\@empty
+    \let\theexample\relax
   \fi}
 \@ifundefined{c@example}{\newcounter{example}[section]}{\@addtoreset{example}{section}}
 \renewcommand{\theexample}{\thesection.\arabic{example}}
