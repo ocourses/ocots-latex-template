@@ -514,6 +514,7 @@ Support déduit de la classe `beamer`, rien à déclarer.
 \slidetitlepage[{\includegraphics[height=5em]{qr-code-cours.pdf}}]
 
 \begin{slide}{Titre}                       … \end{slide}
+\begin{slide}{Section}{Titre}              … \end{slide}   % « sourcil » + titre
 \begin{slide}[\ocotscolor{slide2}]{Titre}  … \end{slide}   % couleur ponctuelle
 \begin{slide}                              … \end{slide}   % sans titre
 ```
@@ -525,6 +526,13 @@ filet. La couleur entre crochets reste une surcharge ponctuelle, et
 `\slidecolor{…}` règle la couleur des diapositives suivantes. `frame` reste
 valide comme environnement natif de beamer pendant la migration progressive
 des cours.
+
+Un **second groupe** accolade après le titre pose un « sourcil » : son contenu
+(typiquement le nom de la section) est composé en petit, gris neutre, sur une
+ligne au-dessus du titre, qui garde sa taille. C'est la forme à préférer pour
+rappeler la section : `\begin{slide}{Signe quelconque}{Définition}` évite de
+devoir rogner le titre quand le nom de section est long. Un seul groupe garde
+le rendu historique — le sourcil est opt-in, diapositive par diapositive.
 
 Le titre est détecté par la présence d'un groupe `{…}` immédiatement après
 `\begin{slide}` (ou son option de couleur) : le premier groupe accolade

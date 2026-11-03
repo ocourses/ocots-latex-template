@@ -10,6 +10,22 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Ajouté
+
+- **Sourcil de section au-dessus du titre de diapositive** : un second groupe
+  accolade après le titre — `\begin{slide}{Section}{Titre}` — compose la
+  section en petit, gris neutre, sur une ligne au-dessus du titre, qui garde
+  sa taille. Rappeler la section n'allonge plus la ligne de titre : les
+  titres `« Section — sujet »` tenaient difficilement sur une ligne. Un seul
+  groupe conserve le rendu historique.
+
+### Corrigé
+
+- **Filet de titre décalé selon les lettres descendantes** : la profondeur de
+  la dernière ligne du titre dépendait des lettres (`Q`, `p`, `g`), et le
+  filet posé à distance fixe de la boîte se décalait verticalement d'une
+  diapositive à l'autre. Un `\strut` normalise désormais cette profondeur.
+
 ---
 
 ## v1.11.1 — 2026-10-27

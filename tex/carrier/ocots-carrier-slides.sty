@@ -147,6 +147,7 @@
 %
 %   \begin{slide}{Titre}          couleur d'en-tete courante
 %   \begin{slide}[\ocotscolor{slide2}]{Titre}
+%   \begin{slide}{Section}{Titre} section en « sourcil » au-dessus du titre
 %   \begin{slide}                  sans habillage de titre
 %
 % \slidecolor change la couleur pour toutes les suivantes : c'est ce qui permet
@@ -154,9 +155,21 @@
 \def\ocots@slidecolor{\ocotscolor{slidetitle}}
 \newcommand{\slidecolor}[1]{\def\ocots@slidecolor{#1}}
 
+% Un second groupe optionnel apres le titre pose un « sourcil » : le nom de la
+% section en petit, gris neutre, au-dessus du titre qui garde sa taille.
+% C'est ce qui permet de rappeler la section sans allonger la ligne de titre.
+% Le \strut en fin de titre normalise la profondeur de la derniere ligne :
+% le filet ne bouge plus selon que le titre porte des lettres descendantes.
 \def\ocots@slidetitle#1{%
+  \@ifnextchar\bgroup{\ocots@slidetitle@ii{#1}}{\ocots@slidetitle@{#1}{}}}
+\def\ocots@slidetitle@ii#1#2{\ocots@slidetitle@{#1}{#2}}
+\def\ocots@slidetitle@#1#2{%
   \begin{minipage}{0.9\textwidth}
-    \large\bfseries\color{\ocots@slidecolor}#1
+    \ifx\relax#2\relax\else
+      {\footnotesize\mdseries\color{black!55}#1\par}%
+      \vspace{0.15em}%
+    \fi
+    \large\bfseries\color{\ocots@slidecolor}#2\ifx\relax#2\relax#1\fi\strut
   \end{minipage}\hfill
   \begin{minipage}{0.04\textwidth}
     \begin{flushright}\slidecounter[\ocots@slidecolor]\end{flushright}
