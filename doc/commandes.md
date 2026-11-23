@@ -351,6 +351,12 @@ négatif.**
 | `\myurl{…}` | `\href{url}{url}` |
 | `\ie` `\cf` `\resp` | abréviations localisées (i.e., cf., resp.), avec espacement automatique |
 
+### Sommaire des slides
+
+`\slidetoc` compose le sommaire avec un espace régulier entre les sections
+(au lieu du `\vfill` de beamer, qui étire un sommaire court). Réglage global
+avec `\tocsetup{gap=1em}` (défaut `0.5em`), ou ponctuel avec `\slidetoc[gap=0.7em]`.
+
 ### Points de texte
 
 `\point` pose une puce colorée et termine le paragraphe précédent. L'espace
