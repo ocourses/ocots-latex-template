@@ -10,6 +10,13 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Ajouté
+
+- **Espacement du sommaire des slides** : `\slidetoc` remplace le `\vfill`
+  de beamer entre les sections par un espace fixe (0.5em par défaut) ;
+  `\tocsetup{gap=...}` le règle pour la suite du fichier et `\slidetoc[gap=...]`
+  ponctuellement.
+
 ---
 
 ## v1.13.1 — 2026-11-03

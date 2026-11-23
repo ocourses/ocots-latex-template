@@ -108,6 +108,27 @@
   \hspace{1.9em}\thechapter.\inserttocsectionnumber.\inserttocsubsectionnumber.~%
   \inserttocsubsection\par}
 
+% Espace regulier entre les sections d'une page de sommaire. beamer insere un
+% \vfill avant chaque section (le sommaire remplit la page, laid quand il y a
+% peu de sections) ; \slidetoc le remplace par un espace fixe.
+%   \tocsetup{gap=1.5em}      reglage global pour la suite du fichier
+%   \slidetoc[gap=2em]        reglage ponctuel
+\newlength{\ocots@tocgap}
+\setlength{\ocots@tocgap}{0.5em}
+\newcommand{\tocsetup}[1]{\pgfqkeys{/ocots/toc}{#1}}
+\pgfqkeys{/ocots/toc}{
+  gap/.code={\setlength{\ocots@tocgap}{#1}},
+  % toute autre clef (currentsection, etc.) est une option de \tableofcontents
+  .unknown/.append code={\edef\ocots@tocopt{%
+    \ifx\ocots@tocopt\empty\else\ocots@tocopt,\fi\pgfkeyscurrentname}}}
+\newcommand{\slidetoc}[1][]{%
+  \begingroup
+  \def\ocots@tocopt{}%
+  \pgfqkeys{/ocots/toc}{#1}%
+  \def\vfill{\vskip\ocots@tocgap}%
+  \expandafter\tableofcontents\expandafter[\ocots@tocopt]%
+  \endgroup}
+
 % \slidechapter{5}{Equations differentielles lineaires}
 % \def et non \newcommand : une macro \long ne serait jamais \ifx-egale a
 % \@empty, et le test « y a-t-il un chapitre ? » serait toujours faux.
