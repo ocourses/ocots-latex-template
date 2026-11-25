@@ -221,7 +221,7 @@ support, après coup.
 
 **Vocabulaire pour les outils.** [`vocabulaire.json`](vocabulaire.json) liste
 chaque environnement public : sa **famille** (`resultat`, `definition`,
-`exemple`, `remarque`, `preuve`, `question`…, chacune marquée boîte ou non),
+`exemple`, `remarque`, `preuve`, `question`, `corrige`…, chacune marquée boîte ou non),
 s'il pose un symbole de fin, ou l'environnement dont il est un **alias
 déprécié** (noms v0), et, pour l'ancienne syntaxe d'étiquette
 (`{titre}{clé}`, `<clé>`), le **préfixe** que le template ajoute au label. Il dit aussi quel support chaque classe choisit.
