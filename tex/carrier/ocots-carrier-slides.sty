@@ -315,6 +315,38 @@
 \resetcounteronoverlays{difficulty}
 \resetcounteronoverlays{ocots@problem}
 
+% Symbole de fin de boite (□ exemple, ■ preuve) : seulement sur la derniere
+% diapositive de la boite. \popQED, execute a \end{...}, poserait le symbole sur
+% CHAQUE overlay ; or une boite decoupee en \only<1>{..}\only<2>{..} ou en
+% \onslide<k->{..} est composee sur toutes ses diapositives (\only ne compose
+% pas son contenu hors de son overlay, donc rien ne retient le symbole).
+%
+% Beamer pose globalement \ifbeamer@anotherslide des qu'une specification
+% d'overlay vise une diapositive posterieure a la courante. On l'isole sur la
+% duree de la boite : a l'ouverture on le remet a faux (en gardant l'ancienne
+% valeur), a la fermeture « vrai » signifie « la boite se poursuit sur une
+% diapositive ulterieure » -> pas de symbole ici. On restitue ensuite le OU des
+% deux, pour que beamer repasse bien sur la frame. Aucune passe LaTeX en plus :
+% c'est la boucle d'overlays de beamer, deja en cours, qui renseigne le drapeau.
+% \qedhere : il consomme la pile la ou il s'execute (\popQED ne pose alors plus
+% rien), mais dans un \onslide<k->{..} il s'execute sur TOUS les overlays, et en
+% equation hors texte son symbole est range dans la marge, hors de la zone
+% couverte. D'ou le meme test dans \qedsymbol : vide tant que la boite continue.
+% \pause seul reste correct (le symbole est couvert, et \popQED retombe de toute
+% facon sur la derniere diapositive).
+\renewcommand{\ocots@qed@open}{%
+  \let\ocots@qed@outer\ifbeamer@anotherslide
+  \global\beamer@anotherslidefalse
+  \let\ocots@qed@symbol\qedsymbol
+  \renewcommand{\qedsymbol}{\ifbeamer@anotherslide\else\ocots@qed@symbol\fi}}
+\renewcommand{\ocots@popqed}{%
+  \ifbeamer@anotherslide
+    \begingroup\let\qed\relax\popQED\endgroup
+  \else
+    \popQED
+  \fi
+  \ocots@qed@outer\global\beamer@anotherslidetrue\fi}
+
 % ---------------------------------------------------------------------------
 % Listes : un peu plus aerees qu'au fil du texte
 \setlist{itemsep=0.25em}

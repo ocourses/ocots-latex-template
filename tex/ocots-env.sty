@@ -64,6 +64,12 @@ theorem*,definition*,proposition*,corollary*,conjecture*,citedtheorem*}
 \newcommand{\ocots@pushqed}[1]{%
   \renewcommand{\qedsymbol}{{\let\hfill\relax#1}}%
   \pushQED{\qed}}
+% Fin de boite : \ocots@qed@open (apres \ocots@pushqed) et \ocots@popqed
+% (a la place de \popQED) encadrent les quatre boites qui se ferment. Le noyau ne connait pas les
+% overlays : les deux crochets sont vides ici, et c'est le support diapositives qui les surcharge (le symbole ne doit
+% apparaitre que sur la derniere diapositive de la boite).
+\newcommand{\ocots@qed@open}{}
+\newcommand{\ocots@popqed}{\popQED}
 
 % ---------------------------------------------------------------------------
 % Signature commune : titre, etiquette et note sont des clefs optionnelles.
@@ -314,11 +320,11 @@ theorem*,definition*,proposition*,corollary*,conjecture*,citedtheorem*}
 % pour une definition.
 \newcommand{\ocotsexampleskip}{}
 \newenvironment{example}[1][]
-  {\ocots@result@classical{ocots@example}{#1}\ocots@pushqed{\QEDB}}
-  {\popQED\endtrivlist\@endpefalse\end{ocots@example}}
+  {\ocots@result@classical{ocots@example}{#1}\ocots@pushqed{\QEDB}\ocots@qed@open}
+  {\ocots@popqed\endtrivlist\@endpefalse\end{ocots@example}}
 \newenvironment{example*}[1][]
-  {\ocots@result@classical{ocots@example*}{#1}\ocots@pushqed{\QEDB}}
-  {\popQED\endtrivlist\@endpefalse\end{ocots@example*}}
+  {\ocots@result@classical{ocots@example*}{#1}\ocots@pushqed{\QEDB}\ocots@qed@open}
+  {\ocots@popqed\endtrivlist\@endpefalse\end{ocots@example*}}
 
 \newenvironment{remark}[1][]
   {\ocots@result@classical{ocots@remark}{#1}}
@@ -387,10 +393,10 @@ theorem*,definition*,proposition*,corollary*,conjecture*,citedtheorem*}
     #1\@addpunct{.}%
   \fi\fi}
 \newenvironment{proof}[1][\ocotsproofname]
-  {\par\ocots@pushqed{\color{\ocotscolor{proof}}\ocotsproofqed}%
+  {\par\ocots@pushqed{\color{\ocotscolor{proof}}\ocotsproofqed}\ocots@qed@open%
    \normalsize\normalfont\topsep6\p@\@plus6\p@\relax
    \trivlist\item[\hskip\labelsep\itshape\ocots@prooflabel{#1}]\ignorespaces}
-  {\popQED\endtrivlist\@endpefalse}
+  {\ocots@popqed\endtrivlist\@endpefalse}
 \tcolorboxenvironment{proof}{\ocotsboxstyle{proof}}
 
 % Preuve etalee sur plusieurs diapositives : debut, milieu, fin. Seule la fin
@@ -404,8 +410,8 @@ theorem*,definition*,proposition*,corollary*,conjecture*,citedtheorem*}
   {\par\ocots@pushqed{\color{\ocotscolor{proof}}\ocotsproofqed}\normalsize\normalfont}
   {\endtrivlist\@endpefalse}
 \newenvironment{proofend}[1][]
-  {\par\ocots@pushqed{\color{\ocotscolor{proof}}\ocotsproofqed}\normalsize\normalfont}
-  {\popQED\endtrivlist\@endpefalse}
+  {\par\ocots@pushqed{\color{\ocotscolor{proof}}\ocotsproofqed}\ocots@qed@open\normalsize\normalfont}
+  {\ocots@popqed\endtrivlist\@endpefalse}
 \tcolorboxenvironment{proofbegin}{\ocotsboxstyle{proof}}
 \tcolorboxenvironment{proofmiddle}{\ocotsboxstyle{proof}}
 \tcolorboxenvironment{proofend}{\ocotsboxstyle{proof}}

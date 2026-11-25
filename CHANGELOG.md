@@ -8,6 +8,22 @@ tag. Politique de version : [README](README.md#versions).
 
 ---
 
+## Non publié
+
+### Corrigé
+
+- **Symbole de fin de boîte répété sur tous les overlays** (slides) : `example`,
+  `example*` et `proof` découpés en `\only<k>{…}` ou `\onslide<k->{…}` posaient
+  leur □/■ sur chaque diapositive, y compris à la place d'un `\qedhere`
+  (marge d'un `align*`). Le support diapositives ne le pose plus que sur la
+  dernière diapositive de la boîte, grâce au drapeau `\ifbeamer@anotherslide`
+  de beamer : aucune passe de compilation supplémentaire. Le noyau
+  (`ocots-env.sty`) n'ajoute que deux crochets vides, `\ocots@qed@open` et
+  `\ocots@popqed` : book, td, exam, paper et article sont inchangés. Non-régression :
+  `examples/variants/slides-qed-overlay.tex` et `check-qed-overlays.sh`.
+
+---
+
 ## v1.14.0 — 2026-11-23
 
 ### Ajouté
