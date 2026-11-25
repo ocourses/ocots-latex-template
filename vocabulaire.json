@@ -40,7 +40,11 @@
     },
     "question": {
       "boite": false,
-      "description": "partie d'un exercice : question, sous-question, correction"
+      "description": "partie d'un exercice : question, sous-question"
+    },
+    "corrige": {
+      "boite": false,
+      "description": "corrigé d'une question ou d'un exercice"
     },
     "consigne": {
       "boite": false,
@@ -94,7 +98,7 @@
       "famille": "resultat"
     },
     "correction": {
-      "famille": "question"
+      "famille": "corrige"
     },
     "definition": {
       "famille": "definition",

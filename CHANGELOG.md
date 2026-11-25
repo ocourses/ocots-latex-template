@@ -10,6 +10,16 @@ tag. Politique de version : [README](README.md#versions).
 
 ## Non publié
 
+### Ajouté
+
+- **Famille `corrige` dans `vocabulaire.json`** : `correction` (et ses alias
+  `mycorr`, `mycorrection`) quitte la famille `question` pour une famille à part,
+  « corrigé d'une question ou d'un exercice » (`boite: false`). Les outils
+  distinguent ainsi un corrigé d'une question sans écrire le nom `correction` en
+  dur (`ocots-lint`, règle TD8). Le `schema` reste `1` : c'est une famille de
+  plus, qu'un outil qui ne la connaît pas lit comme une famille inconnue, sans
+  boîte (#101).
+
 ### Modifié
 
 - **`\Re` en romain** (module `base`) : `\Re` est redéclaré comme opérateur « Re »,
