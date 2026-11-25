@@ -8,7 +8,7 @@ tag. Politique de version : [README](README.md#versions).
 
 ---
 
-## Non publié
+## v1.15.0 — 2026-11-25
 
 ### Ajouté
 
