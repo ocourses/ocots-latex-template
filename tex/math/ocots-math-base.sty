@@ -158,7 +158,7 @@
 % Operateurs
 %
 % \RedeclareMathOperator redefinit un operateur deja fourni par amsmath
-% (\det, \Im, \ker...) sans passer par \@ifdefinable.
+% (\det, \Re, \Im, \ker...) sans passer par \@ifdefinable.
 \newcommand\RedeclareMathOperator{%
   \@ifstar{\def\ocots@rmo@s{m}\ocots@rmo@redeclare}%
           {\def\ocots@rmo@s{o}\ocots@rmo@redeclare}}
@@ -193,6 +193,7 @@
 \DeclareMathOperator{\sym}{Sym}
 \DeclareMathOperator{\card}{card}
 \DeclareMathOperator{\minimize}{\ocotsstring{op-minimize}}
+\RedeclareMathOperator{\Re}{Re}
 \RedeclareMathOperator{\Im}{Im}
 \RedeclareMathOperator{\det}{det}
 \RedeclareMathOperator{\ker}{Ker}

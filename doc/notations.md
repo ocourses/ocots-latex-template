@@ -105,6 +105,7 @@ standard. Le rendu des opérateurs localisés suit `lang=`.
 | `\graph` | graphe | graphe |
 | `\sinh`, `\argsinh` | sh, argsh | fonctions hyperboliques |
 | `\argmax`, `\codim`, `\trace`, `\supp`, `\sign` | — | opérateurs usuels |
+| `\Re`, `\Im` | — | partie réelle et imaginaire, en romain « Re », « Im » (le ℜ fraktur de LaTeX n'est plus utilisé ; `\mathfrak{R}` le redonne) |
 | `\im`, `\Ker`, `\diag`, `\id`, `\Hom`, `\GL`, `\Isom` | — | opérateurs usuels |
 | `\inv`, `\sym`, `\card`, `\minimize` | — | opérateurs usuels |
 
