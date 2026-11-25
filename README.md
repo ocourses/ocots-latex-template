@@ -150,7 +150,7 @@ par le mode sans modifier le contenu.
 | `math` | `none`, `base`, `analysis`, `control`, `measure` | `base` (`none` pour `ocots-paper`) | modules de macros chargés |
 | `setfont` | `bb`, `rm` | `bb` | police des ensembles de nombres |
 | `calfont` | `custom`, `scr`, `cal` | `custom` | police des familles calligraphiques |
-| `institution` | `n7`, `inp`, `insa`, `uftmp` | `n7` | logos de la page de titre et des en-têtes TD/examen |
+| `institution` | `n7`, `inp`, `insa`, `tse`, `uftmp` | `n7` | logos de la page de titre et des en-têtes TD/examen |
 | `author` | texte | vide | métadonnée `pdfauthor` |
 | `draft` | drapeau | absent | affiche les notes de travail |
 | `binding` | longueur | `0mm` | décalage de reliure pour l'impression |

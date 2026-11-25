@@ -729,7 +729,7 @@ contribue pas au total calculé.
 ### Logos
 
 `\ocotslogos[hauteur]` compose les logos de page de titre demandés par
-l'option `institution=` (`n7`, `inp`, `insa`, `uftmp` ; plusieurs valeurs entre
+l'option `institution=` (`n7`, `inp`, `insa`, `tse`, `uftmp` ; plusieurs valeurs entre
 accolades). Pour un en-tête de TD ou d'examen, le support utilise
 `\ocotslogosheader[hauteur]` : tous les établissements sont alignés sur une
 seule ligne à une hauteur commune, y compris `uftmp`. La disposition spéciale
