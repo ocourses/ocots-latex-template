@@ -18,6 +18,13 @@
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{lmodern}
+% Latin Modern n'a pas de petites capitales lineales (T1/lmss/m/sc). Un \textsc
+% en contexte sans-serif (\author de la page de titre des slides, titres de
+% boites en \sffamily) obtenait la forme romaine par substitution, avec un
+% « LaTeX Font Warning ». On declare la substitution, silencieuse : meme rendu.
+% La famille se charge a la premiere utilisation : on charge son .fd d'abord.
+\input{t1lmss.fd}
+\DeclareFontShape{T1}{lmss}{m}{sc}{<->ssub*lmr/m/sc}{}
 \RequirePackage{textcomp}
 \RequirePackage{xspace}
 

@@ -16,6 +16,15 @@ tag. Politique de version : [README](README.md#versions).
   comme `\Im`, `\det` et `\ker`. Il ne produit plus le ℜ fraktur de LaTeX, qui
   se retrouvait à côté de « Im » romain (#108). `\mathfrak{R}` redonne le fraktur.
 
+### Corrigé
+
+- **`\textsc` dans `\author` des slides** : la page de titre est en sans-serif
+  (`lmss`), qui n'a pas de petites capitales ; LaTeX substituait la forme
+  romaine avec `Font shape T1/lmss/m/sc not available`. La substitution est
+  maintenant déclarée (`ssub*`) dans `ocots-packages.sty` : même rendu, plus
+  d'avertissement, et plus besoin de `{\rmfamily\textsc{…}}` dans les
+  documents (#109).
+
 ---
 
 ## v1.15.0 — 2026-11-25
