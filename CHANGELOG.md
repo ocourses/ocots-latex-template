@@ -8,6 +8,16 @@ tag. Politique de version : [README](README.md#versions).
 
 ---
 
+## Non publié
+
+### Modifié
+
+- **`\Re` en romain** (module `base`) : `\Re` est redéclaré comme opérateur « Re »,
+  comme `\Im`, `\det` et `\ker`. Il ne produit plus le ℜ fraktur de LaTeX, qui
+  se retrouvait à côté de « Im » romain (#108). `\mathfrak{R}` redonne le fraktur.
+
+---
+
 ## v1.15.0 — 2026-11-25
 
 ### Ajouté
