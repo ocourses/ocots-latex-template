@@ -117,7 +117,8 @@ def verifier(vocab):
         elif e.get("famille") not in familles:
             erreurs.append(f"{nom} : famille {e.get('famille')!r} non déclarée")
         elif nom in trouves:
-            pose = "\\popQED" in trouves[nom][2]
+            pose = ("\\popQED" in trouves[nom][2]
+                    or "\\ocots@popqed" in trouves[nom][2])
             if pose != bool(e.get("symbole_de_fin")):
                 erreurs.append(f"{nom} : symbole_de_fin={bool(e.get('symbole_de_fin'))}, "
                                f"mais sa définition {'pose' if pose else 'ne pose pas'} "

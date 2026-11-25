@@ -191,6 +191,15 @@ avec sa page (numéro physique dans le PDF) et la ligne qui le précède.
 \end{proof}
 ```
 
+**Symbole de fin sous beamer.** Une boîte découpée en `\only<1>{…}`,
+`\only<2>{…}` ou en `\onslide<k->{…}` pose son symbole de fin **sur la dernière
+diapositive de la boîte seulement** : aucune commande à écrire, aucun numéro
+d'overlay à tenir à jour. `\qedhere` reste utilisable (placé dans un
+`\onslide<k->`, il n'apparaît qu'au bon overlay) et `\pause` seul est inchangé.
+Les autres supports ne sont pas concernés. La reproduction
+`examples/variants/slides-qed-overlay.tex` est contrôlée par
+`examples/check-qed-overlays.sh` (une page = un overlay).
+
 **Note de bas de page dans un énoncé.** Dans une boîte, on appelle la note par
 `\footnotemark` et on pose son texte par `\footnotetext` juste après la boîte,
 même si une preuve suit : l'espace entre l'énoncé et la preuve n'en est pas

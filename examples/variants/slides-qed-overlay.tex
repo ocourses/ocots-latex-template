@@ -1,0 +1,61 @@
+% =====================================================================
+% Test de non-regression : symbole de fin de boite sous beamer.
+%
+% Le symbole (□ exemple, ■ preuve) ne doit apparaitre que sur la DERNIERE
+% diapositive de la boite, quelle que soit la facon de la decouper. Verifie par
+% check-qed-overlays.sh (une page = un overlay).
+%   frame 1 : \only<1>..<3>   -> symbole sur l'overlay 3 seulement
+%   frame 2 : \onslide<k->   + \qedhere -> symbole inline sur l'overlay 4 seulement
+%   frame 3 : preuve en \only<1>/<2>     -> overlay 2 seulement
+%   frame 4 : \pause seul                -> overlay 2 seulement
+%   frame 5 : sans overlay               -> symbole present
+% =====================================================================
+\documentclass[9pt,t]{beamer}
+\usepackage[lang=fr, theme=ocots, math=analysis]{ocots}
+
+\begin{document}
+
+\begin{frame}{Exemple découpé en only}
+\begin{example*}[title={Découpé en only}]
+  \only<1>{Premier pas.}
+  \only<2>{Deuxième pas.}
+  \only<3>{Troisième pas.}
+\end{example*}
+\end{frame}
+
+\begin{frame}{Onslide et qedhere}
+\begin{example*}[title={Align}]
+  \begin{align*}
+    a &= 1 \\
+    \onslide<2->{b &= 2 \\}
+    \onslide<3->{c &= 3 \\}
+    \onslide<4->{d &= 4 \qedhere}
+  \end{align*}
+\end{example*}
+\end{frame}
+
+\begin{frame}{Preuve en only}
+\begin{proof}
+  \only<1>{Début de la preuve.}
+  \only<2>{Fin de la preuve.}
+\end{proof}
+\end{frame}
+
+\begin{frame}{Pause seul}
+\begin{example}
+  Un premier point.
+  \pause
+  Un second point.
+\end{example}
+\end{frame}
+
+\begin{frame}{Sans overlay}
+\begin{example}
+  Une boîte ordinaire.
+\end{example}
+\begin{proof}
+  Une preuve ordinaire.
+\end{proof}
+\end{frame}
+
+\end{document}

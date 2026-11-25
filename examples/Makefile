@@ -35,6 +35,10 @@
 # est le temoin negatif : check-qed.sh DOIT l'y signaler, sinon le detecteur
 # est casse et le test positif ne prouve plus rien.
 #
+# `check` relit aussi variants/slides-qed-overlay.pdf avec check-qed-overlays.sh :
+# le symbole de fin d'une boite decoupee en overlays n'apparait que sur la derniere
+# diapositive (une page = un overlay). Defaut silencieux, invisible de check-qed.sh.
+#
 # `check` relit aussi variants/slides-appendix.pdf avec check-appendix.sh : les
 # diapositives d'une annexe (\slideappendix) numerotent en lettre la section, les
 # boites et les renvois (B.1, B.1.1), et le bandeau porte « Annexe B ». Defaut
@@ -87,7 +91,7 @@ THEME_VARIANTS := $(foreach t,$(THEMES), \
 VARIANTS := fr-none fr-inline en-end compat header-article slides-hook slides-appendix \
             math-modules draft binding institution-inp institution-insa \
             paper-preprint paper-draft paper-fr \
-            paper-cleveref paper-cleveref-fr spacing qed-lone td-numbering \
+            paper-cleveref paper-cleveref-fr spacing qed-lone slides-qed-overlay td-numbering \
             answerspace-none answerspace-inline
 
 # Le template est trouvé par TEXINPUTS : les documents n'ont plus de chemin
@@ -221,6 +225,12 @@ check:
 	  fi; \
 	else \
 	  echo "  variants/qed-lone : PDF non produit"; status=1; \
+	fi; \
+	if [ -f variants/slides-qed-overlay.pdf ]; then \
+	  bad=$$(./check-qed-overlays.sh variants/slides-qed-overlay.pdf 2>&1) || { \
+	    echo "  variants/slides-qed-overlay : SYMBOLE DE FIN SUR UN OVERLAY INTERMEDIAIRE"; echo "$$bad" | sed 's/^/      /'; status=1; }; \
+	else \
+	  echo "  variants/slides-qed-overlay : PDF non produit"; status=1; \
 	fi; \
 	if [ -f variants/slides-appendix.pdf ]; then \
 	  bad=$$(./check-appendix.sh variants/slides-appendix.pdf 2>&1) || { \
