@@ -8,6 +8,16 @@ tag. Politique de version : [README](README.md#versions).
 
 ---
 
+## Non publié
+
+### Ajouté
+
+- **Logo Toulouse School of Economics** : `institution={tse}` (fichier
+  `assets/logos/logo-TSE.png`, rogné, 900 px de large), utilisable seul ou avec
+  d'autres établissements, en page de titre comme en en-tête de TD/examen.
+
+---
+
 ## v1.14.1 — 2026-11-25
 
 ### Corrigé
